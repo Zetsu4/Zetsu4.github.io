@@ -23,7 +23,7 @@ function draw() {
   x += dx;
 
   //check if you hit the wall
-  if (x > width - rectWidth || x < 0){
+  if (x > width - rectWidth || x < 0) {
     dx = (-dx);
   }
 
