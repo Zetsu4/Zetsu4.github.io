@@ -6,13 +6,13 @@
 // - describe what you did to take this project "above and beyond"
 
 //creating global variables
-let playerYPos_1 = widowHeight/2;
-let playerYPos_2 = widowHeight/2;
-let paddleSpeed = windowHeight/20;
-let compYPos_1 = widowHeight/2;
-let compYPos_2 = widowHeight/2;
+let playerYPos_1 = 400;
+let playerYPos_2 = 400;
+let paddleSpeed = 20;
+let compYPos_1 = 400;
+let compYPos_2 = 400;
 let paddleLeftPosition = 50;
-let paddleRightPosition = windowWidth - 50;
+let paddleRightPosition = 500;
 let paddleWidth = 20;
 
 function setup() {
@@ -22,15 +22,15 @@ function setup() {
 function draw() {
   background(0);
   //player 1's paddle
-  rect(mouseX, mouseY, paddleWidth, 20);
+  rect(paddleLeftPosition, playerYPos_1, paddleWidth, 100);
 }
 
 function keyIsPressed() {
   //player 1's movement
-  if (key === "w" && playerYPos_1 < 0) {
-    playerYPos_1 += paddleSpeed;
-  }
-	if (key === "s" && (playerYPos_1 + height/10) > height) {
+  if (keyIsDown(87) && playerYPos_1 > 0) {
     playerYPos_1 -= paddleSpeed;
+  }
+	if (keyIsDown(83) && playerYPos_1 < 1000) {
+    playerYPos_1 += paddleSpeed;
   }
 }
