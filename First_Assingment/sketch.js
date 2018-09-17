@@ -9,14 +9,16 @@
 let ballX;
 let ballY;
 let ballSize = 25;
-let ballX_Speed = 4;
-let ballY_Speed = 2;
+let ballX_Speed;
+let ballY_Speed;
+let ballX_Direction;
+let ballY_Direction;
 let paddleWidth;
 let paddleHeight;
 let playerYPos_1;
 let playerYPos_2;
 let paddleSpeed_player = 5;
-let paddleSpeed_comp = 1;
+let paddleSpeed_comp = 0;
 let compYPos_1;
 let compYPos_2;
 let paddleLeftPosition;
@@ -29,7 +31,7 @@ function setup() {
 
   //paddle sizes
   paddleWidth = windowWidth/100;
-  paddleHeight = windowHeight/25;
+  paddleHeight = windowHeight/20;
 
   //ball starting corrdinates
   ballX = windowWidth/2;
@@ -44,6 +46,20 @@ function setup() {
   //putting paddles on respective sides
   paddleLeftPosition = 50;
   paddleRightPosition = windowWidth - 50;
+
+  //setting ball speed
+  ballX_Speed = random(3, 15);
+  ballY_Speed = random(2, 6);
+
+  //setting ball direction
+  ballX_Direction = random(0, 3);
+  ballY_Direction = random(0, 3);
+  if (ballX_Direction <= 1){
+    ballX_Speed = (-ballX_Speed);
+  }
+  if (ballY_Direction <= 1) {
+    ballY_Speed = (-ballY_Speed);
+  }
 }
 
 function draw() {
@@ -110,11 +126,15 @@ function draw() {
       //resetting ball
     ballX = (windowWidth/2);
     ballY = (windowHeight/2);
+    ballX_Speed = random(3, 9);
+    ballY_Speed = random(1, 3);
+    if (ballX_Direction === 0){
+      ballX_Speed = (-ballX_Speed);
+    }
+    if (ballY_Direction === 0) {
+      ballY_Speed = (-ballY_Speed);
+    }
   }
-    // ball movement (for real)                                      LOOK HERE!!
-  // if () {
-  //
-  // }
 
   ballX += ballX_Speed;
   ballY += ballY_Speed;
@@ -180,4 +200,5 @@ function mouseReleased() {
   if (ballY_Speed === 0) {
     ballY_Speed += 3;
   }
+
 }
