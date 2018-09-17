@@ -9,9 +9,10 @@
 let ballX;
 let ballY;
 let ballSize = 25;
-let ballSpeed = 5;
-let paddleWidth = 20;
-let paddleHeight = 50;
+let ballX_Speed = 4;
+let ballY_Speed = 2;
+let paddleWidth;
+let paddleHeight;
 let playerYPos_1;
 let playerYPos_2;
 let paddleSpeed_player = 5;
@@ -20,8 +21,8 @@ let compYPos_1;
 let compYPos_2;
 let paddleLeftPosition;
 let paddleRightPosition;
-let scoreLeft = 0;
-let scoreRight = 0;
+let scoreLeft = 5;
+let scoreRight = 5;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -54,7 +55,7 @@ function draw() {
 
   //player's paddle
     //player 1
-  fill(255,0,0);
+  fill(255, 0, 0);
   rect(paddleLeftPosition, playerYPos_1, paddleWidth, paddleHeight);
     //player 2
   rect(paddleLeftPosition, playerYPos_2, paddleWidth, paddleHeight);
@@ -68,8 +69,55 @@ function draw() {
 
 
   //the balls movement
+    //hitting paddles on the left (players)
+  if (ballX <= (paddleLeftPosition + paddleWidth) && ballX >= paddleLeftPosition) {
+      //player 1
+    if (ballY >= playerYPos_1 && ballY <= (playerYPos_1 + paddleHeight) ) {
+      ballX_Speed = (-ballX_Speed);
+    }
+      //player 2
+    else if (ballY >= playerYPos_2 && ballY <= (playerYPos_2 + paddleHeight) ) {
+      ballX_Speed = (-ballX_Speed);
+    }
+  }
 
+    //hitting paddles on the right (computers)
+  if (ballX <= (paddleRightPosition + paddleWidth) && ballX >= paddleRightPosition) {
+      //computer 1
+    if (ballY >= compYPos_1 && ballY <= (compYPos_1 + paddleHeight) ) {
+      ballX_Speed = (-ballX_Speed);
+    }
+      //computer 2
+    else if (ballY >= compYPos_2 && ballY <= (compYPos_2 + paddleHeight) ) {
+      ballX_Speed = (-ballX_Speed);
+    }
+  }
 
+    //hitting the top/bottom screen
+  if (ballY <= 0 || ballY >= windowHeight) {
+    ballY_Speed = (-ballY_Speed);
+  }
+
+    //hitting the left/right screen (scoring)
+  if (ballX <= 0 || ballX >= windowWidth) {
+      //scoring
+    if (ballX <= 0) {
+      scoreRight++;
+    }
+    else {
+      scoreLeft++;
+    }
+      //resetting ball
+    ballX = (windowWidth/2);
+    ballY = (windowHeight/2);
+  }
+    // ball movement (for real)                                      LOOK HERE!!
+  // if () {
+  //
+  // }
+
+  ballX += ballX_Speed;
+  ballY += ballY_Speed;
 
   //player's movement
   if (keyIsPressed) {
@@ -116,15 +164,20 @@ function draw() {
     }
     //moving the ball
     else {
-      ballX = mouseX;
-      ballY = mouseY;
+      ballX = pmouseX;
+      ballY = pmouseY;
     }
   }
-
-  //scoring
-  
 }
 
 function mouseReleased() {
   //resume ball movement
+  ballX_Speed = (mouseX - pmouseX);
+  ballY_Speed = (mouseY - pmouseY);
+  if (ballX_Speed === 0) {
+    ballX_Speed += 3;
+  }
+  if (ballY_Speed === 0) {
+    ballY_Speed += 3;
+  }
 }
