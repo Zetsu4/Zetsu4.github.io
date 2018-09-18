@@ -59,6 +59,7 @@ function draw() {
 
   //displaying scores
   //i dont know how to do that                                                  LOOK HERE!!!
+  text();
 
   //the ball
   fill(255, 255, 255);
