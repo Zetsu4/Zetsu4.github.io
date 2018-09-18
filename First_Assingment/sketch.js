@@ -9,22 +9,24 @@
 let ballX;
 let ballY;
 let ballSize = 25;
+let ballX_SpeedList = [-14, -13, -12, -11, -10, -9, -8, -7, -6, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+let ballY_SpeedList = [-6, -5, -4, -3, -2, 2, 3, 4, 5, 6];
 let ballX_Speed;
 let ballY_Speed;
-let ballX_Direction;
-let ballY_Direction;
 let paddleWidth;
 let paddleHeight;
 let playerYPos_1;
 let playerYPos_2;
 let paddleSpeed_player = 5;
-let paddleSpeed_comp = 0;
+let paddleSpeed_comp = 3;
 let compYPos_1;
 let compYPos_2;
 let paddleLeftPosition;
 let paddleRightPosition;
-let scoreLeft = 5;
-let scoreRight = 5;
+let scoreLeft = 0;
+let scoreRight = 0;
+let playerMovesBallX;
+let playerMovesBallY;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -47,23 +49,16 @@ function setup() {
   paddleLeftPosition = 50;
   paddleRightPosition = windowWidth - 50;
 
-  //setting ball speed
-  ballX_Speed = random(3, 15);
-  ballY_Speed = random(2, 6);
-
-  //setting ball direction
-  ballX_Direction = random(0, 3);
-  ballY_Direction = random(0, 3);
-  if (ballX_Direction <= 1){
-    ballX_Speed = (-ballX_Speed);
-  }
-  if (ballY_Direction <= 1) {
-    ballY_Speed = (-ballY_Speed);
-  }
+  //setting ball speed to the right
+  ballX_Speed = random(6, 15);
+  ballY_Speed = random(2, 7);
 }
 
 function draw() {
   background(0);
+
+  //displaying scores
+  //i dont know how to do that                                                  LOOK HERE!!!
 
   //the ball
   fill(255, 255, 255);
@@ -87,24 +82,22 @@ function draw() {
   //the balls movement
     //hitting paddles on the left (players)
   if (ballX <= (paddleLeftPosition + paddleWidth) && ballX >= paddleLeftPosition) {
-      //player 1
-    if (ballY >= playerYPos_1 && ballY <= (playerYPos_1 + paddleHeight) ) {
-      ballX_Speed = (-ballX_Speed);
+    if (ballY <= (playerYPos_1 + paddleHeight) && ballY >= playerYPos_1) {
+      ballX_Speed = Math.abs(random(ballX_SpeedList));
     }
-      //player 2
-    else if (ballY >= playerYPos_2 && ballY <= (playerYPos_2 + paddleHeight) ) {
-      ballX_Speed = (-ballX_Speed);
+    else if (ballY <= (playerYPos_2 + paddleHeight) && ballY >= playerYPos_2) {
+      ballX_Speed = Math.abs(random(ballX_SpeedList));
     }
   }
 
     //hitting paddles on the right (computers)
   if (ballX <= (paddleRightPosition + paddleWidth) && ballX >= paddleRightPosition) {
-      //computer 1
-    if (ballY >= compYPos_1 && ballY <= (compYPos_1 + paddleHeight) ) {
+    if (ballY <= (compYPos_1 + paddleHeight) && ballY >= compYPos_1) {
+      ballX_Speed = Math.abs(random(ballX_SpeedList));
       ballX_Speed = (-ballX_Speed);
     }
-      //computer 2
-    else if (ballY >= compYPos_2 && ballY <= (compYPos_2 + paddleHeight) ) {
+    else if (ballY <= (compYPos_2 + paddleHeight) && ballY >= compYPos_2) {
+      ballX_Speed = Math.abs(random(ballX_SpeedList));
       ballX_Speed = (-ballX_Speed);
     }
   }
@@ -126,14 +119,8 @@ function draw() {
       //resetting ball
     ballX = (windowWidth/2);
     ballY = (windowHeight/2);
-    ballX_Speed = random(3, 9);
-    ballY_Speed = random(1, 3);
-    if (ballX_Direction === 0){
-      ballX_Speed = (-ballX_Speed);
-    }
-    if (ballY_Direction === 0) {
-      ballY_Speed = (-ballY_Speed);
-    }
+    ballX_Speed = random(ballX_SpeedList);
+    ballY_Speed = random(ballY_SpeedList);
   }
 
   ballX += ballX_Speed;
@@ -192,13 +179,21 @@ function draw() {
 
 function mouseReleased() {
   //resume ball movement
-  ballX_Speed = (mouseX - pmouseX);
-  ballY_Speed = (mouseY - pmouseY);
-  if (ballX_Speed === 0) {
-    ballX_Speed += 3;
+  playerMovesBallX = (mouseX - pmouseX);
+  playerMovesBallY = (mouseY - pmouseY);
+    //x axis
+  if (playerMovesBallX < 0 && ballX_Speed > 0) {
+    ballX_Speed = (-ballX_Speed);
   }
-  if (ballY_Speed === 0) {
-    ballY_Speed += 3;
+  else if (playerMovesBallX > 0 && ballX_Speed < 0) {
+    ballX_Speed = (-ballX_Speed);
+  }
+    //y axis
+  if (playerMovesBallY < 0 && ballY_Speed > 0) {
+    ballY_Speed = (-ballY_Speed);
+  }
+  else if (playerMovesBallY > 0 && ballY_Speed < 0) {
+    ballY_Speed = (-ballY_Speed);
   }
 
 }
