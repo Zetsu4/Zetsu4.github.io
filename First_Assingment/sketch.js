@@ -1,7 +1,7 @@
 // First_Assignment (Pong with friends)
 // Travis Ahern
 // Sept. 13, 2018
-//
+// 
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
@@ -17,7 +17,6 @@ let playerYPos_1;
 let playerYPos_2;
 let paddleSpeed_player = 5;
 let paddleSpeed_comp = 3.5;
-let compYPos_1;
 let compYPos_2;
 let paddleLeftPosition;
 let paddleRightPosition;
