@@ -22,26 +22,29 @@ let playerMovesBallX, playerMovesBallY;
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
+  console.log(width);
+  console.log(height);
+
   //setting score font
-  textFont('Font Style Bold', height/20);
+  textFont("Font Style Bold", height*0.05);
 
   //ball starting corrdinates and size
-  ballX = width/2;
-  ballY = height/2;
-  ballSize = width/77;
+  ballX = width*0.5;
+  ballY = height*0.5;
+  ballSize = width*0.02;
     //setting balls max and min speeds
-  XrandomMin = width/320;
+  XrandomMin = width*;
   XrandomMax = width/107;
-  YrandomMin = height/487;
-  YrandomMax =height/195;
+  YrandomMin = height/350;
+  YrandomMax = height/195;
     //setting ball speed to the right
-  ballX_Speed = random(XrandomMin, (XrandomMax + 1));
+  ballX_Speed = random(XrandomMin, XrandomMax + 1);
   ballY_Speed = random(posOrNeg);
   if (ballY_Speed === "-") {
-    ballY_Speed = (-(random(YrandomMin, YrandomMax - 1) ) );
+    ballY_Speed = -random(YrandomMin, YrandomMax - 1)  ;
   }
   else {
-    ballY_Speed = random(YrandomMin, (YrandomMax - 1));
+    ballY_Speed = random(YrandomMin, YrandomMax - 1);
   }
 
   //paddle sizes
@@ -91,21 +94,21 @@ function draw() {
     //hitting paddles on the left (players)
   if ( (ballX - ballSize/2) <= (paddleLeftPosition + paddleWidth) && (ballX - ballSize/2) >= paddleLeftPosition) {
     if ( (ballY - ballSize/2) <= (playerYPos_1 + paddleHeight) && (ballY + ballSize/2) >= playerYPos_1) {
-      ballX_Speed = random(XrandomMin, (XrandomMax + 1));
+      ballX_Speed = random(XrandomMin, XrandomMax + 1);
     }
     else if ( (ballY - ballSize/2) <= (playerYPos_2 + paddleHeight) && (ballY + ballSize/2) >= playerYPos_2) {
-      ballX_Speed = random(XrandomMin, (XrandomMax + 1));
+      ballX_Speed = random(XrandomMin, XrandomMax + 1);
     }
   }
 
     //hitting paddles on the right (computers)
   if ( (ballX + ballSize/2) <= (paddleRightPosition + paddleWidth) && (ballX + ballSize/2) >= paddleRightPosition) {
     if ( (ballY - ballSize/2) <= (compYPos_1 + paddleHeight) && (ballY + ballSize/2) >= compYPos_1) {
-      ballX_Speed = random(XrandomMin, (XrandomMax + 1));
+      ballX_Speed = random(XrandomMin, XrandomMax + 1);
       ballX_Speed = (-ballX_Speed);
     }
     else if ( (ballY - ballSize/2) <= (compYPos_2 + paddleHeight) && (ballY + ballSize/2) >= compYPos_2) {
-      ballX_Speed = random(XrandomMin, (XrandomMax + 1));
+      ballX_Speed = random(XrandomMin, XrandomMax + 1);
       ballX_Speed = (-ballX_Speed);
     }
   }
@@ -125,12 +128,12 @@ function draw() {
       scoreLeft++;
     }
       //resetting ball
-    ballX = (width/2);
-    ballY = (height/2);
-    ballX_Speed = random(XrandomMin, (XrandomMax + 1));
+    ballX = width/2;
+    ballY = height/2;
+    ballX_Speed = random(XrandomMin, XrandomMax + 1);
     ballY_Speed = random(posOrNeg);
     if (ballY_Speed === "-") {
-      ballY_Speed = (-random(YrandomMin, (YrandomMax - 1) ) );
+      ballY_Speed = (-random(YrandomMin, YrandomMax - 1 ) );
     }
     else {
       ballY_Speed = random(YrandomMin, YrandomMax);
@@ -149,7 +152,7 @@ function draw() {
     if (keyIsDown(87) && playerYPos_1 > 0) {
       playerYPos_1 -= paddleSpeed_player;
     }
-  	if (keyIsDown(83) && (playerYPos_1 + paddleHeight) < playerYPos_2) {
+    if (keyIsDown(83) && (playerYPos_1 + paddleHeight) < playerYPos_2) {
       playerYPos_1 += paddleSpeed_player;
     }
 
@@ -157,7 +160,7 @@ function draw() {
     if (keyIsDown(38) && playerYPos_2 > (playerYPos_1 + paddleHeight) ) {
       playerYPos_2 -= paddleSpeed_player;
     }
-  	if (keyIsDown(40) && (playerYPos_2 + paddleHeight) < height) {
+    if (keyIsDown(40) && (playerYPos_2 + paddleHeight) < height) {
       playerYPos_2 += paddleSpeed_player;
     }
   }
@@ -196,8 +199,8 @@ function draw() {
 
 function mouseReleased() {
   //resume ball movement
-  playerMovesBallX = (mouseX - pmouseX);
-  playerMovesBallY = (mouseY - pmouseY);
+  playerMovesBallX = mouseX - pmouseX;
+  playerMovesBallY = mouseY - pmouseY;
 
     //x axis
   if (playerMovesBallX < 0 && ballX_Speed > 0) {

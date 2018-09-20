@@ -7,7 +7,7 @@ let scaler;
 
 
 function preload() {
-  fish = loadImage("assets/nemo_clownfish_1.jpg")
+  fish = loadImage("assets/nemo_clownfish_1.jpg");
 }
 
 function setup() {
@@ -28,5 +28,4 @@ function mouseWheel(event) {
   else if (event.delta < 0 && scaler > 2.0) {
     scaler *= 1.1;
   }
-  console.log(event);
 }
