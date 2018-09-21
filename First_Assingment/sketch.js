@@ -62,7 +62,7 @@ function setup() {
 
   //paddle speed
   paddleSpeed_player = height*0.005;
-  paddleSpeed_comp = height*0.0036;
+  paddleSpeed_comp = height*0.004;
 
   //putting paddles on the screen
   playerYPos_1 = height*0.25;
@@ -101,16 +101,16 @@ function draw() {
 
   //the balls movement
     //hitting the top/bottom screen
-  if ( (ballY - ballSize*0.5) <= 0) {
-    ballY_Speed = (-(ballY_Speed - random(YrandomMin) ) );
+  if (ballY - ballSize*0.5 <= 0) {
+    ballY_Speed = -(ballY_Speed - random(YrandomMin) ) ;
   }
-  if ( (ballY + ballSize*0.5) >= height) {
-    ballY_Speed = (-(ballY_Speed + random(YrandomMin) ) );
+  if (ballY + ballSize*0.5 >= height) {
+    ballY_Speed = -(ballY_Speed + random(YrandomMin) ) ;
   }
     //hitting the left/right screen (scoring)
-  if ( (ballX - ballSize*0.5) <= 0 || (ballX + ballSize*0.5) >= width) {
+  if (ballX - ballSize*0.5 <= 0 || ballX + ballSize*0.5 >= width) {
       //scoring
-    if ( (ballX - ballSize*0.5) <= 0) {
+    if ( ballX - ballSize*0.5 <= 0) {
       scoreRight++;
     }
     else {
@@ -122,7 +122,7 @@ function draw() {
     ballX_Speed = random(XrandomMin, XrandomMax);
     ballY_Speed = random(posOrNeg);
     if (ballY_Speed === "-") {
-      ballY_Speed = (-random(YrandomMin, YrandomMax) );
+      ballY_Speed = -random(YrandomMin, YrandomMax) ;
     }
     else {
       ballY_Speed = random(YrandomMin, YrandomMax);
@@ -133,25 +133,25 @@ function draw() {
   }
 
     //hitting paddles on the left (players)
-  if ( (ballX - ballSize*0.5) <= (paddleLeftPosition + paddleWidth) && (ballX - ballSize*0.5) >= paddleLeftPosition) {
-    if ( (ballY - ballSize*0.5) <= (playerYPos_1 + paddleHeight) && (ballY + ballSize*0.5) >= playerYPos_1) {
+  if (ballX - ballSize*0.5 <= paddleLeftPosition + paddleWidth && ballX - ballSize*0.5 >= paddleLeftPosition) {
+    if (ballY - ballSize*0.5 <= playerYPos_1 + paddleHeight && ballY + ballSize*0.5 >= playerYPos_1) {
       ballX_Speed = random(XrandomMin, XrandomMax);
     }
-    else if ( (ballY - ballSize*0.5) <= (playerYPos_2 + paddleHeight) && (ballY + ballSize*0.5) >= playerYPos_2) {
+    else if (ballY - ballSize*0.5 <= playerYPos_2 + paddleHeight && ballY + ballSize*0.5 >= playerYPos_2) {
       ballX_Speed = random(XrandomMin, XrandomMax);
     }
     pongSound.play();
   }
 
     //hitting paddles on the right (computers)
-  if ( (ballX + ballSize*0.5) <= (paddleRightPosition + paddleWidth) && (ballX + ballSize*0.5) >= paddleRightPosition) {
-    if ( (ballY - ballSize*0.5) <= (compYPos_1 + paddleHeight) && (ballY + ballSize*0.5) >= compYPos_1) {
+  if (ballX + ballSize*0.5 <= paddleRightPosition + paddleWidth && ballX + ballSize*0.5 >= paddleRightPosition) {
+    if (ballY - ballSize*0.5 <= compYPos_1 + paddleHeight && ballY + ballSize*0.5 >= compYPos_1) {
       ballX_Speed = random(XrandomMin, XrandomMax);
-      ballX_Speed = (-ballX_Speed);
+      ballX_Speed = -ballX_Speed;
     }
-    else if ( (ballY - ballSize*0.5) <= (compYPos_2 + paddleHeight) && (ballY + ballSize*0.5) >= compYPos_2) {
+    else if (ballY - ballSize*0.5 <= compYPos_2 + paddleHeight && ballY + ballSize*0.5 >= compYPos_2) {
       ballX_Speed = random(XrandomMin, XrandomMax);
-      ballX_Speed = (-ballX_Speed);
+      ballX_Speed = -ballX_Speed;
     }
     pongSound.play();
   }
@@ -165,15 +165,15 @@ function draw() {
     if (keyIsDown(87) && playerYPos_1 > 0) {
       playerYPos_1 -= paddleSpeed_player;
     }
-    if (keyIsDown(83) && (playerYPos_1 + paddleHeight) < playerYPos_2) {
+    if (keyIsDown(83) && playerYPos_1 + paddleHeight < playerYPos_2) {
       playerYPos_1 += paddleSpeed_player;
     }
 
     //player 2's movement ('up_arrow' and 'down_arrows')
-    if (keyIsDown(38) && playerYPos_2 > (playerYPos_1 + paddleHeight) ) {
+    if (keyIsDown(38) && playerYPos_2 > playerYPos_1 + paddleHeight) {
       playerYPos_2 -= paddleSpeed_player;
     }
-    if (keyIsDown(40) && (playerYPos_2 + paddleHeight) < height) {
+    if (keyIsDown(40) && playerYPos_2 + paddleHeight < height) {
       playerYPos_2 += paddleSpeed_player;
     }
   }
@@ -181,18 +181,18 @@ function draw() {
 
   //computer's movement
     //computer 1
-  if ( (compYPos_1 + paddleHeight*0.5) > ballY) {
+  if (compYPos_1 + paddleHeight*0.5 > ballY) {
     compYPos_1 -= paddleSpeed_comp;
   }
-  if ( (compYPos_1 + paddleHeight*0.5) < ballY && (compYPos_1 + paddleHeight) < compYPos_2) {
+  if (compYPos_1 + paddleHeight*0.5 < ballY && compYPos_1 + paddleHeight < compYPos_2) {
     compYPos_1 += paddleSpeed_comp;
   }
 
     //computer 2
-  if ( (compYPos_2 + paddleHeight*0.5) > ballY && compYPos_2 > (compYPos_1 + paddleHeight) ) {
+  if (compYPos_2 + paddleHeight*0.5 > ballY && compYPos_2 > compYPos_1 + paddleHeight) {
     compYPos_2 -= paddleSpeed_comp;
   }
-  if ( (compYPos_2 + paddleHeight*0.5) < ballY) {
+  if (compYPos_2 + paddleHeight*0.5 < ballY) {
     compYPos_2 += paddleSpeed_comp;
   }
 
@@ -219,16 +219,16 @@ function mouseReleased() {
 
     //x axis
   if (playerMovesBallX < 0 && ballX_Speed > 0) {
-    ballX_Speed = (-ballX_Speed);
+    ballX_Speed = -ballX_Speed;
   }
   else if (playerMovesBallX > 0 && ballX_Speed < 0) {
-    ballX_Speed = (-ballX_Speed);
+    ballX_Speed = -ballX_Speed;
   }
     //y axis
   if (playerMovesBallY < 0 && ballY_Speed > 0) {
-    ballY_Speed = (-ballY_Speed);
+    ballY_Speed = -ballY_Speed;
   }
   else if (playerMovesBallY > 0 && ballY_Speed < 0) {
-    ballY_Speed = (-ballY_Speed);
+    ballY_Speed = -ballY_Speed;
   }
 }
