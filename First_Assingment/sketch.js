@@ -5,7 +5,7 @@
 // Extra for Experts:
 //  I have added the great sound of a ball hitting a paddle,
 //  as well as allowed the game to work well on just about any sized screen,
-//  it updates when the screen has been resized
+//  the screen updates when it's resized
 
 
 // sound vars
@@ -217,7 +217,7 @@ function draw() {
 }
 
 function mouseReleased() {
-  // resume ball movement
+  // resumeing ball movement
   playerMovesBallX = mouseX - pmouseX;
   playerMovesBallY = mouseY - pmouseY;
 
