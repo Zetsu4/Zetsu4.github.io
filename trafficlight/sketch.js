@@ -6,19 +6,67 @@
 // changing according to time. You may want to investigate the millis()
 // function at https://p5js.org/reference/
 
-let state = 1;
-let redDuration = 5000;
-let yellowDuration = 5000;
-let greenDuration = 5000;
+let state;
+let lastTimeSwitchedColor;
+
+const REDLIGHTDURATION = 3000;
+const GREENLIGHTDURATION = 4000;
+const YELLOWLIGHTDURATION = 1000;
 
 function setup() {
   createCanvas(600, 600);
+  state = 1;
+  lastTimeSwitchedColor = 0;
 }
 
 function draw() {
   background(255);
   drawOutlineOfLights();
-  changeLight();
+  checkForStatesChange();
+  displayCrrectLight();
+}
+
+function checkForStatesChange() {
+  let elapsedTime = millis() - lastTimeSwitchedColor;
+  if (state === 1 && elapsedTime >= REDLIGHTDURATION) {
+    state = 2;
+    lastTimeSwitchedColor = millis();
+  }
+  else if (state === 2 && elapsedTime >= YELLOWLIGHTDURATION) {
+    state = 3;
+    lastTimeSwitchedColor = millis();
+  }
+  else if (state === 3 && elapsedTime >= GREENLIGHTDURATION) {
+    state = 1;
+    lastTimeSwitchedColor = millis();
+  }
+}
+
+function displayCrrectLight() {
+  if (state === 1) {
+    displayRedLight();
+  }
+  else if (state === 2) {
+    displayYellowLight();
+  }
+  else if (state === 3) {
+    displayGreenLight();
+  }
+}
+
+function displayRedLight() {
+  fill(255, 0, 0);
+  ellipse(width/2, height/2 - 65, 50, 50); //top
+}
+
+function displayYellowLight() {
+  fill(255, 255, 0);
+  ellipse(width/2, height/2, 50, 50); //middle
+}
+
+function displayGreenLight() {
+  fill(0, 255, 0);
+  ellipse(width/2, height/2 + 65, 50, 50); //bottom
 }
 
 function drawOutlineOfLights() {
@@ -32,15 +80,4 @@ function drawOutlineOfLights() {
   ellipse(width/2, height/2 - 65, 50, 50); //top
   ellipse(width/2, height/2, 50, 50); //middle
   ellipse(width/2, height/2 + 65, 50, 50); //bottom
-}
-
-function changeLight() {
-  if (state === 1 && millis() <= redDuration) {
-    fill(255, 0, 0);
-    ellipse(width/2, height/2 - 65, 50, 50); //top
-  }
-  else if (state = 2 && millis() <= yellowDuration) {
-    fill(255, 255, 0);
-    ellipse(width/2, height/2, 50, 50); //middle
-  }
 }
