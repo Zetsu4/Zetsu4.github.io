@@ -7,12 +7,18 @@
 
 let state = 1;
 let homePage;
+// creating the char, state 1
 let allRaces, allCharClasses;
 let boxChoiceX, boxChoiceY;
 let playerRace = 0;
 let playerClass = 0;
-let playerHasChosenRace = 0;
-let playerHasChosenClass = 0;
+let playerSprit = {
+  playerHasChosenRace: 0,
+  playerHasChosenClass: 0
+};
+// playing the game, state 2
+
+
 
 function preload() {
   homePage = loadImage("assets/lovelyHomepage.png");
@@ -66,12 +72,12 @@ function chooseRace(x, y, w, h) {
     for (let choices = 0; choices < allRaces.length; choices++) {
       if (mouseY >= y + h*choices && mouseY <= y + h*(choices + 1)) {
         playerRace = allRaces[choices];
-        playerHasChosenRace = choices;
+        playerSprit.playerHasChosenRace = choices;
       }
     }
   }
-  highlightRace(x, y, w, h, playerHasChosenRace);
-  displayRace(playerHasChosenRace);
+  highlightRace(x, y, w, h, playerSprit.playerHasChosenRace);
+  displayRace(playerSprit.playerHasChosenRace);
 }
 
 // CLASS
@@ -107,11 +113,11 @@ function chooseCharClass(x, y, w, h) {
     for (let choices = 0; choices < allCharClasses.length; choices++) {
       if (mouseY >= y + h*choices && mouseY <= y + h*(choices + 1)) {
         playerClass = allCharClasses[choices];
-        playerHasChosenClass = choices;
+        playerSprit.playerHasChosenClass = choices;
       }
     }
   }
-  highlightClass(x, y, w, h, playerHasChosenClass);
+  highlightClass(x, y, w, h, playerSprit.playerHasChosenClass);
   displayClass();
 }
 
@@ -119,6 +125,7 @@ function chooseCharClass(x, y, w, h) {
 
 // when the player has decided their race and class
 function continueButton(x, y, w, h) {
+  fill(0, 255, 0);
   rect(x, y, w, h);
   fill("black");
   text("CONTINUE", x, y*2);
@@ -152,7 +159,7 @@ function playerActions() {
 }
 
 function enemy() {
-  
+
 }
 
 //------------------------------------------------------------------------------
@@ -173,8 +180,16 @@ function checkState() {
     chooseRace(width*0.05, height*0.05, boxChoiceX, boxChoiceY);
     chooseCharClass(width*0.65, height*0.05, boxChoiceX, boxChoiceY);
     continueButton(width*0.425, height*0.05, width*0.15, height*0.05);
+
+    fill("blue");
+    rectMode(CENTER);
+    rect(width*0.50, height*0.50, width*0.25, height*0.55);
+    rectMode(CORNER);
+    fill("purple");
+    ellipse(width*0.50, height*0.50, width*0.20, height*0.50);
+    fill(255, 0, 0);
   }
-  if (state === 2) {
+  else if (state === 2) {
     background(0, 0, 255);
     // settingsMenu();
     // miniMap();
