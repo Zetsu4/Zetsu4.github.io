@@ -7,6 +7,7 @@
 
 let state = 1;
 let homePage;
+let enemyFlag;
 // creating the char, state 1
 let allRaces, allCharClasses;
 let boxChoiceX, boxChoiceY;
@@ -17,11 +18,17 @@ let playerSprit = {
   playerHasChosenClass: 0
 };
 // playing the game, state 2
-
+let sprite = {
+  human: 0,
+  halfling: 0
+};
 
 
 function preload() {
   homePage = loadImage("assets/lovelyHomepage.png");
+  enemyFlag = loadImage("assets/enemyFlag.png");
+  sprite.human = loadImage("assets/Human.png");
+  sprite.halfling = loadImage("assets/Halfling.png");
 }
 
 function setup() {
@@ -155,6 +162,7 @@ function continueButton(x, y, w, h) {
 
 // player buttons
 function playerActions() {
+  sprite.Human;
 
 }
 
@@ -180,14 +188,6 @@ function checkState() {
     chooseRace(width*0.05, height*0.05, boxChoiceX, boxChoiceY);
     chooseCharClass(width*0.65, height*0.05, boxChoiceX, boxChoiceY);
     continueButton(width*0.425, height*0.05, width*0.15, height*0.05);
-
-    fill("blue");
-    rectMode(CENTER);
-    rect(width*0.50, height*0.50, width*0.25, height*0.55);
-    rectMode(CORNER);
-    fill("purple");
-    ellipse(width*0.50, height*0.50, width*0.20, height*0.50);
-    fill(255, 0, 0);
   }
   else if (state === 2) {
     background(0, 0, 255);
