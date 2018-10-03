@@ -15,31 +15,39 @@ let playerRace = 0;
 let playerClass = 0;
 let playerSprit = {
   playerHasChosenRace: 0,
-  playerHasChosenClass: 0
+  playerHasChosenClass: 0,
+  xPos: 0,
+  yPos: 0
 };
 // playing the game, state 2
-let sprite = {
+let sprites = {
   human: 0,
-  halfling: 0
+  halfling: 0,
+  enemy: 0
 };
 
 
 function preload() {
   homePage = loadImage("assets/lovelyHomepage.png");
   enemyFlag = loadImage("assets/enemyFlag.png");
-  sprite.human = loadImage("assets/Human.png");
-  sprite.halfling = loadImage("assets/Halfling.png");
+  sprites.human = loadImage("assets/Human.png");
+  sprites.halfling = loadImage("assets/Halfling.png");
+  sprites.enemy = loadImage("assets/Enemy.png");
 }
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   textFont("Font Style Bold", height*0.05);
+  imageMode(CENTER);
 
   allRaces = ["Random", "Human", "Half-Elf", "Elf", "Dwarf", "Halfling", "Goblins", "Orcs", "Uruk-Hai"];
   allCharClasses = ["Random", "Archer", "Ranger", "Fighter", "Samurai", "Mage", "Cleric", "Rogue", "Enemy"];
 
   boxChoiceX = width*0.30;
   boxChoiceY = height*0.10;
+
+  playerSprit.yPos = width*0.50;
+  playerSprit.xPos = 
 }
 
 //------------------------------------------------------------------------------
@@ -160,12 +168,12 @@ function continueButton(x, y, w, h) {
 //
 // }
 
-// player buttons
+// player
 function playerActions() {
-  sprite.Human;
-
+  image(sprites.human, width*0.50, height*0.50, width*0.05, height*0.10);
 }
 
+// enemys
 function enemy() {
 
 }
