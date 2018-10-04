@@ -13,7 +13,8 @@ let allRaces, allCharClasses;
 let boxChoiceX, boxChoiceY;
 let playerRace = 0;
 let playerClass = 0;
-let playerSprit = {
+let movementSpeed = 5;
+let playerSprite = {
   playerHasChosenRace: 0,
   playerHasChosenClass: 0,
   xPos: 0,
@@ -46,8 +47,8 @@ function setup() {
   boxChoiceX = width*0.30;
   boxChoiceY = height*0.10;
 
-  playerSprit.yPos = width*0.50;
-  playerSprit.xPos = 
+  playerSprite.xPos = width*0.50;
+  playerSprite.yPos = height*0.20;
 }
 
 //------------------------------------------------------------------------------
@@ -77,8 +78,10 @@ function highlightRace(x, y, w, h, whichRace) {
 }
 
 // creating the race sprite
-function displayRace() {
-
+function displayRace(race, y, h) {
+  // for (let sprite = 0; sprite < allRaces.length; sprite++) {
+  // 
+  // }
 }
 
 // letting player select a race
@@ -87,12 +90,12 @@ function chooseRace(x, y, w, h) {
     for (let choices = 0; choices < allRaces.length; choices++) {
       if (mouseY >= y + h*choices && mouseY <= y + h*(choices + 1)) {
         playerRace = allRaces[choices];
-        playerSprit.playerHasChosenRace = choices;
+        playerSprite.playerHasChosenRace = choices;
       }
     }
   }
-  highlightRace(x, y, w, h, playerSprit.playerHasChosenRace);
-  displayRace(playerSprit.playerHasChosenRace);
+  highlightRace(x, y, w, h, playerSprite.playerHasChosenRace);
+  displayRace(playerSprite.playerHasChosenRace, y, h);
 }
 
 // CLASS
@@ -128,11 +131,11 @@ function chooseCharClass(x, y, w, h) {
     for (let choices = 0; choices < allCharClasses.length; choices++) {
       if (mouseY >= y + h*choices && mouseY <= y + h*(choices + 1)) {
         playerClass = allCharClasses[choices];
-        playerSprit.playerHasChosenClass = choices;
+        playerSprite.playerHasChosenClass = choices;
       }
     }
   }
-  highlightClass(x, y, w, h, playerSprit.playerHasChosenClass);
+  highlightClass(x, y, w, h, playerSprite.playerHasChosenClass);
   displayClass();
 }
 
@@ -169,8 +172,24 @@ function continueButton(x, y, w, h) {
 // }
 
 // player
-function playerActions() {
-  image(sprites.human, width*0.50, height*0.50, width*0.05, height*0.10);
+function playerMovement() {
+  if (keyIsDown(65)) {
+    playerSprite.xPos -= movementSpeed;
+  }
+  if (keyIsDown(68)) {
+    playerSprite.xPos += movementSpeed;
+  }
+  if (keyIsDown(87)) {
+    playerSprite.yPos -= movementSpeed;
+  }
+  if (keyIsDown(83)) {
+    playerSprite.yPos += movementSpeed;
+  }
+}
+
+function player() {
+  image(sprites.human, playerSprite.xPos, playerSprite.yPos, width*0.05, height*0.10);
+  playerMovement();
 }
 
 // enemys
@@ -201,7 +220,7 @@ function checkState() {
     background(0, 0, 255);
     // settingsMenu();
     // miniMap();
-    playerActions();
+    player();
     enemy();
   }
 }
