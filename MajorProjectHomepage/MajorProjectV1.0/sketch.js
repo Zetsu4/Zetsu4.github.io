@@ -135,6 +135,10 @@ function setup() {
   enviorment.yMax = height*10;
 
   // enviormentBack
+  enviormentBack.xMin = 0;
+  enviormentBack.xMax = width*10;
+  enviormentBack.yMin = 0;
+  enviormentBack.yMax = height*10;
 
   // the screen thats on the canvas
   visibleScreen.xMin = 0;
@@ -158,6 +162,7 @@ function setup() {
   badGuy.y = enviorment.yMax*0.50;
 }
 
+// neccessarry resizeing data peices
 function resizeSetup() {
   textFont("Font Style Bold", (width*0.03 + height*0.03)/2);
 
@@ -305,19 +310,9 @@ function continueButton(x, y, w, h) {
 
 // creating the illusion of moving around the enviorment
 function movingBackground() {
-  // if (keyIsDown(65)) { // "a"
-  //   enviormentBack.x -= movementSpeed;
-  // }
-  // if (keyIsDown(68)) { // "d"
-  //   enviormentBack.x += movementSpeed;
-  // }
-  //
-  // if (keyIsDown(87)) { // "w"
-  //   enviormentBack.y -= movementSpeed;
-  // }
-  // if (keyIsDown(83)) { // "s"
-  //   enviormentBack.y += movementSpeed;
-  // }
+  enviormentBack.x = playerSprite.xPos;
+  enviormentBack.y = playerSprite.yPos;
+
 
   // if (keyIsDown(65)) { // "a"
   //   playerSprite.xPos += movementSpeed;
@@ -333,6 +328,33 @@ function movingBackground() {
   //   playerSprite.yPos -= movementSpeed;
   // }
 }
+
+function playerMap() {
+
+  let mapX = map(enviormentBack.x, enviormentBack.xMin, enviormentBack.xMax, miniMap.x + miniMap.playerDot/2, miniMap.xSize + width*0.01 - miniMap.playerDot/2);
+  let mapY = map(enviormentBack.y, enviormentBack.yMin, enviormentBack.yMax, miniMap.y + miniMap.playerDot/2, miniMap.ySize + height*0.01 - miniMap.playerDot/2);
+  let rectW = map(width, enviorment.xMin, enviorment.xMax, miniMap.x, miniMap.xSize);
+  let rectH = map(height, enviorment.yMin, enviorment.yMax, miniMap.y, miniMap.ySize);
+
+  // player of position
+  fill("blue");
+  noStroke();
+  ellipse(mapX, mapY, miniMap.playerDot);
+
+  // rectangle of vision
+  noFill();
+  stroke(255);
+  strokeWeight(2);
+  rectMode(CENTER);
+  rect(mapX, mapY, rectW, rectH);
+
+  // fixing the brakeables
+  rectMode(CORNER);
+  stroke(0);
+  strokeWeight(1);
+}
+
+
 
 
 // MINIMAP
@@ -389,32 +411,33 @@ function playerMovement(xMin = enviorment.xMin, yMin = enviorment.yMin, xMax = e
 }
 
 // putting player dot on minimap
-function playerMap(playerDot, playerX, playerY,
-  xMin, yMin, xMax, yMax,
-  mapXMin, mapYMin, mapXMax, mapYMax) {
 
-  let mapX = map(playerX, xMin, xMax, mapXMin + playerDot/2, mapXMax + width*0.01 - playerDot/2);
-  let mapY = map(playerY, yMin, yMax, mapYMin + playerDot/2, mapYMax + height*0.01 - playerDot/2);
-  let rectW = map(width, xMin, xMax, mapXMin, mapXMax);
-  let rectH = map(height, yMin, yMax, mapYMin, mapYMax);
-
-  // player of position
-  fill("blue");
-  noStroke();
-  ellipse(mapX, mapY, playerDot);
-
-  // rectangle of vision
-  noFill();
-  stroke(255);
-  strokeWeight(2);
-  rectMode(CENTER);
-  rect(mapX, mapY, rectW, rectH);
-
-  // fixing the brakeables
-  rectMode(CORNER);
-  stroke(0);
-  strokeWeight(1);
-}
+// function playerMap(playerDot, playerX, playerY,
+//   xMin, yMin, xMax, yMax,
+//   mapXMin, mapYMin, mapXMax, mapYMax) {
+//
+//   let mapX = map(playerX, xMin, xMax, mapXMin + playerDot/2, mapXMax + width*0.01 - playerDot/2);
+//   let mapY = map(playerY, yMin, yMax, mapYMin + playerDot/2, mapYMax + height*0.01 - playerDot/2);
+//   let rectW = map(width, xMin, xMax, mapXMin, mapXMax);
+//   let rectH = map(height, yMin, yMax, mapYMin, mapYMax);
+//
+//   // player of position
+//   fill("blue");
+//   noStroke();
+//   ellipse(mapX, mapY, playerDot);
+//
+//   // rectangle of vision
+//   noFill();
+//   stroke(255);
+//   strokeWeight(2);
+//   rectMode(CENTER);
+//   rect(mapX, mapY, rectW, rectH);
+//
+//   // fixing the brakeables
+//   rectMode(CORNER);
+//   stroke(0);
+//   strokeWeight(1);
+// }
 
 
 // SETTINGS MENU
@@ -486,9 +509,10 @@ function checkState() {
       // player
       playerShow(raceSprites, playerSprite.playerHasChosenRace);
       playerMovement();
-      playerMap(miniMap.playerDot, playerSprite.xPos, playerSprite.yPos,
-        enviorment.xMin, enviorment.yMin, enviorment.xMax, enviorment.yMax,
-        miniMap.x, miniMap.y, miniMap.xSize, miniMap.ySize);
+      // playerMap(miniMap.playerDot, playerSprite.xPos, playerSprite.yPos,
+      //   enviorment.xMin, enviorment.yMin, enviorment.xMax, enviorment.yMax,
+      //   miniMap.x, miniMap.y, miniMap.xSize, miniMap.ySize);
+      playerMap();
 
       // player.js
       // createPlayer.show(raceSprites, playerSprite.playerHasChosenRace);
@@ -501,7 +525,7 @@ function checkState() {
       createBaddie.show();
       createBaddie.movement(movementSpeed*0.90, movementSpeed, enviorment.xMin, enviorment.yMin, enviorment.xMax, enviorment.yMax);
       createBaddie.mapping(miniMap.baddieDot,
-        enviorment.xMin, enviorment.yMin, enviorment.xMax, enviorment.yMax,
+        enviormentBack.xMin, enviormentBack.yMin, enviormentBack.xMax, enviormentBack.yMax,
         miniMap.x, miniMap.y, miniMap.xSize, miniMap.ySize);
     }
 

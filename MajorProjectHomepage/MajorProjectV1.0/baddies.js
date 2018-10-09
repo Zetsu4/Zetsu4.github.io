@@ -12,37 +12,37 @@ class baddies {
   }
 
   movement(speed, playerSpeed, xMin, yMin, xMax, yMax) {
-    // x-axis
-    if (this.x <= xMin) {
-      this.x += speed;
-    }
-    else if (this.x >= xMax) {
-      this.x -= speed;
-    }
-    else {
-      if (keyIsDown(65)) { // "a"
-        this.x += playerSpeed/2;
-      }
-      if (keyIsDown(68)) { // "d"
-        this.x -= playerSpeed/2;
-      }
-    }
-
-    // y-axis
-    if (this.y <= yMin) {
-      this.y += speed;
-    }
-    else if (this.y >= yMax) {
-      this.y -= speed;
-    }
-    else {
-      if (keyIsDown(87)) { // "w"
-        this.y += playerSpeed/2;
-      }
-      if (keyIsDown(83)) { // "s"
-        this.y -= playerSpeed/2;
-      }
-    }
+    // // x-axis
+    // if (this.x <= xMin) {
+    //   this.x += speed;
+    // }
+    // else if (this.x >= xMax) {
+    //   this.x -= speed;
+    // }
+    // else {
+    //   if (keyIsDown(65)) { // "a"
+    //     this.x += playerSpeed/2;
+    //   }
+    //   if (keyIsDown(68)) { // "d"
+    //     this.x -= playerSpeed/2;
+    //   }
+    // }
+    //
+    // // y-axis
+    // if (this.y <= yMin) {
+    //   this.y += speed;
+    // }
+    // else if (this.y >= yMax) {
+    //   this.y -= speed;
+    // }
+    // else {
+    //   if (keyIsDown(87)) { // "w"
+    //     this.y += playerSpeed/2;
+    //   }
+    //   if (keyIsDown(83)) { // "s"
+    //     this.y -= playerSpeed/2;
+    //   }
+    // }
 
     // following the player
     // if (this.x >= this.onScreenXMin && this.x <= this.onScreenXMax) {
