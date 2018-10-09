@@ -2,13 +2,6 @@
 // Travis Ahern
 // Sept. 26/2018
 
-function setup() {
-  createCanvas(windowWidth, windowHeight);
-}
-
-function draw() {
-
-}
 
 // RPG similar to LOTRO and Tale of Toast
 // choose class and race
