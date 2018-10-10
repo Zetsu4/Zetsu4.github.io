@@ -492,13 +492,13 @@ function checkState() {
     clear();
 
     // baddie tester
-    createBaddie = new baddies(badGuy.sprite, badGuy.x, badGuy.y);
+    createBaddie = new baddies(badGuy.sprite, enviormentBack.x, enviormentBack.y);
   }
 
   else if (state === 3) {
     if (!settingsIsOpen) {
       // PLAYING THE GAME
-      background(100);
+      image(enviormentBack.image, 0, 0, width, height);
 
       // illusion of moving
       movingBackground();
