@@ -1,6 +1,6 @@
-// V1.0
+// V2.0
 // Travis Ahern
-// Sept. 29/18
+// oct. 10/18
 
 // vars
 let state = 1;
