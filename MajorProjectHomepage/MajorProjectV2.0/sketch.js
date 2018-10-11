@@ -134,12 +134,6 @@ function setup() {
   enviorment.yMin = 0;
   enviorment.yMax = height*enviormentBack.height;
 
-  // enviormentBack
-  enviormentBack.xMin = 0;
-  enviormentBack.xMax = width*enviormentBack.width;
-  enviormentBack.yMin = 0;
-  enviormentBack.yMax = height*enviormentBack.height;
-
   // the screen thats on the canvas
   visibleScreen.xMin = 0;
   visibleScreen.xMax = width;
@@ -375,7 +369,6 @@ function playerMovement(xMin = enviorment.xMin, yMin = enviorment.yMin, xMax = e
 }
 
 // putting player dot on minimap
-
 function playerMap() {
 
   let mapX = map(playerSprite.xPos, enviorment.xMin, enviorment.xMax - width, miniMap.x + miniMap.playerDot/2, miniMap.xSize + width*0.01 - miniMap.playerDot/2);
@@ -474,10 +467,13 @@ function checkState() {
 
 
       // bad guys
-      createBaddie.show();
+      createBaddie.show(enviorment.xMin, enviorment.yMin, enviorment.xMax, enviorment.yMax,
+        enviormentBack.x - playerSprite.xPos, enviormentBack.x - playerSprite.xPos, enviormentBack.y - playerSprite.yPos, height*enviormentBack.height);
+
       createBaddie.movement(movementSpeed*0.90, movementSpeed, enviorment.xMin, enviorment.yMin, enviorment.xMax, enviorment.yMax);
+
       createBaddie.mapping(miniMap.baddieDot,
-        enviormentBack.xMin, enviormentBack.yMin, enviormentBack.xMax, enviormentBack.yMax,
+        enviorment.xMin, enviorment.yMin, enviorment.xMax, enviorment.yMax,
         miniMap.x, miniMap.y, miniMap.xSize, miniMap.ySize);
     }
 

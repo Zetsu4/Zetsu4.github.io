@@ -7,8 +7,13 @@ class baddies {
     this.y = y;
   }
 
-  show() {
-    image(this.enemyType, this.x, this.y, width*0.05, height*0.10);
+  show(xMin, yMin, xMax, yMax,
+    xMinBack, xMaxBack, yMinBack, yMaxBack) {
+
+    let realPosX = map(this.x, xMin, xMax, xMinBack, xMinBack);
+    let realPosY = map(this.y, yMin, yMax, yMinBack, yMaxBack);
+
+    image(this.enemyType, realPosX, realPosY, width*0.05, height*0.10);
   }
 
   movement(speed, playerSpeed, xMin, yMin, xMax, yMax) {
