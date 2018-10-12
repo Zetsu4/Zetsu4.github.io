@@ -11,7 +11,6 @@ let badGuy = {
   x: 0,
   y: 0
 };
-let createPlayer;
 let createBaddie;
 
 // enviorment vars
@@ -134,6 +133,14 @@ function setup() {
   enviorment.yMin = 0;
   enviorment.yMax = height*enviormentBack.height;
 
+  // background size
+  enviormentBack.xMin = -enviorment.xMax/2;
+  enviormentBack.xMax = enviorment.xMax/2;
+  enviormentBack.yMin = -enviorment.yMax/2;
+  enviormentBack.yMax = enviorment.yMax/2;
+  enviormentBack.x = width/2;
+  enviormentBack.y = height/2;
+
   // the screen thats on the canvas
   visibleScreen.xMin = 0;
   visibleScreen.xMax = width;
@@ -149,46 +156,50 @@ function setup() {
   miniMap.ySize = height*0.20;
 
   // player starting position
-  playerSprite.xPos = enviorment.xMax*0.50;
-  playerSprite.yPos = enviorment.yMax*0.50;
+  playerSprite.xPos = enviorment.xMax/2 - width/2;
+  playerSprite.yPos = enviorment.yMax/2 - height/2;
 
-  badGuy.x = enviorment.xMax*0.50;
-  badGuy.y = enviorment.yMax*0.50;
+  // testing baddie
+  badGuy.x = enviorment.xMax/2;
+  badGuy.y = enviorment.yMax/2;
 }
 
 // neccessarry resizeing data peices
-function resizeSetup() {
-  textFont("Font Style Bold", (width*0.03 + height*0.03)/2);
-
-  boxChoiceX = width*0.30;
-  boxChoiceY = height*0.10;
-
-  // the size of the enviorment
-  enviorment.xMin = 0;
-  enviorment.xMax = width*10;
-  enviorment.yMin = 0;
-  enviorment.yMax = height*10;
-
-  // the screen thats on the canvas
-  visibleScreen.xMin = 0;
-  visibleScreen.xMax = width;
-  visibleScreen.yMin = 0;
-  visibleScreen.yMax = height;
-
-  // minimap general size, and sprite dot sizes
-  miniMap.playerDot = width*0.005;
-  miniMap.baddieDot = height*0.005;
-  miniMap.x = width*0.01;
-  miniMap.y = height*0.01;
-  miniMap.xSize = width*0.15;
-  miniMap.ySize = height*0.20;
-}
+// function resizeSetup() {
+//   textFont("Font Style Bold", (width*0.03 + height*0.03)/2);
+//
+//   boxChoiceX = width*0.30;
+//   boxChoiceY = height*0.10;
+//
+//   // the size of the enviorment
+//   enviorment.xMin = 0;
+//   enviorment.xMax = width*10;
+//   enviorment.yMin = 0;
+//   enviorment.yMax = height*10;
+//
+//   // the screen thats on the canvas
+//   visibleScreen.xMin = 0;
+//   visibleScreen.xMax = width;
+//   visibleScreen.yMin = 0;
+//   visibleScreen.yMax = height;
+//
+//   // minimap general size, and sprite dot sizes
+//   miniMap.playerDot = width*0.005;
+//   miniMap.baddieDot = height*0.005;
+//   miniMap.x = width*0.01;
+//   miniMap.y = height*0.01;
+//   miniMap.xSize = width*0.15;
+//   miniMap.ySize = height*0.20;
+//
+//   enviormentBack.x = width/2;
+//   enviormentBack.y = height/2;
+// }
 
 // if player resizes window
-function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
-  resizeSetup();
-}
+// function windowResized() {
+//   resizeCanvas(windowWidth, windowHeight);
+//   resizeSetup();
+// }
 
 //------------------------------------------------------------------------------
 // CREATING A CHARACTER, state 1     START
@@ -304,7 +315,7 @@ function continueButton(x, y, w, h) {
 
 // creating the illusion of moving around the enviorment
 function movingBackground() {
-  image(enviormentBack.image, enviormentBack.x, enviormentBack.y, width*enviormentBack.width, height*enviormentBack.height);
+  image(enviormentBack.image, enviormentBack.x, enviormentBack.y, enviorment.xMax, enviorment.yMax);
 }
 
 // MINIMAP
@@ -331,19 +342,28 @@ function playerMovement(xMin = enviorment.xMin, yMin = enviorment.yMin, xMax = e
   if (playerSprite.xPos <= xMin) {
     playerSprite.xPos += movementSpeed;
     enviormentBack.x -= movementSpeed;
+    enviormentBack.xMin -= movementSpeed;
+    enviormentBack.xMax -= movementSpeed;
+
   }
   else if (playerSprite.xPos >= xMax - width) {
     playerSprite.xPos -= movementSpeed;
     enviormentBack.x += movementSpeed;
+    enviormentBack.xMin += movementSpeed;
+    enviormentBack.xMax += movementSpeed;
   }
   else {
     if (keyIsDown(65)) { // "a"
       playerSprite.xPos -= movementSpeed;
       enviormentBack.x += movementSpeed;
+      enviormentBack.xMin += movementSpeed;
+      enviormentBack.xMax += movementSpeed;
     }
     if (keyIsDown(68)) { // "d"
       playerSprite.xPos += movementSpeed;
       enviormentBack.x -= movementSpeed;
+      enviormentBack.xMin -= movementSpeed;
+      enviormentBack.xMax -= movementSpeed;
     }
   }
 
@@ -351,19 +371,27 @@ function playerMovement(xMin = enviorment.xMin, yMin = enviorment.yMin, xMax = e
   if (playerSprite.yPos <= yMin) {
     playerSprite.yPos += movementSpeed;
     enviormentBack.y -= movementSpeed;
+    enviormentBack.yMin -= movementSpeed;
+    enviormentBack.yMax -= movementSpeed;
   }
   else if (playerSprite.yPos >= yMax - height) {
     playerSprite.yPos -= movementSpeed;
     enviormentBack.y += movementSpeed;
+    enviormentBack.yMin += movementSpeed;
+    enviormentBack.yMax += movementSpeed;
   }
   else {
     if (keyIsDown(87)) { // "w"
       playerSprite.yPos -= movementSpeed;
       enviormentBack.y += movementSpeed;
+      enviormentBack.yMin += movementSpeed;
+      enviormentBack.yMax += movementSpeed;
     }
     if (keyIsDown(83)) { // "s"
       playerSprite.yPos += movementSpeed;
       enviormentBack.y -= movementSpeed;
+      enviormentBack.yMin -= movementSpeed;
+      enviormentBack.yMax -= movementSpeed;
     }
   }
 }
@@ -447,7 +475,7 @@ function checkState() {
     clear();
 
     // baddie tester
-    createBaddie = new baddies(badGuy.sprite, enviorment.xMax/2, enviorment.yMax/2);
+    createBaddie = new baddies(badGuy.sprite, badGuy.x, badGuy.y);
   }
 
   else if (state === 3) {
@@ -467,8 +495,8 @@ function checkState() {
 
 
       // bad guys
-      createBaddie.show(enviorment.xMin, enviorment.yMin, enviorment.xMax, enviorment.yMax,
-        enviormentBack.x - playerSprite.xPos, enviormentBack.x - playerSprite.xPos, enviormentBack.y - playerSprite.yPos, height*enviormentBack.height);
+      createBaddie.show(enviorment.xMin, enviorment.xMax - width + movementSpeed, enviorment.yMin, enviorment.yMax - height + movementSpeed,
+        enviormentBack.xMin, enviormentBack.xMax, enviormentBack.yMin, enviormentBack.yMax);
 
       createBaddie.movement(movementSpeed*0.90, movementSpeed, enviorment.xMin, enviorment.yMin, enviorment.xMax, enviorment.yMax);
 

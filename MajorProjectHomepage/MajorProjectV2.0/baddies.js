@@ -7,10 +7,10 @@ class baddies {
     this.y = y;
   }
 
-  show(xMin, yMin, xMax, yMax,
+  show(xMin, xMax, yMin, yMax,
     xMinBack, xMaxBack, yMinBack, yMaxBack) {
 
-    let realPosX = map(this.x, xMin, xMax, xMinBack, xMinBack);
+    let realPosX = map(this.x, xMin, xMax, xMinBack, xMaxBack);
     let realPosY = map(this.y, yMin, yMax, yMinBack, yMaxBack);
 
     image(this.enemyType, realPosX, realPosY, width*0.05, height*0.10);
