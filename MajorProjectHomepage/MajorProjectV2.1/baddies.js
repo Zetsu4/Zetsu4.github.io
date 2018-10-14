@@ -1,8 +1,9 @@
 // bad guys
 class baddies {
 
-  constructor(enemyType, x, y) {
-    this.enemyType = enemyType;
+  constructor(badguyRace, badguySkill, x, y) {
+    this.badguyRace = badguyRace;
+    this.badguySkill = badguySkill;
     this.x = x;
     this.y = y;
   }
