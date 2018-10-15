@@ -117,7 +117,7 @@ function setup() {
   player.skillPosistion = 0;
   player.race = allRaces[0][1];
   player.skill = allSkills[0][1];
-  player.DOT = (width*0.01 + height*0.01)/2;
+  player.DOT = (width*0.005 + height*0.005)/2;
 
   player.x = world.WIDTH/2;
   player.y = world.HEIGHT/2;
@@ -507,8 +507,8 @@ function playerMinimap() {
   let playerY = map(player.y, 0, world.HEIGHT, minimapYMin, minimapYMax);
 
   // mapping screen on the map
-  let rectWidth = map(width, 0, world.WIDTH, minimapXMin, minimapXMax);
-  let rectHeight = map(height, 0, world.HEIGHT, minimapYMin, minimapYMax);
+  let rectWidth = map(width/2 - sprite.WIDTH, 0, world.WIDTH, minimapXMin, minimapXMax);
+  let rectHeight = map(height/2 - sprite.HEIGHT, 0, world.HEIGHT, minimapYMin, minimapYMax);
 
   // player dot
   fill("blue");
@@ -591,40 +591,44 @@ function createChar() {
 
   // random character creation
   if (state === 1) {
-    if (player.racePosistion === 0) {
-      player.racePosistion = int(random(1, allRaces.length));
-      player.race = allRaces[player.racePosistion][1];
+    createBaddies();
+  }
+}
+
+// creating starting baddies
+function createBaddies() {
+  if (player.racePosistion === 0) {
+    player.racePosistion = int(random(1, allRaces.length));
+    player.race = allRaces[player.racePosistion][1];
+  }
+
+  if (player.skillPosistion === 0) {
+    player.skillPosistion = int(random(1, allSkills.length));
+    player.skill = allSkills[player.skillPosistion][1];
+  }
+
+  startingState = 2;
+  state = 0;
+
+  for (let i = 0; i < 10; i++) {
+    let race = random(allRaces);
+    let skill = random(allSkills);
+
+    let xSpawn = random(-world.WIDTH/2 + width/2 + sprite.WIDTH,
+      world.WIDTH/2 + width/2 - sprite.WIDTH);
+
+    let ySpawn = random(-world.HEIGHT/2 + height/2 + sprite.HEIGHT,
+      world.HEIGHT/2 + height/2 - sprite.HEIGHT);
+
+    while (race === allRaces[0]) {
+      race = random(allRaces);
     }
 
-    if (player.skillPosistion === 0) {
-      player.skillPosistion = int(random(1, allSkills.length));
-      player.skill = allSkills[player.skillPosistion][1];
+    while (skill === allSkills[0]) {
+      skill = random(allSkills);
     }
 
-    startingState = 2;
-    state = 0;
-
-    for (let i = 0; i < 100; i++) {
-      let race = random(allRaces);
-      let skill = random(allSkills);
-
-      let xSpawn = random(-world.WIDTH/2 + width/2 + sprite.WIDTH,
-        world.WIDTH/2 + width/2 - sprite.WIDTH);
-
-      let ySpawn = random(-world.HEIGHT/2 + height/2 + sprite.HEIGHT,
-        world.HEIGHT/2 + height/2 - sprite.HEIGHT);
-
-      while (race === allRaces[0]) {
-        race = random(allRaces);
-      }
-
-      while (skill === allSkills[0]) {
-        skill = random(allSkills);
-      }
-
-      append(badGuys, new baddies(race, skill, xSpawn, ySpawn, player.speed));
-    }
-
+    append(badGuys, new baddies(race, skill, xSpawn, ySpawn, player.speed));
   }
 }
 
