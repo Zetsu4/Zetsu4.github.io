@@ -25,13 +25,12 @@ class baddies {
     this.DOWN = 2;
     this.LEFT = 3;
 
-    this.time = 500;
+    this.TIME_TO_STEP = 1000;
     this.lastTime = 0;
   }
 
   // AI
   movement(worldW, worldH, spriteW, spriteH) {
-
     // move forword
     if (this.state === 0 || this.state === 1) {
       if (this.dir === this.UP) {
@@ -76,7 +75,7 @@ class baddies {
 
     // waiting
     else if (this.state === 2) {
-      let elapsedTime = millis() - this.time;
+      let elapsedTime = millis() - this.TIME_TO_STEP;
       if (elapsedTime >= this.lastTime) {
         this.state = random([0, 1]);
         this.lastTime = millis();
@@ -111,7 +110,49 @@ class baddies {
     }
   }
 
-  // staying in spot as player moves
+  // AI pursue player
+  attackPlayer(playerX, playerY, worldW, worldH) {
+    // move toward player
+    if (this.state === 0 || this.state === 1) {
+      // x-axis
+      if (this.x >= playerX - worldW/2) {
+        this.x -= this.speed;
+        this.otherX -= this.speed;
+      }
+
+      else if (this.x <= playerX - worldW/2) {
+        this.x += this.speed;
+        this.otherX += this.speed;
+      }
+
+      // y-axis
+      if (this.y >= playerY - worldH/2) {
+        this.y -= this.speed;
+        this.otherY -= this.speed;
+      }
+
+      else if (this.y <= playerY - worldH/2) {
+        this.y += this.speed;
+        this.otherY += this.speed;
+      }
+      this.state = 2;
+    }
+    // waiting
+    else if (this.state === 2) {
+      let elapsedTime = millis() - this.TIME_TO_STEP/100;
+      if (elapsedTime >= this.lastTime) {
+        this.state = random([0, 1]);
+        this.lastTime = millis();
+      }
+    }
+  }
+
+  // baddie on screen?
+  baddieOnScreen(playerX, playerY, worldW, worldH) {
+    return this.x >= playerX - worldW/2 - width/2 && this.x <= playerX - worldW/2 + width/2 &&
+           this.y >= playerY - worldH/2 - height/2 && this.y <= playerY - worldH/2 + height/2;
+  }
+
   moveWithPlayer() {
     // x-axis
     if (keyIsDown(65)) { // a
@@ -181,7 +222,7 @@ class baddies {
 
   // showing race and class
   show(sizeX, sizeY) {
-    image(this.race[1], this.otherX, this.otherY, sizeX, sizeY);
-    image(this.skill[1], this.otherX, this.otherY - sizeY, sizeX, sizeY);
+    image(this.race[1], this.otherX + width/2, this.otherY + height/2, sizeX, sizeY);
+    image(this.skill[1], this.otherX + width/2, this.otherY + height/2 - sizeY, sizeX, sizeY);
   }
 }

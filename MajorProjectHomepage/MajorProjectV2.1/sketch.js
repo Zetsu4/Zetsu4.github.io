@@ -507,8 +507,8 @@ function playerMinimap() {
   let playerY = map(player.y, 0, world.HEIGHT, minimapYMin, minimapYMax);
 
   // mapping screen on the map
-  let rectWidth = map(width/2 - sprite.WIDTH, 0, world.WIDTH, minimapXMin, minimapXMax);
-  let rectHeight = map(height/2 - sprite.HEIGHT, 0, world.HEIGHT, minimapYMin, minimapYMax);
+  let rectWidth = map(width/2, 0, world.WIDTH, minimapXMin, minimapXMax);
+  let rectHeight = map(height/2 + sprite.HEIGHT/2, 0, world.HEIGHT, minimapYMin, minimapYMax);
 
   // player dot
   fill("blue");
@@ -591,26 +591,25 @@ function createChar() {
 
   // random character creation
   if (state === 1) {
+    if (player.racePosistion === 0) {
+      player.racePosistion = int(random(1, allRaces.length));
+      player.race = allRaces[player.racePosistion][1];
+    }
+
+    if (player.skillPosistion === 0) {
+      player.skillPosistion = int(random(1, allSkills.length));
+      player.skill = allSkills[player.skillPosistion][1];
+    }
+
+    startingState = 2;
+    state = 0;
     createBaddies();
   }
 }
 
 // creating starting baddies
 function createBaddies() {
-  if (player.racePosistion === 0) {
-    player.racePosistion = int(random(1, allRaces.length));
-    player.race = allRaces[player.racePosistion][1];
-  }
-
-  if (player.skillPosistion === 0) {
-    player.skillPosistion = int(random(1, allSkills.length));
-    player.skill = allSkills[player.skillPosistion][1];
-  }
-
-  startingState = 2;
-  state = 0;
-
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 100; i++) {
     let race = random(allRaces);
     let skill = random(allSkills);
 
@@ -647,26 +646,32 @@ function playingGame() {
     // minimap
     showMinimap();
 
-    // player
-    playerShow();
-    playerMovement();
-    playerMinimap();
-
     // baddies
-    for (let i = 0; i < badGuys.length; i++) {
-      badGuys[i].movement(
-        world.WIDTH, world.HEIGHT,
-        sprite.WIDTH, sprite.HEIGHT);
+    for (let badGuy of badGuys) {
+      if (badGuy.baddieOnScreen(player.x, player.y, world.WIDTH, world.HEIGHT)) {
+        badGuy.attackPlayer(player.x, player.y, world.WIDTH, world.HEIGHT);
+      }
 
-      badGuys[i].moveWithPlayer();
-      badGuys[i].mapping(
+      else {
+        badGuy.movement(
+          world.WIDTH, world.HEIGHT,
+          sprite.WIDTH, sprite.HEIGHT);
+      }
+
+      badGuy.moveWithPlayer();
+      badGuy.mapping(
         world.WIDTH, world.HEIGHT,
         minimap.X, minimap.Y,
         minimap.WIDTH, minimap.HEIGHT,
         player.DOT/2);
 
-      badGuys[i].show(sprite.WIDTH, sprite.HEIGHT);
+      badGuy.show(sprite.WIDTH, sprite.HEIGHT);
     }
+
+    // player
+    playerShow();
+    playerMovement();
+    playerMinimap();
   }
 }
 
