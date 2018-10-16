@@ -12,6 +12,7 @@ let state = 0; // state variable
 // other vars
 let textTop; // text at top of screen also the font size
 let allFileSave = []; // files that have been saved
+let greenColor;
 
 // enviorment vars
 let earth; // the Lovely Homepage
@@ -73,6 +74,8 @@ function setup() {
   // setting image origin to center
   imageMode(CENTER);
   rectMode(CENTER);
+
+  greenColor = color(0, 255, 0);
 
   // world coordinates
   world.WIDTH = width*10;
@@ -200,34 +203,7 @@ function loadSave() {
 
 // chose, load save file
 function showSaves() {
-  let boxHeight = height*0.90/allFileSave.length;
-
-  for (let i = 0; i < allFileSave.length; i++) {
-    let yTop = box.yStart + i*boxHeight - boxHeight/2;
-    let yBottom = box.yStart + i*boxHeight + boxHeight/2;
-
-    // hovering over box
-    if (mouseX >= width/2 - box.width/2 && mouseX <= width/2 + box.width/2
-    && mouseY >= yTop && mouseY <= yBottom) {
-
-      fill(0, 255, 0);
-      // if (mouseIsPressed) {
-      //
-      // }
-    }
-
-    // not hovering over box
-    else {
-      fill("red");
-    }
-
-    //creating the box
-    rect(width/2, box.yStart + i*boxHeight, box.width, boxHeight);
-
-    // writting file name
-    fill("Black");
-    text(allFileSave[i], width/2, box.yStart + i*boxHeight);
-  }
+  displayOptions(allFileSave, width/2, box.width, box.height);
 }
 
 // save game
@@ -243,20 +219,46 @@ function saveGame() {
 //  CREATING A NEW CHARACTER, startingState 2         START
 //------------------------------------------------------------------------------
 
+function displayOptions(theArray, xPos,
+  boxWidth, boxHeight,
+  restColor = "red", hoverColor = greenColor, arrayPos2 = false) {
+
+  for (let i = 0; i < theArray.length; i++) {
+    let yPos = box.yStart + i*boxHeight;
+
+    if (mouseX >= xPos - boxWidth/2 && mouseX <= xPos + boxWidth/2 &&
+      mouseY >= yPos - boxHeight/2 && mouseY <= yPos + boxHeight/2) {
+
+      fill(hoverColor);
+    }
+
+    else {
+      fill(restColor);
+    }
+
+    // option boxes
+    rect(xPos, yPos, boxWidth, boxHeight);
+
+    // option text
+    fill("black");
+    if (arrayPos2) {
+      text(theArray[i][0], xPos, yPos + boxHeight/4, boxWidth, boxHeight);
+    }
+
+    else {
+      text(theArray[i], xPos, yPos + boxHeight/4, boxWidth, boxHeight);
+    }
+  }
+}
+
 
 // RACE-----------
 
 // race options
 function showRaceOptions() {
-  for (let i = 0; i < allRaces.length; i++) {
-    // creating the boxes
-    fill("red");
-    rect(box.xRace, box.yStart + i*box.heightRace, box.width, box.heightRace);
-
-    // writing the skill name
-    fill("black");
-    text(allRaces[i][0], box.xRace, box.yTextRace + i*box.heightRace);
-  }
+  displayOptions(allRaces, box.xRace,
+    box.width, box.heightRace,
+    "red", greenColor, true);
 }
 
 // selecting a race
@@ -295,15 +297,9 @@ function highlightRace() {
 
 // skill options
 function showSkillOptions() {
-  for (let i = 0; i < allSkills.length; i++) {
-    // creating the boxes
-    fill("red");
-    rect(box.xSkill, box.yStart + i*box.heightSkill, box.width, box.heightSkill);
-
-    // writing the skill name
-    fill("black");
-    text(allSkills[i][0], box.xSkill, box.yTextSkill + i*box.heightSkill);
-  }
+  displayOptions(allSkills, box.xSkill,
+    box.width, box.heightSkill,
+    "red", greenColor, true);
 }
 
 // selecting a skill
@@ -526,17 +522,9 @@ function playerMinimap() {
 
 // settings menu
 function settingsMenu() {
-  let boxHeight = height*0.90/settingsOptions.length;
-  for (let i = 0; i < settingsOptions.length; i++) {
-    let boxPosY = box.yStart + i*boxHeight;
-    // creating the boxes
-    fill("blue");
-    rect(width/2, boxPosY, width*0.25, boxHeight);
-
-    // writing the skill name
-    fill("black");
-    text(settingsOptions[i], width/2, boxPosY);
-  }
+  displayOptions(settingsOptions, width/2,
+    box.width, box.height,
+    "blue", "lightblue");
 }
 
 //------------------------------------------------------------------------------
