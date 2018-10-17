@@ -12,7 +12,7 @@ let state = 0; // state variable
 // other vars
 let textTop; // text at top of screen also the font size
 let allFileSave = []; // files that have been saved
-let greenColor;
+let greenColor; // bright green
 
 // enviorment vars
 let earth; // the Lovely Homepage
@@ -35,7 +35,9 @@ let settingsOptions = []; // settings options
 
 // bad guy vars
 let badGuys = []; // where bad guy objects go
-let spawnPoints = {}; // locations they can spawn
+let badGuysPosX = []; // collision spots x
+let badGuysPosY = []; // collision spots y
+let spawnRestrict = {}; // locations they CANNOT spawn
 
 // preloading images
 function preload() {
@@ -120,7 +122,7 @@ function setup() {
   player.skillPosistion = 0;
   player.race = allRaces[0][1];
   player.skill = allSkills[0][1];
-  player.DOT = (width*0.005 + height*0.005)/2;
+  player.DOT = (width*0.005 + height*0.005)/4;
 
   player.x = world.WIDTH/2;
   player.y = world.HEIGHT/2;
@@ -504,7 +506,7 @@ function playerMinimap() {
 
   // mapping screen on the map
   let rectWidth = map(width/2, 0, world.WIDTH, minimapXMin, minimapXMax);
-  let rectHeight = map(height/2 + sprite.HEIGHT/2, 0, world.HEIGHT, minimapYMin, minimapYMax);
+  let rectHeight = map(height/2, 0, world.HEIGHT, minimapYMin, minimapYMax);
 
   // player dot
   fill("blue");
@@ -598,8 +600,8 @@ function createChar() {
 // creating starting baddies
 function createBaddies() {
   for (let i = 0; i < 100; i++) {
-    let race = random(allRaces);
-    let skill = random(allSkills);
+    let race = int(random(1, allRaces.length));
+    let skill = int(random(1, allSkills.length));
 
     let xSpawn = random(-world.WIDTH/2 + width/2 + sprite.WIDTH,
       world.WIDTH/2 + width/2 - sprite.WIDTH);
@@ -607,15 +609,8 @@ function createBaddies() {
     let ySpawn = random(-world.HEIGHT/2 + height/2 + sprite.HEIGHT,
       world.HEIGHT/2 + height/2 - sprite.HEIGHT);
 
-    while (race === allRaces[0]) {
-      race = random(allRaces);
-    }
-
-    while (skill === allSkills[0]) {
-      skill = random(allSkills);
-    }
-
-    append(badGuys, new baddies(race, skill, xSpawn, ySpawn, player.speed));
+    append(badGuys, new baddies(allRaces[race], allSkills[skill],
+      xSpawn, ySpawn, player.speed));
   }
 }
 
@@ -634,6 +629,11 @@ function playingGame() {
     // minimap
     showMinimap();
 
+    // player
+    playerShow();
+    playerMovement();
+    playerMinimap();
+
     // baddies
     for (let badGuy of badGuys) {
       if (badGuy.baddieOnScreen(player.x, player.y, world.WIDTH, world.HEIGHT)) {
@@ -651,15 +651,17 @@ function playingGame() {
         world.WIDTH, world.HEIGHT,
         minimap.X, minimap.Y,
         minimap.WIDTH, minimap.HEIGHT,
-        player.DOT/2);
+        player.DOT);
 
       badGuy.show(sprite.WIDTH, sprite.HEIGHT);
+      if (badGuy.collision(player.x, player.y, sprite.WIDTH, sprite.HEIGHT)) {
+        gameOver();
+        noLoop();
+        break;
+      }
     }
 
-    // player
-    playerShow();
-    playerMovement();
-    playerMinimap();
+
   }
 }
 
@@ -692,4 +694,20 @@ function keyPressed() {
 
 //------------------------------------------------------------------------------
 //  CHECKING STATE, startingState #'s         END
+//------------------------------------------------------------------------------
+
+//------------------------------------------------------------------------------
+//  GAMEOVER         START
+//------------------------------------------------------------------------------
+
+function gameOver() {
+  startingState = -1;
+  state = -1;
+  background(0);
+  text("GAME OVER,", width/2, height/2);
+  text("you suck.", width/2, height/2 + textTop);
+}
+
+//------------------------------------------------------------------------------
+//  GAMEOVER         END
 //------------------------------------------------------------------------------

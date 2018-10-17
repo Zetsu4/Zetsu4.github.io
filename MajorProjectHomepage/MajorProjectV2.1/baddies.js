@@ -13,10 +13,11 @@ class baddies {
     // postion on map
     this.x = x;
     this.y = y;
+    this.DOT = (width*0.005 + height*0.005)/4;
 
     // movement vars
     this.playerSpeed = playerSpeed;
-    this.speed = 100; // temp
+    this.speed = 15; // temp
     this.state = 0;
     this.dir = 0;
 
@@ -25,7 +26,7 @@ class baddies {
     this.DOWN = 2;
     this.LEFT = 3;
 
-    this.TIME_TO_STEP = 1000;
+    this.TIME_TO_STEP = 200;
     this.lastTime = 0;
   }
 
@@ -116,30 +117,31 @@ class baddies {
     if (this.state === 0 || this.state === 1) {
       // x-axis
       if (this.x >= playerX - worldW/2) {
-        this.x -= this.speed;
-        this.otherX -= this.speed;
+        this.x -= this.speed*2;
+        this.otherX -= this.speed*2;
       }
 
       else if (this.x <= playerX - worldW/2) {
-        this.x += this.speed;
-        this.otherX += this.speed;
+        this.x += this.speed*2;
+        this.otherX += this.speed*2;
       }
 
       // y-axis
       if (this.y >= playerY - worldH/2) {
-        this.y -= this.speed;
-        this.otherY -= this.speed;
+        this.y -= this.speed*2;
+        this.otherY -= this.speed*2;
       }
 
       else if (this.y <= playerY - worldH/2) {
-        this.y += this.speed;
-        this.otherY += this.speed;
+        this.y += this.speed*2;
+        this.otherY += this.speed*2;
       }
       this.state = 2;
     }
+
     // waiting
     else if (this.state === 2) {
-      let elapsedTime = millis() - this.TIME_TO_STEP/100;
+      let elapsedTime = millis() - this.TIME_TO_STEP/2;
       if (elapsedTime >= this.lastTime) {
         this.state = random([0, 1]);
         this.lastTime = millis();
@@ -153,6 +155,13 @@ class baddies {
            this.y >= playerY - worldH/2 - height/2 && this.y <= playerY - worldH/2 + height/2;
   }
 
+  // hitting player
+  collision(playerX, playerY, spriteW, spriteH) {
+    return this.otherX + width/2 > width/2 - spriteW/2 && this.otherX + width/2 < width/2 + spriteW/2
+      && this.otherY + height/2 > height/2 - spriteH/2 && this.otherY + height/2 < height/2 + spriteH/2;
+  }
+
+  // move with player
   moveWithPlayer() {
     // x-axis
     if (keyIsDown(65)) { // a
@@ -202,14 +211,13 @@ class baddies {
   mapping(
     worldW, worldH,
     minimapX, minimapY,
-    minimapW, minimapH,
-    dotSize) {
+    minimapW, minimapH) {
     // minimap boundries
-    let minimapXMin = minimapX - minimapW/2 + dotSize/2;
-    let minimapXMax = minimapX + minimapW/2 - dotSize/2;
+    let minimapXMin = minimapX - minimapW/2 + this.DOT/2;
+    let minimapXMax = minimapX + minimapW/2 - this.DOT/2;
 
-    let minimapYMin = minimapY - minimapH/2 + dotSize/2;
-    let minimapYMax = minimapY + minimapH/2 - dotSize/2;
+    let minimapYMin = minimapY - minimapH/2 + this.DOT/2;
+    let minimapYMax = minimapY + minimapH/2 - this.DOT/2;
 
     // mapping dot
     let mapX = map(this.x, -worldW/2, worldW/2, minimapXMin, minimapXMax);
@@ -217,7 +225,7 @@ class baddies {
 
     // baddie dot
     fill("red");
-    ellipse(mapX, mapY, dotSize);
+    ellipse(mapX, mapY, this.DOT);
   }
 
   // showing race and class
