@@ -36,6 +36,7 @@ let box = {}; // choice box size
 // settings vars
 let settingsIsOpen; // settings is open or it isn't
 let settingsOptions = []; // settings options
+let settingsChoice; // settings choice
 
 // bad guy vars
 let badGuys = []; // where bad guy objects go
@@ -141,12 +142,10 @@ function setup() {
   // race option vars
   box.heightRace = height*0.90/allRaces.length;
   box.xRace = width*0.15;
-  box.yTextRace = box.yStart + box.heightRace*0.10;
 
   // skill option vars
   box.heightSkill = height*0.90/allSkills.length;
   box.xSkill = width*0.85;
-  box.yTextSkill = box.yStart + box.heightSkill*0.10;
 
   // settings starts closed
   settingsIsOpen = false;
@@ -261,14 +260,11 @@ function displayOptions(theArray, xPos,
 // RACE-----------
 
 // race options
-function showRaceOptions() {
+function selectRace() {
   displayOptions(allRaces, box.xRace,
     box.width, box.heightRace,
     "red", greenColor, true);
-}
 
-// selecting a race
-function selectRace() {
   let xLeft = box.xRace - box.width/2;
   let xRight = box.xRace + box.width/2;
 
@@ -283,17 +279,6 @@ function selectRace() {
       }
     }
   }
-}
-
-// highlight selected race
-function highlightRace() {
-  // creating the selected box
-  fill(0, 255, 0);
-  rect(box.xRace, box.yStart + box.heightRace*player.racePosistion, box.width, box.heightRace);
-
-  // writing the skill name
-  fill("black");
-  text(allRaces[player.racePosistion][0], box.xRace, box.yTextRace + player.racePosistion*box.heightRace);
 
   image(player.race, width/2, height*0.70, sprite.DISPLAY_WIDTH, sprite.DISPLAY_HEIGHT);
 }
@@ -302,14 +287,11 @@ function highlightRace() {
 // SKILL----------
 
 // skill options
-function showSkillOptions() {
+function selectSkill() {
   displayOptions(allSkills, box.xSkill,
     box.width, box.heightSkill,
     "red", greenColor, true);
-}
 
-// selecting a skill
-function selectSkill() {
   let xLeft = box.xSkill - box.width/2;
   let xRight = box.xSkill + box.width/2;
 
@@ -324,17 +306,6 @@ function selectSkill() {
       }
     }
   }
-}
-
-// highlight selected skill
-function highlightSkill() {
-  // creating the selected box
-  fill(0, 255, 0);
-  rect(box.xSkill, box.yStart + box.heightSkill*player.skillPosistion, box.width, box.heightSkill);
-
-  // writing the skill name
-  fill("black");
-  text(allSkills[player.skillPosistion][0], box.xSkill, box.yTextSkill + player.skillPosistion*box.heightSkill);
 
   image(player.skill, box.xSkill - box.width, box.yStart, sprite.WIDTH + box.width/4, sprite.HEIGHT + box.heightSkill/2);
 }
@@ -531,10 +502,28 @@ function settingsMenu() {
   displayOptions(settingsOptions, width/2,
     box.width, box.height,
     "blue", "lightblue");
+
+  choseSetting();
 }
 
 function choseSetting() {
-  
+  let xLeft = width/2 - box.width/2;
+  let xRight = width/2 + box.width/2;
+
+  if (mouseIsPressed && mouseX >= xLeft && mouseX <= xRight) {
+    for (let i = 0; i < settingsOptions.length; i++) {
+      let yTop = box.yStart + i*box.height - box.height/2;
+      let yBottom = box.yStart + i*box.height + box.height/2;
+
+      if (mouseY >= yTop && mouseY <= yBottom) {
+        settingsChoice = settingsOptions[i];
+      }
+    }
+  }
+
+  if (settingsChoice === "Resume") {
+    settingsIsOpen = !settingsIsOpen;
+  }
 }
 
 //------------------------------------------------------------------------------
@@ -577,14 +566,10 @@ function createChar() {
     continueButton();
 
     // races
-    showRaceOptions();
     selectRace();
-    highlightRace();
 
     // skills
-    showSkillOptions();
     selectSkill();
-    highlightSkill();
   }
 
   // random character creation
