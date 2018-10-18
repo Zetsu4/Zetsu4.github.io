@@ -6,7 +6,7 @@
 //
 // add the good images--------------------------NO
 // get the settings menu working----------------NO
-// baddie deaths--------------------------------NO
+// baddie deaths and player attack--------------NO
 // get the save and load game functions working-NO
 // have a race and skill------------------------NO
 // add a lvl system-----------------------------NO
@@ -574,6 +574,7 @@ function chooseSetting() {
       }
     }
     setup();
+    nothing = 0;
   }
 
 }
@@ -718,7 +719,8 @@ function playingGame() {
 
 // CHECKING STATE-
 function draw() {
-  background(0, 255, 0);
+  background(73, 152, 69);
+  image(world.image, width/2, height/2, width, height);
   // START MENU
   if (startingState === 0) {
     startMenu();
