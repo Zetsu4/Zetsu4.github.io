@@ -34,6 +34,7 @@ let settingsIsOpen; // settings is open or it isn't
 let settingsOptions = []; // settings options
 
 // bad guy vars
+let NUM_OF_BADDIES = 100; // number of bad guys
 let badGuys = []; // where bad guy objects go
 let badGuysPosX = []; // collision spots x
 let badGuysPosY = []; // collision spots y
@@ -599,7 +600,7 @@ function createChar() {
 
 // creating starting baddies
 function createBaddies() {
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < NUM_OF_BADDIES; i++) {
     let race = int(random(1, allRaces.length));
     let skill = int(random(1, allSkills.length));
 

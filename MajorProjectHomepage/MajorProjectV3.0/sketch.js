@@ -2,8 +2,11 @@
 // Travis Ahern
 // oct. 11/18
 //
+// when player dies the font becomes bolder
+//
 // add the good images--------------------------NO
 // get the settings menu working----------------NO
+// baddie deaths--------------------------------NO
 // get the save and load game functions working-NO
 // have a race and skill------------------------NO
 // add a lvl system-----------------------------NO
@@ -17,6 +20,7 @@ let state = 0; // state variable
 let textTop; // text at top of screen also the font size
 let allFileSave = []; // files that have been saved
 let greenColor; // bright green
+let nothing = 0;
 
 // enviorment vars
 let earth; // the Lovely Homepage
@@ -39,6 +43,7 @@ let settingsOptions = []; // settings options
 let settingsChoice; // settings choice
 
 // bad guy vars
+let NUM_OF_BADDIES = 100; // number of bad guys
 let badGuys = []; // where bad guy objects go
 let badGuysPosX = []; // collision spots x
 let badGuysPosY = []; // collision spots y
@@ -157,7 +162,7 @@ function setup() {
 //------------------------------------------------------------------------------
 
 // create new character option
-function createNewSave() {
+function optionCreateNewSave() {
   let boxPosY = height*0.55;
 
   // hovering over the choice
@@ -182,7 +187,7 @@ function createNewSave() {
 }
 
 // load character option
-function loadSave() {
+function optionLoadSave() {
   let boxPosY = height*0.80;
 
   // hovering over the choice
@@ -206,7 +211,7 @@ function loadSave() {
   text("LOAD SAVE FILE", width/2, boxPosY);
 }
 
-// chose, load save file
+// chose a saved file
 function showSaves() {
   displayOptions(allFileSave, width/2, box.width, box.height);
 }
@@ -279,6 +284,16 @@ function selectRace() {
       }
     }
   }
+}
+
+function selectedRace() {
+  // creating the selected box
+  fill(0, 255, 0);
+  rect(box.xRace, box.yStart + box.heightRace*player.racePosistion, box.width, box.heightRace);
+
+  // writing the skill name
+  fill("black");
+  text(allRaces[player.racePosistion][0], box.xRace, box.yStart + player.racePosistion*box.heightRace);
 
   image(player.race, width/2, height*0.70, sprite.DISPLAY_WIDTH, sprite.DISPLAY_HEIGHT);
 }
@@ -306,6 +321,16 @@ function selectSkill() {
       }
     }
   }
+}
+
+function selectedSkill() {
+  // creating the selected box
+  fill(0, 255, 0);
+  rect(box.xSkill, box.yStart + box.heightSkill*player.skillPosistion, box.width, box.heightSkill);
+
+  // writing the skill name
+  fill("black");
+  text(allSkills[player.skillPosistion][0], box.xSkill, box.yStart + player.skillPosistion*box.heightSkill);
 
   image(player.skill, box.xSkill - box.width, box.yStart, sprite.WIDTH + box.width/4, sprite.HEIGHT + box.heightSkill/2);
 }
@@ -503,10 +528,10 @@ function settingsMenu() {
     box.width, box.height,
     "blue", "lightblue");
 
-  choseSetting();
+  chooseSetting();
 }
 
-function choseSetting() {
+function chooseSetting() {
   let xLeft = width/2 - box.width/2;
   let xRight = width/2 + box.width/2;
 
@@ -523,7 +548,38 @@ function choseSetting() {
 
   if (settingsChoice === "Resume") {
     settingsIsOpen = !settingsIsOpen;
+    settingsChoice = -1;
   }
+
+  else if (settingsChoice === "Controls") {
+    displayControls();
+  }
+
+  else if (settingsChoice === "Save") {
+    saveGame();
+  }
+
+  else if (settingsChoice === "Load") {
+    showSaves();
+  }
+
+  else if (settingsChoice === "Main Menu") {
+    startingState = 0;
+    state = 0;
+    while (mouseIsPressed) {
+      nothing++;
+      if (nothing >= 100000000) {
+        nothing = 0;
+        break;
+      }
+    }
+    setup();
+  }
+
+}
+
+function displayControls() {
+
 }
 
 //------------------------------------------------------------------------------
@@ -545,8 +601,8 @@ function startMenu() {
     text("WELCOME TO EQUESTRIA", width/2, textTop);
 
     // options
-    createNewSave();
-    loadSave();
+    optionCreateNewSave();
+    optionLoadSave();
   }
 
   // files that have been saved
@@ -565,11 +621,13 @@ function createChar() {
     backButton();
     continueButton();
 
-    // races
+    // race
     selectRace();
+    selectedRace();
 
-    // skills
+    // skill
     selectSkill();
+    selectedSkill();
   }
 
   // random character creation
@@ -592,7 +650,7 @@ function createChar() {
 
 // creating starting baddies
 function createBaddies() {
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < NUM_OF_BADDIES; i++) {
     let race = int(random(1, allRaces.length));
     let skill = int(random(1, allSkills.length));
 
@@ -649,7 +707,6 @@ function playingGame() {
       badGuy.show(sprite.WIDTH, sprite.HEIGHT);
       if (badGuy.collision(player.x, player.y, sprite.WIDTH, sprite.HEIGHT)) {
         gameOver();
-        noLoop();
         break;
       }
     }
@@ -676,6 +733,10 @@ function draw() {
   else if (startingState === 2){
     playingGame();
   }
+
+  else if (startingState === "gameOver") {
+    gameOver();
+  }
 }
 
 function keyPressed() {
@@ -694,11 +755,20 @@ function keyPressed() {
 //------------------------------------------------------------------------------
 
 function gameOver() {
-  startingState = -1;
-  state = -1;
+  startingState = "gameOver";
+  state = "gameOver";
   background(0);
   text("GAME OVER,", width/2, height/2);
   text("you suck.", width/2, height/2 + textTop);
+  text("Press 'Esc' to go to main menu", width/2, height*0.80);
+
+  if (keyCode === ESCAPE) {
+    startingState = 0;
+    state = 0;
+    settingsIsOpen = false;
+    badGuys = [];
+    setup();
+  }
 }
 
 //------------------------------------------------------------------------------

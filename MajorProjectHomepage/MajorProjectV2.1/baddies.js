@@ -149,12 +149,6 @@ class baddies {
     }
   }
 
-  // death
-  baddieDead(theArray, theBaddie) {
-    theArray.splice();
-    return theArray;
-  }
-
   // baddie on screen?
   baddieOnScreen(playerX, playerY, worldW, worldH) {
     return this.x >= playerX - worldW/2 - width/2 && this.x <= playerX - worldW/2 + width/2 &&
