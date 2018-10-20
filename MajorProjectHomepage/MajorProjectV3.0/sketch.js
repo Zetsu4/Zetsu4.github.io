@@ -2,15 +2,17 @@
 // Travis Ahern
 // oct. 11/18
 //
-// when player dies the font becomes bolder
+// PROBLEMS:
 //
-// add the good images--------------------------NO
-// get the settings menu working----------------NO
-// baddie deaths and player attack--------------NO
-// get the save and load game functions working-NO
-// have a race and skill------------------------NO
-// add a lvl system-----------------------------NO
-// have an actual enviorment--------------------NO
+//
+// add the good images---------------------------5%
+// get the save and load game functions working--0%
+// get the settings menu working-----------------40%
+// fix baddie spawns-----------------------------0%
+// baddie deaths and player attack---------------0%
+// have a race and skill-------------------------0%
+// add a lvl system------------------------------0%
+// have an actual enviorment---------------------10%
 
 // state vars
 let startingState = 0; // start menu variable
@@ -20,7 +22,12 @@ let state = 0; // state variable
 let textTop; // text at top of screen also the font size
 let allFileSave = []; // files that have been saved
 let greenColor; // bright green
-let nothing = 0;
+let raceSprites = {}; // race sprites
+let skillImages = {}; // skill images
+let sprite = {}; // sprite sizes
+let allRaces, allSkills; // all races and skills
+let nothing = Infinity; // literally nothing
+const WAIT_TIME = 150; // wait time for clicking "Main menu"
 
 // enviorment vars
 let earth; // the Lovely Homepage
@@ -28,11 +35,8 @@ let world = {}; // world bounds
 let minimap = {}; // minimap vars
 
 // player vars
-let sprite = {}; // sprite sizes
-let allRaces, allSkills; // all races and skills
-let raceSprites = {}; // race sprites
-let skillImages = {}; // skill images
 let player = {}; // player settings
+let inventory = []; // inventory
 
 // box option vars
 let box = {}; // choice box size
@@ -40,19 +44,19 @@ let box = {}; // choice box size
 // settings vars
 let settingsIsOpen; // settings is open or it isn't
 let settingsOptions = []; // settings options
-let settingsChoice; // settings choice
+let settingsChoice = -1; // settings choice
 
 // bad guy vars
-let NUM_OF_BADDIES = 100; // number of bad guys
+const NUM_OF_BADDIES = 100; // number of bad guys
 let badGuys = []; // where bad guy objects go
 let badGuysPosX = []; // collision spots x
 let badGuysPosY = []; // collision spots y
 let spawnRestrict = {}; // locations they CANNOT spawn
 
-// preloading images
+// loading data
 function preload() {
   earth = loadImage("assets/lovelyHomepage.png");
-  world.image = loadImage("assets/enviorment.png");
+  world.image = loadImage("assets/enviorment2.png");
 
   raceSprites.randomSprite = loadImage("assets/Races/Random.png");
   raceSprites.human = loadImage("assets/Races/Human.png");
@@ -74,9 +78,9 @@ function preload() {
   skillImages.rogue = loadImage("assets/Skills/Rogue.png");
 }
 
-// setup
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  noStroke();
 
   // setting text font
   textTop = (width*0.03 + height*0.03)/2;
@@ -137,28 +141,87 @@ function setup() {
   player.x = world.WIDTH/2;
   player.y = world.HEIGHT/2;
 
-  player.speed = 10;
+  player.speed = 10; // temp
 
-  // constant option vars
+  // baddie spawn boundries
+  spawnRestrict.width = [];
+  for (let i = 0; i < width*2; i++) {
+    append(spawnRestrict.width, i);
+  }
+
+  spawnRestrict.height = [];
+  for (let i = 0; i < height*2; i++) {
+    append(spawnRestrict.height, i);
+  }
+
+  // settings starts closed
+  settingsIsOpen = false;
+  settingsOptions = ["Resume", "Controls", "Map", "Save", "Load", "Main Menu"];
+
+  // constant options
   box.height = height*0.20; // start menu box hieght
   box.width = width*0.15;
   box.yStart = height*0.10;
 
-  // race option vars
+  // race options
   box.heightRace = height*0.90/allRaces.length;
   box.xRace = width*0.15;
 
-  // skill option vars
+  // skill options
   box.heightSkill = height*0.90/allSkills.length;
   box.xSkill = width*0.85;
 
-  // settings starts closed
-  settingsIsOpen = false;
-  settingsOptions = ["Resume", "Controls", "Save", "Load", "Main Menu"];
+  // settings options
+  box.heightSettings=  height*0.90/settingsOptions.length;
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+
+  // setting text font
+  textTop = (width*0.03 + height*0.03)/2;
+  textFont("BOLD", textTop);
+
+  // world coordinates
+  world.WIDTH = width*10;
+  world.HEIGHT = height*10;
+
+  // minimap vars
+  minimap.OUTTER_WIDTH = width*0.17;
+  minimap.OUTTER_HEIGHT = height*0.22;
+  minimap.WIDTH = width*0.15;
+  minimap.HEIGHT = height*0.20;
+  minimap.X = minimap.WIDTH/2 + width*0.01;
+  minimap.Y = minimap.HEIGHT/2 + height*0.01;
+
+  // image sizes
+  sprite.DISPLAY_WIDTH = width*0.30;
+  sprite.DISPLAY_HEIGHT = height*0.50;
+  sprite.WIDTH = width*0.05;
+  sprite.HEIGHT = height*0.10;
+
+  // player vars
+  player.DOT = (width*0.005 + height*0.005)/4;
+
+  // constant options
+  box.height = height*0.20; // start menu box hieght
+  box.width = width*0.15;
+  box.yStart = height*0.10;
+
+  // race options
+  box.heightRace = height*0.90/allRaces.length;
+  box.xRace = width*0.15;
+
+  // skill options
+  box.heightSkill = height*0.90/allSkills.length;
+  box.xSkill = width*0.85;
+
+  // settings options
+  box.heightSettings=  height*0.90/settingsOptions.length;
 }
 
 //------------------------------------------------------------------------------
-//  START MENU        START
+//  START MENU------                             START
 //------------------------------------------------------------------------------
 
 // create new character option
@@ -222,11 +285,11 @@ function saveGame() {
 }
 
 //------------------------------------------------------------------------------
-//  START MENU         END
+//  START MENU------                             END
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
-//  CREATING A NEW CHARACTER, startingState 2         START
+//  CREATE CHARACTER, startingState 2            START
 //------------------------------------------------------------------------------
 
 function displayOptions(theArray, xPos,
@@ -262,7 +325,7 @@ function displayOptions(theArray, xPos,
 }
 
 
-// RACE-----------
+// RACE------------
 
 // race options
 function selectRace() {
@@ -287,19 +350,21 @@ function selectRace() {
 }
 
 function selectedRace() {
+  let boxPosY = box.yStart + player.racePosistion*box.heightRace;
+
   // creating the selected box
   fill(0, 255, 0);
-  rect(box.xRace, box.yStart + box.heightRace*player.racePosistion, box.width, box.heightRace);
+  rect(box.xRace, boxPosY, box.width, box.heightRace);
 
   // writing the skill name
   fill("black");
-  text(allRaces[player.racePosistion][0], box.xRace, box.yStart + player.racePosistion*box.heightRace);
+  text(allRaces[player.racePosistion][0], box.xRace, boxPosY + box.heightRace/4, box.width, box.heightRace);
 
   image(player.race, width/2, height*0.70, sprite.DISPLAY_WIDTH, sprite.DISPLAY_HEIGHT);
 }
 
 
-// SKILL----------
+// SKILL-----------
 
 // skill options
 function selectSkill() {
@@ -324,19 +389,21 @@ function selectSkill() {
 }
 
 function selectedSkill() {
+  let boxPosY = box.yStart + player.skillPosistion*box.heightSkill;
+
   // creating the selected box
   fill(0, 255, 0);
-  rect(box.xSkill, box.yStart + box.heightSkill*player.skillPosistion, box.width, box.heightSkill);
+  rect(box.xSkill, boxPosY, box.width, box.heightSkill);
 
   // writing the skill name
   fill("black");
-  text(allSkills[player.skillPosistion][0], box.xSkill, box.yStart + player.skillPosistion*box.heightSkill);
+  text(allSkills[player.skillPosistion][0], box.xSkill, boxPosY + box.heightSkill/4, box.width, box.heightSkill);
 
   image(player.skill, box.xSkill - box.width, box.yStart, sprite.WIDTH + box.width/4, sprite.HEIGHT + box.heightSkill/2);
 }
 
 
-// BACK/CONTINUE--
+// BACK/CONTINUE---
 
 // back button
 function backButton() {
@@ -347,17 +414,39 @@ function backButton() {
   // hovering over box
   if (mouseX >= boxPosX - boxWidth/2 && mouseX <= boxPosX + boxWidth/2
   && mouseY >= 0 && mouseY <= boxPosY + box.yStart/2) {
+    // settings menu
+    if (settingsIsOpen) {
+      fill("lightblue");
+    }
+    // start menu
+    else {
+      fill(0, 255, 0);
+    }
 
-    fill(0, 255, 0);
+    // clicking button
     if (mouseIsPressed) {
-      startingState = 0;
-      state = 0;
+      // settings menu
+      if (settingsIsOpen) {
+        settingsChoice = -1;
+      }
+      // start menu
+      else {
+        startingState = 0;
+        state = 0;
+      }
     }
   }
 
   // not hovering over box
   else {
-    fill("red");
+    // settings menu
+    if (settingsIsOpen) {
+      fill("blue");
+    }
+    // start menu
+    else {
+      fill("red");
+    }
   }
 
   //creating the box
@@ -389,15 +478,15 @@ function continueButton() {
 }
 
 //------------------------------------------------------------------------------
-//  CREATING A NEW CHARACTER, startingState 2         END
+//  CREATE CHARACTER, startingState 2            END
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
-//  PLAYING THE GAME, startingState 3         START
+//  PLAYING THE GAME, startingState 3            START
 //------------------------------------------------------------------------------
 
 
-// BACKGROUND-----
+// BACKGROUND------
 
 // background
 function scrollingBackground() {
@@ -405,7 +494,7 @@ function scrollingBackground() {
 }
 
 
-// MINIMAP--------
+// MINIMAP---------
 
 // minimap
 function showMinimap() {
@@ -418,17 +507,7 @@ function showMinimap() {
 }
 
 
-// PLAYER---------
-
-// moveig baddies with the player
-function moveBaddies() {
-  for (let i = 0; i < badGuys.length; i++) {
-    badGuys[i].loopAround(
-      player.x, player.y,
-      sprite.WIDTH, sprite.HEIGHT,
-      world.WIDTH, world.HEIGHT);
-  }
-}
+// PLAYER----------
 
 // show player
 function playerShow() {
@@ -438,9 +517,22 @@ function playerShow() {
 
 // player movement
 function playerMovement() {
-  // boundries
-  let boundX = world.WIDTH - sprite.WIDTH;
-  let boundY = world.HEIGHT - sprite.HEIGHT;
+  // edges
+  if (player.x <= 0 || player.x >= world.WIDTH
+    || player.y <= 0 || player.y >= world.HEIGHT) {
+    // boundries
+    player.x = constrain(player.x, 0, world.WIDTH);
+    world.imageX = constrain(world.imageX, -world.WIDTH/2 + sprite.WIDTH/2, world.WIDTH/2 - sprite.WIDTH/2);
+    player.y = constrain(player.y, 0, world.HEIGHT);
+    world.imageY = constrain(world.imageY, -world.HEIGHT/2 + sprite.HEIGHT/2, world.HEIGHT/2 - sprite.HEIGHT/2);
+  }
+
+  else {
+    // baddies moving with player
+    for (let badGuy of badGuys) {
+      badGuy.moveWithPlayer(world.WIDTH, world.HEIGHT);
+    }
+  }
 
   // x-axis
   if (keyIsDown(65)) { // a
@@ -451,19 +543,6 @@ function playerMovement() {
   if (keyIsDown(68)) { // d
     player.x += player.speed;
     world.imageX -= player.speed;
-  }
-
-  // loop around x-axis
-  if (player.x < sprite.WIDTH/2) {
-    moveBaddies();
-    player.x  += boundX;
-    world.imageX -= boundX;
-  }
-
-  else if (player.x > world.WIDTH - sprite.WIDTH/2) {
-    moveBaddies();
-    player.x -= boundX;
-    world.imageX += boundX;
   }
 
   // y-axis
@@ -477,55 +556,62 @@ function playerMovement() {
     world.imageY -= player.speed;
   }
 
-  // loop around y-axis
-  if (player.y < sprite.HEIGHT/2) {
-    moveBaddies();
-    player.y += boundY;
-    world.imageY -= boundY;
-  }
-
-  else if (player.y > world.HEIGHT - sprite.HEIGHT/2) {
-    moveBaddies();
-    player.y -= boundY;
-    world.imageY += boundY;
-  }
+  // // edges
+  // if (player.x <= 0 || player.x >= world.WIDTH
+  //   || player.y <= 0 || player.y >= world.HEIGHT) {
+  //   // boundries
+  //   player.x = constrain(player.x, 0, world.WIDTH);
+  //   world.imageX = constrain(world.imageX, -world.WIDTH/2 + sprite.WIDTH/2, world.WIDTH/2 - sprite.WIDTH/2);
+  //   player.y = constrain(player.y, 0, world.HEIGHT);
+  //   world.imageY = constrain(world.imageY, -world.HEIGHT/2 + sprite.HEIGHT/2, world.HEIGHT/2 - sprite.HEIGHT/2);
+  // }
+  //
+  // else {
+  //   // baddies moving with player
+  //   for (let badGuy of badGuys) {
+  //     badGuy.moveWithPlayer(world.WIDTH, world.HEIGHT);
+  //   }
+  // }
 }
 
 // player on minimap
-function playerMinimap() {
+function playerMinimap(
+  minimapX, minimapY,
+  minimapW, minimapH,
+  dotSize) {
   // minimap boundries
-  let minimapXMin = minimap.X - minimap.WIDTH/2 + player.DOT/2;
-  let minimapXMax = minimap.X + minimap.WIDTH/2 - player.DOT/2;
+  let minimapXMin = minimapX - minimapW/2 + dotSize/2;
+  let minimapXMax = minimapX + minimapW/2 - dotSize/2;
 
-  let minimapYMin = minimap.Y - minimap.HEIGHT/2 + player.DOT/2;
-  let minimapYMax = minimap.Y + minimap.HEIGHT/2 - player.DOT/2;
+  let minimapYMin = minimapY - minimapH/2 + dotSize/2;
+  let minimapYMax = minimapY + minimapH/2 - dotSize/2;
 
   // mapping dot
-  let playerX = map(player.x, 0, world.WIDTH, minimapXMin, minimapXMax);
-  let playerY = map(player.y, 0, world.HEIGHT, minimapYMin, minimapYMax);
+  let playerX = map(player.x, 0, world.WIDTH, minimapXMin, minimapXMax, true);
+  let playerY = map(player.y, 0, world.HEIGHT, minimapYMin, minimapYMax, true);
 
   // mapping screen on the map
-  let rectWidth = map(width/2, 0, world.WIDTH, minimapXMin, minimapXMax);
-  let rectHeight = map(height/2, 0, world.HEIGHT, minimapYMin, minimapYMax);
+  let rectWidth = map(width, 0, world.WIDTH, minimapXMin, minimapXMax - world.WIDTH*0.01);
+  let rectHeight = map(height, 0, world.HEIGHT, minimapYMin, minimapYMax - world.HEIGHT*0.008);
 
   // player dot
   fill("blue");
-  ellipse(playerX, playerY, player.DOT);
+  ellipse(playerX, playerY, dotSize);
 
   // puuting screen on the map
   noFill();
   stroke("white");
   rect(playerX, playerY, rectWidth, rectHeight);
-  stroke("black");
+  noStroke();
 }
 
 
-// SETTINGS-------
+// SETTINGS--------
 
 // settings menu
 function settingsMenu() {
   displayOptions(settingsOptions, width/2,
-    box.width, box.height,
+    box.width, box.heightSettings,
     "blue", "lightblue");
 
   chooseSetting();
@@ -535,13 +621,15 @@ function chooseSetting() {
   let xLeft = width/2 - box.width/2;
   let xRight = width/2 + box.width/2;
 
-  if (mouseIsPressed && mouseX >= xLeft && mouseX <= xRight) {
-    for (let i = 0; i < settingsOptions.length; i++) {
-      let yTop = box.yStart + i*box.height - box.height/2;
-      let yBottom = box.yStart + i*box.height + box.height/2;
+  if (settingsChoice === -1) {
+    if (mouseIsPressed && mouseX >= xLeft && mouseX <= xRight) {
+      for (let i = 0; i < settingsOptions.length; i++) {
+        let yTop = box.yStart + i*box.heightSettings - box.heightSettings/2;
+        let yBottom = box.yStart + i*box.heightSettings + box.heightSettings/2;
 
-      if (mouseY >= yTop && mouseY <= yBottom) {
-        settingsChoice = settingsOptions[i];
+        if (mouseY >= yTop && mouseY <= yBottom) {
+          settingsChoice = settingsOptions[i];
+        }
       }
     }
   }
@@ -555,6 +643,10 @@ function chooseSetting() {
     displayControls();
   }
 
+  else if (settingsChoice === "Map") {
+    drawMap();
+  }
+
   else if (settingsChoice === "Save") {
     saveGame();
   }
@@ -566,29 +658,61 @@ function chooseSetting() {
   else if (settingsChoice === "Main Menu") {
     startingState = 0;
     state = 0;
-    while (mouseIsPressed) {
-      nothing++;
-      if (nothing >= 100000000) {
-        nothing = 0;
-        break;
-      }
+    badGuys = [];
+    let waiting = millis();
+    while (millis() - waiting <= WAIT_TIME) {
+      nothing--;
     }
     setup();
-    nothing = 0;
   }
 
+  if (settingsChoice !== -1) {
+    backButton();
+  }
 }
 
+// key bindings
 function displayControls() {
+  image(world.image, width/2, height/2, width, height);
+  fill("blue");
+  rect(width/2, height/2, width*0.40, height);
 
+  fill("black");
+  text(
+    "ESC - OPEN SETTINGS\
+    \n'W' - UP\
+    \n'A' - LEFT\
+    \n'S' - DOWN\
+    \n'D' - RIGHT\
+    \nLEFT CLICK - MELEE ATTACK\
+    \nSPACE - TOGGLE RANGED ATTACK",
+    width/2, textTop);
+}
+
+// map
+function drawMap() {
+  image(world.image, width/2, height/2, width, height);
+
+  playerMinimap(
+    width/2, height/2,
+    width, height,
+    player.DOT*4);
+
+  for (let badGuy of badGuys) {
+    badGuy.mapping(
+      world.WIDTH, world.HEIGHT,
+      width/2, height/2,
+      width, height,
+      player.DOT*4);
+  }
 }
 
 //------------------------------------------------------------------------------
-//  PLAYING THE GAME, startingState 3         END
+//  PLAYING THE GAME, startingState 3            END
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
-//  CHECKING STATE, startingState #'s         START
+//  CHECKING STATE--, startingState #'s          START
 //------------------------------------------------------------------------------
 
 // start menu
@@ -654,19 +778,22 @@ function createBaddies() {
   for (let i = 0; i < NUM_OF_BADDIES; i++) {
     let race = int(random(1, allRaces.length));
     let skill = int(random(1, allSkills.length));
+    let xSpawn = random(-world.WIDTH/2, world.WIDTH/2);
+    let ySpawn = random(-world.HEIGHT/2, world.HEIGHT/2);
 
-    let xSpawn = random(-world.WIDTH/2 + width/2 + sprite.WIDTH,
-      world.WIDTH/2 + width/2 - sprite.WIDTH);
+    while (xSpawn >= -width && xSpawn <= width
+      && ySpawn >= -height && ySpawn <= height) {
 
-    let ySpawn = random(-world.HEIGHT/2 + height/2 + sprite.HEIGHT,
-      world.HEIGHT/2 + height/2 - sprite.HEIGHT);
+      xSpawn = random(-world.WIDTH/2, world.WIDTH/2);
+      ySpawn = random(-world.HEIGHT/2, world.HEIGHT/2);
+    }
 
     append(badGuys, new baddies(allRaces[race], allSkills[skill],
       xSpawn, ySpawn, player.speed));
   }
 }
 
-// playing
+// playing the game
 function playingGame() {
   // settings menu
   if (settingsIsOpen) {
@@ -684,49 +811,54 @@ function playingGame() {
     // player
     playerShow();
     playerMovement();
-    playerMinimap();
+    playerMinimap(
+      minimap.X, minimap.Y,
+      minimap.WIDTH, minimap.HEIGHT,
+      player.DOT);
 
     // baddies
-    for (let badGuy of badGuys) {
-      if (badGuy.baddieOnScreen(player.x, player.y, world.WIDTH, world.HEIGHT)) {
-        badGuy.attackPlayer(player.x, player.y, world.WIDTH, world.HEIGHT);
-      }
-
-      else {
-        badGuy.movement(
-          world.WIDTH, world.HEIGHT,
-          sprite.WIDTH, sprite.HEIGHT);
-      }
-
-      badGuy.moveWithPlayer();
-      badGuy.mapping(
-        world.WIDTH, world.HEIGHT,
-        minimap.X, minimap.Y,
-        minimap.WIDTH, minimap.HEIGHT,
-        player.DOT);
-
-      badGuy.show(sprite.WIDTH, sprite.HEIGHT);
-      if (badGuy.collision(player.x, player.y, sprite.WIDTH, sprite.HEIGHT)) {
-        gameOver();
-        break;
-      }
-    }
-
-
+    baddiesFoo();
   }
 }
 
+// baddies functions
+function baddiesFoo() {
+  for (let badGuy of badGuys) {
+    if (badGuy.baddieOnScreen(player.x, player.y, world.WIDTH, world.HEIGHT)) {
+      badGuy.attackPlayer(player.x, player.y, world.WIDTH, world.HEIGHT);
+    }
 
-// CHECKING STATE-
+    else {
+      badGuy.movement(
+        world.WIDTH, world.HEIGHT,
+        sprite.WIDTH, sprite.HEIGHT);
+    }
+
+    badGuy.mapping(
+      world.WIDTH, world.HEIGHT,
+      minimap.X, minimap.Y,
+      minimap.WIDTH, minimap.HEIGHT,
+      player.DOT);
+
+    badGuy.show(sprite.WIDTH, sprite.HEIGHT);
+    if (badGuy.collision(player.x, player.y, sprite.WIDTH, sprite.HEIGHT)) {
+      gameOver();
+      break;
+    }
+  }
+}
+
+// CHECKING STATE--
 function draw() {
-  background(73, 152, 69);
+  // background(0);
+  // background(73, 152, 69);
   image(world.image, width/2, height/2, width, height);
-  // START MENU
+  // START MENU------
   if (startingState === 0) {
     startMenu();
   }
 
-  // CREATING A NEW CHARACTER
+  // CREATE CHARACTER
   else if(startingState === 1) {
     createChar();
   }
@@ -736,6 +868,7 @@ function draw() {
     playingGame();
   }
 
+  // GAME OVER-------
   else if (startingState === "gameOver") {
     gameOver();
   }
@@ -745,15 +878,16 @@ function keyPressed() {
   // checking if settings was opened and playing game
   if (keyCode === ESCAPE && startingState === 2) {
     settingsIsOpen = !settingsIsOpen;
+    settingsChoice = -1;
   }
 }
 
 //------------------------------------------------------------------------------
-//  CHECKING STATE, startingState #'s         END
+//  CHECKING STATE--, startingState #'s          END
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
-//  GAMEOVER         START
+//  GAME OVER-------, startingState "gameOver"   START
 //------------------------------------------------------------------------------
 
 function gameOver() {
@@ -774,5 +908,5 @@ function gameOver() {
 }
 
 //------------------------------------------------------------------------------
-//  GAMEOVER         END
+//  GAME OVER-------, startingState "gameOver"   END
 //------------------------------------------------------------------------------
