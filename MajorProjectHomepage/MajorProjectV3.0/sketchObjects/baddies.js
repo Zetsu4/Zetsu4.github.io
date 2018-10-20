@@ -139,8 +139,8 @@ class baddies {
       && this.otherY + height/2 > height/2 - spriteH/2 && this.otherY + height/2 < height/2 + spriteH/2;
   }
 
-  // move with player
-  moveWithPlayer(worldW, worldH, playerX, playerY) {
+  // move with player X
+  moveWithPlayerX(worldW) {
     // x-axis
     if (keyIsDown(65)) { // a
       this.otherX += this.playerSpeed;
@@ -149,7 +149,10 @@ class baddies {
     if (keyIsDown(68)) { // d
       this.otherX -= this.playerSpeed;
     }
+  }
 
+  // move with player Y
+  moveWithPlayerY(worldH) {
     // y-axis
     if (keyIsDown(87)) { // w
       this.otherY += this.playerSpeed;
@@ -158,10 +161,6 @@ class baddies {
     if (keyIsDown(83)) { // s
       this.otherY -= this.playerSpeed;
     }
-
-    // boundries
-    this.otherX = constrain(this.otherX, -worldW/2, worldW/2);
-    this.otherY = constrain(this.otherY, -worldH/2, worldH/2);
   }
 
   // mapping baddies

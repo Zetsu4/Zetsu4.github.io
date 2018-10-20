@@ -3,12 +3,12 @@
 // oct. 11/18
 //
 // PROBLEMS:
-//
+// - hitting the edges the player bounces
 //
 // add the good images---------------------------5%
 // get the save and load game functions working--0%
-// get the settings menu working-----------------40%
-// fix baddie spawns-----------------------------0%
+// get the settings menu working-----------------60%
+// fix baddie spawns-----------------------------100%
 // baddie deaths and player attack---------------0%
 // have a race and skill-------------------------0%
 // add a lvl system------------------------------0%
@@ -17,6 +17,7 @@
 // state vars
 let startingState = 0; // start menu variable
 let state = 0; // state variable
+let wepeonState = 0; // wepeon in use
 
 // other vars
 let textTop; // text at top of screen also the font size
@@ -28,6 +29,9 @@ let sprite = {}; // sprite sizes
 let allRaces, allSkills; // all races and skills
 let nothing = Infinity; // literally nothing
 const WAIT_TIME = 150; // wait time for clicking "Main menu"
+let itemDrop = {}; // item images in game
+let objectImg = {}; // object images
+let objects = {}; // objects, like arrows
 
 // enviorment vars
 let earth; // the Lovely Homepage
@@ -51,13 +55,18 @@ const NUM_OF_BADDIES = 100; // number of bad guys
 let badGuys = []; // where bad guy objects go
 let badGuysPosX = []; // collision spots x
 let badGuysPosY = []; // collision spots y
-let spawnRestrict = {}; // locations they CANNOT spawn
 
 // loading data
 function preload() {
+  // backgrounds
   earth = loadImage("assets/lovelyHomepage.png");
   world.image = loadImage("assets/enviorment2.png");
 
+  // objects
+  objectImg.arrow = loadImage("assets/Objects/arrows.png");
+  objectImg.trap = loadImage("assets/Objects/traps.png");
+
+  // sprites
   raceSprites.randomSprite = loadImage("assets/Races/Random.png");
   raceSprites.human = loadImage("assets/Races/Human.png");
   raceSprites.halfElf = loadImage("assets/Races/Half-Elf.png");
@@ -68,6 +77,7 @@ function preload() {
   raceSprites.orc = loadImage("assets/Races/Orc.png");
   raceSprites.urukHai = loadImage("assets/Races/Uruk-Hai.png");
 
+  // skills
   skillImages.randomSkill = loadImage("assets/Skills/Random.png");
   skillImages.archer = loadImage("assets/Skills/Archer.png");
   skillImages.ranger = loadImage("assets/Skills/Ranger.png");
@@ -76,11 +86,13 @@ function preload() {
   skillImages.mage = loadImage("assets/Skills/Mage.png");
   skillImages.cleric = loadImage("assets/Skills/Cleric.png");
   skillImages.rogue = loadImage("assets/Skills/Rogue.png");
+  skillImages.trapper = loadImage("assets/Skills/Trapper.png");
 }
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   noStroke();
+  // angleMode(DEGREES);
 
   // setting text font
   textTop = (width*0.03 + height*0.03)/2;
@@ -129,7 +141,12 @@ function setup() {
     ["Random", skillImages.randomSkill], ["Archer", skillImages.archer],
     ["Ranger", skillImages.ranger], ["Fighter", skillImages.fighter],
     ["Samurai", skillImages.samurai], ["Mage", skillImages.mage],
-    ["Cleric", skillImages.cleric], ["Rogue", skillImages.rogue]];
+    ["Cleric", skillImages.cleric], ["Rogue", skillImages.rogue],
+    ["Trapper", skillImages.trapper]];
+
+  // objects
+  objects.arrows = [];
+  objects.traps = [];
 
   // player vars
   player.racePosistion = 0;
@@ -142,17 +159,6 @@ function setup() {
   player.y = world.HEIGHT/2;
 
   player.speed = 10; // temp
-
-  // baddie spawn boundries
-  spawnRestrict.width = [];
-  for (let i = 0; i < width*2; i++) {
-    append(spawnRestrict.width, i);
-  }
-
-  spawnRestrict.height = [];
-  for (let i = 0; i < height*2; i++) {
-    append(spawnRestrict.height, i);
-  }
 
   // settings starts closed
   settingsIsOpen = false;
@@ -509,6 +515,25 @@ function showMinimap() {
 
 // PLAYER----------
 
+// player attack
+function mousePressed() {
+  // ranged attack
+  // translate(width/2, height/2);
+  let angle = atan2(mouseY - height/2, mouseX - width/2);
+  // rotate(angle);
+  if (startingState === 2 && !settingsIsOpen) {
+    if (wepeonState === 0) {
+      nothing--;
+    }
+    else if (wepeonState === 1) {
+      append(objects.arrows, new arrow(0, 0, objectImg.arrow, player.speed, "good", angle));
+    }
+    else if (wepeonState === 2) {
+      append(objects.traps, new trap(width/2, height/2, objectImg.trap, player.speed, "good"));
+    }
+  }
+}
+
 // show player
 function playerShow() {
   image(player.race, width/2, height/2, sprite.WIDTH, sprite.HEIGHT);
@@ -517,23 +542,6 @@ function playerShow() {
 
 // player movement
 function playerMovement() {
-  // edges
-  if (player.x <= 0 || player.x >= world.WIDTH
-    || player.y <= 0 || player.y >= world.HEIGHT) {
-    // boundries
-    player.x = constrain(player.x, 0, world.WIDTH);
-    world.imageX = constrain(world.imageX, -world.WIDTH/2 + sprite.WIDTH/2, world.WIDTH/2 - sprite.WIDTH/2);
-    player.y = constrain(player.y, 0, world.HEIGHT);
-    world.imageY = constrain(world.imageY, -world.HEIGHT/2 + sprite.HEIGHT/2, world.HEIGHT/2 - sprite.HEIGHT/2);
-  }
-
-  else {
-    // baddies moving with player
-    for (let badGuy of badGuys) {
-      badGuy.moveWithPlayer(world.WIDTH, world.HEIGHT);
-    }
-  }
-
   // x-axis
   if (keyIsDown(65)) { // a
     player.x -= player.speed;
@@ -555,23 +563,54 @@ function playerMovement() {
     player.y += player.speed;
     world.imageY -= player.speed;
   }
+  moveWithPlayer();
+}
 
-  // // edges
-  // if (player.x <= 0 || player.x >= world.WIDTH
-  //   || player.y <= 0 || player.y >= world.HEIGHT) {
-  //   // boundries
-  //   player.x = constrain(player.x, 0, world.WIDTH);
-  //   world.imageX = constrain(world.imageX, -world.WIDTH/2 + sprite.WIDTH/2, world.WIDTH/2 - sprite.WIDTH/2);
-  //   player.y = constrain(player.y, 0, world.HEIGHT);
-  //   world.imageY = constrain(world.imageY, -world.HEIGHT/2 + sprite.HEIGHT/2, world.HEIGHT/2 - sprite.HEIGHT/2);
-  // }
-  //
-  // else {
-  //   // baddies moving with player
-  //   for (let badGuy of badGuys) {
-  //     badGuy.moveWithPlayer(world.WIDTH, world.HEIGHT);
-  //   }
-  // }
+// objects moving with player
+function moveWithPlayer() {
+  // edges-x
+  if (player.x < 0 || player.x > world.WIDTH) {
+    // constrain x
+    player.x = constrain(player.x, 0, world.WIDTH);
+    world.imageX = constrain(world.imageX, -world.WIDTH/2 + sprite.WIDTH/2, world.WIDTH/2 - sprite.WIDTH/2);
+  }
+
+  else {
+    // baddies moving with player left/right
+    for (let badGuy of badGuys) {
+      badGuy.moveWithPlayerX(world.WIDTH);
+    }
+    // arrows
+    for (let arrow of objects.arrows) {
+      arrow.moveWithPlayerX(world.WIDTH);
+    }
+    // traps
+    for (let trap of objects.traps) {
+      trap.moveWithPlayerX(world.WIDTH);
+    }
+  }
+
+  // edges-y
+  if (player.y < 0 || player.y > world.HEIGHT) {
+    // constrain y
+    player.y = constrain(player.y, 0, world.HEIGHT);
+    world.imageY = constrain(world.imageY, -world.HEIGHT/2 + sprite.HEIGHT/2, world.HEIGHT/2 - sprite.HEIGHT/2);
+  }
+
+  else {
+    // baddies moving with player up/down
+    for (let badGuy of badGuys) {
+      badGuy.moveWithPlayerY(world.HEIGHT);
+    }
+    // arrows
+    for (let arrow of objects.arrows) {
+      arrow.moveWithPlayerY(world.HEIGHT);
+    }
+    // traps
+    for (let trap of objects.traps) {
+      trap.moveWithPlayerY(world.HEIGHT);
+    }
+  }
 }
 
 // player on minimap
@@ -778,14 +817,14 @@ function createBaddies() {
   for (let i = 0; i < NUM_OF_BADDIES; i++) {
     let race = int(random(1, allRaces.length));
     let skill = int(random(1, allSkills.length));
-    let xSpawn = random(-world.WIDTH/2, world.WIDTH/2);
-    let ySpawn = random(-world.HEIGHT/2, world.HEIGHT/2);
+    let xSpawn = random(-world.WIDTH/2, world.WIDTH/2 - sprite.WIDTH/2);
+    let ySpawn = random(-world.HEIGHT/2, world.HEIGHT/2 - sprite.HEIGHT/2);
 
-    while (xSpawn >= -width && xSpawn <= width
-      && ySpawn >= -height && ySpawn <= height) {
+    while (xSpawn >= -width*0.75 && xSpawn <= width*0.75
+      && ySpawn >= -height*0.75 && ySpawn <= height*0.75) {
 
-      xSpawn = random(-world.WIDTH/2, world.WIDTH/2);
-      ySpawn = random(-world.HEIGHT/2, world.HEIGHT/2);
+      xSpawn = random(-world.WIDTH/2, world.WIDTH/2 - sprite.WIDTH/2);
+      ySpawn = random(-world.HEIGHT/2, world.HEIGHT/2 - sprite.HEIGHT/2);
     }
 
     append(badGuys, new baddies(allRaces[race], allSkills[skill],
@@ -818,6 +857,19 @@ function playingGame() {
 
     // baddies
     baddiesFoo();
+
+    // objects
+    // translate(width/2, height/2);
+    let angle = atan2(mouseY - height/2, mouseX - width/2);
+    // rotate(angle);
+    for (let arrow of objects.arrows) {
+      // rotate(angle);
+      // arrow.moveForward();
+      arrow.show(sprite.WIDTH, sprite.HEIGHT);
+    }
+    for (let trap of objects.traps) {
+      trap.show(sprite.WIDTH, sprite.HEIGHT);
+    }
   }
 }
 
@@ -841,10 +893,10 @@ function baddiesFoo() {
       player.DOT);
 
     badGuy.show(sprite.WIDTH, sprite.HEIGHT);
-    if (badGuy.collision(player.x, player.y, sprite.WIDTH, sprite.HEIGHT)) {
-      gameOver();
-      break;
-    }
+    // if (badGuy.collision(player.x, player.y, sprite.WIDTH, sprite.HEIGHT)) {
+    //   gameOver();
+    //   break;
+    // }
   }
 }
 
