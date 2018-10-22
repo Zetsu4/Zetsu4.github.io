@@ -16,7 +16,7 @@ class baddies {
 
     // movement vars
     this.playerSpeed = playerSpeed;
-    this.speed = 15; // temp
+    this.speed = 10; // temp
     this.state = 0;
     this.dir = 0;
 
@@ -55,10 +55,13 @@ class baddies {
     }
 
     // boundries
-    constrain(this.x, -worldW/2, worldW/2);
-    constrain(this.otherX, -worldW/2, worldW/2);
-    constrain(this.y, -worldH/2, worldH/2);
-    constrain(this.otherY, -worldH/2, worldH/2);
+    let boundX = worldW/2 - spriteW/2;
+    let boundY = worldH/2 - spriteH/2;
+
+    this.x = constrain(this.x, -boundX, boundX);
+    this.otherX = constrain(this.otherX, -boundX, boundX);
+    this.y = constrain(this.y, -boundY, boundY);
+    this.otherY = constrain(this.otherY, -boundY, boundY);
 
 
     // turn right
@@ -134,7 +137,7 @@ class baddies {
   }
 
   // hitting player
-  collision(playerX, playerY, spriteW, spriteH) {
+  collision(spriteW, spriteH) {
     return this.otherX + width/2 > width/2 - spriteW/2 && this.otherX + width/2 < width/2 + spriteW/2
       && this.otherY + height/2 > height/2 - spriteH/2 && this.otherY + height/2 < height/2 + spriteH/2;
   }
@@ -177,8 +180,8 @@ class baddies {
     let minimapYMax = minimapY + minimapH/2 - dotSize/2;
 
     // mapping dot
-    let mapX = map(this.x, -worldW/2, worldW/2, minimapXMin, minimapXMax, true);
-    let mapY = map(this.y, -worldH/2, worldH/2, minimapYMin, minimapYMax, true);
+    let mapX = map(this.x, -worldW/2, worldW/2, minimapXMin, minimapXMax);
+    let mapY = map(this.y, -worldH/2, worldH/2, minimapYMin, minimapYMax);
 
     // baddie dot
     fill("red");

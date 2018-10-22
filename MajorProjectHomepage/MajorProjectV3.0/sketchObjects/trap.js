@@ -8,6 +8,10 @@ class trap {
     this.alingment = goodOrBad;
   }
 
+  collision() {
+    
+  }
+
   // move with player X
   moveWithPlayerX(worldW) {
     // x-axis

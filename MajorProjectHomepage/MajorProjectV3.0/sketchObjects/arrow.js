@@ -1,47 +1,25 @@
 // arrows
 class arrow {
-  constructor(x, y, image, playerSpeed, goodOrBad, direction) {
+  constructor(x, swiftness, image, goodOrBad) {
     this.x = x;
-    this.y = y;
+    this.speed = swiftness*0.10;
     this.image = image;
     this.alignment = goodOrBad;
-    this.direction = direction;
-    this.playerSpeed = playerSpeed;
-    // translate(width/2, height/2);
-    // rotate(this.direction);
+    this.direction = atan2(mouseY - height/2, mouseX - width/2);
+  }
+
+  disapear() {
+    return this.x >= width/2;
   }
 
   moveForward() {
-    // translate(width/2, height/2);
-    // rotate(this.direction);
-    this.x += 3;
-  }
-
-  // move with player X
-  moveWithPlayerX(worldW) {
-    // x-axis
-    if (keyIsDown(65)) { // a
-      this.x += this.playerSpeed;
-    }
-
-    if (keyIsDown(68)) { // d
-      this.x -= this.playerSpeed;
-    }
-  }
-
-  // move with player Y
-  moveWithPlayerY(worldH) {
-    // y-axis
-    if (keyIsDown(87)) { // w
-      this.y += this.playerSpeed;
-    }
-
-    if (keyIsDown(83)) { // s
-      this.y -= this.playerSpeed;
-    }
+    this.x += this.speed;
   }
 
   show(spriteW, spriteH) {
-    image(this.image, this.x, this.y, spriteW, spriteH);
+    push();
+    rotate(this.direction);
+    image(this.image, this.x, 0, spriteW, spriteH);
+    pop();
   }
 }

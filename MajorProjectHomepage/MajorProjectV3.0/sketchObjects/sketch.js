@@ -15,9 +15,8 @@
 // have an actual enviorment---------------------10%
 
 // state vars
-let startingState = 0; // start menu variable
-let state = 0; // state variable
-let wepeonState = 0; // wepeon in use
+let startingState; // start menu variable
+let state; // state variable
 
 // other vars
 let textTop; // text at top of screen also the font size
@@ -27,8 +26,6 @@ let raceSprites = {}; // race sprites
 let skillImages = {}; // skill images
 let sprite = {}; // sprite sizes
 let allRaces, allSkills; // all races and skills
-let nothing = Infinity; // literally nothing
-const WAIT_TIME = 150; // wait time for clicking "Main menu"
 let itemDrop = {}; // item images in game
 let objectImg = {}; // object images
 let objects = {}; // objects, like arrows
@@ -40,15 +37,20 @@ let minimap = {}; // minimap vars
 
 // player vars
 let player = {}; // player settings
+let rangedOn; // ranged wepeon toggle
 let inventory = []; // inventory
+let inventoryBoxSize; // box size
+let inventoryIsOpen; // inventory toggle
 
 // box option vars
 let box = {}; // choice box size
 
 // settings vars
-let settingsIsOpen; // settings is open or it isn't
+let settingsIsOpen; // settings toggle
 let settingsOptions = []; // settings options
 let settingsChoice = -1; // settings choice
+let nothing = Infinity; // literally nothing
+const WAIT_TIME = 150; // wait time for clicking "Main menu"
 
 // bad guy vars
 const NUM_OF_BADDIES = 100; // number of bad guys
@@ -63,8 +65,13 @@ function preload() {
   world.image = loadImage("assets/enviorment2.png");
 
   // objects
+  objectImg.sword = loadImage("assets/Objects/sword.png");
   objectImg.arrow = loadImage("assets/Objects/arrows.png");
   objectImg.trap = loadImage("assets/Objects/traps.png");
+
+  // object markers
+  objectImg.swordIcon = loadImage("assets/Objects/swordicon.png");
+  objectImg.bowIcon = loadImage("assets/Objects/bowicon.png");
 
   // sprites
   raceSprites.randomSprite = loadImage("assets/Races/Random.png");
@@ -92,7 +99,8 @@ function preload() {
 function setup() {
   createCanvas(windowWidth, windowHeight);
   noStroke();
-  // angleMode(DEGREES);
+  startingState = 0;
+  state = 0;
 
   // setting text font
   textTop = (width*0.03 + height*0.03)/2;
@@ -145,6 +153,7 @@ function setup() {
     ["Trapper", skillImages.trapper]];
 
   // objects
+  objects.melee = [];
   objects.arrows = [];
   objects.traps = [];
 
@@ -159,6 +168,9 @@ function setup() {
   player.y = world.HEIGHT/2;
 
   player.speed = 10; // temp
+  rangedOn = false;
+  inventoryBoxSize = textTop*2;
+  inventoryIsOpen = false;
 
   // settings starts closed
   settingsIsOpen = false;
@@ -178,53 +190,53 @@ function setup() {
   box.xSkill = width*0.85;
 
   // settings options
-  box.heightSettings=  height*0.90/settingsOptions.length;
+  box.heightSettings =  height*0.90/settingsOptions.length;
 }
 
-function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
-
-  // setting text font
-  textTop = (width*0.03 + height*0.03)/2;
-  textFont("BOLD", textTop);
-
-  // world coordinates
-  world.WIDTH = width*10;
-  world.HEIGHT = height*10;
-
-  // minimap vars
-  minimap.OUTTER_WIDTH = width*0.17;
-  minimap.OUTTER_HEIGHT = height*0.22;
-  minimap.WIDTH = width*0.15;
-  minimap.HEIGHT = height*0.20;
-  minimap.X = minimap.WIDTH/2 + width*0.01;
-  minimap.Y = minimap.HEIGHT/2 + height*0.01;
-
-  // image sizes
-  sprite.DISPLAY_WIDTH = width*0.30;
-  sprite.DISPLAY_HEIGHT = height*0.50;
-  sprite.WIDTH = width*0.05;
-  sprite.HEIGHT = height*0.10;
-
-  // player vars
-  player.DOT = (width*0.005 + height*0.005)/4;
-
-  // constant options
-  box.height = height*0.20; // start menu box hieght
-  box.width = width*0.15;
-  box.yStart = height*0.10;
-
-  // race options
-  box.heightRace = height*0.90/allRaces.length;
-  box.xRace = width*0.15;
-
-  // skill options
-  box.heightSkill = height*0.90/allSkills.length;
-  box.xSkill = width*0.85;
-
-  // settings options
-  box.heightSettings=  height*0.90/settingsOptions.length;
-}
+// function windowResized() {
+//   resizeCanvas(windowWidth, windowHeight);
+//
+//   // setting text font
+//   textTop = (width*0.03 + height*0.03)/2;
+//   textFont("BOLD", textTop);
+//
+//   // world coordinates
+//   world.WIDTH = width*10;
+//   world.HEIGHT = height*10;
+//
+//   // minimap vars
+//   minimap.OUTTER_WIDTH = width*0.17;
+//   minimap.OUTTER_HEIGHT = height*0.22;
+//   minimap.WIDTH = width*0.15;
+//   minimap.HEIGHT = height*0.20;
+//   minimap.X = minimap.WIDTH/2 + width*0.01;
+//   minimap.Y = minimap.HEIGHT/2 + height*0.01;
+//
+//   // image sizes
+//   sprite.DISPLAY_WIDTH = width*0.30;
+//   sprite.DISPLAY_HEIGHT = height*0.50;
+//   sprite.WIDTH = width*0.05;
+//   sprite.HEIGHT = height*0.10;
+//
+//   // player vars
+//   player.DOT = (width*0.005 + height*0.005)/4;
+//
+//   // constant options
+//   box.height = height*0.20; // start menu box hieght
+//   box.width = width*0.15;
+//   box.yStart = height*0.10;
+//
+//   // race options
+//   box.heightRace = height*0.90/allRaces.length;
+//   box.xRace = width*0.15;
+//
+//   // skill options
+//   box.heightSkill = height*0.90/allSkills.length;
+//   box.xSkill = width*0.85;
+//
+//   // settings options
+//   box.heightSettings=  height*0.90/settingsOptions.length;
+// }
 
 //------------------------------------------------------------------------------
 //  START MENU------                             START
@@ -515,25 +527,6 @@ function showMinimap() {
 
 // PLAYER----------
 
-// player attack
-function mousePressed() {
-  // ranged attack
-  // translate(width/2, height/2);
-  let angle = atan2(mouseY - height/2, mouseX - width/2);
-  // rotate(angle);
-  if (startingState === 2 && !settingsIsOpen) {
-    if (wepeonState === 0) {
-      nothing--;
-    }
-    else if (wepeonState === 1) {
-      append(objects.arrows, new arrow(0, 0, objectImg.arrow, player.speed, "good", angle));
-    }
-    else if (wepeonState === 2) {
-      append(objects.traps, new trap(width/2, height/2, objectImg.trap, player.speed, "good"));
-    }
-  }
-}
-
 // show player
 function playerShow() {
   image(player.race, width/2, height/2, sprite.WIDTH, sprite.HEIGHT);
@@ -580,10 +573,6 @@ function moveWithPlayer() {
     for (let badGuy of badGuys) {
       badGuy.moveWithPlayerX(world.WIDTH);
     }
-    // arrows
-    for (let arrow of objects.arrows) {
-      arrow.moveWithPlayerX(world.WIDTH);
-    }
     // traps
     for (let trap of objects.traps) {
       trap.moveWithPlayerX(world.WIDTH);
@@ -601,10 +590,6 @@ function moveWithPlayer() {
     // baddies moving with player up/down
     for (let badGuy of badGuys) {
       badGuy.moveWithPlayerY(world.HEIGHT);
-    }
-    // arrows
-    for (let arrow of objects.arrows) {
-      arrow.moveWithPlayerY(world.HEIGHT);
     }
     // traps
     for (let trap of objects.traps) {
@@ -642,6 +627,40 @@ function playerMinimap(
   stroke("white");
   rect(playerX, playerY, rectWidth, rectHeight);
   noStroke();
+}
+
+// beautify the mouse, sort of
+function beautifulMouse() {
+  let mousePos = atan2(mouseY - height/2, mouseX - width/2);
+  push();
+  translate(width/2, height/2);
+  rotate(mousePos);
+  if (rangedOn) {
+    image(objectImg.bowIcon, sprite.WIDTH/2, 0, sprite.WIDTH, sprite.HEIGHT);
+  }
+  else {
+    image(objectImg. swordIcon, sprite.WIDTH/2, 0, sprite.WIDTH, sprite.HEIGHT);
+  }
+  pop();
+}
+
+
+// INVENTORY-------
+
+// open inventory
+function lookInInventory() {
+  background(153, 102, 51);
+  stroke(204, 102, 0);
+  fill(153, 77, 0);
+  rectMode(CORNER);
+  for (let i = 0; i < 8; i++) {
+    for (let j = 0; j < 8; j++) {
+      let x = i * inventoryBoxSize + width*0.03;
+      let y = j * inventoryBoxSize + height*0.05;
+      rect(x, y, inventoryBoxSize, inventoryBoxSize);
+    }
+  }
+  rectMode(CENTER);
 }
 
 
@@ -724,7 +743,10 @@ function displayControls() {
     \n'S' - DOWN\
     \n'D' - RIGHT\
     \nLEFT CLICK - MELEE ATTACK\
-    \nSPACE - TOGGLE RANGED ATTACK",
+    \n'R' - TOGGLE RANGED ATTACK\
+    \n'C' - PLACE TRAP\
+    \nSPACE - INTERACT\
+    \n'E' - INVENTORY",
     width/2, textTop);
 }
 
@@ -743,6 +765,100 @@ function drawMap() {
       width/2, height/2,
       width, height,
       player.DOT*4);
+  }
+}
+
+
+// OTHER FUNCTIONS-
+
+// object functions
+function objectFoo() {
+  for (let trap = 0; trap < objects.traps.length; trap++) { // traps
+    objects.traps[trap].show(sprite.WIDTH, sprite.HEIGHT);
+  }
+
+  translate(width/2, height/2);
+
+  for (let slash of objects.melee) { // sword
+    slash.moveForward();
+    slash.show(sprite.WIDTH, sprite.HEIGHT);
+    if (slash.disapear(sprite.WIDTH)) {
+      objects.melee.shift();
+    }
+  }
+
+  for (let arrow of objects.arrows) { // arrows
+    arrow.moveForward();
+    arrow.show(sprite.WIDTH, sprite.HEIGHT);
+    if (arrow.disapear()) {
+      objects.arrows.shift();
+    }
+  }
+}
+
+// baddies functions
+function baddiesFoo() {
+  for (let badGuy of badGuys) {
+    if (badGuy.baddieOnScreen(player.x, player.y, world.WIDTH, world.HEIGHT)) {
+      badGuy.attackPlayer(player.x, player.y, world.WIDTH, world.HEIGHT);
+    }
+
+    else {
+      badGuy.movement(
+        world.WIDTH, world.HEIGHT,
+        sprite.WIDTH, sprite.HEIGHT);
+    }
+
+    badGuy.mapping(
+      world.WIDTH, world.HEIGHT,
+      minimap.X, minimap.Y,
+      minimap.WIDTH, minimap.HEIGHT,
+      player.DOT);
+
+    badGuy.show(sprite.WIDTH, sprite.HEIGHT);
+    if (badGuy.collision(sprite.WIDTH, sprite.HEIGHT)) {
+      gameOver();
+      break;
+    }
+  }
+}
+
+// key pressed functions
+function keyPressed() {
+  // opening settings
+  if (keyCode === ESCAPE && startingState === 2) {
+    settingsIsOpen = !settingsIsOpen;
+    settingsChoice = -1;
+  }
+
+  // opening inventory
+  if (keyCode === 69 && startingState === 2 && !settingsIsOpen) {
+    inventoryIsOpen = !inventoryIsOpen;
+  }
+
+  // placing traps
+  if (keyCode === 67 && startingState === 2 && !settingsIsOpen && !inventoryIsOpen) { // c
+    objects.traps.push(new trap(width/2, height/2, objectImg.trap, player.speed, "good"));
+  }
+
+  // switching from melee to ranged
+  if (keyCode === 82 && startingState === 2 && !settingsIsOpen) { // r
+    rangedOn = !rangedOn;
+  }
+
+}
+
+// player attack
+function mousePressed() {
+  if (startingState === 2 && !settingsIsOpen) {
+    // ranged attack
+    if (rangedOn) {
+      objects.arrows.push(new arrow(0, sprite.WIDTH, objectImg.arrow, "good"));
+    }
+    // melee attack
+    else {
+      objects.melee.push(new sword(0, sprite.WIDTH, objectImg.sword, "good"));
+    }
   }
 }
 
@@ -815,19 +931,27 @@ function createChar() {
 // creating starting baddies
 function createBaddies() {
   for (let i = 0; i < NUM_OF_BADDIES; i++) {
+    // secret ending YES
+    if (world.WIDTH <= width*2 && world.HEIGHT <= height*2) {
+      console.log("YOU WIN THE GAME, GOOD FOR YOU!");
+      secretEnding();
+      break;
+    }
+
+    // spawning baddies
     let race = int(random(1, allRaces.length));
     let skill = int(random(1, allSkills.length));
-    let xSpawn = random(-world.WIDTH/2, world.WIDTH/2 - sprite.WIDTH/2);
-    let ySpawn = random(-world.HEIGHT/2, world.HEIGHT/2 - sprite.HEIGHT/2);
+    let xSpawn = random(-world.WIDTH/2 + width*0.10, world.WIDTH/2 - width*0.10);
+    let ySpawn = random(-world.HEIGHT/2 + height*0.10, world.HEIGHT/2 - height*0.10);
 
     while (xSpawn >= -width*0.75 && xSpawn <= width*0.75
       && ySpawn >= -height*0.75 && ySpawn <= height*0.75) {
 
-      xSpawn = random(-world.WIDTH/2, world.WIDTH/2 - sprite.WIDTH/2);
-      ySpawn = random(-world.HEIGHT/2, world.HEIGHT/2 - sprite.HEIGHT/2);
+      xSpawn = random(-world.WIDTH/2 + width*0.10, world.WIDTH/2 - width*0.10);
+      ySpawn = random(-world.HEIGHT/2 + height*0.10, world.HEIGHT/2 - height*0.10);
     }
 
-    append(badGuys, new baddies(allRaces[race], allSkills[skill],
+    badGuys.push(new baddies(allRaces[race], allSkills[skill],
       xSpawn, ySpawn, player.speed));
   }
 }
@@ -837,6 +961,10 @@ function playingGame() {
   // settings menu
   if (settingsIsOpen) {
     settingsMenu();
+  }
+
+  else if (inventoryIsOpen) {
+    lookInInventory();
   }
 
   // game enviorments
@@ -854,51 +982,16 @@ function playingGame() {
       minimap.X, minimap.Y,
       minimap.WIDTH, minimap.HEIGHT,
       player.DOT);
+    beautifulMouse();
 
     // baddies
     baddiesFoo();
 
     // objects
-    // translate(width/2, height/2);
-    let angle = atan2(mouseY - height/2, mouseX - width/2);
-    // rotate(angle);
-    for (let arrow of objects.arrows) {
-      // rotate(angle);
-      // arrow.moveForward();
-      arrow.show(sprite.WIDTH, sprite.HEIGHT);
-    }
-    for (let trap of objects.traps) {
-      trap.show(sprite.WIDTH, sprite.HEIGHT);
-    }
+    objectFoo();
   }
 }
 
-// baddies functions
-function baddiesFoo() {
-  for (let badGuy of badGuys) {
-    if (badGuy.baddieOnScreen(player.x, player.y, world.WIDTH, world.HEIGHT)) {
-      badGuy.attackPlayer(player.x, player.y, world.WIDTH, world.HEIGHT);
-    }
-
-    else {
-      badGuy.movement(
-        world.WIDTH, world.HEIGHT,
-        sprite.WIDTH, sprite.HEIGHT);
-    }
-
-    badGuy.mapping(
-      world.WIDTH, world.HEIGHT,
-      minimap.X, minimap.Y,
-      minimap.WIDTH, minimap.HEIGHT,
-      player.DOT);
-
-    badGuy.show(sprite.WIDTH, sprite.HEIGHT);
-    // if (badGuy.collision(player.x, player.y, sprite.WIDTH, sprite.HEIGHT)) {
-    //   gameOver();
-    //   break;
-    // }
-  }
-}
 
 // CHECKING STATE--
 function draw() {
@@ -924,13 +1017,10 @@ function draw() {
   else if (startingState === "gameOver") {
     gameOver();
   }
-}
 
-function keyPressed() {
-  // checking if settings was opened and playing game
-  if (keyCode === ESCAPE && startingState === 2) {
-    settingsIsOpen = !settingsIsOpen;
-    settingsChoice = -1;
+  // SECRET----------
+  else if (startingState === "secretEnding") {
+    secretEnding();
   }
 }
 
@@ -946,9 +1036,9 @@ function gameOver() {
   startingState = "gameOver";
   state = "gameOver";
   background(0);
-  text("GAME OVER,", width/2, height/2);
-  text("you suck.", width/2, height/2 + textTop);
-  text("Press 'Esc' to go to main menu", width/2, height*0.80);
+  fill("red");
+  text("GAME OVER,\nyou suck", width/2, height/2);
+  text("Press 'Esc' to return to main menu", width/2, height*0.80);
 
   if (keyCode === ESCAPE) {
     startingState = 0;
@@ -961,4 +1051,24 @@ function gameOver() {
 
 //------------------------------------------------------------------------------
 //  GAME OVER-------, startingState "gameOver"   END
+//------------------------------------------------------------------------------
+
+//------------------------------------------------------------------------------
+//  SECRET----------, startingState "secretEnding"   START
+//------------------------------------------------------------------------------
+
+function secretEnding() {
+  startingState = "secretEnding";
+  state = "secretEnding";
+  background(255);
+  fill("blue");
+  text("YOU'VE DISCOVERED THE SECRET ENDING!\
+  \nGOOD FOR YOU!!", width/2, height/2);
+  textFont("Font Style Normal", textTop/2);
+  text("you cheater", width/2, height*0.80);
+  textFont("BOLD", textTop);
+}
+
+//------------------------------------------------------------------------------
+//  SECRET ENDING---, startingState "secretEnding"   END
 //------------------------------------------------------------------------------
