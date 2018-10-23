@@ -193,51 +193,6 @@ function setup() {
   box.heightSettings =  height*0.90/settingsOptions.length;
 }
 
-// function windowResized() {
-//   resizeCanvas(windowWidth, windowHeight);
-//
-//   // setting text font
-//   textTop = (width*0.03 + height*0.03)/2;
-//   textFont("BOLD", textTop);
-//
-//   // world coordinates
-//   world.WIDTH = width*10;
-//   world.HEIGHT = height*10;
-//
-//   // minimap vars
-//   minimap.OUTTER_WIDTH = width*0.17;
-//   minimap.OUTTER_HEIGHT = height*0.22;
-//   minimap.WIDTH = width*0.15;
-//   minimap.HEIGHT = height*0.20;
-//   minimap.X = minimap.WIDTH/2 + width*0.01;
-//   minimap.Y = minimap.HEIGHT/2 + height*0.01;
-//
-//   // image sizes
-//   sprite.DISPLAY_WIDTH = width*0.30;
-//   sprite.DISPLAY_HEIGHT = height*0.50;
-//   sprite.WIDTH = width*0.05;
-//   sprite.HEIGHT = height*0.10;
-//
-//   // player vars
-//   player.DOT = (width*0.005 + height*0.005)/4;
-//
-//   // constant options
-//   box.height = height*0.20; // start menu box hieght
-//   box.width = width*0.15;
-//   box.yStart = height*0.10;
-//
-//   // race options
-//   box.heightRace = height*0.90/allRaces.length;
-//   box.xRace = width*0.15;
-//
-//   // skill options
-//   box.heightSkill = height*0.90/allSkills.length;
-//   box.xSkill = width*0.85;
-//
-//   // settings options
-//   box.heightSettings=  height*0.90/settingsOptions.length;
-// }
-
 //------------------------------------------------------------------------------
 //  START MENU------                             START
 //------------------------------------------------------------------------------
@@ -773,10 +728,6 @@ function drawMap() {
 
 // object functions
 function objectFoo() {
-  for (let trap = 0; trap < objects.traps.length; trap++) { // traps
-    objects.traps[trap].show(sprite.WIDTH, sprite.HEIGHT);
-  }
-
   translate(width/2, height/2);
 
   for (let slash of objects.melee) { // sword
@@ -798,27 +749,38 @@ function objectFoo() {
 
 // baddies functions
 function baddiesFoo() {
-  for (let badGuy of badGuys) {
-    if (badGuy.baddieOnScreen(player.x, player.y, world.WIDTH, world.HEIGHT)) {
-      badGuy.attackPlayer(player.x, player.y, world.WIDTH, world.HEIGHT);
+  for (let i = 0; i < badGuys.length; i++) {
+    if (badGuys[i].baddieOnScreen(player.x, player.y, world.WIDTH, world.HEIGHT)) {
+      badGuys[i].attackPlayer(player.x, player.y, world.WIDTH, world.HEIGHT);
     }
 
     else {
-      badGuy.movement(
+      badGuys[i].movement(
         world.WIDTH, world.HEIGHT,
         sprite.WIDTH, sprite.HEIGHT);
     }
 
-    badGuy.mapping(
+    badGuys[i].mapping(
       world.WIDTH, world.HEIGHT,
       minimap.X, minimap.Y,
       minimap.WIDTH, minimap.HEIGHT,
       player.DOT);
 
-    badGuy.show(sprite.WIDTH, sprite.HEIGHT);
-    if (badGuy.collision(sprite.WIDTH, sprite.HEIGHT)) {
+    badGuys[i].show(sprite.WIDTH, sprite.HEIGHT);
+    if (badGuys[i].collision(sprite.WIDTH, sprite.HEIGHT)) {
       gameOver();
       break;
+    }
+
+    // object collision
+    let badX = badGuys[i].otherX + width/2;
+    let badY = badGuys[i].otherY + height/2;
+    for (let trap = 0; trap < objects.traps.length; trap++) { // traps
+      objects.traps[trap].show(sprite.WIDTH, sprite.HEIGHT);
+      if (objects.traps[trap].alingment === "good" && dist(badGuys[i].otherX + width/2, badGuys[i].otherY + height/2, objects.traps[trap].x, objects.traps[trap].y) <= sprite.WIDTH/2) {
+        objects.traps.splice(trap, 1);
+        badGuys.splice(i, 1);
+      }
     }
   }
 }
