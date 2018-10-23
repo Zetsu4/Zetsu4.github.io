@@ -9,7 +9,7 @@
 // get the save and load game functions working--0%
 // get the settings menu working-----------------60%
 // fix baddie spawns-----------------------------100%
-// baddie deaths and player attack---------------0%
+// baddie deaths and player attack---------------30%
 // have a race and skill-------------------------0%
 // add a lvl system------------------------------0%
 // have an actual enviorment---------------------10%
@@ -29,6 +29,9 @@ let allRaces, allSkills; // all races and skills
 let itemDrop = {}; // item images in game
 let objectImg = {}; // object images
 let objects = {}; // objects, like arrows
+
+// key bindings
+let keyBindings = {}; // key bindings
 
 // enviorment vars
 let earth; // the Lovely Homepage
@@ -98,6 +101,7 @@ function preload() {
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+
   noStroke();
   startingState = 0;
   state = 0;
@@ -112,6 +116,17 @@ function setup() {
   rectMode(CENTER);
 
   greenColor = color(0, 255, 0);
+
+  // key bindings
+  keyBindings.settings = 27;
+  keyBindings.up = 87;
+  keyBindings.left = 65;
+  keyBindings.down = 83;
+  keyBindings.right = 68;
+  keyBindings.toggleRanged = 82;
+  keyBindings.placeTrap = 67;
+  keyBindings.interact = 32;
+  keyBindings.inventory = 69;
 
   // world coordinates
   world.WIDTH = width*10;
@@ -491,23 +506,23 @@ function playerShow() {
 // player movement
 function playerMovement() {
   // x-axis
-  if (keyIsDown(65)) { // a
+  if (keyIsDown(keyBindings.left)) { // a
     player.x -= player.speed;
     world.imageX += player.speed;
   }
 
-  if (keyIsDown(68)) { // d
+  if (keyIsDown(keyBindings.right)) { // d
     player.x += player.speed;
     world.imageX -= player.speed;
   }
 
   // y-axis
-  if (keyIsDown(87)) { // w
+  if (keyIsDown(keyBindings.up)) { // w
     player.y -= player.speed;
     world.imageY += player.speed;
   }
 
-  if (keyIsDown(83)) { // s
+  if (keyIsDown(keyBindings.down)) { // s
     player.y += player.speed;
     world.imageY -= player.speed;
   }
@@ -692,18 +707,20 @@ function displayControls() {
 
   fill("black");
   text(
-    "ESC - OPEN SETTINGS\
-    \n'W' - UP\
-    \n'A' - LEFT\
-    \n'S' - DOWN\
-    \n'D' - RIGHT\
-    \nLEFT CLICK - MELEE ATTACK\
-    \n'R' - TOGGLE RANGED ATTACK\
-    \n'C' - PLACE TRAP\
-    \nSPACE - INTERACT\
-    \n'E' - INVENTORY",
+    keyBindings.settings + " - OPEN SETTINGS\n\
+    " + keyBindings.up + " - UP\n\
+    " + keyBindings.left + " - LEFT\n\
+    " + keyBindings.down + " - DOWN\n\
+    " + keyBindings.right + " - RIGHT\n\
+    'RIGHT MOUSE BUTTON' - ATTACK\n\
+    " + keyBindings.toggleRanged + " - TOGGLE RANGED ATTACK\n\
+    " + keyBindings.placeTrap + " - PLACE TRAP\n\
+    " + keyBindings.interact + " - INTERACT\n\
+    " + keyBindings.inventory + " - INVENTORY",
     width/2, textTop);
 }
+
+// change key bindings
 
 // map
 function drawMap() {
@@ -722,6 +739,7 @@ function drawMap() {
       player.DOT*4);
   }
 }
+
 
 
 // OTHER FUNCTIONS-
@@ -778,7 +796,7 @@ function baddiesFoo() {
     for (let trap = 0; trap < objects.traps.length; trap++) { // traps
       objects.traps[trap].show(sprite.WIDTH, sprite.HEIGHT);
       if (objects.traps[trap].alingment === "good" && dist(badGuys[i].otherX + width/2, badGuys[i].otherY + height/2, objects.traps[trap].x, objects.traps[trap].y) <= sprite.WIDTH/2) {
-        objects.traps.splice(trap, 1);
+        objects.traps.splice(trap, 110);
         badGuys.splice(i, 1);
       }
     }
@@ -788,23 +806,23 @@ function baddiesFoo() {
 // key pressed functions
 function keyPressed() {
   // opening settings
-  if (keyCode === ESCAPE && startingState === 2) {
+  if (keyCode === keyBindings.settings && startingState === 2) {
     settingsIsOpen = !settingsIsOpen;
     settingsChoice = -1;
   }
 
   // opening inventory
-  if (keyCode === 69 && startingState === 2 && !settingsIsOpen) {
+  if (keyCode === keyBindings.inventory && startingState === 2 && !settingsIsOpen) { // e
     inventoryIsOpen = !inventoryIsOpen;
   }
 
   // placing traps
-  if (keyCode === 67 && startingState === 2 && !settingsIsOpen && !inventoryIsOpen) { // c
+  if (keyCode === keyBindings.placeTrap && startingState === 2 && !settingsIsOpen && !inventoryIsOpen) { // c
     objects.traps.push(new trap(width/2, height/2, objectImg.trap, player.speed, "good"));
   }
 
   // switching from melee to ranged
-  if (keyCode === 82 && startingState === 2 && !settingsIsOpen) { // r
+  if (keyCode === keyBindings.toggleRanged && startingState === 2 && !settingsIsOpen) { // r
     rangedOn = !rangedOn;
   }
 

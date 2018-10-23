@@ -40,8 +40,13 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   noStroke();
   balls = [];
-  for (let i = 0; i < 9000; i++) {
-    balls.push(new ball(random(10, width-10), random(10, height-10), random(2, 5), random(-5, 5), random(-5, 5), random(255), random(255), random(255)));
+  for (let i = 0; i < 100; i++) {
+    balls.push(new ball(random(10, width-10), random(10, height-10), random(5, 10), random(-5, 5), random(-5, 5), random(255), random(255), random(255)));
+    for (let j = 0; j < 100; j++) {
+      if (dist() < balls[i].r) {
+        
+      }
+    }
   }
 }
 
