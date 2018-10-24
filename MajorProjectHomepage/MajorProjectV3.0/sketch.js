@@ -1009,7 +1009,7 @@ function createBaddies() {
   for (let i = 0; i < NUM_OF_BADDIES; i++) {
     // secret ending YES
     if (world.WIDTH <= width*2 && world.HEIGHT <= height*2) {
-      console.log("YOU WIN THE GAME, GOOD FOR YOU!");
+      print("YOU WIN THE GAME, GOOD FOR YOU!");
       secretEnding();
       break;
     }

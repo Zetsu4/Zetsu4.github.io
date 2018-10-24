@@ -19,7 +19,7 @@ class arrow {
   show(spriteW, spriteH) {
     push();
     rotate(this.direction);
-    image(this.image, this.x, 0, spriteW, spriteH);
+    image(this.image, this.x, 0, spriteW, spriteH*0.20);
     pop();
   }
 }
