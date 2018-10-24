@@ -5,6 +5,11 @@
 // PROBLEMS:
 // - hitting the edges the player bounces
 //
+// CREDITS:
+// art by Steven Valley.
+// some code was taken and modified from,
+// Coding Train-Coding Challange- (Game of Life, Langtons Ant).
+//
 // add the good images---------------------------5%
 // get the save and load game functions working--0%
 // get the settings menu working-----------------60%
@@ -29,9 +34,12 @@ let allRaces, allSkills; // all races and skills
 let itemDrop = {}; // item images in game
 let objectImg = {}; // object images
 let objects = {}; // objects, like arrows
+let maxTraps; // max number of traps the player can have
 
 // key bindings
 let keyBindings = {}; // key bindings
+let keyBindArray = []; // display array
+let changingKeys;
 
 // enviorment vars
 let earth; // the Lovely Homepage
@@ -118,15 +126,26 @@ function setup() {
   greenColor = color(0, 255, 0);
 
   // key bindings
-  keyBindings.settings = 27;
-  keyBindings.up = 87;
-  keyBindings.left = 65;
-  keyBindings.down = 83;
-  keyBindings.right = 68;
-  keyBindings.toggleRanged = 82;
-  keyBindings.placeTrap = 67;
-  keyBindings.interact = 32;
-  keyBindings.inventory = 69;
+  keyBindings.settings = 27; // Escape
+  // changable
+  keyBindings.toggleRanged = 82; // r
+  keyBindings.placeTrap = 67; // c
+  keyBindings.up = 87; // w
+  keyBindings.left = 65; // a
+  keyBindings.down = 83; // s
+  keyBindings.right = 68; // d
+  keyBindings.interact = 32; // Space
+  keyBindings.inventory = 69; // e
+  keyBindArray = [ // display bindings
+    keyBindings.toggleRanged,
+    keyBindings.placeTrap,
+    keyBindings.up,
+    keyBindings.left,
+    keyBindings.down,
+    keyBindings.right,
+    keyBindings.interact,
+    keyBindings.inventory];
+  changingKeys = false;
 
   // world coordinates
   world.WIDTH = width*10;
@@ -171,6 +190,7 @@ function setup() {
   objects.melee = [];
   objects.arrows = [];
   objects.traps = [];
+  maxTraps = 4;
 
   // player vars
   player.racePosistion = 0;
@@ -282,7 +302,7 @@ function saveGame() {
 
 function displayOptions(theArray, xPos,
   boxWidth, boxHeight,
-  restColor = "red", hoverColor = greenColor, arrayPos2 = false) {
+  restColor = "orange", hoverColor = "lightOrange", arrayPos2 = false) {
 
   for (let i = 0; i < theArray.length; i++) {
     let yPos = box.yStart + i*boxHeight;
@@ -404,7 +424,7 @@ function backButton() {
   && mouseY >= 0 && mouseY <= boxPosY + box.yStart/2) {
     // settings menu
     if (settingsIsOpen) {
-      fill("lightblue");
+      fill("lightorange");
     }
     // start menu
     else {
@@ -429,7 +449,7 @@ function backButton() {
   else {
     // settings menu
     if (settingsIsOpen) {
-      fill("blue");
+      fill("orange");
     }
     // start menu
     else {
@@ -506,23 +526,23 @@ function playerShow() {
 // player movement
 function playerMovement() {
   // x-axis
-  if (keyIsDown(keyBindings.left)) { // a
+  if (keyIsDown(keyBindArray[3])) { // a
     player.x -= player.speed;
     world.imageX += player.speed;
   }
 
-  if (keyIsDown(keyBindings.right)) { // d
+  if (keyIsDown(keyBindArray[5])) { // d
     player.x += player.speed;
     world.imageX -= player.speed;
   }
 
   // y-axis
-  if (keyIsDown(keyBindings.up)) { // w
+  if (keyIsDown(keyBindArray[2])) { // w
     player.y -= player.speed;
     world.imageY += player.speed;
   }
 
-  if (keyIsDown(keyBindings.down)) { // s
+  if (keyIsDown(keyBindArray[4])) { // s
     player.y += player.speed;
     world.imageY -= player.speed;
   }
@@ -541,11 +561,11 @@ function moveWithPlayer() {
   else {
     // baddies moving with player left/right
     for (let badGuy of badGuys) {
-      badGuy.moveWithPlayerX(world.WIDTH);
+      badGuy.moveWithPlayerX(world.WIDTH, keyBindArray[3], keyBindArray[5]);
     }
     // traps
     for (let trap of objects.traps) {
-      trap.moveWithPlayerX(world.WIDTH);
+      trap.moveWithPlayerX(world.WIDTH, keyBindArray[3], keyBindArray[5]);
     }
   }
 
@@ -559,11 +579,11 @@ function moveWithPlayer() {
   else {
     // baddies moving with player up/down
     for (let badGuy of badGuys) {
-      badGuy.moveWithPlayerY(world.HEIGHT);
+      badGuy.moveWithPlayerY(world.HEIGHT, keyBindArray[2], keyBindArray[4]);
     }
     // traps
     for (let trap of objects.traps) {
-      trap.moveWithPlayerY(world.HEIGHT);
+      trap.moveWithPlayerY(world.HEIGHT, keyBindArray[2], keyBindArray[4]);
     }
   }
 }
@@ -639,8 +659,7 @@ function lookInInventory() {
 // settings menu
 function settingsMenu() {
   displayOptions(settingsOptions, width/2,
-    box.width, box.heightSettings,
-    "blue", "lightblue");
+    box.width, box.heightSettings);
 
   chooseSetting();
 }
@@ -650,6 +669,7 @@ function chooseSetting() {
   let xRight = width/2 + box.width/2;
 
   if (settingsChoice === -1) {
+    changingKeys = false;
     if (mouseIsPressed && mouseX >= xLeft && mouseX <= xRight) {
       for (let i = 0; i < settingsOptions.length; i++) {
         let yTop = box.yStart + i*box.heightSettings - box.heightSettings/2;
@@ -686,11 +706,9 @@ function chooseSetting() {
   else if (settingsChoice === "Main Menu") {
     startingState = 0;
     state = 0;
+    changingKeys = false;
     badGuys = [];
-    let waiting = millis();
-    while (millis() - waiting <= WAIT_TIME) {
-      nothing--;
-    }
+    waiting();
     setup();
   }
 
@@ -702,25 +720,96 @@ function chooseSetting() {
 // key bindings
 function displayControls() {
   image(world.image, width/2, height/2, width, height);
-  fill("blue");
+  fill("orange");
   rect(width/2, height/2, width*0.40, height);
 
   fill("black");
+  // if this changes, change the "reBindKeys" function
   text(
-    keyBindings.settings + " - OPEN SETTINGS\n\
-    " + keyBindings.up + " - UP\n\
-    " + keyBindings.left + " - LEFT\n\
-    " + keyBindings.down + " - DOWN\n\
-    " + keyBindings.right + " - RIGHT\n\
-    'RIGHT MOUSE BUTTON' - ATTACK\n\
-    " + keyBindings.toggleRanged + " - TOGGLE RANGED ATTACK\n\
-    " + keyBindings.placeTrap + " - PLACE TRAP\n\
-    " + keyBindings.interact + " - INTERACT\n\
-    " + keyBindings.inventory + " - INVENTORY",
+    "ESC - OPEN SETTINGS\n\
+    RIGHT MOUSE BUTTON - ATTACK\n\
+    " + String.fromCharCode(keyBindArray[0]) + " - TOGGLE RANGED ATTACK\n\
+    " + String.fromCharCode(keyBindArray[1]) + " - PLACE TRAP\n\
+    " + String.fromCharCode(keyBindArray[2]) + " - UP\n\
+    " + String.fromCharCode(keyBindArray[3]) + " - LEFT\n\
+    " + String.fromCharCode(keyBindArray[4]) + " - DOWN\n\
+    " + String.fromCharCode(keyBindArray[5]) + " - RIGHT\n\
+    " + String.fromCharCode(keyBindArray[6]) + " - INTERACT\n\
+    " + String.fromCharCode(keyBindArray[7]) + " - INVENTORY",
     width/2, textTop);
+  reBindKeysButton();
+  if (changingKeys) {
+    reBindKeys();
+  }
 }
 
 // change key bindings
+function reBindKeys() {
+  let boxWidth = box.width/2;
+  let boxHeight = textTop*1.30;
+  let xPos = width*0.15 + boxWidth;
+
+  for (let i = 0; i < keyBindArray.length; i++) {
+    let yPos = box.yStart + i*boxHeight + textTop;
+
+    if (mouseX >= xPos - boxWidth/2 && mouseX <= xPos + boxWidth/2 &&
+    mouseY >= yPos - boxHeight/2 && mouseY <= yPos + boxHeight/2) {
+
+      fill("lightorange");
+      if (mouseIsPressed) {
+        waiting();
+        let newKey = prompt("Please enter new key", String.fromCharCode(keyBindArray[i]));
+        if (newKey !== null) {
+          keyBindArray[i] = newKey.charCodeAt(0);
+        }
+      }
+    }
+
+    else {
+      fill("orange");
+    }
+
+    // option boxes
+    rect(xPos, yPos, boxWidth, boxHeight);
+
+    // option text
+    fill("black");
+    text(String.fromCharCode(keyBindArray[i]), xPos, yPos, boxWidth, boxHeight);
+  }
+}
+
+function reBindKeysButton() {
+  let boxWidth = box.width;
+  let boxHeight = height*0.05;
+  let boxPosX = width - boxWidth;
+  let boxPosY = height - boxHeight;
+
+  // hovering over box
+  if (mouseX >= boxPosX - boxWidth/2 && mouseX <= boxPosX + boxWidth/2
+  && mouseY >= boxPosY - boxHeight && mouseY <= boxPosY + boxHeight) {
+    fill("lightorange");
+
+    // clicking button
+    if (mouseIsPressed) {
+      changingKeys = !changingKeys;
+      waiting();
+    }
+  }
+
+  // not hovering over box
+  else {
+    fill("orange");
+  }
+
+  //creating the box
+  rect(boxPosX, boxPosY, boxWidth, box.yStart);
+
+  // writing "back"
+  fill("Black");
+  textSize(height*0.02);
+  text("CHANGE KEYBINDINGS", boxPosX, boxPosY);
+  textSize(textTop);
+}
 
 // map
 function drawMap() {
@@ -741,8 +830,15 @@ function drawMap() {
 }
 
 
-
 // OTHER FUNCTIONS-
+
+// waiting
+function waiting() {
+  let waiting = millis();
+  while (millis() - waiting <= WAIT_TIME) {
+    nothing--;
+  }
+}
 
 // object functions
 function objectFoo() {
@@ -796,7 +892,7 @@ function baddiesFoo() {
     for (let trap = 0; trap < objects.traps.length; trap++) { // traps
       objects.traps[trap].show(sprite.WIDTH, sprite.HEIGHT);
       if (objects.traps[trap].alingment === "good" && dist(badGuys[i].otherX + width/2, badGuys[i].otherY + height/2, objects.traps[trap].x, objects.traps[trap].y) <= sprite.WIDTH/2) {
-        objects.traps.splice(trap, 110);
+        objects.traps.splice(trap, 1);
         badGuys.splice(i, 1);
       }
     }
@@ -812,17 +908,17 @@ function keyPressed() {
   }
 
   // opening inventory
-  if (keyCode === keyBindings.inventory && startingState === 2 && !settingsIsOpen) { // e
+  if (keyCode === keyBindArray[7] && startingState === 2 && !settingsIsOpen) {
     inventoryIsOpen = !inventoryIsOpen;
   }
 
   // placing traps
-  if (keyCode === keyBindings.placeTrap && startingState === 2 && !settingsIsOpen && !inventoryIsOpen) { // c
+  if (keyCode === keyBindArray[1] && startingState === 2 && !settingsIsOpen && !inventoryIsOpen && objects.traps.length < maxTraps) {
     objects.traps.push(new trap(width/2, height/2, objectImg.trap, player.speed, "good"));
   }
 
   // switching from melee to ranged
-  if (keyCode === keyBindings.toggleRanged && startingState === 2 && !settingsIsOpen) { // r
+  if (keyCode === keyBindArray[0] && startingState === 2 && !settingsIsOpen) {
     rangedOn = !rangedOn;
   }
 
@@ -975,8 +1071,6 @@ function playingGame() {
 
 // CHECKING STATE--
 function draw() {
-  // background(0);
-  // background(73, 152, 69);
   image(world.image, width/2, height/2, width, height);
   // START MENU------
   if (startingState === 0) {
@@ -1041,7 +1135,7 @@ function secretEnding() {
   startingState = "secretEnding";
   state = "secretEnding";
   background(255);
-  fill("blue");
+  fill("orange");
   text("YOU'VE DISCOVERED THE SECRET ENDING!\
   \nGOOD FOR YOU!!", width/2, height/2);
   textFont("Font Style Normal", textTop/2);

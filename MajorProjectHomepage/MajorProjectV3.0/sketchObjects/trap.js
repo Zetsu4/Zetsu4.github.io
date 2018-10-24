@@ -9,29 +9,29 @@ class trap {
   }
 
   collision() {
-    
+
   }
 
   // move with player X
-  moveWithPlayerX(worldW) {
+  moveWithPlayerX(worldW, keyA, keyD) {
     // x-axis
-    if (keyIsDown(65)) { // a
+    if (keyIsDown(keyA)) { // a
       this.x += this.playerSpeed;
     }
 
-    if (keyIsDown(68)) { // d
+    if (keyIsDown(keyD)) { // d
       this.x -= this.playerSpeed;
     }
   }
 
   // move with player Y
-  moveWithPlayerY(worldH) {
+  moveWithPlayerY(worldH, keyW, keyS) {
     // y-axis
-    if (keyIsDown(87)) { // w
+    if (keyIsDown(keyW)) { // w
       this.y += this.playerSpeed;
     }
 
-    if (keyIsDown(83)) { // s
+    if (keyIsDown(keyS)) { // s
       this.y -= this.playerSpeed;
     }
   }
