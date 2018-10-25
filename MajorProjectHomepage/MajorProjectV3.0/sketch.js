@@ -760,7 +760,7 @@ function reBindKeys() {
         waiting();
         let newKey = prompt("Please enter new key", String.fromCharCode(keyBindArray[i]));
         if (newKey !== null) {
-          keyBindArray[i] = newKey.charCodeAt(0);
+          keyBindArray[i] = newKey.charCodeAt(0) - 32;
         }
       }
     }
