@@ -120,7 +120,3 @@ function make2DArray() {
   }
   return newArray;
 }
-
-function nextArray() {
-  let nextGrid = [];
-}
