@@ -1,6 +1,6 @@
-// V3.0
+// V3.1
 // Travis Ahern
-// oct. 11/18
+// Oct. 28/18
 //
 // PROBLEMS:
 // - hitting the edges the player bounces
@@ -55,6 +55,8 @@ let inventoryBoxSize; // box size
 let inventoryIsOpen; // inventory toggle
 let invenWidth = 8;
 let invenHeight = 8;
+
+let numOfArrows;
 
 // box option vars
 let box = {}; // choice box size
@@ -212,6 +214,9 @@ function setup() {
   inventory = make2DArray(invenWidth, invenHeight);
   inventoryBoxSize = textTop*2;
   inventoryIsOpen = false;
+
+  numOfArrows = 5;
+  inventory[4][3] = objectImg.arrow;
 
   // settings starts closed
   settingsIsOpen = false;
@@ -660,11 +665,17 @@ function beautifulMouse() {
 function lookInInventory() {
   background(179, 119, 0);
   stroke(204, 102, 0);
-  fill(153, 77, 0);
   rectMode(CORNER);
   for (let y = 0; y < inventory.length; y++) {
     for (let x = 0; x < inventory[y].length; x++) {
-      rect(x*inventoryBoxSize + textTop/2, y*inventoryBoxSize + textTop/2, inventoryBoxSize, inventoryBoxSize);
+      let xPos = x*inventoryBoxSize + textTop/2;
+      let yPos = y*inventoryBoxSize + textTop/2;
+
+      fill(153, 77, 0);
+      rect(xPos, yPos, inventoryBoxSize, inventoryBoxSize);
+      hoverOverTile();
+      drawImages();
+      mouseHoldingImage();
     }
   }
   rectMode(CENTER);
@@ -677,11 +688,26 @@ function hoverOverTile() {
   // highlighting mouse spot
   if (x < invenWidth && x >= 0 && y < invenHeight && y >= 0) {
     fill(179, 89, 0);
-    rectMode(CORNER);
     rect(x*inventoryBoxSize + textTop/2, y*inventoryBoxSize + textTop/2, inventoryBoxSize, inventoryBoxSize);
-    rectMode(CENTER);
   }
 }
+
+function drawImages() {
+  for (let y = 0; y < inventory.length; y++) {
+    for (let x = 0; x < inventory[y].length; x++) {
+      if (inventory[y][x] !== 0) {
+        image(inventory[y][x], x*inventoryBoxSize + textTop*1.50, y*inventoryBoxSize + textTop*1.50, inventoryBoxSize, inventoryBoxSize);
+      }
+    }
+  }
+}
+
+function mouseHoldingImage() {
+  if (mouseHolding !== 0) {
+    image(mouseHolding, pmouseX, pmouseY, inventoryBoxSize, inventoryBoxSize);
+  }
+}
+
 
 
 // SETTINGS--------
@@ -959,11 +985,12 @@ function keyPressed() {
 function mousePressed() {
   if (startingState === 2 && !settingsIsOpen && !inventoryIsOpen) {
     // ranged attack
-    if (rangedOn) {
+    if (rangedOn && numOfArrows > 0) {
       objects.arrows.push(new arrow(0, sprite.WIDTH, objectImg.arrow, "good"));
+      numOfArrows--;
     }
     // melee attack
-    else {
+    else if (!rangedOn) {
       objects.melee.push(new sword(0, sprite.WIDTH, objectImg.sword, "good"));
     }
   }
@@ -1086,7 +1113,8 @@ function playingGame() {
 
   else if (inventoryIsOpen) {
     lookInInventory();
-    hoverOverTile();
+    // hoverOverTile();
+    // drawImages();
   }
 
   // game enviorments
@@ -1138,7 +1166,7 @@ function draw() {
     gameOver();
   }
 
-  // SECRET----------
+  // ENDING----------
   else if (startingState === "secretEnding") {
     secretEnding();
   }
@@ -1148,10 +1176,31 @@ function draw() {
 //  CHECKING STATE--, startingState #'s          END
 //------------------------------------------------------------------------------
 
+
+//------------------------------------------------------------------------------
+//  ENDING----------, end game states   START
+//------------------------------------------------------------------------------
+
+// secret ending
+function secretEnding() {
+  startingState = "secretEnding";
+  state = "secretEnding";
+  background(255);
+  fill("orange");
+  text("YOU'VE DISCOVERED THE SECRET ENDING!\
+  \nGOOD FOR YOU!!", width/2, height/2);
+  textFont("Font Style Normal", textTop/2);
+  text("you cheater", width/2, height*0.80);
+  textFont("BOLD", textTop);
+}
+
+//------------------------------------------------------------------------------
+//   ENDING---------, end game states   END
+//------------------------------------------------------------------------------
+
 //------------------------------------------------------------------------------
 //  GAME OVER-------, startingState "gameOver"   START
 //------------------------------------------------------------------------------
-
 function gameOver() {
   startingState = "gameOver";
   state = "gameOver";
@@ -1168,27 +1217,6 @@ function gameOver() {
     setup();
   }
 }
-
 //------------------------------------------------------------------------------
 //  GAME OVER-------, startingState "gameOver"   END
-//------------------------------------------------------------------------------
-
-//------------------------------------------------------------------------------
-//  SECRET----------, startingState "secretEnding"   START
-//------------------------------------------------------------------------------
-
-function secretEnding() {
-  startingState = "secretEnding";
-  state = "secretEnding";
-  background(255);
-  fill("orange");
-  text("YOU'VE DISCOVERED THE SECRET ENDING!\
-  \nGOOD FOR YOU!!", width/2, height/2);
-  textFont("Font Style Normal", textTop/2);
-  text("you cheater", width/2, height*0.80);
-  textFont("BOLD", textTop);
-}
-
-//------------------------------------------------------------------------------
-//  SECRET ENDING---, startingState "secretEnding"   END
 //------------------------------------------------------------------------------

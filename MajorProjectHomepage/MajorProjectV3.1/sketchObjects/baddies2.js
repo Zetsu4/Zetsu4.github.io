@@ -25,7 +25,7 @@ class baddies {
     this.DOWN = 2;
     this.LEFT = 3;
 
-    this.TIME_TO_STEP = 50; // temp
+    this.TIME_TO_STEP = 200;
     this.lastTime = 0;
   }
 
@@ -34,22 +34,22 @@ class baddies {
     // move forword
     if (this.state === 0 || this.state === 1) {
       if (this.dir === this.UP) {
-        // this.y -= this.speed;
+        this.y -= this.speed;
         this.otherY -= this.speed;
       }
 
       else if (this.dir === this.RIGHT) {
-        // this.x += this.speed;
+        this.x += this.speed;
         this.otherX += this.speed;
       }
 
       else if (this.dir === this.DOWN) {
-        // this.y += this.speed;
+        this.y += this.speed;
         this.otherY += this.speed;
       }
 
       else if (this.dir === this.LEFT) {
-        // this.x -= this.speed;
+        this.x -= this.speed;
         this.otherX -= this.speed;
       }
     }
@@ -60,9 +60,9 @@ class baddies {
     let boundMinY = -playerY;
     let boundMaxY = worldH - spriteH/2 - boundMinY;
 
-    // this.x = constrain(// this.x, -boundMaxX/2, boundMaxX/2);
+    this.x = constrain(this.x, -boundMaxX/2, boundMaxX/2);
     this.otherX = constrain(this.otherX, -boundMaxX + width/2, boundMaxX - width/2);
-    // this.y = constrain(// this.y, -boundMaxY/2, boundMaxY/2);
+    this.y = constrain(this.y, -boundMaxY/2, boundMaxY/2);
     this.otherY = constrain(this.otherY, -boundMaxY + height/2, boundMaxY - height/2);
 
 
@@ -97,33 +97,33 @@ class baddies {
   // AI pursue player
   attackPlayer(playerX, playerY, worldW, worldH) {
     // move toward player
-    if (this.state === 0 || this.state === 1) {
+    if (this.state !== 2) {
       // x-axis
-      if (this.otherX >= playerX - worldW/2) {
-        // this.x -= this.speed*2;
+      if (this.x >= playerX - worldW/2) {
+        this.x -= this.speed*2;
         this.otherX -= this.speed*2;
       }
 
-      else if (this.otherX <= playerX - worldW/2) {
-        // this.x += this.speed*2;
+      else if (this.x <= playerX - worldW/2) {
+        this.x += this.speed*2;
         this.otherX += this.speed*2;
       }
 
       // y-axis
-      if (this.otherY >= playerY - worldH/2) {
-        // this.y -= this.speed*2;
+      if (this.y >= playerY - worldH/2) {
+        this.y -= this.speed*2;
         this.otherY -= this.speed*2;
       }
 
-      else if (this.otherY <= playerY - worldH/2) {
-        // this.y += this.speed*2;
+      else if (this.y <= playerY - worldH/2) {
+        this.y += this.speed*2;
         this.otherY += this.speed*2;
       }
       this.state = 2;
     }
 
     // waiting
-    else if (this.state === 2) {
+    else {
       let elapsedTime = millis() - this.TIME_TO_STEP/2;
       if (elapsedTime >= this.lastTime) {
         this.state = random([0, 1]);
@@ -134,8 +134,8 @@ class baddies {
 
   // baddie on screen?
   baddieOnScreen(playerX, playerY, worldW, worldH) {
-    return this.otherX >= playerX - worldW/2 - width/2 && this.otherX <= playerX - worldW/2 + width/2 &&
-           this.otherY >= playerY - worldH/2 - height/2 && this.otherY <= playerY - worldH/2 + height/2;
+    return this.x >= playerX - worldW/2 - width/2 && this.x <= playerX - worldW/2 + width/2 &&
+           this.y >= playerY - worldH/2 - height/2 && this.y <= playerY - worldH/2 + height/2;
   }
 
   // hitting player
