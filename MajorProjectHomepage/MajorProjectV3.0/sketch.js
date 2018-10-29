@@ -1,6 +1,6 @@
 // V3.0
 // Travis Ahern
-// oct. 11/18
+// Oct. 11/18
 //
 // PROBLEMS:
 // - hitting the edges the player bounces

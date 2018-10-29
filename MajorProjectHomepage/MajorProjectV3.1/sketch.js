@@ -45,11 +45,12 @@ let changingKeys;
 let earth; // the Lovely Homepage
 let world = {}; // world bounds
 let minimap = {}; // minimap vars
+let mapIsOpen = false; // map
 
 // player vars
 let player = {}; // player settings
 let rangedOn; // ranged wepeon toggle
-let mouseHolding;
+let mouseHolding; // item in mouse
 let inventory = []; // inventory
 let inventoryBoxSize; // box size
 let inventoryIsOpen; // inventory toggle
@@ -141,6 +142,7 @@ function setup() {
   keyBindings.right = 68; // d
   keyBindings.interact = 32; // Space
   keyBindings.inventory = 69; // e
+  keyBindings.openMap = 77; // m
   keyBindArray = [ // display bindings
     keyBindings.toggleRanged,
     keyBindings.placeTrap,
@@ -149,7 +151,8 @@ function setup() {
     keyBindings.down,
     keyBindings.right,
     keyBindings.interact,
-    keyBindings.inventory];
+    keyBindings.inventory,
+    keyBindings.openMap];
   changingKeys = false;
 
   // world coordinates
@@ -216,7 +219,7 @@ function setup() {
   inventoryIsOpen = false;
 
   numOfArrows = 5;
-  inventory[4][3] = objectImg.arrow;
+  inventory[0][0] = objectImg.arrow;
 
   // settings starts closed
   settingsIsOpen = false;
@@ -791,9 +794,10 @@ function displayControls() {
     " + String.fromCharCode(keyBindArray[4]) + " - DOWN\n\
     " + String.fromCharCode(keyBindArray[5]) + " - RIGHT\n\
     " + String.fromCharCode(keyBindArray[6]) + " - INTERACT\n\
-    " + String.fromCharCode(keyBindArray[7]) + " - INVENTORY",
+    " + String.fromCharCode(keyBindArray[7]) + " - INVENTORY\n\
+    " + String.fromCharCode(keyBindArray[8]) + " - OPEN MAP",
     width/2, textTop);
-  reBindKeysButton();
+  reBindKeys_Button();
   if (changingKeys) {
     reBindKeys();
   }
@@ -807,6 +811,15 @@ function reBindKeys() {
 
   for (let i = 0; i < keyBindArray.length; i++) {
     let yPos = box.yStart + i*boxHeight + textTop;
+
+    // if (buttonFoo()) {
+    //   waiting();
+    //   let newKey = prompt("Please enter new key", String.fromCharCode(keyBindArray[i]));
+    //   if (newKey !== null) {
+    //     keyBindArray[i] = newKey.charCodeAt(0) - 32;
+    //   }
+    // }
+
 
     if (mouseX >= xPos - boxWidth/2 && mouseX <= xPos + boxWidth/2 &&
     mouseY >= yPos - boxHeight/2 && mouseY <= yPos + boxHeight/2) {
@@ -834,37 +847,44 @@ function reBindKeys() {
   }
 }
 
-function reBindKeysButton() {
-  let boxWidth = box.width;
-  let boxHeight = height*0.05;
-  let boxPosX = width - boxWidth;
-  let boxPosY = height - boxHeight;
+function reBindKeys_Button() {
+  textSize(height*0.02);
+  // buttonFoo(width - box.width, height*0.95, box.width, height*0.05, "orange", "lightorange", "CHANGE KEYBINDINGS");
+  if (buttonFoo(width - box.width, height*0.95, box.width, height*0.05, "orange", "lightorange", "CHANGE KEYBINDINGS")) {
+    waiting();
+    changingKeys = !changingKeys;
+  }
+  textSize(textTop);
+}
 
-  // hovering over box
+// draw a single button
+function buttonFoo(boxPosX, boxPosY,
+  boxWidth, boxHeight,
+  restColor, hoverColor,
+  words) {
+
   if (mouseX >= boxPosX - boxWidth/2 && mouseX <= boxPosX + boxWidth/2
   && mouseY >= boxPosY - boxHeight && mouseY <= boxPosY + boxHeight) {
-    fill("lightorange");
+    fill(hoverColor);
 
     // clicking button
     if (mouseIsPressed) {
-      changingKeys = !changingKeys;
-      waiting();
+      return true;
     }
   }
 
   // not hovering over box
   else {
-    fill("orange");
+    fill(restColor);
   }
 
   //creating the box
-  rect(boxPosX, boxPosY, boxWidth, box.yStart);
+  rect(boxPosX, boxPosY, boxWidth, boxHeight);
 
   // writing "back"
   fill("Black");
-  textSize(height*0.02);
-  text("CHANGE KEYBINDINGS", boxPosX, boxPosY);
-  textSize(textTop);
+  text(words, boxPosX, boxPosY);
+  return false;
 }
 
 // map
@@ -948,7 +968,7 @@ function baddiesFoo() {
     let badY = badGuys[i].otherY + height/2;
     for (let trap = 0; trap < objects.traps.length; trap++) { // traps
       objects.traps[trap].show(sprite.WIDTH, sprite.HEIGHT);
-      if (objects.traps[trap].alingment === "good" && dist(badGuys[i].otherX + width/2, badGuys[i].otherY + height/2, objects.traps[trap].x, objects.traps[trap].y) <= sprite.WIDTH/2) {
+      if (objects.traps[trap].alingment === "good" && dist(badX, badY, objects.traps[trap].x, objects.traps[trap].y) <= sprite.WIDTH/2) {
         objects.traps.splice(trap, 1);
         badGuys.splice(i, 1);
       }
@@ -962,6 +982,11 @@ function keyPressed() {
   if (keyCode === keyBindings.settings && startingState === 2) {
     settingsIsOpen = !settingsIsOpen;
     settingsChoice = -1;
+  }
+
+  // opening map
+  if (keyCode === keyBindArray[8] && startingState === 2 && !inventoryIsOpen) {
+    mapIsOpen = !mapIsOpen;
   }
 
   // opening inventory
@@ -983,7 +1008,7 @@ function keyPressed() {
 
 // player attack
 function mousePressed() {
-  if (startingState === 2 && !settingsIsOpen && !inventoryIsOpen) {
+  if (startingState === 2 && !settingsIsOpen && !inventoryIsOpen && !mapIsOpen) {
     // ranged attack
     if (rangedOn && numOfArrows > 0) {
       objects.arrows.push(new arrow(0, sprite.WIDTH, objectImg.arrow, "good"));
@@ -1113,8 +1138,10 @@ function playingGame() {
 
   else if (inventoryIsOpen) {
     lookInInventory();
-    // hoverOverTile();
-    // drawImages();
+  }
+
+  else if (mapIsOpen) {
+    drawMap();
   }
 
   // game enviorments
@@ -1167,8 +1194,10 @@ function draw() {
   }
 
   // ENDING----------
-  else if (startingState === "secretEnding") {
-    secretEnding();
+  else if (startingState === "ending") {
+    if (state === "secretEnding") {
+      secretEnding();
+    }
   }
 }
 
@@ -1183,7 +1212,7 @@ function draw() {
 
 // secret ending
 function secretEnding() {
-  startingState = "secretEnding";
+  startingState = "ending";
   state = "secretEnding";
   background(255);
   fill("orange");
