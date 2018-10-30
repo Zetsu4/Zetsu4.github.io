@@ -25,7 +25,7 @@ class baddies {
     this.DOWN = 2;
     this.LEFT = 3;
 
-    this.TIME_TO_STEP = 50; // temp
+    this.TIME_TO_STEP = 200; // temp
     this.lastTime = 0;
   }
 

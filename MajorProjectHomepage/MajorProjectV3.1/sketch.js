@@ -70,7 +70,7 @@ let nothing = Infinity; // literally nothing
 const WAIT_TIME = 150; // wait time for clicking "Main menu"
 
 // bad guy vars
-const NUM_OF_BADDIES = 2; // number of bad guys
+const NUM_OF_BADDIES = 50; // number of bad guys
 let badGuys = []; // where bad guy objects go
 let badGuysPosX = []; // collision spots x
 let badGuysPosY = []; // collision spots y
@@ -918,23 +918,31 @@ function waiting() {
 
 // object functions
 function objectFoo() {
-  translate(width/2, height/2);
+  // translate(width/2, height/2);
 
   for (let slash of objects.melee) { // sword
     slash.moveForward();
-    slash.show(sprite.WIDTH, sprite.HEIGHT);
-    if (slash.disapear(sprite.WIDTH)) {
-      objects.melee.shift();
-    }
   }
 
   for (let arrow of objects.arrows) { // arrows
     arrow.moveForward();
-    arrow.show(sprite.WIDTH, sprite.HEIGHT);
-    if (arrow.disapear()) {
-      objects.arrows.shift();
-    }
   }
+
+  // for (let slash of objects.melee) { // sword
+  //   slash.moveForward();
+  //   slash.show(sprite.WIDTH, sprite.HEIGHT);
+  //   if (slash.disapear(sprite.WIDTH)) {
+  //     objects.melee.shift();
+  //   }
+  // }
+
+  // for (let arrow of objects.arrows) { // arrows
+  //   arrow.moveForward();
+  //   arrow.show(sprite.WIDTH, sprite.HEIGHT);
+  //   if (arrow.disapear()) {
+  //     objects.arrows.shift();
+  //   }
+  // }
 }
 
 // baddies functions
@@ -970,6 +978,30 @@ function baddiesFoo() {
       objects.traps[trap].show(sprite.WIDTH, sprite.HEIGHT);
       if (objects.traps[trap].alingment === "good" && dist(badX, badY, objects.traps[trap].x, objects.traps[trap].y) <= sprite.WIDTH/2) {
         objects.traps.splice(trap, 1);
+        badGuys.splice(i, 1);
+      }
+    }
+
+    for (let slash = 0; slash < objects.melee.length; slash++) { // sword
+      objects.melee[slash].show(sprite.WIDTH, sprite.HEIGHT);
+      if (objects.melee[slash].disapear(sprite.WIDTH)) {
+        objects.melee.splice(slash, 1);
+      }
+
+      else if (objects.melee[slash].alingment === "good" && dist(badX, badY, objects.melee[slash].realX, objects.melee[slash].realY) <= (sprite.WIDTH + sprite.HEIGHT)/2) {
+        objects.melee.splice(slash, 1);
+        badGuys.splice(i, 1);
+      }
+    }
+
+    for (let arrow = 0; arrow < objects.arrows.length; arrow++) { // arrows
+      objects.arrows[arrow].show(sprite.WIDTH, sprite.HEIGHT);
+      if (objects.arrows[arrow].disapear()) {
+        objects.arrows.splice(arrow, 1);
+      }
+
+      else if (objects.arrows[arrow].alingment === "good" && dist(badX, badY, objects.arrows[arrow].realX, objects.arrows[arrow].realY) <= (sprite.WIDTH + sprite.HEIGHT)/2) {
+        objects.arrows.splice(arrow, 1);
         badGuys.splice(i, 1);
       }
     }

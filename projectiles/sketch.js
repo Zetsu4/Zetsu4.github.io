@@ -11,27 +11,32 @@ let state = true;
 class projectile {
   constructor(rotation) {
     this.x = 0;
-    this.y = 0;
     this.r = 20;
     this.rotation = rotation;
+    this.actualX = 0;
+    this.actualY = 0;
   }
 
-  checkPosition() {
-    width/2;
-    height/2;
-    this.rotation;
-    this.x;
-
+  disapear() {
+    return this.x >= width/2;
   }
 
   moveing() {
     this.x += 3;
+    this.actualX = width/2 + cos(this.rotation)*this.x;
+    this.actualY = height/2 + sin(this.rotation)*this.x;
   }
 
   show() {
     push();
     rotate(this.rotation);
     ellipse(this.x, this.y, this.r);
+    pop();
+
+    push();
+    translate(-width/2, -height/2);
+    noFill();
+    ellipse(this.actualX, this.actualY, this.r*2);
     pop();
   }
 }
@@ -79,9 +84,21 @@ function targets() {
 function moveProjectiles() {
   push();
   translate(width/2, height/2);
-  for (let i of projectileList) {
-    i.moveing();
-    i.show();
+  for (let i = 0; i < projectileList.length; i++) {
+    projectileList[i].moveing();
+    projectileList[i].show();
+    if (projectileList[i].disapear()) {
+      projectileList.splice(i, 1);
+    }
+    else {
+      for (let j = 0; j < targetsList.length; j++) {
+        if (dist(projectileList[i].actualX, projectileList[i].actualY, targetsList[j].x, targetsList[j].y) <= targetsList[j].r) {
+          targetsList.splice(j, 1);
+          projectileList.splice(i, 1);
+          break;
+        }
+      }
+    }
   }
   pop();
 }
@@ -99,7 +116,7 @@ function mousePressed() {
 }
 
 function keyPressed() {
-  if (keyIsDown(83)) {
+  if (keyIsDown(83)) { // s
     state = !state;
   }
 }
