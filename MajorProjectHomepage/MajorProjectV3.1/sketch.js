@@ -261,31 +261,19 @@ function make2DArray(rows, cols) {
 
 // create new character option
 function optionCreateNewSave() {
-  let boxPosY = height*0.55;
 
-  // hovering over the choice
-  if (mouseX >= width/2 - box.width && mouseX <= width/2 + box.width
-    && mouseY >= boxPosY - box.height/2 && mouseY <= boxPosY + box.height/2) {
-
-    fill(0, 255, 0);
-    if (mouseIsPressed) {
-      startingState = 1;
-    }
+  if (buttonFoo(width/2, height*0.55, box.width*2, box.height, "red", greenColor, "CREATE NEW FILE")) {
+    startingState = 1;
   }
-
-  // not hovering over the choice
-  else {
-    fill("red");
-  }
-
-  // box
-  rect(width/2, boxPosY, box.width*2, box.height);
-  fill("black");
-  text("CREATE NEW FILE", width/2, boxPosY);
 }
 
 // load character option
 function optionLoadSave() {
+
+  if (buttonFoo(width/2, height*0.80, box.width*2, box.height, "red", greenColor, "LOAD SAVE FILE")) {
+    state = 1;
+  }
+
   let boxPosY = height*0.80;
 
   // hovering over the choice
@@ -327,6 +315,36 @@ function saveGame() {
 //  CREATE CHARACTER, startingState 2            START
 //------------------------------------------------------------------------------
 
+// draw a button
+function buttonFoo(boxPosX, boxPosY,
+  boxWidth, boxHeight,
+  restColor, hoverColor,
+  words) {
+
+  if (mouseX >= boxPosX - boxWidth/2 && mouseX <= boxPosX + boxWidth/2
+    && mouseY >= boxPosY - boxHeight/2 && mouseY <= boxPosY + boxHeight/2) {
+    fill(hoverColor);
+
+    // clicking button
+    if (mouseIsPressed) {
+      return true;
+    }
+  }
+
+  // not hovering over box
+  else {
+    fill(restColor);
+  }
+
+  //creating the box
+  rect(boxPosX, boxPosY, boxWidth, boxHeight);
+
+  // writing "back"
+  fill("Black");
+  text(words, boxPosX, boxPosY + textTop/4);
+  return false;
+}
+
 function displayOptions(theArray, xPos,
   boxWidth, boxHeight,
   restColor = "orange", hoverColor = "lightOrange", arrayPos2 = false) {
@@ -334,27 +352,12 @@ function displayOptions(theArray, xPos,
   for (let i = 0; i < theArray.length; i++) {
     let yPos = box.yStart + i*boxHeight;
 
-    if (mouseX >= xPos - boxWidth/2 && mouseX <= xPos + boxWidth/2 &&
-      mouseY >= yPos - boxHeight/2 && mouseY <= yPos + boxHeight/2) {
-
-      fill(hoverColor);
-    }
-
-    else {
-      fill(restColor);
-    }
-
-    // option boxes
-    rect(xPos, yPos, boxWidth, boxHeight);
-
-    // option text
-    fill("black");
     if (arrayPos2) {
-      text(theArray[i][0], xPos, yPos + boxHeight/4, boxWidth, boxHeight);
+      buttonFoo(xPos, yPos, boxWidth, boxHeight, restColor, hoverColor, theArray[i][0]);
     }
 
     else {
-      text(theArray[i], xPos, yPos + boxHeight/4, boxWidth, boxHeight);
+      buttonFoo(xPos, yPos, boxWidth, boxHeight, restColor, hoverColor, theArray[i]);
     }
   }
 }
@@ -588,11 +591,19 @@ function moveWithPlayer() {
   else {
     // baddies moving with player left/right
     for (let badGuy of badGuys) {
-      badGuy.moveWithPlayerX(world.WIDTH, keyBindArray[3], keyBindArray[5]);
+      badGuy.moveWithPlayerX(keyBindArray[3], keyBindArray[5]);
     }
     // traps
     for (let trap of objects.traps) {
-      trap.moveWithPlayerX(world.WIDTH, keyBindArray[3], keyBindArray[5]);
+      trap.moveWithPlayerX(keyBindArray[3], keyBindArray[5]);
+    }
+    // arrows
+    for (let arrow of objects.arrows) {
+      arrow.moveWithPlayerX(keyBindArray[3], keyBindArray[5]);
+    }
+    // slashes
+    for (let slash of objects.melee) {
+      slash.moveWithPlayerX(keyBindArray[3], keyBindArray[5]);
     }
   }
 
@@ -606,11 +617,19 @@ function moveWithPlayer() {
   else {
     // baddies moving with player up/down
     for (let badGuy of badGuys) {
-      badGuy.moveWithPlayerY(world.HEIGHT, keyBindArray[2], keyBindArray[4]);
+      badGuy.moveWithPlayerY(keyBindArray[2], keyBindArray[4]);
     }
     // traps
     for (let trap of objects.traps) {
-      trap.moveWithPlayerY(world.HEIGHT, keyBindArray[2], keyBindArray[4]);
+      trap.moveWithPlayerY(keyBindArray[2], keyBindArray[4]);
+    }
+    // arrows
+    for (let arrow of objects.arrows) {
+      arrow.moveWithPlayerY(keyBindArray[2], keyBindArray[4]);
+    }
+    // slashes
+    for (let slash of objects.melee) {
+      slash.moveWithPlayerY(keyBindArray[2], keyBindArray[4]);
     }
   }
 }
@@ -717,26 +736,14 @@ function mouseHoldingImage() {
 
 // settings menu
 function settingsMenu() {
-  displayOptions(settingsOptions, width/2,
-    box.width, box.heightSettings);
-
-  chooseSetting();
-}
-
-function chooseSetting() {
-  let xLeft = width/2 - box.width/2;
-  let xRight = width/2 + box.width/2;
 
   if (settingsChoice === -1) {
     changingKeys = false;
-    if (mouseIsPressed && mouseX >= xLeft && mouseX <= xRight) {
-      for (let i = 0; i < settingsOptions.length; i++) {
-        let yTop = box.yStart + i*box.heightSettings - box.heightSettings/2;
-        let yBottom = box.yStart + i*box.heightSettings + box.heightSettings/2;
+    for (let i = 0; i < settingsOptions.length; i++) {
+      let yPos = box.yStart + i*box.heightSettings;
 
-        if (mouseY >= yTop && mouseY <= yBottom) {
-          settingsChoice = settingsOptions[i];
-        }
+      if (buttonFoo(width/2, yPos, box.width, box.heightSettings, "orange", "lightorange", settingsOptions[i])) {
+        settingsChoice = settingsOptions[i];
       }
     }
   }
@@ -812,80 +819,31 @@ function reBindKeys() {
   for (let i = 0; i < keyBindArray.length; i++) {
     let yPos = box.yStart + i*boxHeight + textTop;
 
-    // if (buttonFoo()) {
-    //   waiting();
-    //   let newKey = prompt("Please enter new key", String.fromCharCode(keyBindArray[i]));
-    //   if (newKey !== null) {
-    //     keyBindArray[i] = newKey.charCodeAt(0) - 32;
-    //   }
-    // }
+    if (buttonFoo(xPos, yPos, boxWidth, boxHeight, "orange", "lightorange", String.fromCharCode(keyBindArray[i]))) {
+      waiting();
+      let newKey = prompt("Please enter new key", String.fromCharCode(keyBindArray[i]));
 
+      if (newKey === " ") {
+        keyBindArray[i] = 32;
+      }
 
-    if (mouseX >= xPos - boxWidth/2 && mouseX <= xPos + boxWidth/2 &&
-    mouseY >= yPos - boxHeight/2 && mouseY <= yPos + boxHeight/2) {
-
-      fill("lightorange");
-      if (mouseIsPressed) {
-        waiting();
-        let newKey = prompt("Please enter new key", String.fromCharCode(keyBindArray[i]));
-        if (newKey !== null) {
-          keyBindArray[i] = newKey.charCodeAt(0) - 32;
-        }
+      else if (newKey !== null) {
+        keyBindArray[i] = newKey.charCodeAt(0) - 32;
       }
     }
-
-    else {
-      fill("orange");
-    }
-
-    // option boxes
-    rect(xPos, yPos, boxWidth, boxHeight);
-
-    // option text
-    fill("black");
-    text(String.fromCharCode(keyBindArray[i]), xPos, yPos, boxWidth, boxHeight);
   }
 }
 
 function reBindKeys_Button() {
+  push();
   textSize(height*0.02);
-  // buttonFoo(width - box.width, height*0.95, box.width, height*0.05, "orange", "lightorange", "CHANGE KEYBINDINGS");
   if (buttonFoo(width - box.width, height*0.95, box.width, height*0.05, "orange", "lightorange", "CHANGE KEYBINDINGS")) {
     waiting();
     changingKeys = !changingKeys;
   }
-  textSize(textTop);
+  pop();
 }
 
-// draw a single button
-function buttonFoo(boxPosX, boxPosY,
-  boxWidth, boxHeight,
-  restColor, hoverColor,
-  words) {
-
-  if (mouseX >= boxPosX - boxWidth/2 && mouseX <= boxPosX + boxWidth/2
-  && mouseY >= boxPosY - boxHeight && mouseY <= boxPosY + boxHeight) {
-    fill(hoverColor);
-
-    // clicking button
-    if (mouseIsPressed) {
-      return true;
-    }
-  }
-
-  // not hovering over box
-  else {
-    fill(restColor);
-  }
-
-  //creating the box
-  rect(boxPosX, boxPosY, boxWidth, boxHeight);
-
-  // writing "back"
-  fill("Black");
-  text(words, boxPosX, boxPosY);
-  return false;
-}
 
 // map
 function drawMap() {
@@ -927,22 +885,6 @@ function objectFoo() {
   for (let arrow of objects.arrows) { // arrows
     arrow.moveForward();
   }
-
-  // for (let slash of objects.melee) { // sword
-  //   slash.moveForward();
-  //   slash.show(sprite.WIDTH, sprite.HEIGHT);
-  //   if (slash.disapear(sprite.WIDTH)) {
-  //     objects.melee.shift();
-  //   }
-  // }
-
-  // for (let arrow of objects.arrows) { // arrows
-  //   arrow.moveForward();
-  //   arrow.show(sprite.WIDTH, sprite.HEIGHT);
-  //   if (arrow.disapear()) {
-  //     objects.arrows.shift();
-  //   }
-  // }
 }
 
 // baddies functions
@@ -1043,12 +985,12 @@ function mousePressed() {
   if (startingState === 2 && !settingsIsOpen && !inventoryIsOpen && !mapIsOpen) {
     // ranged attack
     if (rangedOn && numOfArrows > 0) {
-      objects.arrows.push(new arrow(0, sprite.WIDTH, objectImg.arrow, "good"));
+      objects.arrows.push(new arrow(0, sprite.WIDTH, objectImg.arrow, "good", player.speed));
       numOfArrows--;
     }
     // melee attack
     else if (!rangedOn) {
-      objects.melee.push(new sword(0, sprite.WIDTH, objectImg.sword, "good"));
+      objects.melee.push(new sword(0, sprite.WIDTH, objectImg.sword, "good", player.speed));
     }
   }
 
@@ -1236,7 +1178,6 @@ function draw() {
 //------------------------------------------------------------------------------
 //  CHECKING STATE--, startingState #'s          END
 //------------------------------------------------------------------------------
-
 
 //------------------------------------------------------------------------------
 //  ENDING----------, end game states   START

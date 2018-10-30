@@ -145,7 +145,7 @@ class baddies {
   }
 
   // move with player X
-  moveWithPlayerX(worldW, keyA, keyD) {
+  moveWithPlayerX(keyA, keyD) {
     // x-axis
     if (keyIsDown(keyA)) { // a
       this.otherX += this.playerSpeed;
@@ -157,7 +157,7 @@ class baddies {
   }
 
   // move with player Y
-  moveWithPlayerY(worldH, keyW, keyS) {
+  moveWithPlayerY(keyW, keyS) {
     // y-axis
     if (keyIsDown(keyW)) { // w
       this.otherY += this.playerSpeed;
