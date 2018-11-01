@@ -1,12 +1,11 @@
 // bad guys
 class baddies {
-  // the meaning of life as a baddie
   constructor(badguyRace, badguySkill, x, y, playerSpeed) {
     // race and skill
     this.race = badguyRace;
     this.skill = badguySkill;
 
-    // position to player
+    // position in world
     this.otherX = x;
     this.otherY = y;
 
@@ -16,7 +15,7 @@ class baddies {
 
     // movement vars
     this.playerSpeed = playerSpeed;
-    this.speed = 20; // temp
+    this.speed = playerSpeed*2; // temp
     this.state = 0;
     this.dir = 0;
 
@@ -33,38 +32,26 @@ class baddies {
   movement(worldW, worldH, spriteW, spriteH, playerX, playerY) {
     // move forword
     if (this.state === 0 || this.state === 1) {
-      if (this.dir === this.UP) {
+      if (this.dir === this.UP && this.y > -worldH/2) {
         this.y -= this.speed;
         this.otherY -= this.speed;
       }
 
-      else if (this.dir === this.RIGHT) {
+      else if (this.dir === this.RIGHT && this.x < worldW/2) {
         this.x += this.speed;
         this.otherX += this.speed;
       }
 
-      else if (this.dir === this.DOWN) {
+      else if (this.dir === this.DOWN && this.y < worldH/2) {
         this.y += this.speed;
         this.otherY += this.speed;
       }
 
-      else if (this.dir === this.LEFT) {
+      else if (this.dir === this.LEFT && this.x > -worldW/2) {
         this.x -= this.speed;
         this.otherX -= this.speed;
       }
     }
-
-    // boundries
-    let boundMinX = -playerX;
-    let boundMaxX = worldW - spriteW/2 - boundMinX;
-    let boundMinY = -playerY;
-    let boundMaxY = worldH - spriteH/2 - boundMinY;
-
-    this.x = constrain(this.x, -boundMaxX/2, boundMaxX/2);
-    this.otherX = constrain(this.otherX, -boundMaxX + width/2, boundMaxX - width/2);
-    this.y = constrain(this.y, -boundMaxY/2, boundMaxY/2);
-    this.otherY = constrain(this.otherY, -boundMaxY + height/2, boundMaxY - height/2);
-
 
     // turn right
     if (this.state === 0) {
@@ -94,9 +81,8 @@ class baddies {
     }
   }
 
-  // AI pursue player
   attackPlayer(playerX, playerY, worldW, worldH) {
-    // move toward player
+    // pursue player
     if (this.state !== 2) {
       // x-axis
       if (this.x >= playerX - worldW/2) {
@@ -132,14 +118,14 @@ class baddies {
     }
   }
 
-  // baddie on screen?
   baddieOnScreen(playerX, playerY, worldW, worldH) {
+    // baddie on screen?
     return this.x >= playerX - worldW/2 - width/2 && this.x <= playerX - worldW/2 + width/2 &&
            this.y >= playerY - worldH/2 - height/2 && this.y <= playerY - worldH/2 + height/2;
   }
 
-  // hitting player
   collision(spriteW, spriteH) {
+    // hitting player?
     return this.otherX + width/2 > width/2 - spriteW/2 && this.otherX + width/2 < width/2 + spriteW/2
       && this.otherY + height/2 > height/2 - spriteH/2 && this.otherY + height/2 < height/2 + spriteH/2;
   }
@@ -166,7 +152,6 @@ class baddies {
     }
   }
 
-  // mapping baddies
   mapping(
     worldW, worldH,
     minimapX, minimapY,
@@ -179,7 +164,7 @@ class baddies {
     let minimapYMin = minimapY - minimapH/2 + dotSize/2;
     let minimapYMax = minimapY + minimapH/2 - dotSize/2;
 
-    // mapping dot
+    // dot
     let mapX = map(this.x, -worldW/2, worldW/2, minimapXMin, minimapXMax);
     let mapY = map(this.y, -worldH/2, worldH/2, minimapYMin, minimapYMax);
 
@@ -188,7 +173,6 @@ class baddies {
     ellipse(mapX, mapY, dotSize);
   }
 
-  // showing race and class
   show(sizeX, sizeY) {
     image(this.race[1], this.otherX + width/2, this.otherY + height/2, sizeX, sizeY);
     image(this.skill[1], this.otherX + width/2, this.otherY + height/2 - sizeY, sizeX, sizeY);
