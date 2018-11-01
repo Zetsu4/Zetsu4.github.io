@@ -1,23 +1,24 @@
-// V3.1
+// V3.2
 // Travis Ahern
-// Oct. 28/18
+// Oct. 30/18
 //
 // PROBLEMS:
 // - hitting the edges the player bounces
 //
 // CREDITS:
-// art by Steven Valley.
+// art by Steven Valley and Travis Ahern
 // some code was taken and modified from,
 // Coding Train - Coding Challange - (Game of Life, Langtons Ant).
 //
 // add the good images---------------------------5%
 // get the save and load game functions working--0%
-// get the settings menu working-----------------60%
-// fix baddie spawns-----------------------------100%
-// baddie deaths and player attack---------------30%
-// have a race and skill-------------------------0%
+// get the settings menu working-----------------70%
+// fix baddie spawns-----------------------------95%
+// baddie deaths and player attack---------------45%
+// have a race and skill-------------------------10%
 // add a lvl system------------------------------0%
 // have an actual enviorment---------------------10%
+// fix all items/objects-------------------------0%
 
 // state vars
 let startingState;
@@ -31,10 +32,9 @@ let raceSprites = {};
 let skillImages = {};
 let sprite = {};
 let allRaces, allSkills;
-let itemDrop = {};
 let objectImg = {};
 let objects = {};
-let maxTraps;
+let itemsOnGround = [];
 
 // key bindings
 let keyBindings = {};
@@ -56,8 +56,9 @@ let inventoryBoxSize;
 let inventoryIsOpen;
 let invenWidth = 8;
 let invenHeight = 8;
-
 let numOfArrows;
+let numOfTraps;
+let maxTraps;
 
 // box option vars
 let box = {};
@@ -72,6 +73,7 @@ const WAIT_TIME = 150;
 // bad guy vars
 const NUM_OF_BADDIES = 50;
 let badGuys = [];
+let badGuysObjects = {};
 let badGuysPosX = [];
 let badGuysPosY = [];
 
@@ -216,10 +218,16 @@ function defaultSprites() {
 
 function settingItems() {
   // item arrays
+  // player
   objects.melee = [];
   objects.arrows = [];
   objects.traps = [];
   maxTraps = 4;
+
+  // baddies
+  badGuysObjects.melee = [];
+  badGuysObjects.arrows = [];
+  badGuysObjects.traps = [];
 }
 
 function defaultPlayer() {
@@ -243,6 +251,7 @@ function defaultPlayer() {
   inventoryIsOpen = false;
 
   numOfArrows = 5;
+  numOfTraps = 10;
   inventory[0][0] = objectImg.arrow;
 }
 
@@ -277,7 +286,7 @@ function make2DArray(rows, cols) {
   return newArray;
 }
 
-// draw buttons
+// draw button
 function buttonFoo(boxPosX, boxPosY,
   boxWidth, boxHeight,
   restColor, hoverColor,
@@ -494,7 +503,6 @@ function playerMovement() {
 }
 
 function moveWithPlayer() {
-
   // objects moving with player
   // x-axis
   if (player.x < 0 || player.x > world.WIDTH) {
@@ -519,6 +527,10 @@ function moveWithPlayer() {
 
     for (let slash of objects.melee) { // slashes
       slash.moveWithPlayerX(keyBindArray[3], keyBindArray[5]);
+    }
+
+    for (let item of itemsOnGround) { // items on the ground
+      item.moveWithPlayerX(keyBindArray[3], keyBindArray[5]);
     }
   }
 
@@ -545,6 +557,10 @@ function moveWithPlayer() {
 
     for (let slash of objects.melee) { // slashes
       slash.moveWithPlayerY(keyBindArray[2], keyBindArray[4]);
+    }
+
+    for (let item of itemsOnGround) { // items on the ground
+      item.moveWithPlayerY(keyBindArray[2], keyBindArray[4]);
     }
   }
 }
@@ -617,10 +633,10 @@ function lookInInventory() {
 }
 
 function hoverOverTile() {
+  // highlighting inventory
   let x = floor((mouseX - textTop/2) / inventoryBoxSize);
   let y = floor((mouseY - textTop/2) / inventoryBoxSize);
 
-  // highlighting inventory
   if (x < invenWidth && x >= 0 && y < invenHeight && y >= 0) {
     fill(179, 89, 0);
     rect(x*inventoryBoxSize + textTop/2, y*inventoryBoxSize + textTop/2, inventoryBoxSize, inventoryBoxSize);
@@ -776,14 +792,7 @@ function drawMap() {
   }
 }
 
-// OTHER FUNCTIONS-
-
-function waiting() {
-  let waiting = millis();
-  while (millis() - waiting <= WAIT_TIME) {
-    nothing--;
-  }
-}
+// ITEMS/OBJECTS---
 
 function objectFoo() {
   // item/object
@@ -821,19 +830,20 @@ function baddiesFoo() {
     // object collisions
     let badX = badGuys[i].otherX + width/2;
     let badY = badGuys[i].otherY + height/2;
+    let badGuyHitBox = (sprite.WIDTH + sprite.HEIGHT)/4;
 
-    // if (badGuys[i].collision(sprite.WIDTH, sprite.HEIGHT)) {
-    //   player
-    //   gameOver();
-    //   break;
-    // }
+    if (dist(badX, badY, width/2, height/2) <= badGuyHitBox) {
+      // player
+      gameOver();
+      break;
+    }
 
     for (let trap = 0; trap < objects.traps.length; trap++) {
       // traps
       objects.traps[trap].show(sprite.WIDTH, sprite.HEIGHT);
-      if (objects.traps[trap].alingment === "good" && dist(badX, badY, objects.traps[trap].x, objects.traps[trap].y) <= sprite.WIDTH/2) {
+      if (dist(badX, badY, objects.traps[trap].x, objects.traps[trap].y) <= badGuyHitBox) {
         objects.traps.splice(trap, 1);
-        badGuys.splice(i, 1);
+        badGuyDeath(i, badGuys[i].otherX, badGuys[i].otherY);
       }
     }
 
@@ -844,9 +854,9 @@ function baddiesFoo() {
         objects.melee.splice(slash, 1);
       }
 
-      else if (objects.melee[slash].alingment === "good" && dist(badX, badY, objects.melee[slash].realX, objects.melee[slash].realY) <= (sprite.WIDTH + sprite.HEIGHT)/2) {
+      else if (dist(badX, badY, objects.melee[slash].realX, objects.melee[slash].realY) <= badGuyHitBox) {
         objects.melee.splice(slash, 1);
-        badGuys.splice(i, 1);
+        badGuyDeath(i, badGuys[i].otherX, badGuys[i].otherY);
       }
     }
 
@@ -857,11 +867,63 @@ function baddiesFoo() {
         objects.arrows.splice(arrow, 1);
       }
 
-      else if (objects.arrows[arrow].alingment === "good" && dist(badX, badY, objects.arrows[arrow].realX, objects.arrows[arrow].realY) <= (sprite.WIDTH + sprite.HEIGHT)/2) {
+      else if (dist(badX, badY, objects.arrows[arrow].realX, objects.arrows[arrow].realY) <= badGuyHitBox) {
         objects.arrows.splice(arrow, 1);
-        badGuys.splice(i, 1);
+        badGuyDeath(i, badGuys[i].otherX, badGuys[i].otherY);
       }
     }
+  }
+}
+
+function badGuyDeath(spotInArray, x, y) {
+  itemDrops(x, y);
+  badGuys.splice(spotInArray, 1);
+}
+
+function itemDrops(x, y) {
+  // random item drops
+  let numberOfItems = random(5);
+
+  for (let i = 0; i < numberOfItems; i++) {
+    let changeOfX = random(-width*0.01, width*0.01);
+    let changeOfY = random(-height*0.01, height*0.01);
+    let randomItem = random(20);
+
+    if (randomItem <= 5) { // arrows
+      itemsOnGround.push(new arrow(0, 0, objectImg.arrow, player.speed, x + changeOfX, y + changeOfY));
+    }
+
+    else if (randomItem <= 10) { // traps
+      itemsOnGround.push(new trap(0, 0, objectImg.trap, player.speed, x + changeOfX, y + changeOfY));
+    }
+  }
+}
+
+function floatingItems() {
+  // items on the ground
+  for (let i = 0; i < itemsOnGround.length; i++) {
+    itemsOnGround[i].itemShow(sprite.WIDTH, sprite.HEIGHT);
+
+    if (itemsOnGround[i].pickUp(sprite.WIDTH, sprite.HEIGHT)) {
+
+      if (itemsOnGround[i].image === objectImg.arrow) { // arrows
+        numOfArrows++;
+      }
+
+      else if (itemsOnGround[i].image === objectImg.trap) { // traps
+        numOfTraps++;
+      }
+      itemsOnGround.splice(i, 1);
+    }
+  }
+}
+
+// OTHER FUNCTIONS-
+
+function waiting() {
+  let waiting = millis();
+  while (millis() - waiting <= WAIT_TIME) {
+    nothing--;
   }
 }
 
@@ -884,7 +946,8 @@ function keyPressed() {
 
   // place traps
   if (keyCode === keyBindArray[1] && startingState === 2 && !settingsIsOpen && !inventoryIsOpen && objects.traps.length < maxTraps) {
-    objects.traps.push(new trap(width/2, height/2, objectImg.trap, player.speed, "good"));
+    objects.traps.push(new trap(width/2, height/2, objectImg.trap, player.speed));
+    numOfTraps--;
   }
 
   // toggle melee/ranged
@@ -899,12 +962,12 @@ function mousePressed() {
   if (startingState === 2 && !settingsIsOpen && !inventoryIsOpen && !mapIsOpen) {
     // ranged
     if (rangedOn && numOfArrows > 0) {
-      objects.arrows.push(new arrow(0, sprite.WIDTH, objectImg.arrow, "good", player.speed));
+      objects.arrows.push(new arrow(0, sprite.WIDTH, objectImg.arrow, player.speed));
       numOfArrows--;
     }
     // melee
     else if (!rangedOn) {
-      objects.melee.push(new sword(0, sprite.WIDTH, objectImg.sword, "good", player.speed));
+      objects.melee.push(new sword(0, sprite.WIDTH, objectImg.sword, player.speed));
     }
   }
 
@@ -1049,11 +1112,12 @@ function playingGame() {
 
     // objects
     objectFoo();
+    floatingItems();
   }
 }
 
-// CHECKING STATE--
 
+// CHECKING STATE--
 function draw() {
   image(world.image, width/2, height/2, width, height);
 
@@ -1072,15 +1136,13 @@ function draw() {
     playingGame();
   }
 
-  // GAME OVER-------
-  else if (startingState === "gameOver") {
-    gameOver();
-  }
-
-  // ENDING----------
+  // ENDINGS---------
   else if (startingState === "ending") {
     if (state === "secretEnding") {
       secretEnding();
+    }
+    else if (state === "gameOver") {
+      gameOver();
     }
   }
 }
@@ -1090,7 +1152,7 @@ function draw() {
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
-//  ENDING----------, end game states   START
+//  ENDINGS---------, end game states   START
 //------------------------------------------------------------------------------
 
 function secretEnding() {
@@ -1106,22 +1168,16 @@ function secretEnding() {
   textFont("BOLD", textTop);
 }
 
-//------------------------------------------------------------------------------
-//   ENDING---------, end game states   END
-//------------------------------------------------------------------------------
-
-//------------------------------------------------------------------------------
-//  GAME OVER-------, startingState "gameOver"   START
-//------------------------------------------------------------------------------
 function gameOver() {
-  startingState = "gameOver";
+  // game over screen
+  startingState = "ending";
   state = "gameOver";
   background(0);
   fill("red");
   text("GAME OVER,\nyou suck", width/2, height/2);
   text("Press 'Esc' to return to main menu", width/2, height*0.80);
 
-  if (keyCode === ESCAPE) {
+  if (keyCode === keyBindings.settings) {
     startingState = 0;
     state = 0;
     settingsIsOpen = false;
@@ -1129,6 +1185,7 @@ function gameOver() {
     setup();
   }
 }
+
 //------------------------------------------------------------------------------
-//  GAME OVER-------, startingState "gameOver"   END
+//   ENDINGS--------, end game states   END
 //------------------------------------------------------------------------------
