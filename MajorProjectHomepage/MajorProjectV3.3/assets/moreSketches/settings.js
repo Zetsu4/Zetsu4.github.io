@@ -64,14 +64,15 @@ function displayControls() {
     "ESC - OPEN SETTINGS\n\
     LEFT MOUSE BUTTON - ATTACK\n\
     " + String.fromCharCode(keyBindArray[0]) + " - TOGGLE RANGED ATTACK\n\
-    " + String.fromCharCode(keyBindArray[1]) + " - PLACE TRAP\n\
-    " + String.fromCharCode(keyBindArray[2]) + " - UP\n\
-    " + String.fromCharCode(keyBindArray[3]) + " - LEFT\n\
-    " + String.fromCharCode(keyBindArray[4]) + " - DOWN\n\
-    " + String.fromCharCode(keyBindArray[5]) + " - RIGHT\n\
-    " + String.fromCharCode(keyBindArray[6]) + " - INTERACT\n\
-    " + String.fromCharCode(keyBindArray[7]) + " - INVENTORY\n\
-    " + String.fromCharCode(keyBindArray[8]) + " - OPEN MAP",
+    " + String.fromCharCode(keyBindArray[1]) + " - TOGGLE MAGIC ATTACK\n\
+    " + String.fromCharCode(keyBindArray[2]) + " - PLACE TRAP\n\
+    " + String.fromCharCode(keyBindArray[3]) + " - UP\n\
+    " + String.fromCharCode(keyBindArray[4]) + " - LEFT\n\
+    " + String.fromCharCode(keyBindArray[5]) + " - DOWN\n\
+    " + String.fromCharCode(keyBindArray[6]) + " - RIGHT\n\
+    " + String.fromCharCode(keyBindArray[7]) + " - INTERACT\n\
+    " + String.fromCharCode(keyBindArray[8]) + " - INVENTORY\n\
+    " + String.fromCharCode(keyBindArray[9]) + " - OPEN MAP",
     width/2, textTop);
   reBindKeys_Button();
   if (changingKeys) {

@@ -158,16 +158,18 @@ function defaultKeyBinds() {
   keyBindings.settings = 27; // Escape
   // changable
   keyBindings.toggleRanged = 82; // r
-  keyBindings.placeTrap = 67; // c
+  keyBindings.toggleMagic = 84; // t
+  keyBindings.placeTrap = 81; // q
   keyBindings.up = 87; // w
   keyBindings.left = 65; // a
   keyBindings.down = 83; // s
   keyBindings.right = 68; // d
-  keyBindings.interact = 32; // Space
+  keyBindings.interact = 70; // f
   keyBindings.inventory = 69; // e
   keyBindings.openMap = 77; // m
   keyBindArray = [ // displayed bindings
     keyBindings.toggleRanged,
+    keyBindings.toggleMagic,
     keyBindings.placeTrap,
     keyBindings.up,
     keyBindings.left,
@@ -245,7 +247,7 @@ function defaultPlayer() {
   player.x = world.WIDTH/2;
   player.y = world.HEIGHT/2;
 
-  player.speed = width*0.008; // temp
+  player.speed = width*0.0075; // temp
 
   // inventory starting
   rangedOn = false;
@@ -253,6 +255,7 @@ function defaultPlayer() {
   inventory = make2DArray(invenWidth, invenHeight);
   inventoryBoxSize = textTop*2;
   inventoryIsOpen = false;
+  itemsOnGround = [];
 
   numOfArrows = 5;
   numOfTraps = 10;

@@ -25,23 +25,23 @@ function playerShow() {
 
 function playerMovement() {
   // x-axis
-  if (keyIsDown(keyBindArray[3])) { // LEFT
+  if (keyIsDown(keyBindings.left)) { // LEFT
     player.x -= player.speed;
     world.imageX += player.speed;
   }
 
-  if (keyIsDown(keyBindArray[5])) { // RIGHT
+  if (keyIsDown(keyBindings.right)) { // RIGHT
     player.x += player.speed;
     world.imageX -= player.speed;
   }
 
   // y-axis
-  if (keyIsDown(keyBindArray[2])) { // UP
+  if (keyIsDown(keyBindings.up)) { // UP
     player.y -= player.speed;
     world.imageY += player.speed;
   }
 
-  if (keyIsDown(keyBindArray[4])) { // DOWN
+  if (keyIsDown(keyBindings.down)) { // DOWN
     player.y += player.speed;
     world.imageY -= player.speed;
   }
@@ -60,23 +60,23 @@ function moveWithPlayer() {
   else {
     // LEFT/RIGHT
     for (let badGuy of badGuys) { // baddies
-      badGuy.moveWithPlayerX(keyBindArray[3], keyBindArray[5]);
+      badGuy.moveWithPlayerX(keyBindings.left, keyBindings.right);
     }
 
     for (let trap of objects.traps) { // traps
-      trap.moveWithPlayerX(keyBindArray[3], keyBindArray[5]);
+      trap.moveWithPlayerX(keyBindings.left, keyBindings.right);
     }
 
     for (let arrow of objects.arrows) { // arrows
-      arrow.moveWithPlayerX(keyBindArray[3], keyBindArray[5]);
+      arrow.moveWithPlayerX(keyBindings.left, keyBindings.right);
     }
 
     for (let slash of objects.melee) { // slashes
-      slash.moveWithPlayerX(keyBindArray[3], keyBindArray[5]);
+      slash.moveWithPlayerX(keyBindings.left, keyBindings.right);
     }
 
     for (let item of itemsOnGround) { // items on the ground
-      item.moveWithPlayerX(keyBindArray[3], keyBindArray[5]);
+      item.moveWithPlayerX(keyBindings.left, keyBindings.right);
     }
   }
 
@@ -90,23 +90,23 @@ function moveWithPlayer() {
   else {
     // UP/DOWN
     for (let badGuy of badGuys) { // baddies
-      badGuy.moveWithPlayerY(keyBindArray[2], keyBindArray[4]);
+      badGuy.moveWithPlayerY(keyBindings.up, keyBindings.down);
     }
 
     for (let trap of objects.traps) { // traps
-      trap.moveWithPlayerY(keyBindArray[2], keyBindArray[4]);
+      trap.moveWithPlayerY(keyBindings.up, keyBindings.down);
     }
 
     for (let arrow of objects.arrows) { // arrows
-      arrow.moveWithPlayerY(keyBindArray[2], keyBindArray[4]);
+      arrow.moveWithPlayerY(keyBindings.up, keyBindings.down);
     }
 
     for (let slash of objects.melee) { // slashes
-      slash.moveWithPlayerY(keyBindArray[2], keyBindArray[4]);
+      slash.moveWithPlayerY(keyBindings.up, keyBindings.down);
     }
 
     for (let item of itemsOnGround) { // items on the ground
-      item.moveWithPlayerY(keyBindArray[2], keyBindArray[4]);
+      item.moveWithPlayerY(keyBindings.up, keyBindings.down);
     }
   }
 }
@@ -347,23 +347,23 @@ function keyPressed() {
   }
 
   // open map
-  if (keyCode === keyBindArray[8] && startingState === 2 && !inventoryIsOpen) {
+  if (keyCode === keyBindings.openMap && startingState === 2 && !inventoryIsOpen) {
     mapIsOpen = !mapIsOpen;
   }
 
   // open inventory
-  if (keyCode === keyBindArray[7] && startingState === 2 && !settingsIsOpen) {
+  if (keyCode === keyBindings.inventory && startingState === 2 && !settingsIsOpen) {
     inventoryIsOpen = !inventoryIsOpen;
   }
 
   // place traps
-  if (keyCode === keyBindArray[1] && startingState === 2 && !settingsIsOpen && !inventoryIsOpen && objects.traps.length < maxTraps) {
+  if (keyCode === keyBindings.placeTrap && startingState === 2 && !settingsIsOpen && !inventoryIsOpen && objects.traps.length < maxTraps) {
     objects.traps.push(new trap(width/2, height/2, objectImg.trap, player.speed));
     numOfTraps--;
   }
 
   // toggle melee/ranged
-  if (keyCode === keyBindArray[0] && startingState === 2 && !settingsIsOpen) {
+  if (keyCode === keyBindings.toggleRanged && startingState === 2 && !settingsIsOpen) {
     rangedOn = !rangedOn;
   }
 
