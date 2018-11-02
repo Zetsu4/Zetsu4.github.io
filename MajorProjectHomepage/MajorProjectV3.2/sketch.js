@@ -6,10 +6,11 @@
 // - hitting the edges the player bounces
 //
 // CREDITS:
-// art by Steven Valley and Travis Ahern
+// art by Steven Valley and Travis Ahern.
 // some code was taken and modified from,
 // Coding Train - Coding Challange - (Game of Life, Langtons Ant).
 //
+// TO DO:
 // add the good images---------------------------5%
 // get the save and load game functions working--0%
 // get the settings menu working-----------------70%
@@ -20,6 +21,7 @@
 // add a lvl system------------------------------0%
 // have an actual enviorment---------------------10%
 // fix all items/objects-------------------------0%
+
 
 // state vars
 let startingState;
@@ -918,7 +920,6 @@ function drawMap() {
       player.DOT*4);
   }
 }
-
 
 // OTHER FUNCTIONS-
 
