@@ -47,8 +47,18 @@ class trap {
     }
   }
 
-  show(spriteW, spriteH) {
+  show(spriteW, spriteH, interact) {
     image(this.image, this.x, this.y, spriteW, spriteH);
+    
+    if (this.x >= width/2 - spriteW && this.x <= width/2 + spriteW
+     && this.y >= height/2 - spriteH && this.y <= height/2 + spriteH) {
+      push();
+      fill("purple");
+      textSize((width*0.03 + height*0.03)/4);
+      text("Pick up '" + String.fromCharCode(interact) + "'", this.x, this.y + spriteH*0.60);
+      pop();
+      return keyCode === interact;
+    }
   }
 
   itemShow(spriteW, spriteH) {

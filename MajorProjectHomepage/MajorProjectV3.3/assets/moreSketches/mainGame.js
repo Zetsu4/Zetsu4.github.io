@@ -156,6 +156,14 @@ function beautifulMouse() {
   pop();
 }
 
+function playerCoolDown() {
+  let elapsedTime = millis() - attackCoolDownTime;
+
+  if (attackCoolDown && elapsedTime >= lastTimeAttacked) {
+    attackCoolDown = false;
+  }
+}
+
 // INVENTORY-------
 function lookInInventory() {
   // showing inventory
@@ -206,9 +214,33 @@ function mouseHoldingImage() {
   }
 }
 
+function numOfItemsQuickCheck() {
+  let xPos = minimap.X + minimap.OUTTER_WIDTH/2;
+
+  push();
+  fill("purple");
+  textAlign(LEFT);
+  textSize(textTop/2);
+  // arrows in inventory
+  text("Arrows -", xPos, textTop/2);
+  text(numOfArrows, xPos + textTop*2, textTop/2);
+
+  // traps in inventory
+  text("Traps -", xPos, textTop);
+  text(numOfTraps + " , " + objects.traps.length, xPos + textTop*2, textTop);
+  pop();
+}
+
 // ITEMS/OBJECTS---
 function objectFoo() {
   // item/object
+  for (let trap = 0; trap < objects.traps.length; trap++) { // traps
+    if (objects.traps[trap].show(sprite.WIDTH, sprite.HEIGHT, keyBindings.interact)) {
+      objects.traps.splice(trap, 1);
+      numOfTraps++;
+    }
+  }
+
   for (let slash of objects.melee) { // sword
     slash.moveForward();
   }
@@ -253,7 +285,6 @@ function baddiesFoo() {
 
     for (let trap = 0; trap < objects.traps.length; trap++) {
       // traps
-      objects.traps[trap].show(sprite.WIDTH, sprite.HEIGHT);
       if (dist(badX, badY, objects.traps[trap].x, objects.traps[trap].y) <= badGuyHitBox) {
         objects.traps.splice(trap, 1);
         badGuyDeath(i, badGuys[i].otherX, badGuys[i].otherY);
@@ -298,8 +329,8 @@ function itemDrops(x, y) {
   let numberOfItems = random(5);
 
   for (let i = 0; i < numberOfItems; i++) {
-    let changeOfX = random(-width*0.01, width*0.01);
-    let changeOfY = random(-height*0.01, height*0.01);
+    let changeOfX = random(-sprite.WIDTH/2, sprite.WIDTH/2);
+    let changeOfY = random(-sprite.HEIGHT/2, sprite.HEIGHT/2);
     let randomItem = random(20);
 
     if (randomItem <= 5) { // arrows
@@ -340,46 +371,53 @@ function waiting() {
 }
 
 function keyPressed() {
-  // open settings
-  if (keyCode === keyBindings.settings && startingState === 2) {
-    settingsIsOpen = !settingsIsOpen;
-    settingsChoice = -1;
-  }
+  if (startingState === 2) {
+    // open settings
+    if (keyCode === keyBindings.settings) {
+      settingsIsOpen = !settingsIsOpen;
+      settingsChoice = -1;
+    }
 
-  // open map
-  if (keyCode === keyBindings.openMap && startingState === 2 && !inventoryIsOpen) {
-    mapIsOpen = !mapIsOpen;
-  }
+    // open map
+    if (keyCode === keyBindings.openMap && !inventoryIsOpen) {
+      mapIsOpen = !mapIsOpen;
+    }
 
-  // open inventory
-  if (keyCode === keyBindings.inventory && startingState === 2 && !settingsIsOpen) {
-    inventoryIsOpen = !inventoryIsOpen;
-  }
+    if (!settingsIsOpen) {
+      // open inventory
+      if (keyCode === keyBindings.inventory) {
+        inventoryIsOpen = !inventoryIsOpen;
+      }
 
-  // place traps
-  if (keyCode === keyBindings.placeTrap && startingState === 2 && !settingsIsOpen && !inventoryIsOpen && objects.traps.length < maxTraps) {
-    objects.traps.push(new trap(width/2, height/2, objectImg.trap, player.speed));
-    numOfTraps--;
-  }
+      // toggle melee/ranged
+      if (keyCode === keyBindings.toggleRanged) {
+        rangedOn = !rangedOn;
+      }
 
-  // toggle melee/ranged
-  if (keyCode === keyBindings.toggleRanged && startingState === 2 && !settingsIsOpen) {
-    rangedOn = !rangedOn;
+      // place traps
+      if (keyCode === keyBindings.placeTrap && !inventoryIsOpen && objects.traps.length < maxTraps) {
+        objects.traps.push(new trap(width/2, height/2, objectImg.trap, player.speed));
+        numOfTraps--;
+      }
+    }
   }
-
 }
 
 function mousePressed() {
   // player attack
-  if (startingState === 2 && !settingsIsOpen && !inventoryIsOpen && !mapIsOpen) {
+  if (startingState === 2 && !settingsIsOpen && !inventoryIsOpen && !mapIsOpen && !attackCoolDown) {
     // ranged
     if (rangedOn && numOfArrows > 0) {
       objects.arrows.push(new arrow(0, sprite.WIDTH, objectImg.arrow, player.speed));
       numOfArrows--;
+      attackCoolDown = true;
+      lastTimeAttacked = millis();
     }
     // melee
     else if (!rangedOn) {
       objects.melee.push(new sword(0, sprite.WIDTH, objectImg.sword, player.speed));
+      attackCoolDown = true;
+      lastTimeAttacked = millis();
     }
   }
 

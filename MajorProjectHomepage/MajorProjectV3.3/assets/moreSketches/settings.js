@@ -61,18 +61,18 @@ function displayControls() {
   // if changes are made here, change the "reBindKeys()" function
   fill("black");
   text(
-    "ESC - OPEN SETTINGS\n\
-    LEFT MOUSE BUTTON - ATTACK\n\
-    " + String.fromCharCode(keyBindArray[0]) + " - TOGGLE RANGED ATTACK\n\
-    " + String.fromCharCode(keyBindArray[1]) + " - TOGGLE MAGIC ATTACK\n\
-    " + String.fromCharCode(keyBindArray[2]) + " - PLACE TRAP\n\
-    " + String.fromCharCode(keyBindArray[3]) + " - UP\n\
-    " + String.fromCharCode(keyBindArray[4]) + " - LEFT\n\
-    " + String.fromCharCode(keyBindArray[5]) + " - DOWN\n\
-    " + String.fromCharCode(keyBindArray[6]) + " - RIGHT\n\
-    " + String.fromCharCode(keyBindArray[7]) + " - INTERACT\n\
-    " + String.fromCharCode(keyBindArray[8]) + " - INVENTORY\n\
-    " + String.fromCharCode(keyBindArray[9]) + " - OPEN MAP",
+"ESC - OPEN SETTINGS\n\
+LEFT MOUSE BUTTON - ATTACK\n\
+" + String.fromCharCode(keyBindArray[0]) + " - TOGGLE RANGED ATTACK\n\
+" + String.fromCharCode(keyBindArray[1]) + " - TOGGLE MAGIC ATTACK\n\
+" + String.fromCharCode(keyBindArray[2]) + " - PLACE TRAP\n\
+" + String.fromCharCode(keyBindArray[3]) + " - UP\n\
+" + String.fromCharCode(keyBindArray[4]) + " - LEFT\n\
+" + String.fromCharCode(keyBindArray[5]) + " - DOWN\n\
+" + String.fromCharCode(keyBindArray[6]) + " - RIGHT\n\
+" + String.fromCharCode(keyBindArray[7]) + " - INTERACT\n\
+" + String.fromCharCode(keyBindArray[8]) + " - INVENTORY\n\
+" + String.fromCharCode(keyBindArray[9]) + " - OPEN MAP",
     width/2, textTop);
   reBindKeys_Button();
   if (changingKeys) {

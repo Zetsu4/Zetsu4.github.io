@@ -1,6 +1,6 @@
-// V3.2
+// V3.3
 // Travis Ahern
-// Oct. 30/18
+// Nov. 1/18
 //
 // PROBLEMS:
 // - hitting the edges the player bounces
@@ -63,6 +63,9 @@ let invenHeight = 8;
 let numOfArrows;
 let numOfTraps;
 let maxTraps;
+let attackCoolDown;
+let attackCoolDownTime;
+let lastTimeAttacked;
 
 // box option vars
 let box = {};
@@ -75,7 +78,7 @@ let nothing = Infinity;
 const WAIT_TIME = 150;
 
 // bad guy vars
-const NUM_OF_BADDIES = 50;
+const NUM_OF_BADDIES = 100;
 let badGuys = [];
 let badGuysObjects = {};
 let badGuysPosX = [];
@@ -247,7 +250,7 @@ function defaultPlayer() {
   player.x = world.WIDTH/2;
   player.y = world.HEIGHT/2;
 
-  player.speed = width*0.0075; // temp
+  player.speed = width*0.007; // temp
 
   // inventory starting
   rangedOn = false;
@@ -258,8 +261,12 @@ function defaultPlayer() {
   itemsOnGround = [];
 
   numOfArrows = 5;
-  numOfTraps = 10;
+  numOfTraps = 5;
   inventory[0][0] = objectImg.arrow;
+
+  attackCoolDown = false;
+  attackCoolDownTime = 500;
+  lastTimeAttacked = 0;
 }
 
 function settingBoxSizes() {

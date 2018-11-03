@@ -107,6 +107,7 @@ function playingGame() {
     showMinimap();
 
     // player
+    playerCoolDown();
     playerShow();
     playerMovement();
     playerMinimap(
@@ -121,6 +122,7 @@ function playingGame() {
     // objects
     objectFoo();
     floatingItems();
+    numOfItemsQuickCheck();
   }
 }
 
