@@ -1,27 +1,29 @@
 class bodyOfMass {
-  constructor(x, y, mass, fixed, color) {
+  constructor(x, y, mass, radius, fixed, color) {
     this.x = x;
     this.y = y;
-    this.mass = mass/4;
+    this.mass = mass;
+    this.radius = radius;
     this.fixed = fixed;
-    this.rotation = 0;
     this.color = color;
+    this.velocity = 0;
   }
 
   show() {
     push();
     stroke(this.color);
-    translate(this.x, this.y);
-    rotate(this.rotation);
-    ellipse(0, 0, this.mass);
+    ellipse(this.x, this.y, this.radius);
     pop();
   }
 
-  move() {
-
+  move(acceleration) {
+    if (!this.fixed) {
+      this.velocity += acceleration/100000;
+      this.x += this.velocity;
+    }
   }
 
   mouseOver() {
-    return dist(mouseX, mouseY, this.x, this.y) <= this.mass;
+    return dist(mouseX, mouseY, this.x, this.y) <= this.radius;
   }
 }
