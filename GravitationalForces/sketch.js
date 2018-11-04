@@ -5,11 +5,13 @@
 let mass;
 let exponent;
 let radius;
-let fixedPos = false;
 let bodiesOfMass = [];
+let fixedPos = false;
 let paused = false;
 let controls = true;
 let status = true;
+let deleteOn = false;
+let massOn = true;
 let exponentOn = false;
 let radiusOn = false;
 let textTop;
@@ -28,9 +30,11 @@ function setup() {
   fill("black");
   noFill();
 
+  rectMode(CENTER);
+
   // data
-  mass = 5.97;
   exponent = 24;
+  mass = 5.97;
   radius = 50;
 }
 
@@ -39,23 +43,67 @@ function draw() {
   showBodiesOfMass();
   if (!paused) {
     moveBodiesOfMass();
+    collisionOfBodies();
   }
   writeText();
 }
 
+function angle(sx, sy, ex, ey) {
+  let dy = ey - sy;
+  let dx = ex - sx;
+  let theta = Math.atan2(dy, dx); // range (-PI, PI]
+  theta *= 180 / Math.PI; // rads to degs, range (-180, 180]
+  //if (theta < 0) theta = 360 + theta; // range [0, 360)
+  return theta;
+}
+
 function moveBodiesOfMass() {
   for (let i = 0; i < bodiesOfMass.length; i++) {
-    let totalForce = 0;
-    let acceleration = 0;
+    let totHorzForce = 0;
+    let totVertForce = 0;
+    let accelerationH = 0;
+    let accelerationV = 0;
+
     for (let j = 0; j < bodiesOfMass.length; j++) {
       if (i !== j) {
         let distance = dist(bodiesOfMass[i].x, bodiesOfMass[i].y, bodiesOfMass[j].x, bodiesOfMass[j].y);
         let force = 6.67e-11 * bodiesOfMass[i].mass * bodiesOfMass[j].mass/(distance*distance);
-        totalForce += force;
+
+        let theta = angle(bodiesOfMass[i].x, bodiesOfMass[i].y, bodiesOfMass[j].x, bodiesOfMass[j].y);
+
+        let fH = force*cos(theta);
+        let fV = force*sin(theta);
+
+        // right
+        if (bodiesOfMass[i].x < bodiesOfMass[j].x) {
+          totHorzForce += fH;
+        }
+        // left
+        else {
+          totHorzForce -= fH;
+        }
+
+        // down
+        if (bodiesOfMass[i].y < bodiesOfMass[j].y) {
+          totVertForce += fV;
+        }
+        // up
+        else {
+          totVertForce -= fV;
+        }
       }
     }
-    acceleration = totalForce/bodiesOfMass[i].mass;
-    bodiesOfMass[i].move(acceleration);
+    accelerationH = totHorzForce/bodiesOfMass[i].mass;
+    accelerationV = totVertForce/bodiesOfMass[i].mass;
+    bodiesOfMass[i].move(accelerationH/6e10, accelerationV/6e10);
+  }
+}
+
+function collisionOfBodies() {
+  for (let i = 0; i < bodiesOfMass.length; i++) {
+    for (let j = 0; j < bodiesOfMass.length; j++) {
+      bodiesOfMass[i].collide(bodiesOfMass[j].x, bodiesOfMass[j].y, bodiesOfMass[j].radius);
+    }
   }
 }
 
@@ -78,7 +126,7 @@ X - toggle status\n\
 P - pause simulation\n\
 F - toggle fixed\n\
 C - clear\n\
-D - delete\n\
+D - toggle delete\n\
 E - toggle exponent\n\
 R - toggle radius\n\
 'Shift' - change 1st decimal\n\
@@ -95,80 +143,57 @@ R - toggle radius\n\
     text("STATUS:\n\
 Paused - " + paused + "\n\
 Fixed - " + fixedPos + "\n\
+Delete - " + deleteOn + "\n\
 Mass - " + mass.toFixed(2) + "e" + exponent + "Kg " + exponentOn + "\n\
-Radius - " + round(radius) + "m " + radiusOn,
+Radius - " + radius + "m " + radiusOn + "\n\
+Objects - " + bodiesOfMass.length,
     width - width*0.005, height*0.005);
   }
   pop();
 }
 
-function changingNumbers() {
-  // changing numbers
-  if (exponentOn) {
+function changingNumbers(thisOn, num, massOn = false) {
+  let change = 1;
+
+  if (keyIsDown(16)) { // SHIFT
+    change = 10;
+  }
+
+  else if (keyIsDown(17)) { // CTRL
+    change = 100;
+  }
+
+  // mass
+  if (massOn) {
+    change = change/(change*change);
+  }
+
+  // number
+  if (thisOn) {
     if (keyCode === 38) { // UP
-      exponent++;
+      num += change;
     }
     if (keyCode === 40) { // DOWN
-      exponent--;
+      num -= change;
     }
   }
 
-  else if (radiusOn) {
-    if (keyIsDown(16)) { // SHIFT
-      if (keyCode === 38) { // UP
-        radius += 10;
-      }
-      if (keyCode === 40) { // DOWN
-        radius -= 10;
-      }
-    }
-
-    else {
-      if (keyCode === 38) { // UP
-        radius++;
-      }
-      if (keyCode === 40) { // DOWN
-        radius--;
-      }
-    }
-  }
-
-  else {
-    if (keyIsDown(17)) { // CTRL
-      if (keyCode === 38) { // UP
-        mass += 0.01;
-      }
-      if (keyCode === 40) { // DOWN
-        mass -= 0.01;
-      }
-    }
-
-    else if (keyIsDown(16)) { // SHIFT
-      if (keyCode === 38) { // UP
-        mass += 0.1;
-      }
-      if (keyCode === 40) { // DOWN
-        mass -= 0.1;
-      }
-    }
-
-    else {
-      if (keyCode === 38) { // UP
-        mass++;
-      }
-      if (keyCode === 40) { // DOWN
-        mass--;
-      }
-    }
-  }
-
-  // constraint
-  mass = constrain(mass, 1, 10);
-  radius = constrain(radius, 0, Infinity);
+  return num;
 }
 
 function keyPressed() {
-  changingNumbers();
+  exponent = changingNumbers(exponentOn, exponent);
+  radius = changingNumbers(radiusOn, radius);
+  mass = changingNumbers(massOn, mass, true);
+
+  // restraints
+  if (mass.toFixed(2) >= 10) {
+    mass -= 10;
+  }
+  else if (mass.toFixed(2) < 0) {
+    mass += 10;
+  }
+  radius = constrain(radius, 5, Infinity);
 
   // toggle exponent
   if (keyCode === 69) { // E
@@ -180,6 +205,14 @@ function keyPressed() {
   if (keyCode === 82) { // R
     radiusOn = !radiusOn;
     exponentOn = false;
+  }
+
+  // toggle mass
+  if (!exponentOn && !radiusOn) {
+    massOn = true;
+  }
+  else {
+    massOn = false;
   }
 
   // toggle controls/status display
@@ -200,6 +233,10 @@ function keyPressed() {
     paused = !paused;
   }
 
+  if (keyCode === 68) { // D
+    deleteOn = !deleteOn;
+  }
+
   // clear
   if (keyCode === 67) { // C
     bodiesOfMass = [];
@@ -207,7 +244,7 @@ function keyPressed() {
 }
 
 function mousePressed() {
-  if (keyIsDown(68)) { // D
+  if (deleteOn) {
     // delete
     for (let i = 0; i < bodiesOfMass.length; i++) {
       if (bodiesOfMass[i].mouseOver()) {
@@ -216,14 +253,11 @@ function mousePressed() {
     }
   }
 
+  // create
   else {
     let randomCol = color(random(10, 255), random(10, 255), random(10, 255));
-    let firstMass = mass;
-    let calculatedMass = 1;
-    // implementing exponent
-    for (let i = 0; i < exponent; i++) {
-      calculatedMass = calculatedMass*firstMass;
-    }
+    let calculatedMass = mass*pow(10, exponent);
+
     bodiesOfMass.push(new bodyOfMass(mouseX, mouseY, calculatedMass, radius, fixedPos, randomCol));
   }
 }
