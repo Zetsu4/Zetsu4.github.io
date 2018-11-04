@@ -49,7 +49,7 @@ class trap {
 
   show(spriteW, spriteH, interact) {
     image(this.image, this.x, this.y, spriteW, spriteH);
-    
+
     if (this.x >= width/2 - spriteW && this.x <= width/2 + spriteW
      && this.y >= height/2 - spriteH && this.y <= height/2 + spriteH) {
       push();
@@ -63,5 +63,26 @@ class trap {
 
   itemShow(spriteW, spriteH) {
     image(this.image, this.itemX + width/2, this.itemY + height/2, spriteW, spriteH);
+  }
+
+  mapping(
+    worldW, worldH,
+    minimapX, minimapY,
+    minimapW, minimapH,
+    dotSize) {
+    // minimap boundries
+    let minimapXMin = minimapX - minimapW/2 + dotSize/2;
+    let minimapXMax = minimapX + minimapW/2 - dotSize/2;
+
+    let minimapYMin = minimapY - minimapH/2 + dotSize/2;
+    let minimapYMax = minimapY + minimapH/2 - dotSize/2;
+
+    // dot
+    let mapX = map(this.itemX, -worldW/2, worldW/2, minimapXMin, minimapXMax);
+    let mapY = map(this.itemY, -worldH/2, worldH/2, minimapYMin, minimapYMax);
+
+    // items dot
+    fill("yellow");
+    ellipse(mapX, mapY, dotSize);
   }
 }

@@ -227,7 +227,7 @@ function numOfItemsQuickCheck() {
 
   // traps in inventory
   text("Traps -", xPos, textTop);
-  text(numOfTraps + " , " + objects.traps.length, xPos + textTop*2, textTop);
+  text(numOfTraps + " , " + objects.traps.length + "/" + maxTraps, xPos + textTop*2, textTop);
   pop();
 }
 
@@ -277,11 +277,11 @@ function baddiesFoo() {
     let badY = badGuys[i].otherY + height/2;
     let badGuyHitBox = (sprite.WIDTH + sprite.HEIGHT)/4;
 
-    if (dist(badX, badY, width/2, height/2) <= badGuyHitBox) {
-      // player
-      gameOver();
-      break;
-    }
+    // if (dist(badX, badY, width/2, height/2) <= badGuyHitBox) {
+    //   // player
+    //   gameOver();
+    //   break;
+    // }
 
     for (let trap = 0; trap < objects.traps.length; trap++) {
       // traps
@@ -333,13 +333,13 @@ function itemDrops(x, y) {
     let changeOfY = random(-sprite.HEIGHT/2, sprite.HEIGHT/2);
     let randomItem = random(20);
 
-    if (randomItem <= 5) { // arrows
+    if (randomItem <= 15) { // arrows
       itemsOnGround.push(new arrow(0, 0, objectImg.arrow, player.speed, x + changeOfX, y + changeOfY));
     }
 
-    else if (randomItem <= 10) { // traps
-      itemsOnGround.push(new trap(0, 0, objectImg.trap, player.speed, x + changeOfX, y + changeOfY));
-    }
+    // else if (randomItem <= 10) { // traps
+    //   itemsOnGround.push(new trap(0, 0, objectImg.trap, player.speed, x + changeOfX, y + changeOfY));
+    // }
   }
 }
 
@@ -347,6 +347,12 @@ function floatingItems() {
   // items on the ground
   for (let i = 0; i < itemsOnGround.length; i++) {
     itemsOnGround[i].itemShow(sprite.WIDTH, sprite.HEIGHT);
+    itemsOnGround[i].mapping(
+      world.WIDTH, world.HEIGHT,
+      minimap.X, minimap.Y,
+      minimap.WIDTH, minimap.HEIGHT,
+      player.x, player.y,
+      player.DOT*0.75);
 
     if (itemsOnGround[i].pickUp(sprite.WIDTH, sprite.HEIGHT)) {
 
@@ -395,7 +401,7 @@ function keyPressed() {
       }
 
       // place traps
-      if (keyCode === keyBindings.placeTrap && !inventoryIsOpen && objects.traps.length < maxTraps) {
+      if (keyCode === keyBindings.placeTrap && !inventoryIsOpen && objects.traps.length < maxTraps && numOfTraps > 0) {
         objects.traps.push(new trap(width/2, height/2, objectImg.trap, player.speed));
         numOfTraps--;
       }

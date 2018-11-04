@@ -9,8 +9,12 @@ class arrow {
     this.realY = 0;
 
     // position that translates
-    this.changeX = itemX;
-    this.changeY = itemY;
+    this.changeX = 0;
+    this.changeY = 0;
+
+    // item positions
+    this.itemX = itemX;
+    this.itemY = itemY;
 
     // movement speed
     this.speed = swiftness*0.20;
@@ -22,8 +26,8 @@ class arrow {
   }
 
   pickUp(spriteW, spriteH) {
-    return this.changeX + width/2 >= width/2 - spriteW/2 && this.changeX + width/2 <= width/2 + spriteW/2
-        && this.changeY + height/2 >= height/2 - spriteH/2 && this.changeY + height/2 <= height/2 + spriteH/2;
+    return this.itemX + width/2 >= width/2 - spriteW/2 && this.itemX + width/2 <= width/2 + spriteW/2
+        && this.itemY + height/2 >= height/2 - spriteH/2 && this.itemY + height/2 <= height/2 + spriteH/2;
   }
 
   disapear() {
@@ -68,6 +72,28 @@ class arrow {
   }
 
   itemShow(spriteW, spriteH) {
-    image(this.image, this.changeX + width/2, this.changeY + height/2, spriteW, spriteH*0.25);
+    image(this.image, this.itemX + width/2, this.itemY + height/2, spriteW, spriteH*0.25);
+  }
+
+  mapping(
+    worldW, worldH,
+    minimapX, minimapY,
+    minimapW, minimapH,
+    playerX, playerY,
+    dotSize) {
+    // minimap boundries
+    let minimapXMin = minimapX - minimapW/2 + dotSize/2;
+    let minimapXMax = minimapX + minimapW/2 - dotSize/2;
+
+    let minimapYMin = minimapY - minimapH/2 + dotSize/2;
+    let minimapYMax = minimapY + minimapH/2 - dotSize/2;
+
+    // dot
+    let mapX = map(this.itemX, -worldW/2, worldW/2, minimapXMin, minimapXMax);
+    let mapY = map(this.itemY, -worldH/2, worldH/2, minimapYMin, minimapYMax);
+
+    // items dot
+    fill("yellow");
+    ellipse(mapX, mapY, dotSize);
   }
 }
