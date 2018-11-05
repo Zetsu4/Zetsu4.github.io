@@ -9,7 +9,7 @@ function selectRace() {
     let yPos = box.yStart + i*box.heightRace;
     if (buttonFoo(box.xRace, yPos, box.width, box.heightRace, "red", greenColor, allRaces[i][0])) {
       player.racePosistion = i;
-      player.race = allRaces[i][1];
+      player.raceImage = allRaces[i][1];
     }
   }
 }
@@ -25,7 +25,7 @@ function selectedRace() {
   fill("black");
   text(allRaces[player.racePosistion][0], box.xRace, boxPosY + box.heightRace/4, box.width, box.heightRace);
 
-  image(player.race, width/2, height*0.70, sprite.DISPLAY_WIDTH, sprite.DISPLAY_HEIGHT);
+  image(player.raceImage, width/2, height*0.70, sprite.DISPLAY_WIDTH, sprite.DISPLAY_HEIGHT);
 }
 
 // SKILL-----------

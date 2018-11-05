@@ -212,19 +212,19 @@ function defaultSprites() {
 
   // races
   allRaces = [
-    ["Random", raceSprites.randomSprite], ["Human", raceSprites.human],
-    ["Half-Elf", raceSprites.halfElf], ["Elf", raceSprites.elf],
-    ["Dwarf", raceSprites.dwarf], ["Halfling", raceSprites.halfling],
-    ["Goblin", raceSprites.goblin], ["Orc", raceSprites.orc],
-    ["Uruk-Hai", raceSprites.urukHai]];
+    ["Random", raceSprites.randomSprite], ["Human", raceSprites.human, human],
+    ["Half-Elf", raceSprites.halfElf, halfElf], ["Elf", raceSprites.elf, elf],
+    ["Dwarf", raceSprites.dwarf, dwarf], ["Halfling", raceSprites.halfling, halfling],
+    ["Goblin", raceSprites.goblin, goblin], ["Orc", raceSprites.orc, orc],
+    ["Uruk-Hai", raceSprites.urukHai, urukHai]];
 
   // skills
   allSkills = [
-    ["Random", skillImages.randomSkill], ["Archer", skillImages.archer],
-    ["Ranger", skillImages.ranger], ["Fighter", skillImages.fighter],
-    ["Samurai", skillImages.samurai], ["Mage", skillImages.mage],
-    ["Cleric", skillImages.cleric], ["Rogue", skillImages.rogue],
-    ["Trapper", skillImages.trapper]];
+    ["Random", skillImages.randomSkill], ["Archer", skillImages.archer, archer],
+    ["Ranger", skillImages.ranger, ranger], ["Fighter", skillImages.fighter, fighter],
+    ["Samurai", skillImages.samurai, samurai], ["Mage", skillImages.mage, mage],
+    ["Cleric", skillImages.cleric, cleric], ["Rogue", skillImages.rogue, rogue],
+    ["Trapper", skillImages.trapper, trapper]];
 }
 
 function settingItems() {
@@ -245,8 +245,8 @@ function defaultPlayer() {
   // player starting
   player.racePosistion = 0;
   player.skillPosistion = 0;
-  player.race = allRaces[0][1];
-  player.skill = allSkills[0][1];
+  player.raceImage = allRaces[0][1];
+  player.skillImage = allSkills[0][1];
   player.DOT = (width*0.005 + height*0.005)/4;
 
   player.x = world.WIDTH/2;
