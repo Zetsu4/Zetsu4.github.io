@@ -31,9 +31,9 @@ class bodyOfMass {
     return dist(mouseX, mouseY, this.x, this.y) <= this.radius;
   }
 
-  collide(x, y, r) {
-    if (dist(this.x, this.y, x, y) < this.r + r) {
-      this.
-    }
-  }
+  // collide(x, y, r) {
+  //   if (dist(this.x, this.y, x, y) < this.r + r) {
+  //     this.
+  //   }
+  // }
 }

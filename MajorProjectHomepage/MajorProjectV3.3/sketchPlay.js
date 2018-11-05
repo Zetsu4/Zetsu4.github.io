@@ -43,13 +43,16 @@ function createChar() {
     // random character creation
     if (player.racePosistion === 0) {
       player.racePosistion = int(random(1, allRaces.length));
-      player.race = allRaces[player.racePosistion][1];
+      player.raceImage = allRaces[player.racePosistion][1];
     }
 
     if (player.skillPosistion === 0) {
       player.skillPosistion = int(random(1, allSkills.length));
-      player.skill = allSkills[player.skillPosistion][1];
+      player.skillImage = allSkills[player.skillPosistion][1];
     }
+
+    // setting player stats
+    playerStats();
 
     startingState = 2;
     state = 0;
@@ -107,13 +110,13 @@ function playingGame() {
     showMinimap();
 
     // player
-    playerCoolDown();
     playerShow();
     playerMovement();
     playerMinimap(
       minimap.X, minimap.Y,
       minimap.WIDTH, minimap.HEIGHT,
       player.DOT);
+    playerCoolDown();
     beautifulMouse();
 
     // objects

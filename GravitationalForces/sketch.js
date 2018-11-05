@@ -100,11 +100,11 @@ function moveBodiesOfMass() {
 }
 
 function collisionOfBodies() {
-  for (let i = 0; i < bodiesOfMass.length; i++) {
-    for (let j = 0; j < bodiesOfMass.length; j++) {
-      bodiesOfMass[i].collide(bodiesOfMass[j].x, bodiesOfMass[j].y, bodiesOfMass[j].radius);
-    }
-  }
+  // for (let i = 0; i < bodiesOfMass.length; i++) {
+  //   for (let j = 0; j < bodiesOfMass.length; j++) {
+  //     bodiesOfMass[i].collide(bodiesOfMass[j].x, bodiesOfMass[j].y, bodiesOfMass[j].radius);
+  //   }
+  // }
 }
 
 function showBodiesOfMass() {

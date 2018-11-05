@@ -19,8 +19,20 @@ function showMinimap() {
 
 // PLAYER----------
 function playerShow() {
-  image(player.race, width/2, height/2, sprite.WIDTH, sprite.HEIGHT);
-  image(player.skill, width/2, height/2 - sprite.HEIGHT, sprite.WIDTH, sprite.HEIGHT);
+  image(player.raceImage, width/2, height/2, sprite.WIDTH, sprite.HEIGHT);
+  image(player.skillImage, width/2, height/2 - sprite.HEIGHT, sprite.WIDTH, sprite.HEIGHT);
+
+  let totPlayerHP = player.vit;
+  let playerHP = player.vit - player.hp;
+
+  fill(0, 0, 255);
+  rect(width/2, height/2 - sprite.HEIGHT, sprite.WIDTH, sprite.HEIGHT/2);
+
+  push();
+  rectMode(LEFT);
+  fill(255, 0, 0);
+  rect(width/2 - 1, height/2 - sprite.HEIGHT, sprite.WIDTH - (2*1), sprite.HEIGHT/2);
+  pop();
 }
 
 function playerMovement() {
@@ -292,11 +304,11 @@ function baddiesFoo() {
     let badY = badGuys[i].otherY + height/2;
     let badGuyHitBox = (sprite.WIDTH + sprite.HEIGHT)/4;
 
-    // if (dist(badX, badY, width/2, height/2) <= badGuyHitBox) {
-    //   // player
-    //   gameOver();
-    //   break;
-    // }
+    if (dist(badX, badY, width/2, height/2) <= badGuyHitBox) {
+      // player
+      gameOver();
+      break;
+    }
 
     for (let trap = 0; trap < objects.traps.length; trap++) {
       // traps

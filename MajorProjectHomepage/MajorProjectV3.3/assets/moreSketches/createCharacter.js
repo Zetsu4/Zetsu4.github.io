@@ -35,7 +35,7 @@ function selectSkill() {
     let yPos = box.yStart + i*box.heightSkill;
     if (buttonFoo(box.xSkill, yPos, box.width, box.heightSkill, "red", greenColor, allSkills[i][0])) {
       player.skillPosistion = i;
-      player.skill = allSkills[i][1];
+      player.skillImage = allSkills[i][1];
     }
   }
 }
@@ -51,7 +51,25 @@ function selectedSkill() {
   fill("black");
   text(allSkills[player.skillPosistion][0], box.xSkill, boxPosY + box.heightSkill/4, box.width, box.heightSkill);
 
-  image(player.skill, box.xSkill - box.width, box.yStart, sprite.WIDTH + box.width/4, sprite.HEIGHT + box.heightSkill/2);
+  image(player.skillImage, box.xSkill - box.width, box.yStart, sprite.WIDTH + box.width/4, sprite.HEIGHT + box.heightSkill/2);
+}
+
+// STATS-----------
+function playerStats() {
+  // stats
+  player.int = allRaces[player.racePosistion][2].int;
+  player.agi = allRaces[player.racePosistion][2].agi;
+  player.str = allRaces[player.racePosistion][2].str;
+  player.dex = allRaces[player.racePosistion][2].dex;
+  player.vit = allRaces[player.racePosistion][2].vit;
+
+  // damage and health
+  player.hp = 10*(player.vit+1);
+  player.mDmg = player.str*2; // melee damage
+  player.rDmg = player.dex*2; // ranged damage
+  player.sDmg = player.int*2; // magic damage
+
+  player.speed = width*0.007 + width*player.agi*pow(10, -4);
 }
 
 //------------------------------------------------------------------------------

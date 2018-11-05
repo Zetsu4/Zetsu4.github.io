@@ -249,10 +249,22 @@ function defaultPlayer() {
   player.skillImage = allSkills[0][1];
   player.DOT = (width*0.005 + height*0.005)/4;
 
+  // stats
+  player.int = 100;
+  player.agi = 10;
+  player.str = 100;
+  player.dex = 100;
+  player.vit = 100;
+
+  // damage and health
+  player.hp = 10;
+  player.mDmg = 10; // melee damage
+  player.rDmg = 10; // ranged damage
+  player.sDmg = 10; // magic damage
+
   player.x = world.WIDTH/2;
   player.y = world.HEIGHT/2;
-
-  player.speed = width*0.007; // temp
+  player.speed = width*0.007 + width*player.agi*pow(10, -4);
 
   // inventory starting
   rangedOn = false;
