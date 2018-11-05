@@ -4,6 +4,8 @@
 //
 // PROBLEMS:
 // - hitting the edges the player bounces
+// - AI for the bad guys, sucks
+// - rebinding the key bindings only works for lowercase letters
 //
 // CREDITS:
 // art by Steven Valley and Travis Ahern.
@@ -78,7 +80,7 @@ let nothing = Infinity;
 const WAIT_TIME = 150;
 
 // bad guy vars
-const NUM_OF_BADDIES = 100;
+const NUM_OF_BADDIES = 75;
 let badGuys = [];
 let badGuysObjects = {};
 let badGuysPosX = [];

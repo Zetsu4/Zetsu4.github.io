@@ -1,6 +1,6 @@
 // arrows
 class arrow {
-  constructor(x, swiftness, image, playerSpeed, itemX = 0, itemY = 0) {
+  constructor(x, swiftness, image, playerSpeed, itemXchange = 0, itemYchange = 0, otherX = 0, otherY = 0) {
     // positon
     this.x = x;
 
@@ -12,9 +12,13 @@ class arrow {
     this.changeX = 0;
     this.changeY = 0;
 
-    // item positions
-    this.itemX = itemX;
-    this.itemY = itemY;
+    // item positions on map
+    this.itemX = otherX;
+    this.itemY = otherY;
+
+    // item changing positions
+    this.itemXchange = itemXchange;
+    this.itemYchange = itemYchange;
 
     // movement speed
     this.speed = swiftness*0.20;
@@ -26,8 +30,8 @@ class arrow {
   }
 
   pickUp(spriteW, spriteH) {
-    return this.itemX + width/2 >= width/2 - spriteW/2 && this.itemX + width/2 <= width/2 + spriteW/2
-        && this.itemY + height/2 >= height/2 - spriteH/2 && this.itemY + height/2 <= height/2 + spriteH/2;
+    return this.itemXchange + width/2 >= width/2 - spriteW/2 && this.itemXchange + width/2 <= width/2 + spriteW/2
+        && this.itemYchange + height/2 >= height/2 - spriteH/2 && this.itemYchange + height/2 <= height/2 + spriteH/2;
   }
 
   disapear() {
@@ -45,10 +49,12 @@ class arrow {
     // x-axis move with player
     if (keyIsDown(keyLeft)) { // LEFT
       this.changeX += this.playerSpeed;
+      this.itemXchange += this.playerSpeed;
     }
 
     if (keyIsDown(keyRight)) { // RIGHT
       this.changeX -= this.playerSpeed;
+      this.itemXchange -= this.playerSpeed;
     }
   }
 
@@ -56,10 +62,12 @@ class arrow {
     // y-axis move with player
     if (keyIsDown(keyUp)) { // UP
       this.changeY += this.playerSpeed;
+      this.itemYchange += this.playerSpeed;
     }
 
     if (keyIsDown(keyDown)) { // DOWN
       this.changeY -= this.playerSpeed;
+      this.itemYchange -= this.playerSpeed;
     }
   }
 
@@ -72,7 +80,7 @@ class arrow {
   }
 
   itemShow(spriteW, spriteH) {
-    image(this.image, this.itemX + width/2, this.itemY + height/2, spriteW, spriteH*0.25);
+    image(this.image, this.itemXchange + width/2, this.itemYchange + height/2, spriteW, spriteH*0.25);
   }
 
   mapping(

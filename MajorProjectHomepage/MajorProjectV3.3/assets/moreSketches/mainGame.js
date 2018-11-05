@@ -162,6 +162,15 @@ function playerCoolDown() {
   if (attackCoolDown && elapsedTime >= lastTimeAttacked) {
     attackCoolDown = false;
   }
+  else if (elapsedTime <= lastTimeAttacked){
+    let mousePos = atan2(mouseY - height/2, mouseX - width/2);
+    push();
+    translate(width/2, height/2);
+    rotate(mousePos);
+    fill(50, 150);
+    ellipse(sprite.WIDTH/2, 0, sprite.WIDTH);
+    pop();
+  }
 }
 
 // INVENTORY-------
@@ -235,6 +244,12 @@ function numOfItemsQuickCheck() {
 function objectFoo() {
   // item/object
   for (let trap = 0; trap < objects.traps.length; trap++) { // traps
+    objects.traps[trap].mapping(
+      world.WIDTH, world.HEIGHT,
+      minimap.X, minimap.Y,
+      minimap.WIDTH, minimap.HEIGHT,
+      player.x, player.y,
+      player.DOT*0.75, "purple");
     if (objects.traps[trap].show(sprite.WIDTH, sprite.HEIGHT, keyBindings.interact)) {
       objects.traps.splice(trap, 1);
       numOfTraps++;
@@ -287,7 +302,7 @@ function baddiesFoo() {
       // traps
       if (dist(badX, badY, objects.traps[trap].x, objects.traps[trap].y) <= badGuyHitBox) {
         objects.traps.splice(trap, 1);
-        badGuyDeath(i, badGuys[i].otherX, badGuys[i].otherY);
+        badGuyDeath(i, badGuys[i].x, badGuys[i].y, badGuys[i].otherX, badGuys[i].otherY);
       }
     }
 
@@ -300,7 +315,7 @@ function baddiesFoo() {
 
       else if (dist(badX, badY, objects.melee[slash].realX, objects.melee[slash].realY) <= badGuyHitBox) {
         objects.melee.splice(slash, 1);
-        badGuyDeath(i, badGuys[i].otherX, badGuys[i].otherY);
+        badGuyDeath(i, badGuys[i].x, badGuys[i].y, badGuys[i].otherX, badGuys[i].otherY);
       }
     }
 
@@ -313,18 +328,18 @@ function baddiesFoo() {
 
       else if (dist(badX, badY, objects.arrows[arrow].realX, objects.arrows[arrow].realY) <= badGuyHitBox) {
         objects.arrows.splice(arrow, 1);
-        badGuyDeath(i, badGuys[i].otherX, badGuys[i].otherY);
+        badGuyDeath(i, badGuys[i].x, badGuys[i].y, badGuys[i].otherX, badGuys[i].otherY);
       }
     }
   }
 }
 
-function badGuyDeath(spotInArray, x, y) {
-  itemDrops(x, y);
+function badGuyDeath(spotInArray, x, y, otherX, otherY) {
+  itemDrops(x, y, otherX, otherY);
   badGuys.splice(spotInArray, 1);
 }
 
-function itemDrops(x, y) {
+function itemDrops(x, y, otherX, otherY) {
   // random item drops
   let numberOfItems = random(5);
 
@@ -333,13 +348,13 @@ function itemDrops(x, y) {
     let changeOfY = random(-sprite.HEIGHT/2, sprite.HEIGHT/2);
     let randomItem = random(20);
 
-    if (randomItem <= 15) { // arrows
-      itemsOnGround.push(new arrow(0, 0, objectImg.arrow, player.speed, x + changeOfX, y + changeOfY));
+    if (randomItem <= 5) { // arrows
+      itemsOnGround.push(new arrow(0, 0, objectImg.arrow, player.speed, otherX, otherY, x, y));
     }
 
-    // else if (randomItem <= 10) { // traps
-    //   itemsOnGround.push(new trap(0, 0, objectImg.trap, player.speed, x + changeOfX, y + changeOfY));
-    // }
+    else if (randomItem <= 10) { // traps
+      itemsOnGround.push(new trap(0, 0, objectImg.trap, player.speed, 0, 0, otherX, otherY, x, y));
+    }
   }
 }
 
@@ -402,7 +417,7 @@ function keyPressed() {
 
       // place traps
       if (keyCode === keyBindings.placeTrap && !inventoryIsOpen && objects.traps.length < maxTraps && numOfTraps > 0) {
-        objects.traps.push(new trap(width/2, height/2, objectImg.trap, player.speed));
+        objects.traps.push(new trap(width/2, height/2, objectImg.trap, player.speed, player.x, player.y));
         numOfTraps--;
       }
     }

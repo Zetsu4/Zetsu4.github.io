@@ -116,13 +116,13 @@ function playingGame() {
       player.DOT);
     beautifulMouse();
 
-    // baddies
-    baddiesFoo();
-
     // objects
     objectFoo();
     floatingItems();
     numOfItemsQuickCheck();
+
+    // baddies
+    baddiesFoo();
   }
 }
 
