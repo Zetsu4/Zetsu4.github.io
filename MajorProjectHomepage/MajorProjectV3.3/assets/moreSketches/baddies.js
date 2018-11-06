@@ -55,7 +55,7 @@ class baddies {
     this.hp = 10*(this.vit+1);
     this.mDmg = this.str*2; // melee damage
     this.rDmg = this.dex*2; // ranged damage
-    this.sDmg = this.int*2; // magic damage
+    this.sDmg = this.int*2; // spell damage
 
     this.speed = width*0.007 + width*this.agi*pow(10, -4);
   }
@@ -232,8 +232,8 @@ class baddies {
 
     // HP
     push();
-    let currentHP = player.totHP - player.hp;
-    let changeOfHP = map(currentHP, 0, player.totHP, 0, sprite.WIDTH);
+    let currentHP = this.totHP - this.hp;
+    let changeOfHP = map(currentHP, 0, this.totHP, 0, sprite.WIDTH);
 
     rectMode(CORNER);
     fill(255, 0, 0);

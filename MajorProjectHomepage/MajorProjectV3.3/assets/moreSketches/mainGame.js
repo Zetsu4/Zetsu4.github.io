@@ -255,19 +255,19 @@ function mouseHoldingImage() {
 }
 
 function numOfItemsQuickCheck() {
-  let xPos = minimap.X + minimap.OUTTER_WIDTH/2;
+  let xPos = minimap.X + minimap.OUTTER_WIDTH/2 + 5;
 
   push();
-  fill("purple");
+  fill("red");
   textAlign(LEFT);
-  textSize(textTop/2);
+  // textSize(textTop/2);
   // arrows in inventory
-  text("Arrows -", xPos, textTop/2);
-  text(numOfArrows, xPos + textTop*2, textTop/2);
+  text("Arrows -", xPos, textTop);
+  text(numOfArrows, xPos + textTop*4, textTop);
 
   // traps in inventory
-  text("Traps -", xPos, textTop);
-  text(numOfTraps + " , " + objects.traps.length + "/" + maxTraps, xPos + textTop*2, textTop);
+  text("Traps -", xPos, textTop*2);
+  text(numOfTraps + " , " + objects.traps.length + "/" + maxTraps, xPos + textTop*4, textTop*2);
   pop();
 }
 
@@ -277,30 +277,31 @@ function objectFoo() {
 
   // item/object
   for (let i = 0; i < allCollisionableObjects; i++) {
-    
-  }
+      // traps
+      if (i < objects.traps.length) {
+        objects.traps[i].mapping(
+          world.WIDTH, world.HEIGHT,
+          minimap.X, minimap.Y,
+          minimap.WIDTH, minimap.HEIGHT,
+          player.x, player.y,
+          player.DOT, color(0, 255, 255));
+        if (objects.traps[i].show(sprite.WIDTH, sprite.HEIGHT, keyBindings.interact)) {
+          objects.traps.splice(i, 1);
+          numOfTraps++;
+        }
+      }
 
-  for (let trap = 0; trap < objects.traps.length; trap++) { // traps
-    objects.traps[trap].mapping(
-      world.WIDTH, world.HEIGHT,
-      minimap.X, minimap.Y,
-      minimap.WIDTH, minimap.HEIGHT,
-      player.x, player.y,
-      player.DOT*0.75, "purple");
-    if (objects.traps[trap].show(sprite.WIDTH, sprite.HEIGHT, keyBindings.interact)) {
-      objects.traps.splice(trap, 1);
-      numOfTraps++;
-    }
-  }
+      // sword
+      if (i < objects.melee.length) {
+        objects.melee[i].moveForward();
+        objects.melee[i].show(sprite.WIDTH, sprite.HEIGHT, keyBindings.interact);
+      }
 
-  for (let slash of objects.melee) { // sword
-    slash.moveForward();
-    slash.show(sprite.WIDTH, sprite.HEIGHT, keyBindings.interact);
-  }
-
-  for (let arrow of objects.arrows) { // arrows
-    arrow.moveForward();
-    arrow.show(sprite.WIDTH, sprite.HEIGHT, keyBindings.interact);
+      // arrows
+      if (i < objects.arrows.length) {
+        objects.arrows[i].moveForward();
+        objects.arrows[i].show(sprite.WIDTH, sprite.HEIGHT, keyBindings.interact);
+      }
   }
 }
 
@@ -373,40 +374,6 @@ function baddiesFoo() {
         }
       }
     }
-
-    // for (let i = 0; i < objects.traps.length; i++) {
-    //   // traps
-    //   if (dist(badX, badY, objects.traps[trap].x, objects.traps[trap].y) <= badGuyHitBox) {
-    //     objects.traps.splice(trap, 1);
-    //     badGuyDeath(i, badGuys[i].x, badGuys[i].y, badGuys[i].otherX, badGuys[i].otherY);
-    //   }
-    // }
-    //
-    // for (let slash = 0; slash < objects.melee.length; slash++) {
-    //   // sword
-    //   objects.melee[slash].show(sprite.WIDTH, sprite.HEIGHT);
-    //   if (objects.melee[slash].disapear(sprite.WIDTH)) {
-    //     objects.melee.splice(slash, 1);
-    //   }
-    //
-    //   else if (dist(badX, badY, objects.melee[slash].realX, objects.melee[slash].realY) <= badGuyHitBox) {
-    //     objects.melee.splice(slash, 1);
-    //     badGuyDeath(i, badGuys[i].x, badGuys[i].y, badGuys[i].otherX, badGuys[i].otherY);
-    //   }
-    // }
-    //
-    // for (let arrow = 0; arrow < objects.arrows.length; arrow++) {
-    //   // arrows
-    //   objects.arrows[arrow].show(sprite.WIDTH, sprite.HEIGHT);
-    //   if (objects.arrows[arrow].disapear()) {
-    //     objects.arrows.splice(arrow, 1);
-    //   }
-    //
-    //   else if (dist(badX, badY, objects.arrows[arrow].realX, objects.arrows[arrow].realY) <= badGuyHitBox) {
-    //     objects.arrows.splice(arrow, 1);
-    //     badGuyDeath(i, badGuys[i].x, badGuys[i].y, badGuys[i].otherX, badGuys[i].otherY);
-    //   }
-    // }
   }
 }
 
@@ -443,7 +410,7 @@ function floatingItems() {
       minimap.X, minimap.Y,
       minimap.WIDTH, minimap.HEIGHT,
       player.x, player.y,
-      player.DOT*0.75);
+      player.DOT*0.75, "white");
 
     if (itemsOnGround[i].pickUp(sprite.WIDTH, sprite.HEIGHT)) {
 

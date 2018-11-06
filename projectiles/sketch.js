@@ -18,13 +18,13 @@ class projectile {
   }
 
   disapear() {
-    return this.x >= width/2;
+    return this.x >= width / 2;
   }
 
   moveing() {
     this.x += 3;
-    this.actualX = width/2 + cos(this.rotation)*this.x;
-    this.actualY = height/2 + sin(this.rotation)*this.x;
+    this.actualX = width / 2 + cos(this.rotation) * this.x;
+    this.actualY = height / 2 + sin(this.rotation) * this.x;
   }
 
   show() {
@@ -34,9 +34,9 @@ class projectile {
     pop();
 
     push();
-    translate(-width/2, -height/2);
+    translate(-width / 2, -height / 2);
     noFill();
-    ellipse(this.actualX, this.actualY, this.r*2);
+    ellipse(this.actualX, this.actualY, this.r * 2);
     pop();
   }
 }
@@ -66,7 +66,7 @@ function setup() {
 }
 
 function draw() {
-  rotating = atan2(mouseY - height/2, mouseX - width/2);
+  rotating = atan2(mouseY - height / 2, mouseX - width / 2);
   if (state) {
     background(255);
     mousePointing();
@@ -83,14 +83,13 @@ function targets() {
 
 function moveProjectiles() {
   push();
-  translate(width/2, height/2);
+  translate(width / 2, height / 2);
   for (let i = 0; i < projectileList.length; i++) {
     projectileList[i].moveing();
     projectileList[i].show();
     if (projectileList[i].disapear()) {
       projectileList.splice(i, 1);
-    }
-    else {
+    } else {
       for (let j = 0; j < targetsList.length; j++) {
         if (dist(projectileList[i].actualX, projectileList[i].actualY, targetsList[j].x, targetsList[j].y) <= targetsList[j].r) {
           targetsList.splice(j, 1);
@@ -105,7 +104,7 @@ function moveProjectiles() {
 
 function mousePointing() {
   push();
-  translate(width/2, height/2);
+  translate(width / 2, height / 2);
   rotate(rotating);
   rect(-30, -5, 60, 10);
   pop();

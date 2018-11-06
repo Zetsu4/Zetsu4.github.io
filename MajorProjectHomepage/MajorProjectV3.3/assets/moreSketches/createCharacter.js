@@ -68,7 +68,7 @@ function playerStats() {
   player.hp = 10*(player.vit+1);
   player.mDmg = player.str*2; // melee damage
   player.rDmg = player.dex*2; // ranged damage
-  player.sDmg = player.int*2; // magic damage
+  player.sDmg = player.int*2; // spell damage
 
   player.speed = width*0.007 + width*player.agi*pow(10, -4);
 }

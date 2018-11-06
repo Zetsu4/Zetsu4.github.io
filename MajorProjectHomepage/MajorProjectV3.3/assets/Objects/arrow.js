@@ -88,7 +88,7 @@ class arrow {
     minimapX, minimapY,
     minimapW, minimapH,
     playerX, playerY,
-    dotSize) {
+    dotSize, colors) {
     // minimap boundries
     let minimapXMin = minimapX - minimapW/2 + dotSize/2;
     let minimapXMax = minimapX + minimapW/2 - dotSize/2;
@@ -101,7 +101,7 @@ class arrow {
     let mapY = map(this.itemY, -worldH/2, worldH/2, minimapYMin, minimapYMax);
 
     // items dot
-    fill("yellow");
+    fill(colors);
     ellipse(mapX, mapY, dotSize);
   }
 }
