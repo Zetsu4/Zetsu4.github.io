@@ -21,27 +21,36 @@ function showMinimap() {
 function playerShow() {
   image(player.raceImage, width/2, height/2, sprite.WIDTH, sprite.HEIGHT);
   image(player.skillImage, width/2, height/2 - sprite.HEIGHT, sprite.WIDTH, sprite.HEIGHT);
+  playerHealth();
+}
 
-  // HP bar
-  // total
+function playerHealth() {
+  // constant health bar vars
+  let x = width/2;
+  let y = height/2 + sprite.HEIGHT;
+  let w = sprite.WIDTH;
+  let h = sprite.HEIGHT/4;
+
+  // health bar
   fill(0, 0, 255);
-  rect(width/2, height/2 - sprite.HEIGHT, sprite.WIDTH, sprite.HEIGHT/4);
+  rect(x, y, w, h);
 
-  let changeOfHP = player.totHP - player.hp;
-  let currentHP = map(changeOfHP, 0, player.totHP, 0, sprite.WIDTH);
-
-  // current
+  // HP
   push();
+  let currentHP = player.totHP - player.hp;
+  let changeOfHP = map(currentHP, 0, player.totHP, 0, sprite.WIDTH);
+
   rectMode(CORNER);
   fill(255, 0, 0);
-  rect(width/2 - sprite.WIDTH/2, height/2 - sprite.HEIGHT*1.125, sprite.WIDTH - currentHP, sprite.HEIGHT/4);
+  rect(x - w/2, y - h/2, w - changeOfHP, h);
   pop();
 
+  // outline
   push();
   noFill();
   strokeWeight(2);
   stroke("silver");
-  rect(width/2, height/2 - sprite.HEIGHT, sprite.WIDTH, sprite.HEIGHT/4);
+  rect(x, y, w, h);
   pop();
 }
 
@@ -82,23 +91,23 @@ function moveWithPlayer() {
   else {
     // LEFT/RIGHT
     for (let badGuy of badGuys) { // baddies
-      badGuy.moveWithPlayerX(keyBindings.left, keyBindings.right);
+      badGuy.moveWithPlayerX(keyBindings.left, keyBindings.right, player.speed);
     }
 
     for (let trap of objects.traps) { // traps
-      trap.moveWithPlayerX(keyBindings.left, keyBindings.right);
+      trap.moveWithPlayerX(keyBindings.left, keyBindings.right, player.speed);
     }
 
     for (let arrow of objects.arrows) { // arrows
-      arrow.moveWithPlayerX(keyBindings.left, keyBindings.right);
+      arrow.moveWithPlayerX(keyBindings.left, keyBindings.right, player.speed);
     }
 
     for (let slash of objects.melee) { // slashes
-      slash.moveWithPlayerX(keyBindings.left, keyBindings.right);
+      slash.moveWithPlayerX(keyBindings.left, keyBindings.right, player.speed);
     }
 
     for (let item of itemsOnGround) { // items on the ground
-      item.moveWithPlayerX(keyBindings.left, keyBindings.right);
+      item.moveWithPlayerX(keyBindings.left, keyBindings.right, player.speed);
     }
   }
 
@@ -112,23 +121,23 @@ function moveWithPlayer() {
   else {
     // UP/DOWN
     for (let badGuy of badGuys) { // baddies
-      badGuy.moveWithPlayerY(keyBindings.up, keyBindings.down);
+      badGuy.moveWithPlayerY(keyBindings.up, keyBindings.down, player.speed);
     }
 
     for (let trap of objects.traps) { // traps
-      trap.moveWithPlayerY(keyBindings.up, keyBindings.down);
+      trap.moveWithPlayerY(keyBindings.up, keyBindings.down, player.speed);
     }
 
     for (let arrow of objects.arrows) { // arrows
-      arrow.moveWithPlayerY(keyBindings.up, keyBindings.down);
+      arrow.moveWithPlayerY(keyBindings.up, keyBindings.down, player.speed);
     }
 
     for (let slash of objects.melee) { // slashes
-      slash.moveWithPlayerY(keyBindings.up, keyBindings.down);
+      slash.moveWithPlayerY(keyBindings.up, keyBindings.down, player.speed);
     }
 
     for (let item of itemsOnGround) { // items on the ground
-      item.moveWithPlayerY(keyBindings.up, keyBindings.down);
+      item.moveWithPlayerY(keyBindings.up, keyBindings.down, player.speed);
     }
   }
 }
@@ -264,7 +273,13 @@ function numOfItemsQuickCheck() {
 
 // ITEMS/OBJECTS---
 function objectFoo() {
+  let allCollisionableObjects = objects.traps.length + objects.melee.length + objects.arrows.length;
+
   // item/object
+  for (let i = 0; i < allCollisionableObjects; i++) {
+    
+  }
+
   for (let trap = 0; trap < objects.traps.length; trap++) { // traps
     objects.traps[trap].mapping(
       world.WIDTH, world.HEIGHT,
@@ -280,10 +295,12 @@ function objectFoo() {
 
   for (let slash of objects.melee) { // sword
     slash.moveForward();
+    slash.show(sprite.WIDTH, sprite.HEIGHT, keyBindings.interact);
   }
 
   for (let arrow of objects.arrows) { // arrows
     arrow.moveForward();
+    arrow.show(sprite.WIDTH, sprite.HEIGHT, keyBindings.interact);
   }
 }
 
@@ -308,11 +325,13 @@ function baddiesFoo() {
       player.DOT);
 
     badGuys[i].show(sprite.WIDTH, sprite.HEIGHT);
+    // badGuys[i].health();
 
     // object collisions
     let badX = badGuys[i].otherX + width/2;
     let badY = badGuys[i].otherY + height/2;
     let badGuyHitBox = (sprite.WIDTH + sprite.HEIGHT)/4;
+    let allCollisionableObjects = objects.traps.length + objects.melee.length + objects.arrows.length;
 
     if (dist(badX, badY, width/2, height/2) <= badGuyHitBox) {
       // player
@@ -320,39 +339,74 @@ function baddiesFoo() {
       break;
     }
 
-    for (let trap = 0; trap < objects.traps.length; trap++) {
+    for (let j = 0; j < allCollisionableObjects; j++) {
       // traps
-      if (dist(badX, badY, objects.traps[trap].x, objects.traps[trap].y) <= badGuyHitBox) {
-        objects.traps.splice(trap, 1);
-        badGuyDeath(i, badGuys[i].x, badGuys[i].y, badGuys[i].otherX, badGuys[i].otherY);
-      }
-    }
+      if (j < objects.traps.length) {
+        if (dist(badX, badY, objects.traps[j].x, objects.traps[j].y) <= badGuyHitBox) {
+          objects.traps.splice(j, 1);
+          badGuyDeath(i, badGuys[i].x, badGuys[i].y, badGuys[i].otherX, badGuys[i].otherY);
 
-    for (let slash = 0; slash < objects.melee.length; slash++) {
+        }
+      }
+
       // sword
-      objects.melee[slash].show(sprite.WIDTH, sprite.HEIGHT);
-      if (objects.melee[slash].disapear(sprite.WIDTH)) {
-        objects.melee.splice(slash, 1);
+      if (j < objects.melee.length) {
+        if (dist(badX, badY, objects.melee[j].realX, objects.melee[j].realY) <= badGuyHitBox) {
+          objects.melee.splice(j, 1);
+          badGuyDeath(i, badGuys[i].x, badGuys[i].y, badGuys[i].otherX, badGuys[i].otherY);
+        }
+
+        else if (objects.melee[j].disapear(sprite.WIDTH)) {
+          objects.melee.splice(j, 1);
+        }
       }
 
-      else if (dist(badX, badY, objects.melee[slash].realX, objects.melee[slash].realY) <= badGuyHitBox) {
-        objects.melee.splice(slash, 1);
-        badGuyDeath(i, badGuys[i].x, badGuys[i].y, badGuys[i].otherX, badGuys[i].otherY);
-      }
-    }
-
-    for (let arrow = 0; arrow < objects.arrows.length; arrow++) {
       // arrows
-      objects.arrows[arrow].show(sprite.WIDTH, sprite.HEIGHT);
-      if (objects.arrows[arrow].disapear()) {
-        objects.arrows.splice(arrow, 1);
-      }
+      if (j < objects.arrows.length) {
+        if (objects.arrows[j].disapear()) {
+          objects.arrows.splice(j, 1);
+        }
 
-      else if (dist(badX, badY, objects.arrows[arrow].realX, objects.arrows[arrow].realY) <= badGuyHitBox) {
-        objects.arrows.splice(arrow, 1);
-        badGuyDeath(i, badGuys[i].x, badGuys[i].y, badGuys[i].otherX, badGuys[i].otherY);
+        else if (dist(badX, badY, objects.arrows[j].realX, objects.arrows[j].realY) <= badGuyHitBox) {
+          objects.arrows.splice(j, 1);
+          badGuyDeath(i, badGuys[i].x, badGuys[i].y, badGuys[i].otherX, badGuys[i].otherY);
+        }
       }
     }
+
+    // for (let i = 0; i < objects.traps.length; i++) {
+    //   // traps
+    //   if (dist(badX, badY, objects.traps[trap].x, objects.traps[trap].y) <= badGuyHitBox) {
+    //     objects.traps.splice(trap, 1);
+    //     badGuyDeath(i, badGuys[i].x, badGuys[i].y, badGuys[i].otherX, badGuys[i].otherY);
+    //   }
+    // }
+    //
+    // for (let slash = 0; slash < objects.melee.length; slash++) {
+    //   // sword
+    //   objects.melee[slash].show(sprite.WIDTH, sprite.HEIGHT);
+    //   if (objects.melee[slash].disapear(sprite.WIDTH)) {
+    //     objects.melee.splice(slash, 1);
+    //   }
+    //
+    //   else if (dist(badX, badY, objects.melee[slash].realX, objects.melee[slash].realY) <= badGuyHitBox) {
+    //     objects.melee.splice(slash, 1);
+    //     badGuyDeath(i, badGuys[i].x, badGuys[i].y, badGuys[i].otherX, badGuys[i].otherY);
+    //   }
+    // }
+    //
+    // for (let arrow = 0; arrow < objects.arrows.length; arrow++) {
+    //   // arrows
+    //   objects.arrows[arrow].show(sprite.WIDTH, sprite.HEIGHT);
+    //   if (objects.arrows[arrow].disapear()) {
+    //     objects.arrows.splice(arrow, 1);
+    //   }
+    //
+    //   else if (dist(badX, badY, objects.arrows[arrow].realX, objects.arrows[arrow].realY) <= badGuyHitBox) {
+    //     objects.arrows.splice(arrow, 1);
+    //     badGuyDeath(i, badGuys[i].x, badGuys[i].y, badGuys[i].otherX, badGuys[i].otherY);
+    //   }
+    // }
   }
 }
 

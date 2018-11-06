@@ -83,8 +83,8 @@ function createBaddies() {
       ySpawn = random(-world.HEIGHT/2 + height*0.10, world.HEIGHT/2 - height*0.10);
     }
 
-    badGuys.push(new baddies(allRaces[race], allSkills[skill],
-      xSpawn, ySpawn, player.speed));
+    badGuys.push(new baddies(allRaces[race], allSkills[skill], xSpawn, ySpawn));
+    badGuys[i].setStats();
   }
 }
 

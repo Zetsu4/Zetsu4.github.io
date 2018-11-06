@@ -1,9 +1,23 @@
 // bad guys
 class baddies {
-  constructor(badguyRace, badguySkill, x, y, playerSpeed) {
+  constructor(badguyRace, badguySkill, x, y) {
     // race and skill
     this.race = badguyRace;
     this.skill = badguySkill;
+
+    // stats
+    this.int;
+    this.agi;
+    this.str;
+    this.dex;
+    this.vit;
+
+    this.totHP;
+    this.hp;
+
+    this.mDmg; // melee damage
+    this.rDmg; // ranged damage
+    this.sDmg; // magic damage
 
     // position in world
     this.otherX = x;
@@ -14,8 +28,8 @@ class baddies {
     this.y = y;
 
     // movement vars
-    this.playerSpeed = playerSpeed;
-    this.speed = playerSpeed*2; // temp
+    this.stuned = true;
+    this.speed;
     this.state = 0;
     this.dir = 0;
 
@@ -28,10 +42,38 @@ class baddies {
     this.lastTime = 0;
   }
 
+  setStats() {
+    // stats
+    this.int = this.race[2].int;
+    this.agi = this.race[2].agi;
+    this.str = this.race[2].str;
+    this.dex = this.race[2].dex;
+    this.vit = this.race[2].vit;
+
+    // damage and health
+    this.totHP = 10*(this.vit+1);
+    this.hp = 10*(this.vit+1);
+    this.mDmg = this.str*2; // melee damage
+    this.rDmg = this.dex*2; // ranged damage
+    this.sDmg = this.int*2; // magic damage
+
+    this.speed = width*0.007 + width*this.agi*pow(10, -4);
+  }
+
   // AI
   movement(worldW, worldH, spriteW, spriteH, playerX, playerY) {
+    // stuned
+    if (this.stuned) {
+      let elapsedTime = millis() - this.TIME_TO_STEP*4;
+      if (elapsedTime >= this.lastTime) {
+        this.state = random([0, 1]);
+        this.stuned = false;
+        this.lastTime = millis();
+      }
+    }
+
     // move forword
-    if (this.state === 0 || this.state === 1) {
+    else if (this.state === 0 || this.state === 1) {
       if (this.dir === this.UP && this.y > -worldH/2 + spriteH) {
         this.y -= this.speed;
         this.otherY -= this.speed;
@@ -130,25 +172,25 @@ class baddies {
       && this.otherY + height/2 > height/2 - spriteH/2 && this.otherY + height/2 < height/2 + spriteH/2;
   }
 
-  moveWithPlayerX(keyLeft, keyRight) {
+  moveWithPlayerX(keyLeft, keyRight, playerSpeed) {
     // x-axis move with player
     if (keyIsDown(keyLeft)) { // LEFT
-      this.otherX += this.playerSpeed;
+      this.otherX += playerSpeed;
     }
 
     if (keyIsDown(keyRight)) { // RIGHT
-      this.otherX -= this.playerSpeed;
+      this.otherX -= playerSpeed;
     }
   }
 
-  moveWithPlayerY(keyUp, keyDown) {
+  moveWithPlayerY(keyUp, keyDown, playerSpeed) {
     // y-axis move with player
     if (keyIsDown(keyUp)) { // UP
-      this.otherY += this.playerSpeed;
+      this.otherY += playerSpeed;
     }
 
     if (keyIsDown(keyDown)) { // DOWN
-      this.otherY -= this.playerSpeed;
+      this.otherY -= playerSpeed;
     }
   }
 
@@ -176,5 +218,34 @@ class baddies {
   show(sizeX, sizeY) {
     image(this.race[1], this.otherX + width/2, this.otherY + height/2, sizeX, sizeY);
     image(this.skill[1], this.otherX + width/2, this.otherY + height/2 - sizeY, sizeX, sizeY);
+
+    // health
+    // health bar vars
+    let x = this.otherX + width/2;
+    let y = this.otherY + height/2 + sizeY;
+    let w = sizeX;
+    let h = sizeY/4;
+
+    // health bar
+    fill(0, 0, 255);
+    rect(x, y, w, h);
+
+    // HP
+    push();
+    let currentHP = player.totHP - player.hp;
+    let changeOfHP = map(currentHP, 0, player.totHP, 0, sprite.WIDTH);
+
+    rectMode(CORNER);
+    fill(255, 0, 0);
+    rect(x - w/2, y - h/2, w - changeOfHP, h);
+    pop();
+
+    // outline
+    push();
+    noFill();
+    strokeWeight(2);
+    stroke("silver");
+    rect(x, y, w, h);
+    pop();
   }
 }
