@@ -22,16 +22,26 @@ function playerShow() {
   image(player.raceImage, width/2, height/2, sprite.WIDTH, sprite.HEIGHT);
   image(player.skillImage, width/2, height/2 - sprite.HEIGHT, sprite.WIDTH, sprite.HEIGHT);
 
-  let totPlayerHP = player.vit;
-  let playerHP = player.vit - player.hp;
-
+  // HP bar
+  // total
   fill(0, 0, 255);
-  rect(width/2, height/2 - sprite.HEIGHT, sprite.WIDTH, sprite.HEIGHT/2);
+  rect(width/2, height/2 - sprite.HEIGHT, sprite.WIDTH, sprite.HEIGHT/4);
+
+  let changeOfHP = player.totHP - player.hp;
+  let currentHP = map(changeOfHP, 0, player.totHP, 0, sprite.WIDTH);
+
+  // current
+  push();
+  rectMode(CORNER);
+  fill(255, 0, 0);
+  rect(width/2 - sprite.WIDTH/2, height/2 - sprite.HEIGHT*1.125, sprite.WIDTH - currentHP, sprite.HEIGHT/4);
+  pop();
 
   push();
-  rectMode(LEFT);
-  fill(255, 0, 0);
-  rect(width/2 - 1, height/2 - sprite.HEIGHT, sprite.WIDTH - (2*1), sprite.HEIGHT/2);
+  noFill();
+  strokeWeight(2);
+  stroke("silver");
+  rect(width/2, height/2 - sprite.HEIGHT, sprite.WIDTH, sprite.HEIGHT/4);
   pop();
 }
 

@@ -64,6 +64,7 @@ function playerStats() {
   player.vit = allRaces[player.racePosistion][2].vit;
 
   // damage and health
+  player.totHP = 10*(player.vit+1);
   player.hp = 10*(player.vit+1);
   player.mDmg = player.str*2; // melee damage
   player.rDmg = player.dex*2; // ranged damage
