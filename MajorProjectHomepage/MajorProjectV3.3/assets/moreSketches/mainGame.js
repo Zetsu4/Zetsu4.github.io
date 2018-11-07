@@ -469,7 +469,7 @@ function keyPressed() {
 
       // place traps
       if (keyCode === keyBindings.placeTrap && !inventoryIsOpen && objects.traps.length < maxTraps && numOfTraps > 0) {
-        objects.traps.push(new trap(width/2, height/2, objectImg.trap, player.speed, player.x, player.y));
+        objects.traps.push(new trap(width/2, height/2, objectImg.trap, player.x, player.y, false));
         numOfTraps--;
       }
     }

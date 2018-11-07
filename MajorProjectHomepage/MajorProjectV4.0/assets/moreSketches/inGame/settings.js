@@ -35,7 +35,7 @@ function settingsMenu() {
   }
 
   else if (settingsChoice === "Load") {
-    showSavedFiles();
+    showSaves();
   }
 
   else if (settingsChoice === "Main Menu") {
@@ -124,12 +124,36 @@ function drawMap() {
     width, height,
     player.DOT*4);
 
-  for (let badGuy of badGuys) {
-    badGuy.mapping(
-      world.WIDTH, world.HEIGHT,
-      width/2, height/2,
-      width, height,
-      player.DOT*4);
+  let allMinimapObjects = objects.traps.length + itemsOnGround.length + badGuys.length;
+
+  // things needed on map
+  for (let i = 0; i < allMinimapObjects; i++) {
+    // baddies
+    if (i < badGuys.length) {
+      badGuys[i].mapping(
+        world.WIDTH, world.HEIGHT,
+        width/2, height/2,
+        width, height,
+        player.DOT*4);
+    }
+
+    // floating items
+    if (i < itemsOnGround.length) {
+      itemsOnGround[i].mapping(
+        world.WIDTH, world.HEIGHT,
+        width/2, height/2,
+        width, height,
+        player.DOT*0.75*4, "white");
+    }
+
+    // player traps
+    if (i < objects.traps.length) {
+      objects.traps[i].mapping(
+        world.WIDTH, world.HEIGHT,
+        width/2, height/2,
+        width, height,
+        player.DOT*4, color(0, 255, 255));
+    }
   }
 }
 

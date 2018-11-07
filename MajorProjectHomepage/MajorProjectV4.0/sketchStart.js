@@ -6,8 +6,6 @@
 // - hitting the edges the player bounces
 // - AI for the bad guys, sucks
 // - rebinding the key bindings only works for lowercase letters
-// - inventory does'nt work
-// - saveing and loading doesn't work
 //
 // CREDITS:
 // art by Steven Valley and Travis Ahern.
@@ -19,12 +17,12 @@
 // get the save and load game functions working--0%
 // get the settings menu working-----------------70%
 // fix baddie spawns-----------------------------100%
-// baddie deaths and player attack---------------65%
+// baddie deaths and player attack---------------45%
 // baddie attacks--------------------------------10%
-// have a race and skill-------------------------30%
+// have a race and skill-------------------------10%
 // add a lvl system------------------------------0%
 // have an actual enviorment---------------------10%
-// fix all items/objects-------------------------50%
+// fix all items/objects-------------------------0%
 // inventory interaction-------------------------30%
 
 // import saveAs from "file-saver";
@@ -94,6 +92,10 @@ function preload() {
   // backgrounds
   earth = loadImage("assets/lovelyHomepage.png");
   world.image = loadImage("assets/enviorment.png");
+
+  // garbage can
+  world.trashCanClose = loadImage("assets/garbageClosed.png");
+  world.trashCanOpen = loadImage("assets/garbageOpened.png");
 
   // items
   objectImg.sword = loadImage("assets/Objects/images/sword.png");

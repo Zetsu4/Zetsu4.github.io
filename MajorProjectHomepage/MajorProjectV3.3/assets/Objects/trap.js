@@ -76,7 +76,7 @@ class trap {
     minimapX, minimapY,
     minimapW, minimapH,
     playerX, playerY,
-    dotSize, colors = "white") {
+    dotSize, colors) {
     // minimap boundries
     let minimapXMin = minimapX - minimapW/2 + dotSize/2;
     let minimapXMax = minimapX + minimapW/2 - dotSize/2;

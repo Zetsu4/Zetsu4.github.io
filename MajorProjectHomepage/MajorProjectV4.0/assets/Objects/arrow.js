@@ -1,13 +1,16 @@
-// traps
-class trap {
-  constructor(x, y, image, playerX, playerY, item, itemXchange = 0, itemYchange = 0, otherX = 0, otherY = 0) {
-    // position
+// arrows
+class arrow {
+  constructor(x, swiftness, image, itemXchange = 0, itemYchange = 0, otherX = 0, otherY = 0) {
+    // positon
     this.x = x;
-    this.y = y;
 
-    // position on map
-    this.otherX = playerX;
-    this.otherY = playerY;
+    // position in the enviorment
+    this.realX = 0;
+    this.realY = 0;
+
+    // position that translates
+    this.changeX = 0;
+    this.changeY = 0;
 
     // item positions on map
     this.itemX = otherX;
@@ -16,10 +19,13 @@ class trap {
     // item changing positions
     this.itemXchange = itemXchange;
     this.itemYchange = itemYchange;
-    this.item = item;
+
+    // movement speed
+    this.speed = swiftness*0.20;
 
     // sprite
     this.image = image;
+    this.direction = atan2(mouseY - height/2, mouseX - width/2);
   }
 
   pickUp(spriteW, spriteH) {
@@ -27,15 +33,26 @@ class trap {
         && this.itemYchange + height/2 >= height/2 - spriteH/2 && this.itemYchange + height/2 <= height/2 + spriteH/2;
   }
 
+  disapear() {
+    // end of life
+    return this.x >= width/2;
+  }
+
+  moveForward() {
+    this.x += this.speed;
+    this.realX = width/2 + this.changeX + cos(this.direction)*this.x;
+    this.realY = height/2 + this.changeY + sin(this.direction)*this.x;
+  }
+
   moveWithPlayerX(keyLeft, keyRight, playerSpeed) {
     // x-axis move with player
     if (keyIsDown(keyLeft)) { // LEFT
-      this.x += playerSpeed;
+      this.changeX += playerSpeed;
       this.itemXchange += playerSpeed;
     }
 
     if (keyIsDown(keyRight)) { // RIGHT
-      this.x -= playerSpeed;
+      this.changeX -= playerSpeed;
       this.itemXchange -= playerSpeed;
     }
   }
@@ -43,40 +60,33 @@ class trap {
   moveWithPlayerY(keyUp, keyDown, playerSpeed) {
     // y-axis move with player
     if (keyIsDown(keyUp)) { // UP
-      this.y += playerSpeed;
+      this.changeY += playerSpeed;
       this.itemYchange += playerSpeed;
     }
 
     if (keyIsDown(keyDown)) { // DOWN
-      this.y -= playerSpeed;
+      this.changeY -= playerSpeed;
       this.itemYchange -= playerSpeed;
     }
   }
 
-  show(spriteW, spriteH, interact) {
-    image(this.image, this.x, this.y, spriteW, spriteH);
-
-    if (this.x >= width/2 - spriteW && this.x <= width/2 + spriteW
-     && this.y >= height/2 - spriteH && this.y <= height/2 + spriteH) {
-      push();
-      fill("purple");
-      textSize((width*0.03 + height*0.03)/4);
-      text("Pick up '" + String.fromCharCode(interact) + "'", this.x, this.y + spriteH*0.60);
-      pop();
-      return keyCode === interact;
-    }
+  show(spriteW, spriteH) {
+    push();
+    translate(width/2 + this.changeX, height/2 + this.changeY);
+    rotate(this.direction);
+    image(this.image, this.x, 0, spriteW, spriteH*0.25);
+    pop();
   }
 
   itemShow(spriteW, spriteH) {
-    image(this.image, this.itemXchange + width/2, this.itemYchange + height/2, spriteW, spriteH);
+    image(this.image, this.itemXchange + width/2, this.itemYchange + height/2, spriteW, spriteH*0.25);
   }
 
   mapping(
     worldW, worldH,
     minimapX, minimapY,
     minimapW, minimapH,
-    playerX, playerY,
-    dotSize, colors = "white") {
+    dotSize, colors) {
     // minimap boundries
     let minimapXMin = minimapX - minimapW/2 + dotSize/2;
     let minimapXMax = minimapX + minimapW/2 - dotSize/2;
@@ -84,14 +94,9 @@ class trap {
     let minimapYMin = minimapY - minimapH/2 + dotSize/2;
     let minimapYMax = minimapY + minimapH/2 - dotSize/2;
 
-    let mapX = map(this.otherX, 0, worldW, minimapXMin, minimapXMax);
-    let mapY = map(this.otherY, 0, worldH, minimapYMin, minimapYMax);
-
     // dot
-    if (this.item) {
-      mapX = map(this.otherX, 0, worldW, minimapXMin, minimapXMax);
-      mapY = map(this.otherY, 0, worldH, minimapYMin, minimapYMax);
-    }
+    let mapX = map(this.itemX, -worldW/2, worldW/2, minimapXMin, minimapXMax);
+    let mapY = map(this.itemY, -worldH/2, worldH/2, minimapYMin, minimapYMax);
 
     // items dot
     fill(colors);
