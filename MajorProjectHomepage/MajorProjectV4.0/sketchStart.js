@@ -25,7 +25,6 @@
 // fix all items/objects-------------------------0%
 // inventory interaction-------------------------30%
 
-// import saveAs from "file-saver";
 
 // state vars
 let startingState;
@@ -58,6 +57,7 @@ let mapIsOpen = false;
 let player = {};
 let rangedOn;
 let mouseHolding;
+let garbageHolding;
 let inventory = [];
 let inventoryBoxSize;
 let inventoryIsOpen;
@@ -274,6 +274,7 @@ function defaultPlayer() {
   // inventory starting
   rangedOn = false;
   mouseHolding = 0;
+  garbageHolding = 0;
   inventory = make2DArray(invenWidth, invenHeight);
   inventoryBoxSize = textTop*2;
   inventoryIsOpen = false;
@@ -281,7 +282,10 @@ function defaultPlayer() {
 
   numOfArrows = 5;
   numOfTraps = 5;
-  inventory[0][0] = objectImg.arrow;
+  inventory[0][0] = new trap(0, 0, objectImg.trap);
+  inventory[0][1] = new arrow(0, 0, objectImg.arrow);
+  inventory[0][2] = new trap(0, 0, objectImg.trap);
+  inventory[0][3] = new arrow(0, 0, objectImg.arrow);
 
   attackCoolDown = false;
   attackCoolDownTime = 500;

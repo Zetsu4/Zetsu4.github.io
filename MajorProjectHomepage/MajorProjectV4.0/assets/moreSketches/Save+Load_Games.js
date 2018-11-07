@@ -24,7 +24,10 @@ function saveGame() {
   // save game
   let title = prompt("Enter Title", "");
   let blob = new Blob(["Hello, world!"], {type: "text/plain;charset=utf-8"});
-  FileSaver.saveAs(blob, title + ".js");
+
+  if (title !== null) {
+    saveAs(blob, title + ".js");
+  }
 }
 
 //------------------------------------------------------------------------------

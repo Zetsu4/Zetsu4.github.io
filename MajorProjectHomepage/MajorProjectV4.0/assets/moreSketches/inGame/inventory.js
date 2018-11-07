@@ -13,13 +13,14 @@ function lookInInventory() {
       rect(xPos, yPos, inventoryBoxSize, inventoryBoxSize);
       hoverOverTile();
       drawImages();
-      mouseHoldingImage();
 
       if (y+1 === inventory.length && x+1 === inventory[y].length) {
         noStroke();
         xPos = (x+1)*inventoryBoxSize + textTop/2;
         garbageCan(xPos + sprite.WIDTH/2, yPos + sprite.HEIGHT/2);
       }
+
+      mouseHoldingImage();
     }
   }
   rectMode(CENTER);
@@ -41,7 +42,7 @@ function drawImages() {
   for (let y = 0; y < inventory.length; y++) {
     for (let x = 0; x < inventory[y].length; x++) {
       if (inventory[y][x] !== 0) {
-        image(inventory[y][x], x*inventoryBoxSize + textTop*1.50, y*inventoryBoxSize + textTop*1.50, inventoryBoxSize, inventoryBoxSize);
+        inventory[y][x].inInventory(y, x, inventoryBoxSize, textTop*1.5, false);
       }
     }
   }
@@ -50,13 +51,29 @@ function drawImages() {
 function mouseHoldingImage() {
   // item in mouse
   if (mouseHolding !== 0) {
-    image(mouseHolding, pmouseX, pmouseY, inventoryBoxSize, inventoryBoxSize);
+    mouseHolding.inInventory(mouseY, mouseX, inventoryBoxSize, textTop*1.5, true);
   }
 }
 
 function garbageCan(x, y) {
-  if (buttonFoo(x, y, inventoryBoxSize, inventoryBoxSize, color(0, 0), color(0,0), "")) {
+  if (mouseX >= x - inventoryBoxSize/2 && mouseX <= x + inventoryBoxSize/2
+   && mouseY >= y - inventoryBoxSize/2 && mouseY <= y + inventoryBoxSize/2) {
     image(world.trashCanOpen, x, y, sprite.WIDTH, sprite.HEIGHT);
+
+    if (mouseIsPressed) {
+      let newGarbage = mouseHolding;
+      let newMouse = garbageHolding;
+
+      mouseHolding = newMouse;
+      garbageHolding = newGarbage;
+
+      if (newMouse !== 0 && newGarbage !== 0) {
+        mouseHolding = 0;
+        garbage = newGarbage;
+      }
+
+      waiting();
+    }
   }
 
   else {

@@ -19,7 +19,7 @@ function startMenu() {
   else if (state === 1) {
     // load game
     backButton();
-    showSavesFiles();
+    showSavedFiles();
   }
 }
 

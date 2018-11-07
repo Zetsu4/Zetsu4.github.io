@@ -32,10 +32,12 @@ function settingsMenu() {
 
   else if (settingsChoice === "Save") {
     saveGame();
+    settingsChoice = -1;
   }
 
   else if (settingsChoice === "Load") {
     showSaves();
+    settingsChoice = -1;
   }
 
   else if (settingsChoice === "Main Menu") {
