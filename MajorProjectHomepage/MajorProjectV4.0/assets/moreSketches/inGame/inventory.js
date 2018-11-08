@@ -12,7 +12,7 @@ function lookInInventory() {
       fill(153, 77, 0);
       rect(xPos, yPos, inventoryBoxSize, inventoryBoxSize);
       hoverOverTile();
-      goThroughItems();
+      drawImages();
 
       if (y+1 === inventory.length && x+1 === inventory[y].length) {
         xPos = (x+1)*inventoryBoxSize + textTop/2;
@@ -36,33 +36,43 @@ function hoverOverTile() {
   }
 }
 
-function goThroughItems() {
-  // items in inventory
+function drawImages() {
+  // drwa items in inventory
   for (let y = 0; y < inventory.length; y++) {
     for (let x = 0; x < inventory[y].length; x++) {
       if (inventory[y][x] !== 0) {
-        // updating numbers of different items the only way i know how
         inventory[y][x].showInInventory(y, x, inventoryBoxSize, textTop*1.5, false, textTop);
+      }
+    }
+  }
+}
 
+function updateItems() {
+  // update items in inventory
+  for (let y = 0; y < inventory.length; y++) {
+    for (let x = 0; x < inventory[y].length; x++) {
+      // updating numbers
+      if (inventory[y][x] !== 0) {
         if (inventory[y][x].img === objectImg.arrow) { // arrows
-          if (inventory[y][x].updateNumbers(numOfArrows)) {
-            inventory[y][x] = 0;
-          }
+          inventory[y][x].updateNumber(numOfArrows);
         }
 
         else if (inventory[y][x].img === objectImg.trap) { // traps
-          if (inventory[y][x].updateNumbers(numOfTraps)) {
-            inventory[y][x] = 0;
-          }
+          inventory[y][x].updateNumber(numOfTraps);
         }
 
-        else if (inventory[y][x].img === objectImg.HpPotion) { // arrows
-          if (inventory[y][x].updateNumbers(numOfHpPotion)) {
-            inventory[y][x] = 0;
-          }
+        else if (inventory[y][x].img === objectImg.hpPotion) { // hp Potions
+          inventory[y][x].updateNumber(numOfHpPotions);
         }
 
+        else if (inventory[y][x].img === objectImg.mpPotion) { // mp Potions
+          inventory[y][x].updateNumber(numOfMpPotions);
+        }
+      }
 
+      // delete item if there are none
+      if (inventory[y][x].numberOfItem === 0) {
+        inventory[y][x] = 0;
       }
     }
   }

@@ -63,6 +63,8 @@ let inventoryBoxSize;
 let inventoryIsOpen;
 let invenWidth = 8;
 let invenHeight = 8;
+let numOfHpPotions;
+let numOfMpPotions;
 let numOfArrows;
 let numOfTraps;
 let maxTraps;
@@ -101,6 +103,8 @@ function preload() {
   objectImg.sword = loadImage("assets/Objects/images/sword.png");
   objectImg.arrow = loadImage("assets/Objects/images/arrows.png");
   objectImg.trap = loadImage("assets/Objects/images/traps.png");
+  objectImg.hpPotion = loadImage("assets/Objects/images/hpPotion.png");
+  objectImg.mpPotion = loadImage("assets/Objects/images/mpPotion.png");
 
   // mouse pointer
   objectImg.swordIcon = loadImage("assets/Objects/images/swordicon.png");
@@ -255,11 +259,11 @@ function defaultPlayer() {
   player.DOT = (width*0.005 + height*0.005)/4;
 
   // stats
-  player.int = 100;
-  player.agi = 10;
-  player.str = 100;
-  player.dex = 100;
-  player.vit = 100;
+  player.int = 1;
+  player.agi = 1;
+  player.str = 1;
+  player.dex = 1;
+  player.vit = 1;
 
   // damage and health
   player.hp = 10;
@@ -280,10 +284,14 @@ function defaultPlayer() {
   inventoryIsOpen = false;
   itemsOnGround = [];
 
+  numOfHpPotions = 3;
+  numOfMpPotions = 3;
   numOfArrows = 10;
   numOfTraps = 10;
-  inventory[0][0] = new itemInInventory(objectImg.arrow, numOfArrows);
-  inventory[0][1] = new itemInInventory(objectImg.trap, numOfTraps);
+  inventory[0][0] = new itemInInventory(objectImg.hpPotion, numOfHpPotions);
+  inventory[0][1] = new itemInInventory(objectImg.mpPotion, numOfMpPotions);
+  inventory[0][2] = new itemInInventory(objectImg.arrow, numOfArrows);
+  inventory[0][3] = new itemInInventory(objectImg.trap, numOfTraps);
 
   attackCoolDown = false;
   attackCoolDownTime = 500;

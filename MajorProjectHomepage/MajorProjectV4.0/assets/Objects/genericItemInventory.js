@@ -23,7 +23,7 @@ class itemInInventory {
     pop();
   }
 
-  updateNumbers(newNumber) {
+  updateNumber(newNumber) {
     this.numberOfItem = newNumber;
     return this.numberOfItem <= 0;
   }

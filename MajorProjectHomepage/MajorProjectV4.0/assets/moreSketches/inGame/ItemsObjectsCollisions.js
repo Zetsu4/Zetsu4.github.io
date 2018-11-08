@@ -27,11 +27,11 @@ function baddiesFoo() {
     let badGuyHitBox = (sprite.WIDTH + sprite.HEIGHT)/4;
     let allCollisionableObjects = objects.traps.length + objects.melee.length + objects.arrows.length;
 
-    if (dist(badX, badY, width/2, height/2) <= badGuyHitBox) {
-      // player
-      gameOver();
-      break;
-    }
+    // if (dist(badX, badY, width/2, height/2) <= badGuyHitBox) {
+    //   // player
+    //   gameOver();
+    //   break;
+    // }
 
     for (let j = 0; j < allCollisionableObjects; j++) {
       // traps
@@ -72,7 +72,7 @@ function baddiesFoo() {
 function objectFoo() {
   let allCollisionableObjects = objects.traps.length + objects.melee.length + objects.arrows.length;
 
-  // item/object
+  // objects
   for (let i = 0; i < allCollisionableObjects; i++) {
       // traps
       if (i < objects.traps.length) {
@@ -101,7 +101,6 @@ function objectFoo() {
   }
 }
 
-
 function badGuyDeath(spotInArray, x, y, otherX, otherY) {
   itemDrops(x, y, otherX, otherY);
   badGuys.splice(spotInArray, 1);
@@ -114,14 +113,22 @@ function itemDrops(x, y, otherX, otherY) {
   for (let i = 0; i < numberOfItems; i++) {
     let changeOfX = random(-sprite.WIDTH/2, sprite.WIDTH/2);
     let changeOfY = random(-sprite.HEIGHT/2, sprite.HEIGHT/2);
-    let randomItem = random(20);
+    let randomItem = random(100);
 
-    if (randomItem <= 5) { // arrows
-      itemsOnGround.push(new arrow(0, 0, objectImg.arrow, otherX, otherY, x, y));
+    if (randomItem <= 10) { // arrows
+      itemsOnGround.push(new arrow(0, 0, objectImg.arrow, otherX + changeOfX, otherY + changeOfY, x, y));
     }
 
-    else if (randomItem <= 10) { // traps
-      itemsOnGround.push(new trap(0, 0, objectImg.trap, 0, 0, true, otherX, otherY, x, y));
+    else if (randomItem <= 20) { // traps
+      itemsOnGround.push(new trap(0, 0, objectImg.trap, 0, 0, true, otherX + changeOfX, otherY + changeOfY, x, y));
+    }
+
+    else if (randomItem <= 30) { // hp Potions
+      itemsOnGround.push(new hpPotion(objectImg.hpPotion, otherX + changeOfX, otherY + changeOfY, x, y));
+    }
+
+    else if (randomItem <= 40) { // mp Potions
+      itemsOnGround.push(new mpPotion(objectImg.mpPotion, otherX + changeOfX, otherY + changeOfY, x, y));
     }
   }
 }
@@ -138,19 +145,31 @@ function floatingItems() {
 
     if (itemsOnGround[i].pickUp(sprite.WIDTH, sprite.HEIGHT)) {
 
-      if (itemsOnGround[i].image === objectImg.arrow) { // arrows
-        numOfArrows++;
-        if (numOfArrows <= 1) {
+      // arrows
+      if (itemsOnGround[i].image === objectImg.arrow) {
+        if (numOfArrows === 0) {
+          numOfArrows++;
           putInInventory(objectImg.arrow, numOfArrows);
+        }
+
+        else {
+          numOfArrows++;
         }
       }
 
-      else if (itemsOnGround[i].image === objectImg.trap) { // traps
-        numOfTraps++;
-        if (numOfTraps <= 1) {
+      // traps
+      else if (itemsOnGround[i].image === objectImg.trap) {
+        if (numOfTraps === 0) {
+          numOfTraps++;
           putInInventory(objectImg.trap, numOfTraps);
         }
+
+        else {
+          numOfTraps++;
+        }
       }
+
+      // delete the item on the ground
       itemsOnGround.splice(i, 1);
     }
   }
@@ -161,7 +180,7 @@ function putInInventory(img, numOfItem) {
     for (let x = 0; x < inventory[y].length; x++) {
       if (inventory[y][x] === 0) {
         inventory[y][x] = new itemInInventory(img, numOfItem);
-        break;
+        return false;
       }
     }
   }

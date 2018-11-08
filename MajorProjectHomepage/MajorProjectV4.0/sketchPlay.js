@@ -123,6 +123,7 @@ function playingGame() {
     objectFoo();
     floatingItems();
     numOfItemsQuickCheck();
+    updateItems();
 
     // baddies
     baddiesFoo();
