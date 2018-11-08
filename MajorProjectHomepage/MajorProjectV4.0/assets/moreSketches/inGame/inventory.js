@@ -12,10 +12,9 @@ function lookInInventory() {
       fill(153, 77, 0);
       rect(xPos, yPos, inventoryBoxSize, inventoryBoxSize);
       hoverOverTile();
-      drawImages();
+      goThroughItems();
 
       if (y+1 === inventory.length && x+1 === inventory[y].length) {
-        noStroke();
         xPos = (x+1)*inventoryBoxSize + textTop/2;
         garbageCan(xPos + sprite.WIDTH/2, yPos + sprite.HEIGHT/2);
       }
@@ -37,12 +36,33 @@ function hoverOverTile() {
   }
 }
 
-function drawImages() {
+function goThroughItems() {
   // items in inventory
   for (let y = 0; y < inventory.length; y++) {
     for (let x = 0; x < inventory[y].length; x++) {
       if (inventory[y][x] !== 0) {
-        inventory[y][x].inInventory(y, x, inventoryBoxSize, textTop*1.5, false);
+        // updating numbers of different items the only way i know how
+        inventory[y][x].showInInventory(y, x, inventoryBoxSize, textTop*1.5, false, textTop);
+
+        if (inventory[y][x].img === objectImg.arrow) { // arrows
+          if (inventory[y][x].updateNumbers(numOfArrows)) {
+            inventory[y][x] = 0;
+          }
+        }
+
+        else if (inventory[y][x].img === objectImg.trap) { // traps
+          if (inventory[y][x].updateNumbers(numOfTraps)) {
+            inventory[y][x] = 0;
+          }
+        }
+
+        else if (inventory[y][x].img === objectImg.HpPotion) { // arrows
+          if (inventory[y][x].updateNumbers(numOfHpPotion)) {
+            inventory[y][x] = 0;
+          }
+        }
+
+
       }
     }
   }
@@ -51,7 +71,7 @@ function drawImages() {
 function mouseHoldingImage() {
   // item in mouse
   if (mouseHolding !== 0) {
-    mouseHolding.inInventory(mouseY, mouseX, inventoryBoxSize, textTop*1.5, true);
+    mouseHolding.showInInventory(mouseY, mouseX, inventoryBoxSize, textTop*1.5, true, textTop);
   }
 }
 

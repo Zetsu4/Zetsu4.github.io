@@ -140,12 +140,29 @@ function floatingItems() {
 
       if (itemsOnGround[i].image === objectImg.arrow) { // arrows
         numOfArrows++;
+        if (numOfArrows <= 1) {
+          putInInventory(objectImg.arrow, numOfArrows);
+        }
       }
 
       else if (itemsOnGround[i].image === objectImg.trap) { // traps
         numOfTraps++;
+        if (numOfTraps <= 1) {
+          putInInventory(objectImg.trap, numOfTraps);
+        }
       }
       itemsOnGround.splice(i, 1);
+    }
+  }
+}
+
+function putInInventory(img, numOfItem) {
+  for (let y = 0; y < inventory.length; y++) {
+    for (let x = 0; x < inventory[y].length; x++) {
+      if (inventory[y][x] === 0) {
+        inventory[y][x] = new itemInInventory(img, numOfItem);
+        break;
+      }
     }
   }
 }

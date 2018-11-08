@@ -64,7 +64,7 @@ function createBaddies() {
   // starting baddies
   for (let i = 0; i < NUM_OF_BADDIES; i++) {
     // secret ending (in case things break)
-    if (world.WIDTH <= width*2 && world.HEIGHT <= height*2) {
+    if (world.WIDTH <= width*4 && world.HEIGHT <= height*4) {
       print("YOU WIN THE GAME, GOOD FOR YOU!");
       secretEnding();
       break;
@@ -76,8 +76,8 @@ function createBaddies() {
     let xSpawn = random(-world.WIDTH/2 + width*0.10, world.WIDTH/2 - width*0.10);
     let ySpawn = random(-world.HEIGHT/2 + height*0.10, world.HEIGHT/2 - height*0.10);
 
-    while (xSpawn >= -width*0.75 && xSpawn <= width*0.75
-      && ySpawn >= -height*0.75 && ySpawn <= height*0.75) {
+    while (xSpawn >= -width*1.50 && xSpawn <= width*1.50
+      && ySpawn >= -height*1.50 && ySpawn <= height*1.50) {
 
       xSpawn = random(-world.WIDTH/2 + width*0.10, world.WIDTH/2 - width*0.10);
       ySpawn = random(-world.HEIGHT/2 + height*0.10, world.HEIGHT/2 - height*0.10);

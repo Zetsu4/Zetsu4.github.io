@@ -106,12 +106,20 @@ function reBindKeys() {
       waiting();
       let newKey = prompt("Please enter new key", String.fromCharCode(keyBindArray[i]));
 
-      if (newKey === " ") {
-        keyBindArray[i] = 32;
+      if (newKey === null) {
+        break;
       }
 
-      else if (newKey !== null) {
+      else if (!isNaN(newKey.charAt(0) * 1)) {
+        keyBindArray[i] = newKey.charCodeAt(0);
+      }
+
+      else if (newKey === newKey.toLowerCase()) {
         keyBindArray[i] = newKey.charCodeAt(0) - 32;
+      }
+
+      else if (newKey !== "") {
+        keyBindArray[i] = newKey.charCodeAt(0);
       }
     }
   }

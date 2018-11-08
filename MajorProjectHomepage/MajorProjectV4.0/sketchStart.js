@@ -280,12 +280,10 @@ function defaultPlayer() {
   inventoryIsOpen = false;
   itemsOnGround = [];
 
-  numOfArrows = 5;
-  numOfTraps = 5;
-  inventory[0][0] = new trap(0, 0, objectImg.trap);
-  inventory[0][1] = new arrow(0, 0, objectImg.arrow);
-  inventory[0][2] = new trap(0, 0, objectImg.trap);
-  inventory[0][3] = new arrow(0, 0, objectImg.arrow);
+  numOfArrows = 10;
+  numOfTraps = 10;
+  inventory[0][0] = new itemInInventory(objectImg.arrow, numOfArrows);
+  inventory[0][1] = new itemInInventory(objectImg.trap, numOfTraps);
 
   attackCoolDown = false;
   attackCoolDownTime = 500;

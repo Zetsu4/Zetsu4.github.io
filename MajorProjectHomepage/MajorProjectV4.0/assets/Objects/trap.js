@@ -96,17 +96,4 @@ class trap {
     fill(colors);
     ellipse(mapX, mapY, dotSize);
   }
-
-  inInventory(invenY, invenX, cellSize, offSet, onMouse) {
-    // item in inventory
-    let xPos = invenX*cellSize + offSet;
-    let yPos = invenY*cellSize + offSet;
-
-    if (onMouse) {
-      xPos = invenX;
-      yPos = invenY;
-    }
-
-    image(this.image, xPos, yPos, cellSize, cellSize);
-  }
 }
