@@ -1,6 +1,6 @@
-// V4.0
+// V4.1
 // Travis Ahern
-// Nov. 1/18
+// Nov. 9, 2018
 //
 // PROBLEMS:
 // - hitting the edges the player bounces
