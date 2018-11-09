@@ -55,7 +55,7 @@ function playerHealth() {
 }
 
 function playerMovement() {
-  if (keyIsDown(keyBindings.walk)) { // SHIFT
+  if (keyIsDown(keyBindings.get("walk"))) { // SHIFT
     // walking
     player.speed = player.walk;
   }
@@ -66,23 +66,23 @@ function playerMovement() {
   }
 
   // x-axis
-  if (keyIsDown(keyBindings.left)) { // LEFT
+  if (keyIsDown(keyBindings.get("keyArray")[4][1])) { // LEFT
     player.x -= player.speed;
     world.imageX += player.speed;
   }
 
-  if (keyIsDown(keyBindings.right)) { // RIGHT
+  if (keyIsDown(keyBindings.get("keyArray")[6][1])) { // RIGHT
     player.x += player.speed;
     world.imageX -= player.speed;
   }
 
   // y-axis
-  if (keyIsDown(keyBindings.up)) { // UP
+  if (keyIsDown(keyBindings.get("keyArray")[3][1])) { // UP
     player.y -= player.speed;
     world.imageY += player.speed;
   }
 
-  if (keyIsDown(keyBindings.down)) { // DOWN
+  if (keyIsDown(keyBindings.get("keyArray")[5][1])) { // DOWN
     player.y += player.speed;
     world.imageY -= player.speed;
   }
@@ -101,23 +101,23 @@ function moveWithPlayer() {
   else {
     // LEFT/RIGHT
     for (let badGuy of badGuys) { // baddies
-      badGuy.moveWithPlayerX(keyBindings.left, keyBindings.right, player.speed);
+      badGuy.moveWithPlayerX(keyBindings.get("keyArray")[4][1], keyBindings.get("keyArray")[6][1], player.speed);
     }
 
     for (let trap of objects.traps) { // traps
-      trap.moveWithPlayerX(keyBindings.left, keyBindings.right, player.speed);
+      trap.moveWithPlayerX(keyBindings.get("keyArray")[4][1], keyBindings.get("keyArray")[6][1], player.speed);
     }
 
     for (let arrow of objects.arrows) { // arrows
-      arrow.moveWithPlayerX(keyBindings.left, keyBindings.right, player.speed);
+      arrow.moveWithPlayerX(keyBindings.get("keyArray")[4][1], keyBindings.get("keyArray")[6][1], player.speed);
     }
 
     for (let slash of objects.melee) { // slashes
-      slash.moveWithPlayerX(keyBindings.left, keyBindings.right, player.speed);
+      slash.moveWithPlayerX(keyBindings.get("keyArray")[4][1], keyBindings.get("keyArray")[6][1], player.speed);
     }
 
     for (let item of itemsOnGround) { // items on the ground
-      item.moveWithPlayerX(keyBindings.left, keyBindings.right, player.speed);
+      item.moveWithPlayerX(keyBindings.get("keyArray")[4][1], keyBindings.get("keyArray")[6][1], player.speed);
     }
   }
 
@@ -129,25 +129,24 @@ function moveWithPlayer() {
   }
 
   else {
-    // UP/DOWN
     for (let badGuy of badGuys) { // baddies
-      badGuy.moveWithPlayerY(keyBindings.up, keyBindings.down, player.speed);
+      badGuy.moveWithPlayerY(keyBindings.get("keyArray")[3][1], keyBindings.get("keyArray")[5][1], player.speed);
     }
 
     for (let trap of objects.traps) { // traps
-      trap.moveWithPlayerY(keyBindings.up, keyBindings.down, player.speed);
+      trap.moveWithPlayerY(keyBindings.get("keyArray")[3][1], keyBindings.get("keyArray")[5][1], player.speed);
     }
 
     for (let arrow of objects.arrows) { // arrows
-      arrow.moveWithPlayerY(keyBindings.up, keyBindings.down, player.speed);
+      arrow.moveWithPlayerY(keyBindings.get("keyArray")[3][1], keyBindings.get("keyArray")[5][1], player.speed);
     }
 
     for (let slash of objects.melee) { // slashes
-      slash.moveWithPlayerY(keyBindings.up, keyBindings.down, player.speed);
+      slash.moveWithPlayerY(keyBindings.get("keyArray")[3][1], keyBindings.get("keyArray")[5][1], player.speed);
     }
 
     for (let item of itemsOnGround) { // items on the ground
-      item.moveWithPlayerY(keyBindings.up, keyBindings.down, player.speed);
+      item.moveWithPlayerY(keyBindings.get("keyArray")[3][1], keyBindings.get("keyArray")[5][1], player.speed);
     }
   }
 }
@@ -225,29 +224,34 @@ function waiting() {
 function keyPressed() {
   if (startingState === 2) {
     // open settings
-    if (keyCode === keyBindings.settings) {
+    if (keyCode === keyBindings.get("settings")) {
       settingsIsOpen = !settingsIsOpen;
       settingsChoice = -1;
     }
 
     // open map
-    if (keyCode === keyBindings.openMap && !inventoryIsOpen) {
+    if (keyCode === keyBindings.get("keyArray")[9][1] && !inventoryIsOpen) {
       mapIsOpen = !mapIsOpen;
     }
 
     if (!settingsIsOpen) {
       // open inventory
-      if (keyCode === keyBindings.inventory) {
+      if (keyCode === keyBindings.get("keyArray")[8][1]) {
         inventoryIsOpen = !inventoryIsOpen;
       }
 
+      // toggle magic attack
+      if (keyCode === keyBindings.get("keyArray")[1][1]) {
+        rangedOn = !rangedOn;
+      }
+
       // toggle melee/ranged
-      if (keyCode === keyBindings.toggleRanged) {
+      if (keyCode === keyBindings.get("keyArray")[0][1]) {
         rangedOn = !rangedOn;
       }
 
       // place traps
-      if (keyCode === keyBindings.placeTrap && !inventoryIsOpen && objects.traps.length < maxTraps && numOfTraps > 0) {
+      if (keyCode === keyBindings.get("keyArray")[2][1] && !inventoryIsOpen && objects.traps.length < maxTraps && numOfTraps > 0) {
         objects.traps.push(new trap(width/2, height/2, objectImg.trap, player.x, player.y, false));
         numOfTraps--;
       }

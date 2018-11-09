@@ -81,7 +81,7 @@ function objectFoo() {
           minimap.X, minimap.Y,
           minimap.WIDTH, minimap.HEIGHT,
           player.DOT, color(0, 255, 255));
-        if (objects.traps[i].show(sprite.WIDTH, sprite.HEIGHT, keyBindings.interact)) {
+        if (objects.traps[i].show(sprite.WIDTH, sprite.HEIGHT, keyBindings.get("keyArray")[7][1])) {
           objects.traps.splice(i, 1);
           numOfTraps++;
         }
@@ -90,13 +90,13 @@ function objectFoo() {
       // sword
       if (i < objects.melee.length) {
         objects.melee[i].moveForward();
-        objects.melee[i].show(sprite.WIDTH, sprite.HEIGHT, keyBindings.interact);
+        objects.melee[i].show(sprite.WIDTH, sprite.HEIGHT);
       }
 
       // arrows
       if (i < objects.arrows.length) {
         objects.arrows[i].moveForward();
-        objects.arrows[i].show(sprite.WIDTH, sprite.HEIGHT, keyBindings.interact);
+        objects.arrows[i].show(sprite.WIDTH, sprite.HEIGHT);
       }
   }
 }

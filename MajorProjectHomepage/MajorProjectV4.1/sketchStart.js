@@ -167,35 +167,25 @@ function setup() {
 
 // setup functions
 function defaultKeyBinds() {
-  // keyBindings = new Map();
+  keyBindings = new Map();
 
   // unchangable
-  keyBindings.settings = 27; // Escape
-  keyBindings.walk = 16; // SHIFT
+  keyBindings.set("settings", 27); // Escape
+  keyBindings.set("walk", 16); // SHIFT
 
   // changable
-  keyBindings.toggleRanged = 82; // R
-  keyBindings.toggleMagic = 84; // T
-  keyBindings.placeTrap = 81; // Q
-  keyBindings.up = 87; // W
-  keyBindings.left = 65; // A
-  keyBindings.down = 83; // S
-  keyBindings.right = 68; // D
-  keyBindings.interact = 70; // F
-  keyBindings.inventory = 69; // E
-  keyBindings.openMap = 77; // M
-
-  keyBindArray = [ // displayed bindings
-    keyBindings.toggleRanged,
-    keyBindings.toggleMagic,
-    keyBindings.placeTrap,
-    keyBindings.up,
-    keyBindings.left,
-    keyBindings.down,
-    keyBindings.right,
-    keyBindings.interact,
-    keyBindings.inventory,
-    keyBindings.openMap];
+  // DO NOT CHANGE THIS ORDER
+  keyBindings.set("keyArray", [ // displayed bindings
+    ["toggleRanged", 82], // R
+    ["toggleMagic", 84], // T
+    ["placeTrap", 81], // Q
+    ["up", 87], // W
+    ["left", 65], // A
+    ["down", 83], // S
+    ["right", 68], // D
+    ["interact", 70], // F
+    ["inventory", 69], // E
+    ["openMap", 77]]); // M
 
   changingKeys = false;
 }

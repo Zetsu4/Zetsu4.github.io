@@ -31,11 +31,13 @@ function settingsMenu() {
   }
 
   else if (settingsChoice === "Save") {
+    waiting();
     saveGame();
     settingsChoice = -1;
   }
 
   else if (settingsChoice === "Load") {
+    waiting();
     // showSavedFiles();
     settingsChoice = -1;
   }
@@ -62,20 +64,14 @@ function displayControls() {
 
   // if changes are made here, change the "reBindKeys()" function
   fill("black");
-  text(
-"ESC - OPEN SETTINGS\n\
-LEFT MOUSE BUTTON - ATTACK\n\
-" + String.fromCharCode(keyBindArray[0]) + " - TOGGLE RANGED ATTACK\n\
-" + String.fromCharCode(keyBindArray[1]) + " - TOGGLE MAGIC ATTACK\n\
-" + String.fromCharCode(keyBindArray[2]) + " - PLACE TRAP\n\
-" + String.fromCharCode(keyBindArray[3]) + " - UP\n\
-" + String.fromCharCode(keyBindArray[4]) + " - LEFT\n\
-" + String.fromCharCode(keyBindArray[5]) + " - DOWN\n\
-" + String.fromCharCode(keyBindArray[6]) + " - RIGHT\n\
-" + String.fromCharCode(keyBindArray[7]) + " - INTERACT\n\
-" + String.fromCharCode(keyBindArray[8]) + " - INVENTORY\n\
-" + String.fromCharCode(keyBindArray[9]) + " - OPEN MAP",
-    width/2, textTop);
+
+  text("ESC - OPEN SETTINGS\n\LEFT MOUSE BUTTON - ATTACK", width/2, textTop);
+
+  for (let i = 0; i < keyBindings.get("keyArray").length; i++) {
+    let y = (i+3)*textTop*1.275;
+    text(String.fromCharCode(keyBindings.get("keyArray")[i][1]) + " - " + keyBindings.get("keyArray")[i][0], width/2, y);
+  }
+
   reBindKeys_Button();
   if (changingKeys) {
     reBindKeys();
@@ -99,31 +95,26 @@ function reBindKeys() {
   let boxHeight = textTop*1.30;
   let xPos = width*0.15 + boxWidth;
 
-  for (let i = 0; i < keyBindArray.length; i++) {
+  for (let i = 0; i < keyBindings.get("keyArray").length; i++) {
     let yPos = box.yStart + i*boxHeight + textTop;
 
-    if (buttonFoo(xPos, yPos, boxWidth, boxHeight, "orange", "lightorange", String.fromCharCode(keyBindArray[i]))) {
+    if (buttonFoo(xPos, yPos, boxWidth, boxHeight, "orange", "lightorange", String.fromCharCode(keyBindings.get("keyArray")[i][1]))) {
       waiting();
-      let newKey = prompt("Please enter new key", String.fromCharCode(keyBindArray[i]));
+      let newKey = prompt("Please enter new key", String.fromCharCode(keyBindings.get("keyArray")[i][1]));
 
-      if (newKey === null) {
+      if (newKey === "") {
         // empty string
         break;
       }
 
-      else if (!isNaN(newKey.charAt(0) * 1)) {
-        // chacking if number
-        keyBindArray[i] = newKey.charCodeAt(0);
-      }
-
-      else if (newKey === newKey.toLowerCase()) {
+      else if (newKey != newKey.toUpperCase() && newKey == newKey.toLowerCase()) {
         // lower case letter
-        keyBindArray[i] = newKey.charCodeAt(0) - 32;
+        keyBindings.get("keyArray")[i][1] = newKey.charCodeAt(0) - 32;
       }
 
       else {
         // other keys
-        keyBindArray[i] = newKey.charCodeAt(0);
+        keyBindings.get("keyArray")[i][1] = newKey.charCodeAt(0);
       }
     }
   }

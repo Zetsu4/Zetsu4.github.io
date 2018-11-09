@@ -16,9 +16,9 @@ function loadGameButton() {
   }
 }
 
-function showSavedFiles() {
+function loadSavedFile() {
   // load game
-  // let path = window.open("file://PCNAME/E$");
+  let path = prompt("Copy The Files Path That You Want To Load", "");
   let savedVars = loadJSON(path);
 
   // key binds
