@@ -38,7 +38,7 @@ function settingsMenu() {
 
   else if (settingsChoice === "Load") {
     waiting();
-    loadSavedFiles();
+    loadSavedFile();
     settingsChoice = -1;
   }
 
