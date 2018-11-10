@@ -65,14 +65,23 @@ function playerStats() {
 
   // damage and health
   player.totHP = 10*(player.vit+1);
-  player.hp = 10*(player.vit+1);
+  player.totMP = 10*(player.int+1);
+  player.hp = player.totHP;
+  player.mp = player.totMP;
   player.mDmg = player.str*2; // melee damage
   player.rDmg = player.dex*2; // ranged damage
   player.sDmg = player.int*2; // spell damage
 
-  player.totSpeed = width*0.007 + width*player.agi*pow(10, -4);
+  player.totSpeed = width*0.006 + width*player.agi*pow(10, -4);
   player.walk = player.totSpeed*0.70;
   player.speed = player.totSpeed;
+
+  // starting items
+  numOfHpPotions += allSkills[player.skillPosistion][2].startingHpPotions;
+  numOfMpPotions += allSkills[player.skillPosistion][2].startingMpPotions;
+  numOfArrows += allSkills[player.skillPosistion][2].startingArrows;
+  numOfTraps += allSkills[player.skillPosistion][2].startingTraps;
+  maxTraps += allSkills[player.skillPosistion][2].maxTraps;
 }
 
 //------------------------------------------------------------------------------

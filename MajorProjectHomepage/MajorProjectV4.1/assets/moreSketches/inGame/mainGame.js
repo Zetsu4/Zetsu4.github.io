@@ -54,6 +54,35 @@ function playerHealth() {
   pop();
 }
 
+function playerInvincability() {
+  if (player.invincable) {
+    elapsedTime = millis() - player.invincableTime;
+    if (elapsedTime >= lastTimeHit) {
+      player.invincable = false;
+    }
+  }
+}
+
+function consumeHealthPotion() {
+  if (numOfHpPotions > 0) {
+    numOfHpPotions--;
+    player.hp += 50;
+    if (player.hp > player.totHP) {
+      player.hp = player.totHP;
+    }
+  }
+}
+
+function consumeManaPotion() {
+  if (numOfMpPotions > 0) {
+    numOfMpPotions--;
+    player.mp += 50;
+    if (player.mp > player.totMP) {
+      player.mp = player.totMP;
+    }
+  }
+}
+
 function playerMovement() {
   if (keyIsDown(keyBindings.get("walk"))) { // SHIFT
     // walking
@@ -108,6 +137,10 @@ function moveWithPlayer() {
       trap.moveWithPlayerX(keyBindings.get("keyArray")[4][1], keyBindings.get("keyArray")[6][1], player.speed);
     }
 
+    for (let magics of objects.magic) { // magic
+      magics.moveWithPlayerX(keyBindings.get("keyArray")[4][1], keyBindings.get("keyArray")[6][1], player.speed);
+    }
+
     for (let arrow of objects.arrows) { // arrows
       arrow.moveWithPlayerX(keyBindings.get("keyArray")[4][1], keyBindings.get("keyArray")[6][1], player.speed);
     }
@@ -135,6 +168,10 @@ function moveWithPlayer() {
 
     for (let trap of objects.traps) { // traps
       trap.moveWithPlayerY(keyBindings.get("keyArray")[3][1], keyBindings.get("keyArray")[5][1], player.speed);
+    }
+
+    for (let magics of objects.magic) { // magic
+      magics.moveWithPlayerY(keyBindings.get("keyArray")[3][1], keyBindings.get("keyArray")[5][1], player.speed);
     }
 
     for (let arrow of objects.arrows) { // arrows
@@ -187,9 +224,14 @@ function beautifulMouse() {
   push();
   translate(width/2, height/2);
   rotate(mousePos);
-  if (rangedOn) { // ranged
+  if (magicOn) { // magic
+    image(objectImg.magicIcon, sprite.WIDTH/2, 0, sprite.WIDTH, sprite.HEIGHT)
+  }
+
+  else if (rangedOn) { // ranged
     image(objectImg.bowIcon, sprite.WIDTH/2, 0, sprite.WIDTH, sprite.HEIGHT);
   }
+
   else { // melee
     image(objectImg. swordIcon, sprite.WIDTH/2, 0, sprite.WIDTH, sprite.HEIGHT);
   }
@@ -242,19 +284,34 @@ function keyPressed() {
 
       // toggle magic attack
       if (keyCode === keyBindings.get("keyArray")[1][1]) {
-        rangedOn = !rangedOn;
+        magicOn = !magicOn;
+        rangedOn = false;
       }
 
       // toggle melee/ranged
       if (keyCode === keyBindings.get("keyArray")[0][1]) {
         rangedOn = !rangedOn;
+        magicOn = false;
       }
 
-      // place traps
-      if (keyCode === keyBindings.get("keyArray")[2][1] && !inventoryIsOpen && objects.traps.length < maxTraps && numOfTraps > 0) {
-        objects.traps.push(new trap(width/2, height/2, objectImg.trap, player.x, player.y, false));
-        numOfTraps--;
+      if (!inventoryIsOpen) {
+        // consume health potion
+        if (keyCode === keyBindings.get("keyArray")[10][1]) {
+          consumeHealthPotion();
+        }
+
+        // consume mana potion
+        if (keyCode === keyBindings.get("keyArray")[11][1]) {
+          consumeManaPotion();
+        }
+
+        // place traps
+        if (keyCode === keyBindings.get("keyArray")[2][1] && objects.traps.length < maxTraps && numOfTraps > 0) {
+          objects.traps.push(new trap(width/2, height/2, objectImg.trap, player.x, player.y, false));
+          numOfTraps--;
+        }
       }
+
     }
   }
 }
@@ -262,16 +319,23 @@ function keyPressed() {
 function mousePressed() {
   // player attack
   if (startingState === 2 && !settingsIsOpen && !inventoryIsOpen && !mapIsOpen && !attackCoolDown) {
+    // magic
+    if (magicOn) {
+      objects.magic.push(new fireBall(0, sprite.WIDTH, objectImg.fireBall));
+      attackCoolDown = true;
+      lastTimeAttacked = millis();
+    }
+
     // ranged
-    if (rangedOn && numOfArrows > 0) {
-      objects.arrows.push(new arrow(0, sprite.WIDTH, objectImg.arrow, player.speed));
+    else if (rangedOn && numOfArrows > 0) {
+      objects.arrows.push(new arrow(0, sprite.WIDTH, objectImg.arrow));
       numOfArrows--;
       attackCoolDown = true;
       lastTimeAttacked = millis();
     }
     // melee
     else if (!rangedOn) {
-      objects.melee.push(new sword(0, sprite.WIDTH, objectImg.sword, player.speed));
+      objects.melee.push(new sword(0, sprite.WIDTH, objectImg.sword));
       attackCoolDown = true;
       lastTimeAttacked = millis();
     }

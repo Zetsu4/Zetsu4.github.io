@@ -24,7 +24,7 @@ function gameOver() {
   text("GAME OVER,\nyou suck", width/2, height/2);
   text("Press 'Esc' to return to main menu", width/2, height*0.80);
 
-  if (keyCode === keyBindings.settings) {
+  if (keyCode === keyBindings.get("settings")) {
     startingState = 0;
     state = 0;
     settingsIsOpen = false;

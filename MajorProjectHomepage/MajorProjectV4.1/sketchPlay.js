@@ -116,6 +116,7 @@ function playingGame() {
       minimap.WIDTH, minimap.HEIGHT,
       player.DOT);
     playerCoolDown();
+    playerInvincability();
     beautifulMouse();
 
     // objects

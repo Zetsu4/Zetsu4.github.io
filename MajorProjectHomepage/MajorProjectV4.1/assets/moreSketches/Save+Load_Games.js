@@ -21,19 +21,19 @@ function loadSavedFile() {
   let path = prompt("Copy The Files Path That You Want To Load", "");
   let savedVars = loadJSON(path);
 
-  // key binds
-  keyBindings.settings = savedVars.keyBinds.settings;
-  keyBindings.toggleRanged = savedVars.keyBinds.toggleRanged;
-  keyBindings.toggleMagic = savedVars.keyBinds.toggleMagic;
-  keyBindings.placeTrap = savedVars.keyBinds.placeTrap;
-  keyBindings.up = savedVars.keyBinds.up;
-  keyBindings.left = savedVars.keyBinds.left;
-  keyBindings.down = savedVars.keyBinds.down;
-  keyBindings.right = savedVars.keyBinds.right;
-  keyBindings.interact = savedVars.keyBinds.interact;
-  keyBindings.inventory = savedVars.keyBinds.inventory;
-  keyBindings.openMap = savedVars.keyBinds.openMap;
-  keyBindArray = savedVars.keyBinds.keyBindArray;
+  // // key binds
+  // keyBindings.settings = savedVars.keyBinds.settings;
+  // keyBindings.toggleRanged = savedVars.keyBinds.toggleRanged;
+  // keyBindings.toggleMagic = savedVars.keyBinds.toggleMagic;
+  // keyBindings.placeTrap = savedVars.keyBinds.placeTrap;
+  // keyBindings.up = savedVars.keyBinds.up;
+  // keyBindings.left = savedVars.keyBinds.left;
+  // keyBindings.down = savedVars.keyBinds.down;
+  // keyBindings.right = savedVars.keyBinds.right;
+  // keyBindings.interact = savedVars.keyBinds.interact;
+  // keyBindings.inventory = savedVars.keyBinds.inventory;
+  // keyBindings.openMap = savedVars.keyBinds.openMap;
+  // keyBindArray = savedVars.keyBinds.keyBindArray;
 
   // objects
   objects.melee = savedVars.objects.melee;
@@ -84,21 +84,21 @@ function saveGame() {
   let title = prompt("Name of File", "");
   let saveVars = {};
 
-  // key binds
-  saveVars.keyBinds = {};
-
-  saveVars.keyBinds.settings = keyBindings.settings;
-  saveVars.keyBinds.toggleRanged = keyBindings.toggleRanged;
-  saveVars.keyBinds.toggleMagic = keyBindings.toggleMagic;
-  saveVars.keyBinds.placeTrap = keyBindings.placeTrap;
-  saveVars.keyBinds.up = keyBindings.up;
-  saveVars.keyBinds.left = keyBindings.left;
-  saveVars.keyBinds.down = keyBindings.down;
-  saveVars.keyBinds.right = keyBindings.right;
-  saveVars.keyBinds.interact = keyBindings.interact;
-  saveVars.keyBinds.inventory = keyBindings.inventory;
-  saveVars.keyBinds.openMap = keyBindings.openMap;
-  saveVars.keyBinds.keyBindArray = keyBindArray;
+  // // key binds
+  // saveVars.keyBinds = {};
+  //
+  // saveVars.keyBinds.settings = keyBindings.settings;
+  // saveVars.keyBinds.toggleRanged = keyBindings.toggleRanged;
+  // saveVars.keyBinds.toggleMagic = keyBindings.toggleMagic;
+  // saveVars.keyBinds.placeTrap = keyBindings.placeTrap;
+  // saveVars.keyBinds.up = keyBindings.up;
+  // saveVars.keyBinds.left = keyBindings.left;
+  // saveVars.keyBinds.down = keyBindings.down;
+  // saveVars.keyBinds.right = keyBindings.right;
+  // saveVars.keyBinds.interact = keyBindings.interact;
+  // saveVars.keyBinds.inventory = keyBindings.inventory;
+  // saveVars.keyBinds.openMap = keyBindings.openMap;
+  // saveVars.keyBinds.keyBindArray = keyBindArray;
 
   // objects
   saveVars.objects = {};

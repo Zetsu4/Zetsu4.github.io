@@ -38,7 +38,7 @@ function settingsMenu() {
 
   else if (settingsChoice === "Load") {
     waiting();
-    // showSavedFiles();
+    loadSavedFiles();
     settingsChoice = -1;
   }
 
@@ -62,12 +62,13 @@ function displayControls() {
   fill("orange");
   rect(width/2, height/2, width*0.40, height);
 
-  // if changes are made here, change the "reBindKeys()" function
   fill("black");
 
+  // hard set controls
   text("ESC - OPEN SETTINGS\n\LEFT MOUSE BUTTON - ATTACK", width/2, textTop);
 
   for (let i = 0; i < keyBindings.get("keyArray").length; i++) {
+    // changable controls
     let y = (i+3)*textTop*1.275;
     text(String.fromCharCode(keyBindings.get("keyArray")[i][1]) + " - " + keyBindings.get("keyArray")[i][0], width/2, y);
   }

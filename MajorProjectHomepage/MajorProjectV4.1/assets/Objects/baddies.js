@@ -28,7 +28,7 @@ class baddies {
     this.y = y;
 
     // movement vars
-    this.stuned = true;
+    this.stuned = false;
     this.speed;
     this.state = 0;
     this.dir = 0;
@@ -46,7 +46,6 @@ class baddies {
     // stats
     this.int = this.race[2].int;
     this.agi = this.race[2].agi;
-    // this.agi = 10;
     this.str = this.race[2].str;
     this.dex = this.race[2].dex;
     this.vit = this.race[2].vit;
@@ -58,12 +57,19 @@ class baddies {
     this.rDmg = this.dex*2; // ranged damage
     this.sDmg = this.int*2; // spell damage
 
-    this.speed = width*0.007 + width*this.agi*pow(10, -4);
+    this.speed = width*0.01 + width*this.agi*pow(10, -4);
     this.timeToStep = 2000/(this.agi);
   }
 
-  // AI
-  movement(worldW, worldH, spriteW, spriteH, playerX, playerY) {
+  takeDamage(dmg, trapped = false) {
+    this.hp -= dmg;
+    this.stuned = true;
+    if (trapped) {
+      this.speed -= this.speed/4;
+    }
+  }
+
+  stunedFoo() {
     // stuned
     if (this.stuned) {
       let elapsedTime = millis() - this.timeToStep*4;
@@ -73,9 +79,12 @@ class baddies {
         this.lastTime = millis();
       }
     }
+  }
 
+  // AI
+  movement(worldW, worldH, spriteW, spriteH, playerX, playerY) {
     // move forword
-    else if (this.state === 0 || this.state === 1) {
+    if (this.state === 0 || this.state === 1) {
       if (this.dir === this.UP && this.y > -worldH/2 + spriteH) {
         this.y -= this.speed;
         this.otherY -= this.speed;
@@ -127,7 +136,7 @@ class baddies {
 
   attackPlayer(playerX, playerY, worldW, worldH) {
     // pursue player
-    if (this.state !== 2) {
+    if (this.state !== 2 && !this.stuned) {
       // x-axis
       if (this.x >= playerX - worldW/2) {
         this.x -= this.speed*2;
@@ -153,7 +162,7 @@ class baddies {
     }
 
     // waiting
-    else {
+    else if (!this.stuned) {
       let elapsedTime = millis() - this.timeToStep/2;
       if (elapsedTime >= this.lastTime) {
         this.state = random([0, 1]);

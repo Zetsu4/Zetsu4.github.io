@@ -56,6 +56,7 @@ let mapIsOpen = false;
 // player vars
 let player = {};
 let rangedOn;
+let magicOn;
 let mouseHolding;
 let inventory = [];
 let inventoryBoxSize;
@@ -70,6 +71,8 @@ let maxTraps;
 let attackCoolDown;
 let attackCoolDownTime;
 let lastTimeAttacked;
+let lastTimeHit;
+let elapsedTime;
 
 // box option vars
 let box = {};
@@ -101,13 +104,15 @@ function preload() {
   // items
   objectImg.sword = loadImage("assets/Objects/images/sword.png");
   objectImg.arrow = loadImage("assets/Objects/images/arrows.png");
+  objectImg.fireBall = loadImage("assets/Objects/images/fireBall.png");
   objectImg.trap = loadImage("assets/Objects/images/traps.png");
   objectImg.hpPotion = loadImage("assets/Objects/images/hpPotion.png");
   objectImg.mpPotion = loadImage("assets/Objects/images/mpPotion.png");
 
   // mouse pointer
-  objectImg.swordIcon = loadImage("assets/Objects/images/swordicon.png");
-  objectImg.bowIcon = loadImage("assets/Objects/images/bowicon.png");
+  objectImg.swordIcon = loadImage("assets/Objects/images/swordIcon.png");
+  objectImg.bowIcon = loadImage("assets/Objects/images/bowIcon.png");
+  objectImg.magicIcon = loadImage("assets/Objects/images/magicIcon.png");
 
   // race sprites
   raceSprites.randomSprite = loadImage("assets/Races/Random.png");
@@ -183,9 +188,12 @@ function defaultKeyBinds() {
     ["left", 65], // A
     ["down", 83], // S
     ["right", 68], // D
-    ["interact", 70], // F
+    ["interact", 32], // SPACE
     ["inventory", 69], // E
-    ["openMap", 77]]); // M
+    ["openMap", 77], // M
+    ["drinkHealthPotion", 70], // F
+    ["drinkManaPotion", 71] // G
+  ]);
 
   changingKeys = false;
 }
@@ -235,6 +243,7 @@ function settingItems() {
   // player
   objects.melee = [];
   objects.arrows = [];
+  objects.magic = [];
   objects.traps = [];
   maxTraps = 4;
 
@@ -259,10 +268,16 @@ function defaultPlayer() {
   player.vit = 1;
 
   // damage and health
+  player.invincable = false;
+  player.invincableTime = 1000;
+  player.totHP = 10;
+  player.totMP = 10;
   player.hp = 10;
+  player.mp = 10;
   player.mDmg = 10; // melee damage
   player.rDmg = 10; // ranged damage
   player.sDmg = 10; // magic damage
+  player.tDmg = 10; // trap damage
 
   player.x = world.WIDTH/2;
   player.y = world.HEIGHT/2;
@@ -270,6 +285,7 @@ function defaultPlayer() {
 
   // inventory starting
   rangedOn = false;
+  magicOn = false;
   mouseHolding = 0;
   garbageHolding = 0;
   inventory = make2DArray(invenWidth, invenHeight);
@@ -277,8 +293,8 @@ function defaultPlayer() {
   inventoryIsOpen = false;
   itemsOnGround = [];
 
-  numOfHpPotions = 3;
-  numOfMpPotions = 3;
+  numOfHpPotions = 4;
+  numOfMpPotions = 4;
   numOfArrows = 10;
   numOfTraps = 10;
   inventory[0][0] = new itemInInventory(objectImg.hpPotion, numOfHpPotions);
@@ -289,6 +305,7 @@ function defaultPlayer() {
   attackCoolDown = false;
   attackCoolDownTime = 500;
   lastTimeAttacked = 0;
+  lastTimeHit = 0;
 }
 
 function settingBoxSizes() {
