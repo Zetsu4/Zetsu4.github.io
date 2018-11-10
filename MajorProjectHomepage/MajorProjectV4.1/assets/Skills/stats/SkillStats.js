@@ -7,7 +7,8 @@ let archer = {
   startingMpPotions: -2,
   startingArrows: 10,
   startingTraps: 1,
-  maxTraps: 1
+  maxTraps: 1,
+  expGained: 10
 };
 
 // Ranger
@@ -19,7 +20,8 @@ let ranger = {
   startingMpPotions: 0,
   startingArrows: 4,
   startingTraps: 4,
-  maxTraps: 0
+  maxTraps: 0,
+  expGained: 20
 };
 
 // Fighter
@@ -31,7 +33,8 @@ let fighter = {
   startingMpPotions: -2,
   startingArrows: -9,
   startingTraps: 0,
-  maxTraps: -2
+  maxTraps: -2,
+  expGained: 20
 };
 
 // Samurai
@@ -43,7 +46,8 @@ let samurai = {
   startingMpPotions: 1,
   startingArrows: -5,
   startingTraps: -4,
-  maxTraps: -2
+  maxTraps: -2,
+  expGained: 20
 };
 
 // Mage
@@ -55,7 +59,8 @@ let mage = {
   startingMpPotions: 4,
   startingArrows: -9,
   startingTraps: -5,
-  maxTraps: -3
+  maxTraps: -3,
+  expGained: 15
 };
 
 // Cleric
@@ -67,7 +72,8 @@ let cleric = {
   startingMpPotions: 5,
   startingArrows: -6,
   startingTraps: -9,
-  maxTraps: -4
+  maxTraps: -4,
+  expGained: 5
 };
 
 // Rogue
@@ -79,7 +85,8 @@ let rogue = {
   startingMpPotions: 2,
   startingArrows: 3,
   startingTraps: 5,
-  maxTraps: 2
+  maxTraps: 2,
+  expGained: 10
 };
 
 // Trapper
@@ -91,5 +98,6 @@ let trapper = {
   startingMpPotions: -2,
   startingArrows: 8,
   startingTraps: 10,
-  maxTraps: 4
+  maxTraps: 4,
+  expGained: 10
 };

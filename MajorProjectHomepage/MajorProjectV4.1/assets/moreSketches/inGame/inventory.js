@@ -27,6 +27,12 @@ function lookInInventory() {
   drawImages();
   mouseHoldingImage();
   rectMode(CENTER);
+
+  // equipment
+
+
+  // stats
+
 }
 
 function hoverOverTile() {

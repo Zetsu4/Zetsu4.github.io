@@ -5,25 +5,27 @@
 // PROBLEMS:
 // - hitting the edges the player bounces
 // - AI for the bad guys, sucks
-// - rebinding the key bindings only works for lowercase letters
+// - when the bad guys are stuned and leave the screen,
+// they are stuned when they re-enter the screen despite time passed
+// - can't load games
 //
 // CREDITS:
 // art by Steven Valley and Travis Ahern.
-// some code was taken and modified from,
-// Coding Train - Coding Challange - (Game of Life, Langtons Ant).
+// made using javascript, in the atom text editor.
 //
 // TO DO:
 // add the good images---------------------------5%
-// get the save and load game functions working--0%
-// get the settings menu working-----------------70%
+// get the save and load game functions working--40%
+// get the settings menu working-----------------80%
 // fix baddie spawns-----------------------------100%
-// baddie deaths and player attack---------------45%
-// baddie attacks--------------------------------10%
-// have a race and skill-------------------------10%
+// baddie deaths and player attack---------------75%
+// baddie attacks--------------------------------20%
+// have a race and skill-------------------------80%
 // add a lvl system------------------------------0%
 // have an actual enviorment---------------------10%
-// fix all items/objects-------------------------0%
-// inventory interaction-------------------------30%
+// fix all items/objects-------------------------30%
+// inventory interaction-------------------------40%
+// fix key bindings map--------------------------0%
 
 
 // state vars
