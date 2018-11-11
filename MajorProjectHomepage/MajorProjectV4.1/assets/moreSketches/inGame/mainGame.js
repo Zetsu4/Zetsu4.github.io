@@ -22,6 +22,8 @@ function playerShow() {
   image(player.raceImage, width/2, height/2, sprite.WIDTH, sprite.HEIGHT);
   image(player.skillImage, width/2, height/2 - sprite.HEIGHT, sprite.WIDTH, sprite.HEIGHT);
   playerHealth();
+  playerMana();
+  playerLvL();
 }
 
 function playerHealth() {
@@ -32,7 +34,7 @@ function playerHealth() {
   let h = sprite.HEIGHT/4;
 
   // health bar
-  fill(0, 0, 255);
+  fill("yellow");
   rect(x, y, w, h);
 
   // HP
@@ -41,7 +43,7 @@ function playerHealth() {
   let changeOfHP = map(currentHP, 0, player.totHP, 0, sprite.WIDTH);
 
   rectMode(CORNER);
-  fill(255, 0, 0);
+  fill("red");
   rect(x - w/2, y - h/2, w - changeOfHP, h);
   pop();
 
@@ -52,6 +54,57 @@ function playerHealth() {
   stroke("silver");
   rect(x, y, w, h);
   pop();
+}
+
+function playerMana() {
+  // constant mana bar vars
+  let x = width/2;
+  let y = height/2 + sprite.HEIGHT*1.50;
+  let w = sprite.WIDTH;
+  let h = sprite.HEIGHT/4;
+
+  // mana bar
+  fill(49, 232, 227);
+  rect(x, y, w, h);
+
+  // MP
+  push();
+  let currentMP = player.totMP - player.mp;
+  let changeOfMP = map(currentMP, 0, player.totMP, 0, sprite.WIDTH);
+
+  rectMode(CORNER);
+  fill("blue");
+  rect(x - w/2, y - h/2, w - changeOfMP, h);
+  pop();
+
+  // outline
+  push();
+  noFill();
+  strokeWeight(2);
+  stroke("silver");
+  rect(x, y, w, h);
+  pop();
+}
+
+function playerLvL() {
+  push();
+  fill("black");
+  rect(width/2, height*0.975, width*0.10, height*0.05);
+
+  textSize(textTop/2);
+  textAlign(CENTER, CENTER);
+  fill("white");
+  text("Exp. " + player.exp + "/" + nextLvl, width/2, height*0.975);
+  text("Lv. " + player.lvl, width/2, height/2 - sprite.HEIGHT*0.65);
+  pop();
+}
+
+function playerLevelUp() {
+  if (player.exp >= nextLvl) {
+    player.lvl++;
+    player.points += 5;
+    nextLvl = ceil(nextLvl*5.5);
+  }
 }
 
 function playerInvincability() {
@@ -321,9 +374,12 @@ function mousePressed() {
   if (startingState === 2 && !settingsIsOpen && !inventoryIsOpen && !mapIsOpen && !attackCoolDown) {
     // magic
     if (magicOn) {
-      objects.magic.push(new fireBall(0, sprite.WIDTH, objectImg.fireBall));
-      attackCoolDown = true;
-      lastTimeAttacked = millis();
+      if (player.mp >= 10) {
+        objects.magic.push(new fireBall(0, sprite.WIDTH, objectImg.fireBall));
+        player.mp -= 10;
+        attackCoolDown = true;
+        lastTimeAttacked = millis();
+      }
     }
 
     // ranged

@@ -82,7 +82,7 @@ function createBaddies() {
       ySpawn = random(-world.HEIGHT/2 + height*0.10, world.HEIGHT/2 - height*0.10);
     }
 
-    badGuys.push(new baddies(allRaces[race], allSkills[skill], xSpawn, ySpawn));
+    badGuys.push(new baddies(allRaces[race], allSkills[skill], xSpawn, ySpawn, 5));
     badGuys[i].setStats();
   }
 }
@@ -109,6 +109,7 @@ function playingGame() {
     showMinimap();
 
     // player
+    playerLevelUp();
     playerShow();
     playerMovement();
     playerMinimap(

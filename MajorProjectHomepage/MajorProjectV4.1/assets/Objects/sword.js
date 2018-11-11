@@ -22,7 +22,7 @@ class sword {
 
   disapear(spriteW) {
     // end of life
-    return this.x >= spriteW*1.50;
+    return this.x >= spriteW*2;
   }
 
   moveForward() {

@@ -26,7 +26,7 @@ function baddiesFoo() {
       minimap.WIDTH, minimap.HEIGHT,
       player.DOT);
 
-    badGuys[i].show(sprite.WIDTH, sprite.HEIGHT);
+    badGuys[i].show(sprite.WIDTH, sprite.HEIGHT, textTop);
 
     // object collisions
     let badX = badGuys[i].otherX + width/2;
@@ -144,6 +144,7 @@ function objectFoo() {
 
 function badGuyDeath(spotInArray, x, y, otherX, otherY) {
   itemDrops(x, y, otherX, otherY);
+  player.exp += 10*badGuys[spotInArray].lvl;
   badGuys.splice(spotInArray, 1);
 }
 

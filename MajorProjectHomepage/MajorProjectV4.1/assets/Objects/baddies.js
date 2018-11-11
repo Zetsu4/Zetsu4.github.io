@@ -1,11 +1,12 @@
 // bad guys
 class baddies {
-  constructor(badguyRace, badguySkill, x, y) {
+  constructor(badguyRace, badguySkill, x, y, enviormentLVL) {
     // race and skill
     this.race = badguyRace;
     this.skill = badguySkill;
 
     // stats
+    this.lvl = int(random(1, enviormentLVL));
     this.int;
     this.agi;
     this.str;
@@ -43,12 +44,13 @@ class baddies {
   }
 
   setStats() {
+    let extraPoints = (this.lvl-1)*5;
     // stats
-    this.int = this.race[2].int;
-    this.agi = this.race[2].agi;
-    this.str = this.race[2].str;
-    this.dex = this.race[2].dex;
-    this.vit = this.race[2].vit;
+    this.int = this.race[2].int + floor(extraPoints/5);
+    this.agi = this.race[2].agi + floor(extraPoints/5);
+    this.str = this.race[2].str + floor(extraPoints/5);
+    this.dex = this.race[2].dex + floor(extraPoints/5);
+    this.vit = this.race[2].vit + floor(extraPoints/5);
 
     // damage and health
     this.totHP = 10*(this.vit+1);
@@ -58,7 +60,7 @@ class baddies {
     this.sDmg = this.int*2; // spell damage
 
     this.speed = width*0.01 + width*this.agi*pow(10, -4);
-    this.timeToStep = 2000/(this.agi);
+    this.timeToStep = 2500/(this.agi);
   }
 
   takeDamage(dmg, trapped = false) {
@@ -226,11 +228,17 @@ class baddies {
     ellipse(mapX, mapY, dotSize);
   }
 
-  show(sizeX, sizeY) {
+  show(sizeX, sizeY, textTop) {
     image(this.race[1], this.otherX + width/2, this.otherY + height/2, sizeX, sizeY);
     image(this.skill[1], this.otherX + width/2, this.otherY + height/2 - sizeY, sizeX, sizeY);
 
-    // health
+    push();
+    textSize(textTop/2);
+    fill("white");
+    text("Lv. " + this.lvl, this.otherX + width/2, this.otherY + height/2 - sizeY*0.65);
+    pop();
+
+    // HEALTH
     // health bar vars
     let x = this.otherX + width/2;
     let y = this.otherY + height/2 + sizeY;
@@ -238,7 +246,7 @@ class baddies {
     let h = sizeY/4;
 
     // health bar
-    fill(0, 0, 255);
+    fill("yellow");
     rect(x, y, w, h);
 
     // HP
@@ -247,7 +255,7 @@ class baddies {
     let changeOfHP = map(currentHP, 0, this.totHP, 0, sprite.WIDTH);
 
     rectMode(CORNER);
-    fill(255, 0, 0);
+    fill("red");
     rect(x - w/2, y - h/2, w - changeOfHP, h);
     pop();
 
