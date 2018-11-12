@@ -264,7 +264,7 @@ function defaultPlayer() {
   player.DOT = (width*0.005 + height*0.005)/4;
 
   // stats
-  nextLvl = 100;
+  nextLvl = 50;
   player.points = 0;
   player.exp = 0;
   player.lvl = 1;
@@ -288,6 +288,8 @@ function defaultPlayer() {
 
   player.x = world.WIDTH/2;
   player.y = world.HEIGHT/2;
+  player.movedX = 0;
+  player.movedY = 0;
   player.speed = width*0.007 + width*player.agi*pow(10, -4);
 
   // inventory starting
@@ -310,7 +312,7 @@ function defaultPlayer() {
   inventory[0][3] = new itemInInventory(objectImg.trap, numOfTraps);
 
   attackCoolDown = false;
-  attackCoolDownTime = 500;
+  attackCoolDownTime = 750;
   lastTimeAttacked = 0;
   lastTimeHit = 0;
 }

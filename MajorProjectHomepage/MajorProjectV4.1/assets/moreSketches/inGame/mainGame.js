@@ -21,68 +21,46 @@ function showMinimap() {
 function playerShow() {
   image(player.raceImage, width/2, height/2, sprite.WIDTH, sprite.HEIGHT);
   image(player.skillImage, width/2, height/2 - sprite.HEIGHT, sprite.WIDTH, sprite.HEIGHT);
-  playerHealth();
-  playerMana();
+  playerStatus(player.hp, player.totHP, "red", false);
+  playerStatus(player.mp, player.totMP, "blue", true);
   playerLvL();
 }
 
-function playerHealth() {
-  // constant health bar vars
+function playerStatus(state, stateTot, col, changeY) {
+  // constant bar vars
   let x = width/2;
   let y = height/2 + sprite.HEIGHT;
-  let w = sprite.WIDTH;
+  let w = sprite.WIDTH*2;
   let h = sprite.HEIGHT/4;
 
-  // health bar
-  fill("yellow");
+  if (changeY) {
+    y += sprite.HEIGHT*0.5;
+  }
+
+  // back bar
+  fill(77);
   rect(x, y, w, h);
 
-  // HP
+  // current bar
   push();
-  let currentHP = player.totHP - player.hp;
-  let changeOfHP = map(currentHP, 0, player.totHP, 0, sprite.WIDTH);
+  let currentState = stateTot - state;
+  let changeOfState = map(currentState, 0, stateTot, 0, w);
 
   rectMode(CORNER);
-  fill("red");
-  rect(x - w/2, y - h/2, w - changeOfHP, h);
-  pop();
+  fill(col);
+  rect(x - w/2, y - h/2, w - changeOfState, h);
 
   // outline
-  push();
+  rectMode(CENTER);
   noFill();
   strokeWeight(2);
   stroke("silver");
   rect(x, y, w, h);
-  pop();
-}
-
-function playerMana() {
-  // constant mana bar vars
-  let x = width/2;
-  let y = height/2 + sprite.HEIGHT*1.50;
-  let w = sprite.WIDTH;
-  let h = sprite.HEIGHT/4;
-
-  // mana bar
-  fill(49, 232, 227);
-  rect(x, y, w, h);
-
-  // MP
-  push();
-  let currentMP = player.totMP - player.mp;
-  let changeOfMP = map(currentMP, 0, player.totMP, 0, sprite.WIDTH);
-
-  rectMode(CORNER);
-  fill("blue");
-  rect(x - w/2, y - h/2, w - changeOfMP, h);
-  pop();
-
-  // outline
-  push();
-  noFill();
-  strokeWeight(2);
-  stroke("silver");
-  rect(x, y, w, h);
+  textSize(textTop/2);
+  textAlign(CENTER, CENTER);
+  noStroke();
+  fill("white");
+  text(state + "/" + stateTot, x, y);
   pop();
 }
 
@@ -103,7 +81,7 @@ function playerLevelUp() {
   if (player.exp >= nextLvl) {
     player.lvl++;
     player.points += 5;
-    nextLvl = ceil(nextLvl*5.5);
+    nextLvl = nextLvl*2 + player.lvl*50;
   }
 }
 
@@ -150,22 +128,26 @@ function playerMovement() {
   // x-axis
   if (keyIsDown(keyBindings.get("keyArray")[4][1])) { // LEFT
     player.x -= player.speed;
+    player.movedX -= player.speed;
     world.imageX += player.speed;
   }
 
   if (keyIsDown(keyBindings.get("keyArray")[6][1])) { // RIGHT
     player.x += player.speed;
+    player.movedX += player.speed;
     world.imageX -= player.speed;
   }
 
   // y-axis
   if (keyIsDown(keyBindings.get("keyArray")[3][1])) { // UP
     player.y -= player.speed;
+    player.movedY -= player.speed;
     world.imageY += player.speed;
   }
 
   if (keyIsDown(keyBindings.get("keyArray")[5][1])) { // DOWN
     player.y += player.speed;
+    player.movedY += player.speed;
     world.imageY -= player.speed;
   }
   moveWithPlayer();

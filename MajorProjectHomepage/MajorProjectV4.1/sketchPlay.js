@@ -75,16 +75,28 @@ function createBaddies() {
     let xSpawn = random(-world.WIDTH/2 + width*0.10, world.WIDTH/2 - width*0.10);
     let ySpawn = random(-world.HEIGHT/2 + height*0.10, world.HEIGHT/2 - height*0.10);
 
-    while (xSpawn >= -width*1.50 && xSpawn <= width*1.50
-      && ySpawn >= -height*1.50 && ySpawn <= height*1.50) {
+    xy = rerstrainBaddieSpawn(xSpawn, ySpawn);
+    xSpawn = xy[0];
+    ySpawn = xy[1];
 
-      xSpawn = random(-world.WIDTH/2 + width*0.10, world.WIDTH/2 - width*0.10);
-      ySpawn = random(-world.HEIGHT/2 + height*0.10, world.HEIGHT/2 - height*0.10);
-    }
-
-    badGuys.push(new baddies(allRaces[race], allSkills[skill], xSpawn, ySpawn, 5));
+    badGuys.push(new baddies(allRaces[race], allSkills[skill], xSpawn, ySpawn, 1, 5));
     badGuys[i].setStats();
   }
+}
+
+function rerstrainBaddieSpawn(xSpawn, ySpawn) {
+  let coordinates = [];
+
+  while (xSpawn >= -width*1.50 + player.movedX && xSpawn <= width*1.50 + player.movedX
+    && ySpawn >= -height*1.50 + player.movedY && ySpawn <= height*1.50 + player.movedY) {
+
+    xSpawn = random(-world.WIDTH/2 + width*0.10, world.WIDTH/2 - width*0.10);
+    ySpawn = random(-world.HEIGHT/2 + height*0.10, world.HEIGHT/2 - height*0.10);
+  }
+
+  coordinates[0] = xSpawn;
+  coordinates[1] = ySpawn;
+  return coordinates;
 }
 
 function playingGame() {
@@ -128,6 +140,7 @@ function playingGame() {
 
     // baddies
     baddiesFoo();
+    baddieRespawn();
   }
 }
 

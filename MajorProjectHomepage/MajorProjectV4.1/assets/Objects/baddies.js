@@ -1,12 +1,13 @@
 // bad guys
 class baddies {
-  constructor(badguyRace, badguySkill, x, y, enviormentLVL) {
+  constructor(badguyRace, badguySkill, x, y, enviormentLvlMin, enviormentLvlMax, movedX = 0, movedY = 0) {
     // race and skill
     this.race = badguyRace;
     this.skill = badguySkill;
 
     // stats
-    this.lvl = int(random(1, enviormentLVL));
+    this.lvl = int(random(enviormentLvlMin, enviormentLvlMax));
+    this.expGained = (this.race[2].expGained+this.skill[2].expGained)*this.lvl;
     this.int;
     this.agi;
     this.str;
@@ -21,8 +22,11 @@ class baddies {
     this.sDmg; // magic damage
 
     // position in world
-    this.otherX = x;
-    this.otherY = y;
+    this.movedX = movedX;
+    this.movedY = movedY;
+
+    this.otherX = x + movedX;
+    this.otherY = y + movedY;
 
     // postion on map
     this.x = x;
@@ -46,11 +50,11 @@ class baddies {
   setStats() {
     let extraPoints = (this.lvl-1)*5;
     // stats
-    this.int = this.race[2].int + floor(extraPoints/5);
-    this.agi = this.race[2].agi + floor(extraPoints/5);
-    this.str = this.race[2].str + floor(extraPoints/5);
-    this.dex = this.race[2].dex + floor(extraPoints/5);
-    this.vit = this.race[2].vit + floor(extraPoints/5);
+    this.int = this.race[2].int + ceil(extraPoints/5);
+    this.agi = this.race[2].agi + ceil(extraPoints/5);
+    this.str = this.race[2].str + ceil(extraPoints/5);
+    this.dex = this.race[2].dex + ceil(extraPoints/5);
+    this.vit = this.race[2].vit + ceil(extraPoints/5);
 
     // damage and health
     this.totHP = 10*(this.vit+1);
@@ -74,7 +78,7 @@ class baddies {
   stunedFoo() {
     // stuned
     if (this.stuned) {
-      let elapsedTime = millis() - this.timeToStep*4;
+      let elapsedTime = millis() - this.timeToStep*2;
       if (elapsedTime >= this.lastTime) {
         this.state = random([0, 1]);
         this.stuned = false;
@@ -246,7 +250,7 @@ class baddies {
     let h = sizeY/4;
 
     // health bar
-    fill("yellow");
+    fill(77);
     rect(x, y, w, h);
 
     // HP
@@ -257,14 +261,18 @@ class baddies {
     rectMode(CORNER);
     fill("red");
     rect(x - w/2, y - h/2, w - changeOfHP, h);
-    pop();
 
     // outline
-    push();
+    rectMode(CENTER);
     noFill();
     strokeWeight(2);
     stroke("silver");
     rect(x, y, w, h);
+    textSize(textTop/2);
+    textAlign(CENTER, CENTER);
+    noStroke();
+    fill("white");
+    text(this.hp, x, y)
     pop();
   }
 }

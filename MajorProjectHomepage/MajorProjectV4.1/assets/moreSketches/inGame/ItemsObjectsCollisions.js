@@ -104,6 +104,23 @@ function baddiesFoo() {
   }
 }
 
+function baddieRespawn() {
+  if (badGuys.length <= floor(NUM_OF_BADDIES*0.67)) {
+    // re-spawning baddies
+    let race = int(random(1, allRaces.length));
+    let skill = int(random(1, allSkills.length));
+    let xSpawn = random(-world.WIDTH/2 + width*0.10, world.WIDTH/2 - width*0.10)
+    let ySpawn = random(-world.HEIGHT/2 + height*0.10, world.HEIGHT/2 - height*0.10);
+
+    xy = rerstrainBaddieSpawn(xSpawn, ySpawn);
+    xSpawn = xy[0];
+    ySpawn = xy[1];
+
+    badGuys.push(new baddies(allRaces[race], allSkills[skill], xSpawn, ySpawn, 1, 5, -player.movedX, -player.movedY));
+    badGuys[badGuys.length-1].setStats();
+  }
+}
+
 function objectFoo() {
   let allCollisionableObjects = objects.traps.length + objects.melee.length + objects.arrows.length + objects.magic.length;
 
@@ -144,7 +161,7 @@ function objectFoo() {
 
 function badGuyDeath(spotInArray, x, y, otherX, otherY) {
   itemDrops(x, y, otherX, otherY);
-  player.exp += 10*badGuys[spotInArray].lvl;
+  player.exp += badGuys[spotInArray].expGained + badGuys[spotInArray].expGained;
   badGuys.splice(spotInArray, 1);
 }
 
