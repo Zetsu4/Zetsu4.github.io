@@ -1,6 +1,6 @@
 // sword swings
 class sword {
-  constructor(x, swiftness, image) {
+  constructor(x, swiftness, image, alingment = "good") {
     // positon
     this.x = x;
 
@@ -18,6 +18,11 @@ class sword {
     // sprite
     this.image = image;
     this.direction = atan2(mouseY - height/2, mouseX - width/2);
+    this.alingment = alingment;
+  }
+
+  playerHit() {
+
   }
 
   disapear(spriteW) {

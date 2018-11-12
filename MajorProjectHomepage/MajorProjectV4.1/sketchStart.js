@@ -60,6 +60,7 @@ let player = {};
 let nextLvl;
 let rangedOn;
 let magicOn;
+// inventory
 let mouseHolding;
 let inventory = [];
 let inventoryBoxSize;
@@ -71,6 +72,7 @@ let numOfMpPotions;
 let numOfArrows;
 let numOfTraps;
 let maxTraps;
+// attacking
 let attackCoolDown;
 let attackCoolDownTime;
 let lastTimeAttacked;

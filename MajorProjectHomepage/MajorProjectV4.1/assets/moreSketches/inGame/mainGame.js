@@ -117,7 +117,7 @@ function consumeManaPotion() {
 function playerMovement() {
   if (keyIsDown(keyBindings.get("walk"))) { // SHIFT
     // walking
-    player.speed = player.walk;
+    player.speed = player.totSpeed*player.walk;
   }
 
   else {

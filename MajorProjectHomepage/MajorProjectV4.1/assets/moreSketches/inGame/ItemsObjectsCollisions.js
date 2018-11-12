@@ -9,7 +9,8 @@ function baddiesFoo() {
 
       else {
         badGuys[i].stuned = false;
-        badGuys[i].attackPlayer(player.x, player.y, world.WIDTH, world.HEIGHT);
+        badGuys[i].pursuePlayer(player.x, player.y, world.WIDTH, world.HEIGHT);
+        badGuys[i].attackPlayer();
       }
     }
 
@@ -155,6 +156,30 @@ function objectFoo() {
     if (i < objects.magic.length) {
       objects.magic[i].moveForward();
       objects.magic[i].show(sprite.WIDTH, sprite.HEIGHT);
+    }
+  }
+
+  // collision with player
+  for (let i = 0; i < allCollisionableObjects; i++) {
+    // sword
+    if (i < objects.melee.length) {
+      // if (objects.melee[i].alingment === "bad" && objects.[i].playerHit()) {
+      //   objects.melee.splice(i, 1);
+      // }
+    }
+
+    // arrows
+    if (i < objects.arrows.length) {
+      // if (objects.arrows[i].alingment === "bad" && objects.[i].playerHit()) {
+      //   objects.arrows.splice(i, 1);
+      // }
+    }
+
+    // magic
+    if (i < objects.magic.length) {
+      // if (objects.magic[i].alingment === "bad" && objects.[i].playerHit()) {
+      //   objects.magic.splice(i, 1);
+      // }
     }
   }
 }

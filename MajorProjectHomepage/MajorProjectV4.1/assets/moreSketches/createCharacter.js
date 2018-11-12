@@ -62,7 +62,17 @@ function playerStats() {
   player.str = allRaces[player.racePosistion][2].str;
   player.dex = allRaces[player.racePosistion][2].dex;
   player.vit = allRaces[player.racePosistion][2].vit;
+  calculatingStats();
 
+  // starting items
+  numOfHpPotions += allSkills[player.skillPosistion][2].startingHpPotions;
+  numOfMpPotions += allSkills[player.skillPosistion][2].startingMpPotions;
+  numOfArrows += allSkills[player.skillPosistion][2].startingArrows;
+  numOfTraps += allSkills[player.skillPosistion][2].startingTraps;
+  maxTraps += allSkills[player.skillPosistion][2].maxTraps;
+}
+
+function calculatingStats() {
   // damage and health
   player.totHP = 10*(player.vit+1);
   player.totMP = 10*(player.int+1);
@@ -73,15 +83,8 @@ function playerStats() {
   player.sDmg = player.int*2; // spell damage
 
   player.totSpeed = width*0.006 + width*player.agi*pow(10, -4);
-  player.walk = player.totSpeed*0.70;
+  player.walk = 0.75;
   player.speed = player.totSpeed;
-
-  // starting items
-  numOfHpPotions += allSkills[player.skillPosistion][2].startingHpPotions;
-  numOfMpPotions += allSkills[player.skillPosistion][2].startingMpPotions;
-  numOfArrows += allSkills[player.skillPosistion][2].startingArrows;
-  numOfTraps += allSkills[player.skillPosistion][2].startingTraps;
-  maxTraps += allSkills[player.skillPosistion][2].maxTraps;
 }
 
 //------------------------------------------------------------------------------

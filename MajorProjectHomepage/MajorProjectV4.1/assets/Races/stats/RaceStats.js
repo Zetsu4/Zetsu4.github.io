@@ -50,10 +50,10 @@ let halfling = {
 
 // Goblin
 let goblin = {
-  int: 0,
-  agi: 17,
-  str: 12,
-  dex: 17,
+  int: 1,
+  agi: 18,
+  str: 9,
+  dex: 18,
   vit: 4,
   expGained: 15
 };

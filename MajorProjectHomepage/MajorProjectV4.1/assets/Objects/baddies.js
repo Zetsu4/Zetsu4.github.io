@@ -63,8 +63,8 @@ class baddies {
     this.rDmg = this.dex*2; // ranged damage
     this.sDmg = this.int*2; // spell damage
 
-    this.speed = width*0.01 + width*this.agi*pow(10, -4);
-    this.timeToStep = 2500/(this.agi);
+    this.speed = width*0.0075 + width*this.agi*pow(10, -4);
+    this.timeToStep = 3000/(this.agi);
   }
 
   takeDamage(dmg, trapped = false) {
@@ -78,7 +78,7 @@ class baddies {
   stunedFoo() {
     // stuned
     if (this.stuned) {
-      let elapsedTime = millis() - this.timeToStep*2;
+      let elapsedTime = millis() - this.timeToStep*1.5;
       if (elapsedTime >= this.lastTime) {
         this.state = random([0, 1]);
         this.stuned = false;
@@ -140,7 +140,7 @@ class baddies {
     }
   }
 
-  attackPlayer(playerX, playerY, worldW, worldH) {
+  pursuePlayer(playerX, playerY, worldW, worldH) {
     // pursue player
     if (this.state !== 2 && !this.stuned) {
       // x-axis
@@ -175,6 +175,10 @@ class baddies {
         this.lastTime = millis();
       }
     }
+  }
+
+  attackPlayer() {
+
   }
 
   baddieOnScreen(playerX, playerY, worldW, worldH) {

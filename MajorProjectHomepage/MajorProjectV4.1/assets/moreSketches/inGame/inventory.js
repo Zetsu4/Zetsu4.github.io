@@ -27,12 +27,66 @@ function lookInInventory() {
   drawImages();
   mouseHoldingImage();
   rectMode(CENTER);
+  changeWalkSpeed();
 
   // equipment
 
 
   // stats
+  push();
+  fill("white");
+  textSize(textTop*0.75);
+  textAlign(LEFT, TOP);
+  text("\n\
+Lvl- " + player.lvl + "\n\
+exp- " + player.exp + "/" + nextLvl + "\n\
+hp- " + player.hp + "/" + player.totHP + "\n\
+mp- " + player.mp + "/" + player.totMP + "\n\
+Speed- " + player.speed.toFixed(2) + "\n\
+Melee- " + player.mDmg + "\n\
+Ranged- " + player.rDmg + "\n\
+Magic- " + player.sDmg + "\n\
+Trap- " + player.tDmg + "\n\
+points- " + player.points + "\n\
+int- " + player.int + "\n\
+agi- " + player.agi + "\n\
+str- " + player.str + "\n\
+dex- " + player.dex + "\n\
+vit- " + player.vit
+  , x - inventoryBoxSize/2 + 4, y);
+  pop();
 
+  if (player.points > 0) {
+    noStroke();
+    let newX = x + inventoryBoxSize*1.5;
+    for (let i = 0; i < 5; i++) {
+      let newY = i*(y - textTop/2) + textTop*12;
+      if (buttonFoo(newX, newY, textTop, textTop, color(153, 77, 0), color(204, 102, 0), "up")) {
+        waiting();
+        player.points--;
+        levelingUp(i);
+        calculatingStats();
+      }
+    }
+  }
+}
+
+function levelingUp(i) {
+  if (i === 0) {
+    player.int++;
+  }
+  else if (i === 1) {
+    player.agi++;
+  }
+  else if (i === 2) {
+    player.str++;
+  }
+  else if (i === 3) {
+    player.dex++;
+  }
+  else if (i === 4) {
+    player.vit++;
+  }
 }
 
 function hoverOverTile() {
@@ -127,6 +181,26 @@ function garbageCan(x, y) {
 
   else {
     image(world.trashCanClose, x, y, sprite.WIDTH, sprite.HEIGHT);
+  }
+}
+
+function changeWalkSpeed() {
+  let x = inventoryBoxSize - textTop/2;
+  let y = inventoryBoxSize*(invenHeight+1);
+
+  if (buttonFoo(x, y, inventoryBoxSize, inventoryBoxSize, color(153, 77, 0), color(204, 102, 0), "75%")) {
+    // walk speed 75%
+    player.walk = 0.75;
+  }
+
+  if (buttonFoo(x*3, y, inventoryBoxSize, inventoryBoxSize, color(153, 77, 0), color(204, 102, 0), "50%")) {
+    // walk speed 50%
+    player.walk = 0.50;
+  }
+
+  if (buttonFoo(x*5, y, inventoryBoxSize, inventoryBoxSize, color(153, 77, 0), color(204, 102, 0), "25%")) {
+    // walk speed 25%
+    player.walk = 0.25;
   }
 }
 
