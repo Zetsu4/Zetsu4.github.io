@@ -117,7 +117,7 @@ function baddieRespawn() {
     xSpawn = xy[0];
     ySpawn = xy[1];
 
-    badGuys.push(new baddies(allRaces[race], allSkills[skill], xSpawn, ySpawn, 1, 5, -player.movedX, -player.movedY));
+    badGuys.push(new Baddies(allRaces[race], allSkills[skill], xSpawn, ySpawn, 1, 5, -player.movedX, -player.movedY));
     badGuys[badGuys.length-1].setStats();
   }
 }
@@ -200,19 +200,19 @@ function itemDrops(x, y, otherX, otherY) {
     let randomItem = random(100);
 
     if (randomItem <= 15) { // arrows
-      itemsOnGround.push(new arrow(0, 0, objectImg.arrow, otherX + changeOfX, otherY + changeOfY, x, y));
+      itemsOnGround.push(new Arrow(0, 0, objectImg.arrow, otherX + changeOfX, otherY + changeOfY, x, y));
     }
 
     else if (randomItem <= 30) { // traps
-      itemsOnGround.push(new trap(0, 0, objectImg.trap, 0, 0, true, otherX + changeOfX, otherY + changeOfY, x, y));
+      itemsOnGround.push(new Trap(0, 0, objectImg.trap, 0, 0, true, otherX + changeOfX, otherY + changeOfY, x, y));
     }
 
     else if (randomItem <= 40) { // hp Potions
-      itemsOnGround.push(new hpPotion(objectImg.hpPotion, otherX + changeOfX, otherY + changeOfY, x, y));
+      itemsOnGround.push(new HpPotion(objectImg.hpPotion, otherX + changeOfX, otherY + changeOfY, x, y));
     }
 
     else if (randomItem <= 50) { // mp Potions
-      itemsOnGround.push(new mpPotion(objectImg.mpPotion, otherX + changeOfX, otherY + changeOfY, x, y));
+      itemsOnGround.push(new MpPotion(objectImg.mpPotion, otherX + changeOfX, otherY + changeOfY, x, y));
     }
   }
 }
@@ -272,7 +272,7 @@ function putInInventory(img, numOfItem) {
   for (let y = 0; y < inventory.length; y++) {
     for (let x = 0; x < inventory[y].length; x++) {
       if (inventory[y][x] === 0) {
-        inventory[y][x] = new itemInInventory(img, numOfItem);
+        inventory[y][x] = new ItemInInventory(img, numOfItem);
         return false;
       }
     }

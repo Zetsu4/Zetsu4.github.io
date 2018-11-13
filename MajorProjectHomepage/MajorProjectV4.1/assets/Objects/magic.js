@@ -1,4 +1,4 @@
-class fireBall {
+class FireBall {
   constructor(x, swiftness, image) {
     // positon
     this.x = x;

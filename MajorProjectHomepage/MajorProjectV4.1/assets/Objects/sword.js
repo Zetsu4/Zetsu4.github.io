@@ -1,5 +1,5 @@
 // sword swings
-class sword {
+class Sword {
   constructor(x, swiftness, image, alingment = "good") {
     // positon
     this.x = x;

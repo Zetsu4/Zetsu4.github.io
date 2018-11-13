@@ -1,5 +1,5 @@
 // arrows
-class arrow {
+class Arrow {
   constructor(x, swiftness, image, itemXchange = 0, itemYchange = 0, otherX = 0, otherY = 0) {
     // positon
     this.x = x;

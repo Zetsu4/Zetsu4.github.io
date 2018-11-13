@@ -1,4 +1,4 @@
-class mpPotion {
+class MpPotion {
   constructor(img, itemInWorldX, itemInWorldY, itemMapX, itemMapY) {
     // sprite
     this.img = img;

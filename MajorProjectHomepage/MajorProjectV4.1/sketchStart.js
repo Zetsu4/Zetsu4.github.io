@@ -266,7 +266,7 @@ function defaultPlayer() {
   player.DOT = (width*0.005 + height*0.005)/4;
 
   // stats
-  nextLvl = 50;
+  nextLvl = 100;
   player.points = 0;
   player.exp = 0;
   player.lvl = 1;
@@ -309,10 +309,10 @@ function defaultPlayer() {
   numOfMpPotions = 4;
   numOfArrows = 10;
   numOfTraps = 10;
-  inventory[0][0] = new itemInInventory(objectImg.hpPotion, numOfHpPotions);
-  inventory[0][1] = new itemInInventory(objectImg.mpPotion, numOfMpPotions);
-  inventory[0][2] = new itemInInventory(objectImg.arrow, numOfArrows);
-  inventory[0][3] = new itemInInventory(objectImg.trap, numOfTraps);
+  inventory[0][0] = new ItemInInventory(objectImg.hpPotion, numOfHpPotions);
+  inventory[0][1] = new ItemInInventory(objectImg.mpPotion, numOfMpPotions);
+  inventory[0][2] = new ItemInInventory(objectImg.arrow, numOfArrows);
+  inventory[0][3] = new ItemInInventory(objectImg.trap, numOfTraps);
 
   attackCoolDown = false;
   attackCoolDownTime = 750;

@@ -1,4 +1,4 @@
-class hpPotion {
+class HpPotion {
   constructor(img, itemInWorldX, itemInWorldY, itemMapX, itemMapY) {
     // sprite
     this.img = img;

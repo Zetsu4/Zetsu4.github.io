@@ -1,5 +1,5 @@
 // traps
-class trap {
+class Trap {
   constructor(x, y, image, playerX, playerY, item, itemXchange = 0, itemYchange = 0, otherX = 0, otherY = 0) {
     // position
     this.x = x;

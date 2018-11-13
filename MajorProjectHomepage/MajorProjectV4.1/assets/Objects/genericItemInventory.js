@@ -1,4 +1,4 @@
-class itemInInventory {
+class ItemInInventory {
   constructor(theImage, number) {
     this.img = theImage;
     this.numberOfItem = number;

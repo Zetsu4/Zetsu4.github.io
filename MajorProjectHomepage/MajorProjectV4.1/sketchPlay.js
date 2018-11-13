@@ -79,7 +79,7 @@ function createBaddies() {
     xSpawn = xy[0];
     ySpawn = xy[1];
 
-    badGuys.push(new baddies(allRaces[race], allSkills[skill], xSpawn, ySpawn, 1, 5));
+    badGuys.push(new Baddies(allRaces[race], allSkills[skill], xSpawn, ySpawn, player.lvl+2, player.lvl+15));
     badGuys[i].setStats();
   }
 }

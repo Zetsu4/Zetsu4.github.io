@@ -1,5 +1,5 @@
 // bad guys
-class baddies {
+class Baddies {
   constructor(badguyRace, badguySkill, x, y, enviormentLvlMin, enviormentLvlMax, movedX = 0, movedY = 0) {
     // race and skill
     this.race = badguyRace;
