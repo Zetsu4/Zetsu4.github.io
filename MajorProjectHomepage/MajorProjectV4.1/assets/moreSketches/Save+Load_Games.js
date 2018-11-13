@@ -18,8 +18,10 @@ function loadGameButton() {
 
 function loadSavedFile() {
   // load game
-  let path = prompt("Copy The Files Path That You Want To Load", "");
+  // let path = prompt("Copy The Files Path That You Want To Load", "");
+  let path = "saveFiles/test2.json";
   let savedVars = loadJSON(path);
+
 
   // // key binds
   // keyBindings.settings = savedVars.keyBinds.settings;

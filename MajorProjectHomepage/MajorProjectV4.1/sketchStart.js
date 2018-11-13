@@ -21,11 +21,11 @@
 // baddie deaths and player attack---------------75%
 // baddie attacks--------------------------------20%
 // have a race and skill-------------------------80%
-// add a lvl system------------------------------0%
+// add a lvl system------------------------------99%
 // have an actual enviorment---------------------10%
-// fix all items/objects-------------------------30%
-// inventory interaction-------------------------40%
-// fix key bindings map--------------------------0%
+// fix all items/objects-------------------------60%
+// inventory interaction-------------------------70%
+// fix key bindings map--------------------------10%
 
 
 // state vars

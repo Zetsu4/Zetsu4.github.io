@@ -15,11 +15,17 @@ class baddies {
     this.vit;
 
     this.totHP;
+    this.totMP;
     this.hp;
+    this.mp;
 
     this.mDmg; // melee damage
     this.rDmg; // ranged damage
     this.sDmg; // magic damage
+
+    this.attackPattern;
+    this.lastAttack = 0;
+    this.attacking = false;
 
     // position in world
     this.movedX = movedX;
@@ -58,13 +64,32 @@ class baddies {
 
     // damage and health
     this.totHP = 10*(this.vit+1);
-    this.hp = 10*(this.vit+1);
-    this.mDmg = this.str*2; // melee damage
-    this.rDmg = this.dex*2; // ranged damage
-    this.sDmg = this.int*2; // spell damage
+    this.totMP = 10*(this.int+1);
+    this.hp = this.totHP;
+    this.mp = this.totMP;
+    this.mDmg = ceil(this.str*(2 - this.skill[2].melee/75)); // melee damage
+    this.rDmg = ceil(this.dex*(2 - this.skill[2].ranged/75)); // ranged damage
+    this.sDmg = ceil(this.int*(2 - this.skill[2].magic/75)); // spell damage
 
     this.speed = width*0.0075 + width*this.agi*pow(10, -4);
     this.timeToStep = 3000/(this.agi);
+
+    // settings attack pattern
+    if (max(this.mDmg, this.rDmg, this.sDmg) === this.sDmg) {
+      // magic attack
+      this.attackPattern = "magic";
+    }
+
+    else if (max(this.mDmg, this.rDmg, this.sDmg) === this.rDmg) {
+      // ranged attack
+      this.attackPattern = "ranged";
+    }
+
+    else {
+      // melee attack
+      this.attackPattern = "melee";
+    }
+
   }
 
   takeDamage(dmg, trapped = false) {
@@ -178,7 +203,28 @@ class baddies {
   }
 
   attackPlayer() {
+    if (!this.attacking) {
+      let elapsedTime = millis() - this.timeToStep/2;
+      if (elapsedTime >= this.lastAttack) {
+        this.attacking = true;
+        this.lastAttack = millis();
+      }
+    }
 
+    else if (this.attackPattern === "magic") {
+      // spell caster
+
+    }
+
+    else if (this.attackPattern === "ranged") {
+      // bowman
+
+    }
+
+    else if (this.attackPattern === "melee") {
+      // swrodsman
+
+    }
   }
 
   baddieOnScreen(playerX, playerY, worldW, worldH) {
