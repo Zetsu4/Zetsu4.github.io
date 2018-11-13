@@ -8,7 +8,7 @@
 // - when the bad guys are stuned and leave the screen,
 // they are stuned when they re-enter the screen despite time passed
 // - can't load games
-//
+// - Travis is a terrible person..... need to fix.....
 // CREDITS:
 // art by Steven Valley and Travis Ahern.
 // made using javascript, in the atom text editor.
