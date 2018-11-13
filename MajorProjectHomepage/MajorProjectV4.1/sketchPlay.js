@@ -131,6 +131,7 @@ function playingGame() {
     playerCoolDown();
     playerInvincability();
     beautifulMouse();
+    autoPotion();
 
     // objects
     objectFoo();

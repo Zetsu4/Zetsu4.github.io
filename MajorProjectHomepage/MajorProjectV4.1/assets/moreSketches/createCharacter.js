@@ -78,9 +78,10 @@ function calculatingStats() {
   player.totMP = 10*(player.int+1);
   player.hp = player.totHP;
   player.mp = player.totMP;
-  player.mDmg = player.str*2; // melee damage
-  player.rDmg = player.dex*2; // ranged damage
-  player.sDmg = player.int*2; // spell damage
+  player.mDmg = int(player.str*(2 - allSkills[player.skillPosistion][2].melee/75)); // melee damage
+  player.rDmg = int(player.dex*(2 - allSkills[player.skillPosistion][2].ranged/75)); // ranged damage
+  player.sDmg = int(player.int*(2 - allSkills[player.skillPosistion][2].magic/75)); // spell damage
+  player.tDmg = player.agi*2; // trap damage
 
   player.totSpeed = width*0.006 + width*player.agi*pow(10, -4);
   player.walk = 0.75;

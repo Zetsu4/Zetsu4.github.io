@@ -293,6 +293,7 @@ function defaultPlayer() {
   player.movedX = 0;
   player.movedY = 0;
   player.speed = width*0.007 + width*player.agi*pow(10, -4);
+  player.toggleWalk = false;
 
   // inventory starting
   rangedOn = false;

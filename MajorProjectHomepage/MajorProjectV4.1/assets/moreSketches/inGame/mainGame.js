@@ -83,6 +83,15 @@ function playerLevelUp() {
     player.points += 5;
     nextLvl = nextLvl*2 + player.lvl*50;
   }
+
+  if (player.points > 0) {
+    push();
+    textAlign(CENTER, CENTER);
+    textSize(textTop*2);
+    fill("yellow");
+    text("!", width/2 - width*0.06, height*0.974);
+    pop();
+  }
 }
 
 function playerInvincability() {
@@ -114,8 +123,14 @@ function consumeManaPotion() {
   }
 }
 
+function autoPotion() {
+  if (player.mp <= 0 && numOfMpPotions > 0) {
+    consumeManaPotion();
+  }
+}
+
 function playerMovement() {
-  if (keyIsDown(keyBindings.get("walk"))) { // SHIFT
+  if (player.toggleWalk) {
     // walking
     player.speed = player.totSpeed*player.walk;
   }
@@ -340,13 +355,17 @@ function keyPressed() {
           consumeManaPotion();
         }
 
+        // toggle walk
+        if (keyCode === keyBindings.get("walk")) {
+          player.toggleWalk = !player.toggleWalk;
+        }
+
         // place traps
         if (keyCode === keyBindings.get("keyArray")[2][1] && objects.traps.length < maxTraps && numOfTraps > 0) {
           objects.traps.push(new trap(width/2, height/2, objectImg.trap, player.x, player.y, false));
           numOfTraps--;
         }
       }
-
     }
   }
 }

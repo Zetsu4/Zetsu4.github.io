@@ -37,19 +37,19 @@ function baddiesFoo() {
 
     if (!player.invincable && dist(badX, badY, width/2, height/2) <= badGuyHitBox) {
       // player
-      player.hp -= badGuys[i].mDmg;
+      player.hp -= max(badGuys[i].mDmg, badGuys[i].rDmg, badGuys[i].sDmg);
       player.invincable = true;
       lastTimeHit = millis();
 
       if (player.hp <= 0) {
-        if (numOfHpPotions > 0) {
-          consumeHealthPotion();
-        }
-
-        else {
+        // if (numOfHpPotions > 0) {
+        //   consumeHealthPotion();
+        // }
+        //
+        // else {
           gameOver();
           break;
-        }
+        // }
       }
     }
 
@@ -106,7 +106,7 @@ function baddiesFoo() {
 }
 
 function baddieRespawn() {
-  if (badGuys.length <= floor(NUM_OF_BADDIES*0.67)) {
+  if (badGuys.length <= floor(NUM_OF_BADDIES*0.70)) {
     // re-spawning baddies
     let race = int(random(1, allRaces.length));
     let skill = int(random(1, allSkills.length));

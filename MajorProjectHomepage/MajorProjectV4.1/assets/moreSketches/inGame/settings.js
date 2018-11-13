@@ -65,11 +65,11 @@ function displayControls() {
   fill("black");
 
   // hard set controls
-  text("ESC - OPEN SETTINGS\n\LEFT MOUSE BUTTON - ATTACK", width/2, textTop);
+  text("ESC - OPEN SETTINGS\n\LEFT MOUSE BUTTON - ATTACK\n\TOGGLE WALK - SHIFT", width/2, textTop);
 
   for (let i = 0; i < keyBindings.get("keyArray").length; i++) {
     // changable controls
-    let y = (i+3)*textTop*1.275;
+    let y = (i+3.75)*textTop*1.275;
     text(String.fromCharCode(keyBindings.get("keyArray")[i][1]) + " - " + keyBindings.get("keyArray")[i][0], width/2, y);
   }
 
@@ -97,7 +97,7 @@ function reBindKeys() {
   let xPos = width*0.15 + boxWidth;
 
   for (let i = 0; i < keyBindings.get("keyArray").length; i++) {
-    let yPos = box.yStart + i*boxHeight + textTop;
+    let yPos = (i+3.75)*textTop*1.275;
 
     if (buttonFoo(xPos, yPos, boxWidth, boxHeight, "orange", "lightorange", String.fromCharCode(keyBindings.get("keyArray")[i][1]))) {
       waiting();
