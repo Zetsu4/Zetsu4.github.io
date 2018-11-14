@@ -19,8 +19,8 @@ function loadGameButton() {
 function loadSavedFile() {
   // load game
   // let path = prompt("Copy The Files Path That You Want To Load", "");
-  let path = "saveFiles/test2.json";
-  let savedVars = loadJSON(path);
+  // let path = "assets/moreSketches/saveFiles/test4.json";
+  // let savedVars = loadJSON(path);
 
 
   // // key binds
@@ -38,15 +38,28 @@ function loadSavedFile() {
   // keyBindArray = savedVars.keyBinds.keyBindArray;
 
   // objects
-  objects.melee = savedVars.objects.melee;
-  objects.arrows = savedVars.objects.arrows;
+  // arrayCopy(savedVars.objects.melee, objects.melee);
+  // arrayCopy(savedVars.objects.arrows, objects.arrows);
+  // arrayCopy(savedVars.objects.traps, objects.traps);
   objects.traps = savedVars.objects.traps;
   maxTraps = savedVars.maxTraps;
 
-  badGuysObjects.melee = savedVars.badGuysObjects.melee;
-  badGuysObjects.arrows = savedVars.badGuysObjects.arrows;
+  // badGuysObjects.melee = savedVars.badGuysObjects.melee;
+  // badGuysObjects.arrows = savedVars.badGuysObjects.arrows;
 
-  arrayCopy(savedVars.badGuysObjects.badGuysArray, badGuys);
+  badGuys = [];
+  for (let i = 0; i < savedVars.badGuysObjects.badGuysArray.length; i++) {
+    badGuys.push(new Baddies(
+      savedVars.badGuysObjects.badGuysArray[i].race, savedVars.badGuysObjects.badGuysArray[i].skill,
+      savedVars.badGuysObjects.badGuysArray[i].x, savedVars.badGuysObjects.badGuysArray[i].y,
+      savedVars.badGuysObjects.badGuysArray[i].lvl, savedVars.badGuysObjects.badGuysArray[i].lvl,
+      savedVars.badGuysObjects.badGuysArray[i].movedX, savedVars.badGuysObjects.badGuysArray[i].movedY));
+
+    badGuys[i].setStats();
+  }
+  // badGuys = [...savedVars.badGuysObjects.badGuysArray];
+  // badGuys = savedVars.badGuysObjects.badGuysArray;
+  // arrayCopy(savedVars.badGuysObjects.badGuysArray, badGuys);
 
   // player
   player.racePosistion = savedVars.player.racePosistion;
@@ -73,12 +86,17 @@ function loadSavedFile() {
 
     // inventory
   mouseHolding = savedVars.inventory.mouseHolding;
+  // arrayCopy(savedVars.inventory.itemsOnGround, itemsOnGround);
   itemsOnGround = savedVars.inventory.itemsOnGround;
 
   numOfHpPotions = savedVars.inventory.numOfHpPotions;
   numOfMpPotions = savedVars.inventory.numOfMpPotions;
   numOfArrows = savedVars.inventory.numOfArrows;
   numOfTraps = savedVars.inventory.numOfTraps;
+
+  calculatingStats();
+  startingState = 2;
+  state = 0;
 }
 
 function saveGame() {
@@ -115,8 +133,9 @@ function saveGame() {
   saveVars.badGuysObjects.melee = badGuysObjects.melee;
   saveVars.badGuysObjects.arrows = badGuysObjects.arrows;
 
-  saveVars.badGuysObjects.badGuysArray = [];
-  arrayCopy(badGuys, saveVars.badGuysObjects.badGuysArray);
+  saveVars.badGuysObjects.badGuysArray = [...badGuys];
+  // saveVars.badGuysObjects.badGuysArray = badGuys;
+  // arrayCopy(badGuys, saveVars.badGuysObjects.badGuysArray);
 
   // player
   saveVars.player = {};
@@ -134,7 +153,10 @@ function saveGame() {
   saveVars.player.vit = player.vit;
 
     // damage and health
+  saveVars.player.totHP = player.totHP;
+  saveVars.player.totMP = player.totMP;
   saveVars.player.hp = player.hp;
+  saveVars.player.mp = player.mp;
   saveVars.player.mDmg = player.mDmg; // melee damage
   saveVars.player.rDmg = player.rDmg; // ranged damage
   saveVars.player.sDmg = player.sDmg; // magic damage
@@ -142,6 +164,11 @@ function saveGame() {
   saveVars.player.x = player.x;
   saveVars.player.y = player.y;
   saveVars.player.speed = player.speed;
+
+  saveVars.world = {};
+  saveVars.world.image = world.image;
+  saveVars.world.imageX = world.imageX;
+  saveVars.world.imageY = world.imageY;
 
     // inventory
   saveVars.inventory = {};

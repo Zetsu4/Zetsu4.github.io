@@ -96,8 +96,14 @@ let badGuysObjects = {};
 let badGuysPosX = [];
 let badGuysPosY = [];
 
+let path;
+let savedVars;
 
 function preload() {
+
+  path = "assets/moreSketches/saveFiles/test5.json";
+  savedVars = loadJSON(path);
+
   // backgrounds
   earth = loadImage("assets/lovelyHomepage.png");
   world.image = loadImage("assets/enviorment.png");

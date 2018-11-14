@@ -19,8 +19,8 @@ function showMinimap() {
 
 // PLAYER----------
 function playerShow() {
-  image(player.raceImage, width/2, height/2, sprite.WIDTH, sprite.HEIGHT);
-  image(player.skillImage, width/2, height/2 - sprite.HEIGHT, sprite.WIDTH, sprite.HEIGHT);
+  // image(player.raceImage, width/2, height/2, sprite.WIDTH, sprite.HEIGHT);
+  // image(player.skillImage, width/2, height/2 - sprite.HEIGHT, sprite.WIDTH, sprite.HEIGHT);
   playerStatus(player.hp, player.totHP, "red", false);
   playerStatus(player.mp, player.totMP, "blue", true);
   playerLvL();

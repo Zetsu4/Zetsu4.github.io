@@ -229,8 +229,10 @@ class Baddies {
 
   baddieOnScreen(playerX, playerY, worldW, worldH) {
     // baddie on screen?
-    return this.x >= playerX - worldW/2 - width/2 && this.x <= playerX - worldW/2 + width/2 &&
-           this.y >= playerY - worldH/2 - height/2 && this.y <= playerY - worldH/2 + height/2;
+    // return this.x >= playerX - worldW/2 - width/2 && this.x <= playerX - worldW/2 + width/2 &&
+    //        this.y >= playerY - worldH/2 - height/2 && this.y <= playerY - worldH/2 + height/2;
+    return this.x >= -worldW/2 - width/2 && this.x <= -worldW/2 + width/2 &&
+           this.y >= -worldH/2 - height/2 && this.y <= -worldH/2 + height/2;
   }
 
   collision(spriteW, spriteH) {
@@ -283,8 +285,8 @@ class Baddies {
   }
 
   show(sizeX, sizeY, textTop) {
-    image(this.race[1], this.otherX + width/2, this.otherY + height/2, sizeX, sizeY);
-    image(this.skill[1], this.otherX + width/2, this.otherY + height/2 - sizeY, sizeX, sizeY);
+    // image(this.race[1], this.otherX + width/2, this.otherY + height/2, sizeX, sizeY);
+    // image(this.skill[1], this.otherX + width/2, this.otherY + height/2 - sizeY, sizeX, sizeY);
 
     push();
     textSize(textTop/2);
