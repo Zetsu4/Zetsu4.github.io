@@ -84,6 +84,10 @@ function loadSavedFile() {
   player.y = savedVars.player.y;
   player.speed = savedVars.player.speed;
 
+  world.image = savedVars.world.image;
+  world.imageX = savedVars.world.imageX;
+  world.imageY = savedVars.world.imageY;
+
     // inventory
   mouseHolding = savedVars.inventory.mouseHolding;
   // arrayCopy(savedVars.inventory.itemsOnGround, itemsOnGround);

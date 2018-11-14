@@ -1,19 +1,15 @@
-// ouncing Balls
+// Bouncing Balls
 // Travis Ahern
-// Oct. 22/18
+// Oct. 22, 2018
 
-let balls;
-
-class ball {
-  constructor(x, y, r, dx, dy, R, g, b) {
+class Ball {
+  constructor(x, y) {
     this.x = x;
     this.y = y;
-    this.r = r;
-    this.dx = dx;
-    this.dy = dy;
-    this.R = R;
-    this.g = g;
-    this.b = b;
+    this.r = random(5, 20);
+    this.dx = random(-5, 5);
+    this.dy = random(-5, 5);
+    this.color = color(random(255), random(255), random(255));
   }
 
   movement() {
@@ -31,22 +27,22 @@ class ball {
   }
 
   show() {
-    fill(this.R, this.g, this.b);
+    fill(this.color);
     ellipse(this.x, this.y, this.r*2, this.r*2);
   }
 }
+
+
+let balls;
+let numOfBallSpawn;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   noStroke();
   balls = [];
-  for (let i = 0; i < 100; i++) {
-    balls.push(new ball(random(10, width-10), random(10, height-10), random(5, 10), random(-5, 5), random(-5, 5), random(255), random(255), random(255)));
-    for (let j = 0; j < 100; j++) {
-      if (dist() < balls[i].r) {
-        
-      }
-    }
+  numOfBallSpawn = 35;
+  for (let i = 0; i < numOfBallSpawn; i++) {
+    balls.push(new Ball(random(10, width-10), random(10, height-10)));
   }
 }
 
@@ -54,7 +50,7 @@ function draw() {
   background(255);
   // display ball
   if (mouseIsPressed) {
-    balls.push(new ball(mouseX, mouseY, random(2, 5), random(-5, 5), random(-5, 5), random(255), random(255), random(255)));
+    balls.push(new Ball(mouseX, mouseY));
   }
 
   for (let i of balls) {
