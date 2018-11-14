@@ -42,14 +42,8 @@ function baddiesFoo() {
       lastTimeHit = millis();
 
       if (player.hp <= 0) {
-        // if (numOfHpPotions > 0) {
-        //   consumeHealthPotion();
-        // }
-        //
-        // else {
-          gameOver();
-          break;
-        // }
+        gameOver();
+        break;
       }
     }
 
