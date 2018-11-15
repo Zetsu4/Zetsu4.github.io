@@ -74,8 +74,10 @@ function loadSavedFile() {
   // player
   player.racePosistion = savedVars.player.racePosistion;
   player.skillPosistion = savedVars.player.skillPosistion;
-  player.raceImage = allRaces[player.racePosistion][1];
-  player.skillImage = allSkills[player.skillPosistion][1];
+  // player.raceImage = allRaces[player.racePosistion][1];
+  // player.skillImage = allSkills[player.skillPosistion][1];
+  player.raceImage = loadImage("assets/Races/goblin.png");
+  player.skillImage = loadImage("assets/Skills/archer.png");
 
     // stats
   player.int = savedVars.player.int;
