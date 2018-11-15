@@ -40,7 +40,7 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   noStroke();
   balls = [];
-  numOfBallSpawn = 35;
+  numOfBallSpawn = 50;
   for (let i = 0; i < numOfBallSpawn; i++) {
     balls.push(new Ball(random(10, width-10), random(10, height-10)));
   }
@@ -49,13 +49,21 @@ function setup() {
 function draw() {
   background(255);
   // display ball
-  if (mouseIsPressed) {
-    balls.push(new Ball(mouseX, mouseY));
-  }
-
   for (let i of balls) {
     i.bounce();
     i.movement();
     i.show();
+    for (let j of balls) {
+      if (i !== j && collideCircleCircle(i.x, i.y, i.r+j.r, j.x, j.y, j.r+i.r)) {
+        i.dx = -i.dx;
+        i.dy = -i.dy;
+        j.dx = -j.dx;
+        j.dy = -j.dy;
+      }
+    }
   }
+}
+
+function mousePressed() {
+  balls.push(new Ball(mouseX, mouseY));
 }

@@ -1,0 +1,5035 @@
+{
+  "keyBinds": {
+    "settings": 27,
+    "toggleRanged": 82,
+    "toggleMagic": 84,
+    "placeTrap": 81,
+    "up": 87,
+    "left": 65,
+    "down": 83,
+    "right": 68,
+    "interact": 70,
+    "inventory": 69,
+    "openMap": 77,
+    "keyBindArray": [
+      82,
+      84,
+      81,
+      87,
+      65,
+      83,
+      68,
+      70,
+      69,
+      77
+    ]
+  },
+  "objects": {
+    "melee": [],
+    "arrows": [],
+    "traps": []
+  },
+  "maxTraps": 4,
+  "badGuysObjects": {
+    "melee": [],
+    "arrows": [],
+    "badGuysArray": [
+      {
+        "race": [
+          "Halfling",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 10,
+            "agi": 12,
+            "str": 8,
+            "dex": 14,
+            "vit": 6
+          }
+        ],
+        "skill": [
+          "Trapper",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 18,
+            "ranged": 17,
+            "magic": 0
+          }
+        ],
+        "otherX": 6068.89060430068,
+        "otherY": -4635.033255313902,
+        "x": 6068.89060430068,
+        "y": -4635.033255313902,
+        "stuned": false,
+        "state": 2,
+        "dir": 2,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 166.66666666666666,
+        "lastTime": 3719.2999999970198,
+        "int": 10,
+        "agi": 12,
+        "str": 8,
+        "dex": 14,
+        "vit": 6,
+        "totHP": 70,
+        "hp": 70,
+        "mDmg": 16,
+        "rDmg": 28,
+        "sDmg": 20,
+        "speed": 13.2676
+      },
+      {
+        "race": [
+          "Halfling",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 10,
+            "agi": 12,
+            "str": 8,
+            "dex": 14,
+            "vit": 6
+          }
+        ],
+        "skill": [
+          "Cleric",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 5,
+            "ranged": 10,
+            "magic": 20
+          }
+        ],
+        "otherX": -6391.919291525667,
+        "otherY": 2948.9739336319117,
+        "x": -6391.919291525667,
+        "y": 2948.9739336319117,
+        "stuned": false,
+        "state": 2,
+        "dir": 2,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 166.66666666666666,
+        "lastTime": 3737.0999999693595,
+        "int": 10,
+        "agi": 12,
+        "str": 8,
+        "dex": 14,
+        "vit": 6,
+        "totHP": 70,
+        "hp": 70,
+        "mDmg": 16,
+        "rDmg": 28,
+        "sDmg": 20,
+        "speed": 13.2676
+      },
+      {
+        "race": [
+          "Halfling",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 10,
+            "agi": 12,
+            "str": 8,
+            "dex": 14,
+            "vit": 6
+          }
+        ],
+        "skill": [
+          "Fighter",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 20,
+            "ranged": 10,
+            "magic": 5
+          }
+        ],
+        "otherX": -55.58710207584838,
+        "otherY": 3408.412518372169,
+        "x": -55.58710207584838,
+        "y": 3408.412518372169,
+        "stuned": false,
+        "state": 2,
+        "dir": 0,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 166.66666666666666,
+        "lastTime": 3737.299999978859,
+        "int": 10,
+        "agi": 12,
+        "str": 8,
+        "dex": 14,
+        "vit": 6,
+        "totHP": 70,
+        "hp": 70,
+        "mDmg": 16,
+        "rDmg": 28,
+        "sDmg": 20,
+        "speed": 13.2676
+      },
+      {
+        "race": [
+          "Human",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 10,
+            "agi": 10,
+            "str": 10,
+            "dex": 10,
+            "vit": 10
+          }
+        ],
+        "skill": [
+          "Ranger",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 13,
+            "ranged": 12,
+            "magic": 10
+          }
+        ],
+        "otherX": -1447.6475001426134,
+        "otherY": 3979.136189585432,
+        "x": -1447.6475001426134,
+        "y": 3979.136189585432,
+        "stuned": false,
+        "state": 2,
+        "dir": 2,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 200,
+        "lastTime": 3853.599999973085,
+        "int": 10,
+        "agi": 10,
+        "str": 10,
+        "dex": 10,
+        "vit": 10,
+        "totHP": 110,
+        "hp": 110,
+        "mDmg": 20,
+        "rDmg": 20,
+        "sDmg": 20,
+        "speed": 12.944
+      },
+      {
+        "race": [
+          "Dwarf",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 6,
+            "agi": 6,
+            "str": 16,
+            "dex": 8,
+            "vit": 14
+          }
+        ],
+        "skill": [
+          "Trapper",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 18,
+            "ranged": 17,
+            "magic": 0
+          }
+        ],
+        "otherX": -6774.330651005028,
+        "otherY": 2677.1056081686947,
+        "x": -6774.330651005028,
+        "y": 2677.1056081686947,
+        "stuned": false,
+        "state": 2,
+        "dir": 2,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 333.3333333333333,
+        "lastTime": 3570.2999999630265,
+        "int": 6,
+        "agi": 6,
+        "str": 16,
+        "dex": 8,
+        "vit": 14,
+        "totHP": 150,
+        "hp": 150,
+        "mDmg": 32,
+        "rDmg": 16,
+        "sDmg": 12,
+        "speed": 12.296800000000001
+      },
+      {
+        "race": [
+          "Halfling",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 10,
+            "agi": 12,
+            "str": 8,
+            "dex": 14,
+            "vit": 6
+          }
+        ],
+        "skill": [
+          "Mage",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 5,
+            "ranged": 5,
+            "magic": 25
+          }
+        ],
+        "otherX": 2136.0085821779603,
+        "otherY": 3653.5792678638927,
+        "x": 2136.0085821779603,
+        "y": 3653.5792678638927,
+        "stuned": false,
+        "state": 2,
+        "dir": 2,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 166.66666666666666,
+        "lastTime": 3770.3999999794178,
+        "int": 10,
+        "agi": 12,
+        "str": 8,
+        "dex": 14,
+        "vit": 6,
+        "totHP": 70,
+        "hp": 70,
+        "mDmg": 16,
+        "rDmg": 28,
+        "sDmg": 20,
+        "speed": 13.2676
+      },
+      {
+        "race": [
+          "Orc",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 2,
+            "agi": 8,
+            "str": 15,
+            "dex": 13,
+            "vit": 12
+          }
+        ],
+        "skill": [
+          "Rogue",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 15,
+            "ranged": 10,
+            "magic": 10
+          }
+        ],
+        "otherX": -775.1395686685107,
+        "otherY": 4716.103268573022,
+        "x": -775.1395686685107,
+        "y": 4716.103268573022,
+        "stuned": false,
+        "state": 2,
+        "dir": 1,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 250,
+        "lastTime": 3770.4999999841675,
+        "int": 2,
+        "agi": 8,
+        "str": 15,
+        "dex": 13,
+        "vit": 12,
+        "totHP": 130,
+        "hp": 130,
+        "mDmg": 30,
+        "rDmg": 26,
+        "sDmg": 4,
+        "speed": 12.6204
+      },
+      {
+        "race": [
+          "Halfling",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 10,
+            "agi": 12,
+            "str": 8,
+            "dex": 14,
+            "vit": 6
+          }
+        ],
+        "skill": [
+          "Archer",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 5,
+            "ranged": 20,
+            "magic": 10
+          }
+        ],
+        "otherX": -3748.4754641364143,
+        "otherY": -5.268445532765197,
+        "x": -3748.4754641364143,
+        "y": -5.268445532765197,
+        "stuned": false,
+        "state": 2,
+        "dir": 0,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 166.66666666666666,
+        "lastTime": 3770.5999999889173,
+        "int": 10,
+        "agi": 12,
+        "str": 8,
+        "dex": 14,
+        "vit": 6,
+        "totHP": 70,
+        "hp": 70,
+        "mDmg": 16,
+        "rDmg": 28,
+        "sDmg": 20,
+        "speed": 13.2676
+      },
+      {
+        "race": [
+          "Dwarf",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 6,
+            "agi": 6,
+            "str": 16,
+            "dex": 8,
+            "vit": 14
+          }
+        ],
+        "skill": [
+          "Mage",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 5,
+            "ranged": 5,
+            "magic": 25
+          }
+        ],
+        "otherX": -7681.017294625919,
+        "otherY": 312.0285206434819,
+        "x": -7681.017294625919,
+        "y": 312.0285206434819,
+        "stuned": false,
+        "state": 2,
+        "dir": 0,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 333.3333333333333,
+        "lastTime": 3604.0999999968335,
+        "int": 6,
+        "agi": 6,
+        "str": 16,
+        "dex": 8,
+        "vit": 14,
+        "totHP": 150,
+        "hp": 150,
+        "mDmg": 32,
+        "rDmg": 16,
+        "sDmg": 12,
+        "speed": 12.296800000000001
+      },
+      {
+        "race": [
+          "Halfling",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 10,
+            "agi": 12,
+            "str": 8,
+            "dex": 14,
+            "vit": 6
+          }
+        ],
+        "skill": [
+          "Samurai",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 20,
+            "ranged": 0,
+            "magic": 15
+          }
+        ],
+        "otherX": 155.69378225157016,
+        "otherY": 4076.6842795977527,
+        "x": 155.69378225157016,
+        "y": 4076.6842795977527,
+        "stuned": false,
+        "state": 2,
+        "dir": 2,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 166.66666666666666,
+        "lastTime": 3787.000000011176,
+        "int": 10,
+        "agi": 12,
+        "str": 8,
+        "dex": 14,
+        "vit": 6,
+        "totHP": 70,
+        "hp": 70,
+        "mDmg": 16,
+        "rDmg": 28,
+        "sDmg": 20,
+        "speed": 13.2676
+      },
+      {
+        "race": [
+          "Uruk-Hai",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 2,
+            "agi": 4,
+            "str": 16,
+            "dex": 12,
+            "vit": 16
+          }
+        ],
+        "skill": [
+          "Mage",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 5,
+            "ranged": 5,
+            "magic": 25
+          }
+        ],
+        "otherX": -1806.2359886393037,
+        "otherY": 3993.5114954857436,
+        "x": -1806.2359886393037,
+        "y": 3993.5114954857436,
+        "stuned": false,
+        "state": 2,
+        "dir": 2,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 500,
+        "lastTime": 3770.7999999984168,
+        "int": 2,
+        "agi": 4,
+        "str": 16,
+        "dex": 12,
+        "vit": 16,
+        "totHP": 170,
+        "hp": 170,
+        "mDmg": 32,
+        "rDmg": 24,
+        "sDmg": 4,
+        "speed": 11.9732
+      },
+      {
+        "race": [
+          "Elf",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 15,
+            "agi": 8,
+            "str": 5,
+            "dex": 8,
+            "vit": 14
+          }
+        ],
+        "skill": [
+          "Fighter",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 20,
+            "ranged": 10,
+            "magic": 5
+          }
+        ],
+        "otherX": -1420.701253810773,
+        "otherY": 1865.5467835734341,
+        "x": -1420.701253810773,
+        "y": 1865.5467835734341,
+        "stuned": false,
+        "state": 2,
+        "dir": 3,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 250,
+        "lastTime": 3804.699999978766,
+        "int": 15,
+        "agi": 8,
+        "str": 5,
+        "dex": 8,
+        "vit": 14,
+        "totHP": 150,
+        "hp": 150,
+        "mDmg": 10,
+        "rDmg": 16,
+        "sDmg": 30,
+        "speed": 12.6204
+      },
+      {
+        "race": [
+          "Human",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 10,
+            "agi": 10,
+            "str": 10,
+            "dex": 10,
+            "vit": 10
+          }
+        ],
+        "skill": [
+          "Rogue",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 15,
+            "ranged": 10,
+            "magic": 10
+          }
+        ],
+        "otherX": -6424.362471912339,
+        "otherY": 3301.5906255666973,
+        "x": -6424.362471912339,
+        "y": 3301.5906255666973,
+        "stuned": false,
+        "state": 2,
+        "dir": 3,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 200,
+        "lastTime": 3703.0999999842606,
+        "int": 10,
+        "agi": 10,
+        "str": 10,
+        "dex": 10,
+        "vit": 10,
+        "totHP": 110,
+        "hp": 110,
+        "mDmg": 20,
+        "rDmg": 20,
+        "sDmg": 20,
+        "speed": 12.944
+      },
+      {
+        "race": [
+          "Goblin",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 0,
+            "agi": 17,
+            "str": 12,
+            "dex": 17,
+            "vit": 4
+          }
+        ],
+        "skill": [
+          "Cleric",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 5,
+            "ranged": 10,
+            "magic": 20
+          }
+        ],
+        "otherX": -2528.88556870907,
+        "otherY": -3551.0332901140255,
+        "x": -2528.88556870907,
+        "y": -3551.0332901140255,
+        "stuned": false,
+        "state": 2,
+        "dir": 3,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 117.6470588235294,
+        "lastTime": 3804.8999999882653,
+        "int": 0,
+        "agi": 17,
+        "str": 12,
+        "dex": 17,
+        "vit": 4,
+        "totHP": 50,
+        "hp": 50,
+        "mDmg": 24,
+        "rDmg": 34,
+        "sDmg": 0,
+        "speed": 14.076600000000001
+      },
+      {
+        "race": [
+          "Uruk-Hai",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 2,
+            "agi": 4,
+            "str": 16,
+            "dex": 12,
+            "vit": 16
+          }
+        ],
+        "skill": [
+          "Cleric",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 5,
+            "ranged": 10,
+            "magic": 20
+          }
+        ],
+        "otherX": -4873.962061558137,
+        "otherY": -599.237668650575,
+        "x": -4873.962061558137,
+        "y": -599.237668650575,
+        "stuned": false,
+        "state": 2,
+        "dir": 0,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 500,
+        "lastTime": 3787.499999976717,
+        "int": 2,
+        "agi": 4,
+        "str": 16,
+        "dex": 12,
+        "vit": 16,
+        "totHP": 170,
+        "hp": 170,
+        "mDmg": 32,
+        "rDmg": 24,
+        "sDmg": 4,
+        "speed": 11.9732
+      },
+      {
+        "race": [
+          "Uruk-Hai",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 2,
+            "agi": 4,
+            "str": 16,
+            "dex": 12,
+            "vit": 16
+          }
+        ],
+        "skill": [
+          "Archer",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 5,
+            "ranged": 20,
+            "magic": 10
+          }
+        ],
+        "otherX": 3178.7986732140066,
+        "otherY": 1196.8805567750105,
+        "x": 3178.7986732140066,
+        "y": 1196.8805567750105,
+        "stuned": false,
+        "state": 2,
+        "dir": 2,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 500,
+        "lastTime": 3787.499999976717,
+        "int": 2,
+        "agi": 4,
+        "str": 16,
+        "dex": 12,
+        "vit": 16,
+        "totHP": 170,
+        "hp": 170,
+        "mDmg": 32,
+        "rDmg": 24,
+        "sDmg": 4,
+        "speed": 11.9732
+      },
+      {
+        "race": [
+          "Half-Elf",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 10,
+            "agi": 11,
+            "str": 6,
+            "dex": 12,
+            "vit": 11
+          }
+        ],
+        "skill": [
+          "Ranger",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 13,
+            "ranged": 12,
+            "magic": 10
+          }
+        ],
+        "otherX": -7448.141917817645,
+        "otherY": -777.1057028277039,
+        "x": -7448.141917817645,
+        "y": -777.1057028277039,
+        "stuned": false,
+        "state": 2,
+        "dir": 0,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 181.8181818181818,
+        "lastTime": 3837.7999999793246,
+        "int": 10,
+        "agi": 11,
+        "str": 6,
+        "dex": 12,
+        "vit": 11,
+        "totHP": 120,
+        "hp": 120,
+        "mDmg": 12,
+        "rDmg": 24,
+        "sDmg": 20,
+        "speed": 13.1058
+      },
+      {
+        "race": [
+          "Half-Elf",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 10,
+            "agi": 11,
+            "str": 6,
+            "dex": 12,
+            "vit": 11
+          }
+        ],
+        "skill": [
+          "Mage",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 5,
+            "ranged": 5,
+            "magic": 25
+          }
+        ],
+        "otherX": 4634.858499371413,
+        "otherY": 1032.546595312843,
+        "x": 4634.858499371413,
+        "y": 1032.546595312843,
+        "stuned": false,
+        "state": 2,
+        "dir": 2,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 181.8181818181818,
+        "lastTime": 3837.7999999793246,
+        "int": 10,
+        "agi": 11,
+        "str": 6,
+        "dex": 12,
+        "vit": 11,
+        "totHP": 120,
+        "hp": 120,
+        "mDmg": 12,
+        "rDmg": 24,
+        "sDmg": 20,
+        "speed": 13.1058
+      },
+      {
+        "race": [
+          "Human",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 10,
+            "agi": 10,
+            "str": 10,
+            "dex": 10,
+            "vit": 10
+          }
+        ],
+        "skill": [
+          "Ranger",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 13,
+            "ranged": 12,
+            "magic": 10
+          }
+        ],
+        "otherX": -6553.778052026139,
+        "otherY": -906.817846053671,
+        "x": -6553.778052026139,
+        "y": -906.817846053671,
+        "stuned": false,
+        "state": 2,
+        "dir": 3,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 200,
+        "lastTime": 3703.6000000080094,
+        "int": 10,
+        "agi": 10,
+        "str": 10,
+        "dex": 10,
+        "vit": 10,
+        "totHP": 110,
+        "hp": 110,
+        "mDmg": 20,
+        "rDmg": 20,
+        "sDmg": 20,
+        "speed": 12.944
+      },
+      {
+        "race": [
+          "Orc",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 2,
+            "agi": 8,
+            "str": 15,
+            "dex": 13,
+            "vit": 12
+          }
+        ],
+        "skill": [
+          "Cleric",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 5,
+            "ranged": 10,
+            "magic": 20
+          }
+        ],
+        "otherX": 6641.195265921399,
+        "otherY": -4323.5950844157205,
+        "x": 6641.195265921399,
+        "y": -4323.5950844157205,
+        "stuned": false,
+        "state": 2,
+        "dir": 1,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 250,
+        "lastTime": 3805.400000012014,
+        "int": 2,
+        "agi": 8,
+        "str": 15,
+        "dex": 13,
+        "vit": 12,
+        "totHP": 130,
+        "hp": 130,
+        "mDmg": 30,
+        "rDmg": 26,
+        "sDmg": 4,
+        "speed": 12.6204
+      },
+      {
+        "race": [
+          "Elf",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 15,
+            "agi": 8,
+            "str": 5,
+            "dex": 8,
+            "vit": 14
+          }
+        ],
+        "skill": [
+          "Rogue",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 15,
+            "ranged": 10,
+            "magic": 10
+          }
+        ],
+        "otherX": -2426.043765238618,
+        "otherY": -4212.736074044509,
+        "x": -2426.043765238618,
+        "y": -4212.736074044509,
+        "stuned": false,
+        "state": 2,
+        "dir": 3,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 250,
+        "lastTime": 3805.500000016764,
+        "int": 15,
+        "agi": 8,
+        "str": 5,
+        "dex": 8,
+        "vit": 14,
+        "totHP": 150,
+        "hp": 150,
+        "mDmg": 10,
+        "rDmg": 16,
+        "sDmg": 30,
+        "speed": 12.6204
+      },
+      {
+        "race": [
+          "Orc",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 2,
+            "agi": 8,
+            "str": 15,
+            "dex": 13,
+            "vit": 12
+          }
+        ],
+        "skill": [
+          "Trapper",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 18,
+            "ranged": 17,
+            "magic": 0
+          }
+        ],
+        "otherX": -5303.504665308841,
+        "otherY": 1244.785125969907,
+        "x": -5303.504665308841,
+        "y": 1244.785125969907,
+        "stuned": false,
+        "state": 2,
+        "dir": 1,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 250,
+        "lastTime": 3805.599999963306,
+        "int": 2,
+        "agi": 8,
+        "str": 15,
+        "dex": 13,
+        "vit": 12,
+        "totHP": 130,
+        "hp": 130,
+        "mDmg": 30,
+        "rDmg": 26,
+        "sDmg": 4,
+        "speed": 12.6204
+      },
+      {
+        "race": [
+          "Half-Elf",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 10,
+            "agi": 11,
+            "str": 6,
+            "dex": 12,
+            "vit": 11
+          }
+        ],
+        "skill": [
+          "Trapper",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 18,
+            "ranged": 17,
+            "magic": 0
+          }
+        ],
+        "otherX": 7945.075709329761,
+        "otherY": 3790.519761158254,
+        "x": 7945.075709329761,
+        "y": 3790.519761158254,
+        "stuned": false,
+        "state": 2,
+        "dir": 2,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 181.8181818181818,
+        "lastTime": 3840.0999999721535,
+        "int": 10,
+        "agi": 11,
+        "str": 6,
+        "dex": 12,
+        "vit": 11,
+        "totHP": 120,
+        "hp": 120,
+        "mDmg": 12,
+        "rDmg": 24,
+        "sDmg": 20,
+        "speed": 13.1058
+      },
+      {
+        "race": [
+          "Goblin",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 0,
+            "agi": 17,
+            "str": 12,
+            "dex": 17,
+            "vit": 4
+          }
+        ],
+        "skill": [
+          "Ranger",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 13,
+            "ranged": 12,
+            "magic": 10
+          }
+        ],
+        "otherX": -4289.077470859911,
+        "otherY": 3205.72716939569,
+        "x": -4289.077470859911,
+        "y": 3205.72716939569,
+        "stuned": false,
+        "state": 2,
+        "dir": 3,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 117.6470588235294,
+        "lastTime": 3805.6999999680556,
+        "int": 0,
+        "agi": 17,
+        "str": 12,
+        "dex": 17,
+        "vit": 4,
+        "totHP": 50,
+        "hp": 50,
+        "mDmg": 24,
+        "rDmg": 34,
+        "sDmg": 0,
+        "speed": 14.076600000000001
+      },
+      {
+        "race": [
+          "Elf",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 15,
+            "agi": 8,
+            "str": 5,
+            "dex": 8,
+            "vit": 14
+          }
+        ],
+        "skill": [
+          "Archer",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 5,
+            "ranged": 20,
+            "magic": 10
+          }
+        ],
+        "otherX": -141.65417499125377,
+        "otherY": -4708.169693737442,
+        "x": -141.65417499125377,
+        "y": -4708.169693737442,
+        "stuned": false,
+        "state": 2,
+        "dir": 3,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 250,
+        "lastTime": 3805.7999999728054,
+        "int": 15,
+        "agi": 8,
+        "str": 5,
+        "dex": 8,
+        "vit": 14,
+        "totHP": 150,
+        "hp": 150,
+        "mDmg": 10,
+        "rDmg": 16,
+        "sDmg": 30,
+        "speed": 12.6204
+      },
+      {
+        "race": [
+          "Human",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 10,
+            "agi": 10,
+            "str": 10,
+            "dex": 10,
+            "vit": 10
+          }
+        ],
+        "skill": [
+          "Trapper",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 18,
+            "ranged": 17,
+            "magic": 0
+          }
+        ],
+        "otherX": -4395.264248555645,
+        "otherY": 4229.622319938951,
+        "x": -4395.264248555645,
+        "y": 4229.622319938951,
+        "stuned": false,
+        "state": 2,
+        "dir": 1,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 200,
+        "lastTime": 3704.1999999783,
+        "int": 10,
+        "agi": 10,
+        "str": 10,
+        "dex": 10,
+        "vit": 10,
+        "totHP": 110,
+        "hp": 110,
+        "mDmg": 20,
+        "rDmg": 20,
+        "sDmg": 20,
+        "speed": 12.944
+      },
+      {
+        "race": [
+          "Half-Elf",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 10,
+            "agi": 11,
+            "str": 6,
+            "dex": 12,
+            "vit": 11
+          }
+        ],
+        "skill": [
+          "Fighter",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 20,
+            "ranged": 10,
+            "magic": 5
+          }
+        ],
+        "otherX": -15.841835275751691,
+        "otherY": -4691.077793979148,
+        "x": -15.841835275751691,
+        "y": -4691.077793979148,
+        "stuned": false,
+        "state": 2,
+        "dir": 2,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 181.8181818181818,
+        "lastTime": 3840.4999999911524,
+        "int": 10,
+        "agi": 11,
+        "str": 6,
+        "dex": 12,
+        "vit": 11,
+        "totHP": 120,
+        "hp": 120,
+        "mDmg": 12,
+        "rDmg": 24,
+        "sDmg": 20,
+        "speed": 13.1058
+      },
+      {
+        "race": [
+          "Halfling",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 10,
+            "agi": 12,
+            "str": 8,
+            "dex": 14,
+            "vit": 6
+          }
+        ],
+        "skill": [
+          "Rogue",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 15,
+            "ranged": 10,
+            "magic": 10
+          }
+        ],
+        "otherX": -5913.377221551945,
+        "otherY": -907.7233166034449,
+        "x": -5913.377221551945,
+        "y": -907.7233166034449,
+        "stuned": false,
+        "state": 2,
+        "dir": 0,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 166.66666666666666,
+        "lastTime": 3822.199999995064,
+        "int": 10,
+        "agi": 12,
+        "str": 8,
+        "dex": 14,
+        "vit": 6,
+        "totHP": 70,
+        "hp": 70,
+        "mDmg": 16,
+        "rDmg": 28,
+        "sDmg": 20,
+        "speed": 13.2676
+      },
+      {
+        "race": [
+          "Orc",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 2,
+            "agi": 8,
+            "str": 15,
+            "dex": 13,
+            "vit": 12
+          }
+        ],
+        "skill": [
+          "Archer",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 5,
+            "ranged": 20,
+            "magic": 10
+          }
+        ],
+        "otherX": 4104.526782309452,
+        "otherY": 654.3078273499007,
+        "x": 4104.526782309452,
+        "y": 654.3078273499007,
+        "stuned": false,
+        "state": 2,
+        "dir": 3,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 250,
+        "lastTime": 3806.0999999870546,
+        "int": 2,
+        "agi": 8,
+        "str": 15,
+        "dex": 13,
+        "vit": 12,
+        "totHP": 130,
+        "hp": 130,
+        "mDmg": 30,
+        "rDmg": 26,
+        "sDmg": 4,
+        "speed": 12.6204
+      },
+      {
+        "race": [
+          "Goblin",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 0,
+            "agi": 17,
+            "str": 12,
+            "dex": 17,
+            "vit": 4
+          }
+        ],
+        "skill": [
+          "Fighter",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 20,
+            "ranged": 10,
+            "magic": 5
+          }
+        ],
+        "otherX": 4300.411905866621,
+        "otherY": 2750.5701915676827,
+        "x": 4300.411905866621,
+        "y": 2750.5701915676827,
+        "stuned": false,
+        "state": 2,
+        "dir": 3,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 117.6470588235294,
+        "lastTime": 3822.4000000045635,
+        "int": 0,
+        "agi": 17,
+        "str": 12,
+        "dex": 17,
+        "vit": 4,
+        "totHP": 50,
+        "hp": 50,
+        "mDmg": 24,
+        "rDmg": 34,
+        "sDmg": 0,
+        "speed": 14.076600000000001
+      },
+      {
+        "race": [
+          "Dwarf",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 6,
+            "agi": 6,
+            "str": 16,
+            "dex": 8,
+            "vit": 14
+          }
+        ],
+        "skill": [
+          "Fighter",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 20,
+            "ranged": 10,
+            "magic": 5
+          }
+        ],
+        "otherX": -6731.017953505932,
+        "otherY": -3940.357929662743,
+        "x": -6731.017953505932,
+        "y": -3940.357929662743,
+        "stuned": false,
+        "state": 2,
+        "dir": 2,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 333.3333333333333,
+        "lastTime": 3639.6999999997206,
+        "int": 6,
+        "agi": 6,
+        "str": 16,
+        "dex": 8,
+        "vit": 14,
+        "totHP": 150,
+        "hp": 150,
+        "mDmg": 32,
+        "rDmg": 16,
+        "sDmg": 12,
+        "speed": 12.296800000000001
+      },
+      {
+        "race": [
+          "Orc",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 2,
+            "agi": 8,
+            "str": 15,
+            "dex": 13,
+            "vit": 12
+          }
+        ],
+        "skill": [
+          "Rogue",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 15,
+            "ranged": 10,
+            "magic": 10
+          }
+        ],
+        "otherX": 1813.4032231552712,
+        "otherY": -4263.256274150515,
+        "x": 1813.4032231552712,
+        "y": -4263.256274150515,
+        "stuned": false,
+        "state": 2,
+        "dir": 3,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 250,
+        "lastTime": 3822.600000014063,
+        "int": 2,
+        "agi": 8,
+        "str": 15,
+        "dex": 13,
+        "vit": 12,
+        "totHP": 130,
+        "hp": 130,
+        "mDmg": 30,
+        "rDmg": 26,
+        "sDmg": 4,
+        "speed": 12.6204
+      },
+      {
+        "race": [
+          "Human",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 10,
+            "agi": 10,
+            "str": 10,
+            "dex": 10,
+            "vit": 10
+          }
+        ],
+        "skill": [
+          "Mage",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 5,
+            "ranged": 5,
+            "magic": 25
+          }
+        ],
+        "otherX": -7625.4048787157635,
+        "otherY": -3741.9885767248306,
+        "x": -7625.4048787157635,
+        "y": -3741.9885767248306,
+        "stuned": false,
+        "state": 2,
+        "dir": 3,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 200,
+        "lastTime": 3722.0000000088476,
+        "int": 10,
+        "agi": 10,
+        "str": 10,
+        "dex": 10,
+        "vit": 10,
+        "totHP": 110,
+        "hp": 110,
+        "mDmg": 20,
+        "rDmg": 20,
+        "sDmg": 20,
+        "speed": 12.944
+      },
+      {
+        "race": [
+          "Goblin",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 0,
+            "agi": 17,
+            "str": 12,
+            "dex": 17,
+            "vit": 4
+          }
+        ],
+        "skill": [
+          "Rogue",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 15,
+            "ranged": 10,
+            "magic": 10
+          }
+        ],
+        "otherX": 4219.075902995689,
+        "otherY": -4729.36707543158,
+        "x": 4219.075902995689,
+        "y": -4729.36707543158,
+        "stuned": false,
+        "state": 2,
+        "dir": 3,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 117.6470588235294,
+        "lastTime": 3822.7000000188127,
+        "int": 0,
+        "agi": 17,
+        "str": 12,
+        "dex": 17,
+        "vit": 4,
+        "totHP": 50,
+        "hp": 50,
+        "mDmg": 24,
+        "rDmg": 34,
+        "sDmg": 0,
+        "speed": 14.076600000000001
+      },
+      {
+        "race": [
+          "Orc",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 2,
+            "agi": 8,
+            "str": 15,
+            "dex": 13,
+            "vit": 12
+          }
+        ],
+        "skill": [
+          "Trapper",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 18,
+            "ranged": 17,
+            "magic": 0
+          }
+        ],
+        "otherX": -460.5903347782403,
+        "otherY": 4285.201967131066,
+        "x": -460.5903347782403,
+        "y": 4285.201967131066,
+        "stuned": false,
+        "state": 2,
+        "dir": 3,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 250,
+        "lastTime": 3822.799999965355,
+        "int": 2,
+        "agi": 8,
+        "str": 15,
+        "dex": 13,
+        "vit": 12,
+        "totHP": 130,
+        "hp": 130,
+        "mDmg": 30,
+        "rDmg": 26,
+        "sDmg": 4,
+        "speed": 12.6204
+      },
+      {
+        "race": [
+          "Elf",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 15,
+            "agi": 8,
+            "str": 5,
+            "dex": 8,
+            "vit": 14
+          }
+        ],
+        "skill": [
+          "Mage",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 5,
+            "ranged": 5,
+            "magic": 25
+          }
+        ],
+        "otherX": -2013.9560561879027,
+        "otherY": -2061.325378661705,
+        "x": -2013.9560561879027,
+        "y": -2061.325378661705,
+        "stuned": false,
+        "state": 2,
+        "dir": 1,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 250,
+        "lastTime": 3806.700000015553,
+        "int": 15,
+        "agi": 8,
+        "str": 5,
+        "dex": 8,
+        "vit": 14,
+        "totHP": 150,
+        "hp": 150,
+        "mDmg": 10,
+        "rDmg": 16,
+        "sDmg": 30,
+        "speed": 12.6204
+      },
+      {
+        "race": [
+          "Elf",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 15,
+            "agi": 8,
+            "str": 5,
+            "dex": 8,
+            "vit": 14
+          }
+        ],
+        "skill": [
+          "Mage",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 5,
+            "ranged": 5,
+            "magic": 25
+          }
+        ],
+        "otherX": 618.20850497272,
+        "otherY": -2378.225825101467,
+        "x": 618.20850497272,
+        "y": -2378.225825101467,
+        "stuned": false,
+        "state": 2,
+        "dir": 3,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 250,
+        "lastTime": 3822.9999999748543,
+        "int": 15,
+        "agi": 8,
+        "str": 5,
+        "dex": 8,
+        "vit": 14,
+        "totHP": 150,
+        "hp": 150,
+        "mDmg": 10,
+        "rDmg": 16,
+        "sDmg": 30,
+        "speed": 12.6204
+      },
+      {
+        "race": [
+          "Orc",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 2,
+            "agi": 8,
+            "str": 15,
+            "dex": 13,
+            "vit": 12
+          }
+        ],
+        "skill": [
+          "Archer",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 5,
+            "ranged": 20,
+            "magic": 10
+          }
+        ],
+        "otherX": -6327.689736149853,
+        "otherY": -890.3452493108114,
+        "x": -6327.689736149853,
+        "y": -890.3452493108114,
+        "stuned": false,
+        "state": 2,
+        "dir": 1,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 250,
+        "lastTime": 3823.099999979604,
+        "int": 2,
+        "agi": 8,
+        "str": 15,
+        "dex": 13,
+        "vit": 12,
+        "totHP": 130,
+        "hp": 130,
+        "mDmg": 30,
+        "rDmg": 26,
+        "sDmg": 4,
+        "speed": 12.6204
+      },
+      {
+        "race": [
+          "Halfling",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 10,
+            "agi": 12,
+            "str": 8,
+            "dex": 14,
+            "vit": 6
+          }
+        ],
+        "skill": [
+          "Archer",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 5,
+            "ranged": 20,
+            "magic": 10
+          }
+        ],
+        "otherX": 1882.6331727807892,
+        "otherY": 4347.640733343117,
+        "x": 1882.6331727807892,
+        "y": 4347.640733343117,
+        "stuned": false,
+        "state": 2,
+        "dir": 0,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 166.66666666666666,
+        "lastTime": 3841.499999980442,
+        "int": 10,
+        "agi": 12,
+        "str": 8,
+        "dex": 14,
+        "vit": 6,
+        "totHP": 70,
+        "hp": 70,
+        "mDmg": 16,
+        "rDmg": 28,
+        "sDmg": 20,
+        "speed": 13.2676
+      },
+      {
+        "race": [
+          "Dwarf",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 6,
+            "agi": 6,
+            "str": 16,
+            "dex": 8,
+            "vit": 14
+          }
+        ],
+        "skill": [
+          "Samurai",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 20,
+            "ranged": 0,
+            "magic": 15
+          }
+        ],
+        "otherX": 138.32171519707836,
+        "otherY": -2360.038975094151,
+        "x": 138.32171519707836,
+        "y": -2360.038975094151,
+        "stuned": false,
+        "state": 2,
+        "dir": 2,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 333.3333333333333,
+        "lastTime": 3640.5999999842606,
+        "int": 6,
+        "agi": 6,
+        "str": 16,
+        "dex": 8,
+        "vit": 14,
+        "totHP": 150,
+        "hp": 150,
+        "mDmg": 32,
+        "rDmg": 16,
+        "sDmg": 12,
+        "speed": 12.296800000000001
+      },
+      {
+        "race": [
+          "Orc",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 2,
+            "agi": 8,
+            "str": 15,
+            "dex": 13,
+            "vit": 12
+          }
+        ],
+        "skill": [
+          "Samurai",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 20,
+            "ranged": 0,
+            "magic": 15
+          }
+        ],
+        "otherX": -5299.009026845462,
+        "otherY": 749.6517619102831,
+        "x": -5299.009026845462,
+        "y": 749.6517619102831,
+        "stuned": false,
+        "state": 2,
+        "dir": 3,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 250,
+        "lastTime": 3823.2999999891035,
+        "int": 2,
+        "agi": 8,
+        "str": 15,
+        "dex": 13,
+        "vit": 12,
+        "totHP": 130,
+        "hp": 130,
+        "mDmg": 30,
+        "rDmg": 26,
+        "sDmg": 4,
+        "speed": 12.6204
+      },
+      {
+        "race": [
+          "Elf",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 15,
+            "agi": 8,
+            "str": 5,
+            "dex": 8,
+            "vit": 14
+          }
+        ],
+        "skill": [
+          "Fighter",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 20,
+            "ranged": 10,
+            "magic": 5
+          }
+        ],
+        "otherX": -2024.171953037698,
+        "otherY": 2177.2303689504797,
+        "x": -2024.171953037698,
+        "y": 2177.2303689504797,
+        "stuned": false,
+        "state": 2,
+        "dir": 3,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 250,
+        "lastTime": 3807.199999981094,
+        "int": 15,
+        "agi": 8,
+        "str": 5,
+        "dex": 8,
+        "vit": 14,
+        "totHP": 150,
+        "hp": 150,
+        "mDmg": 10,
+        "rDmg": 16,
+        "sDmg": 30,
+        "speed": 12.6204
+      },
+      {
+        "race": [
+          "Human",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 10,
+            "agi": 10,
+            "str": 10,
+            "dex": 10,
+            "vit": 10
+          }
+        ],
+        "skill": [
+          "Archer",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 5,
+            "ranged": 20,
+            "magic": 10
+          }
+        ],
+        "otherX": -3072.735736634771,
+        "otherY": 2064.786375918609,
+        "x": -3072.735736634771,
+        "y": 2064.786375918609,
+        "stuned": false,
+        "state": 2,
+        "dir": 3,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 200,
+        "lastTime": 3722.8999999933876,
+        "int": 10,
+        "agi": 10,
+        "str": 10,
+        "dex": 10,
+        "vit": 10,
+        "totHP": 110,
+        "hp": 110,
+        "mDmg": 20,
+        "rDmg": 20,
+        "sDmg": 20,
+        "speed": 12.944
+      },
+      {
+        "race": [
+          "Half-Elf",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 10,
+            "agi": 11,
+            "str": 6,
+            "dex": 12,
+            "vit": 11
+          }
+        ],
+        "skill": [
+          "Rogue",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 15,
+            "ranged": 10,
+            "magic": 10
+          }
+        ],
+        "otherX": 4759.48225567001,
+        "otherY": 573.76056571604,
+        "x": 4759.48225567001,
+        "y": 573.76056571604,
+        "stuned": false,
+        "state": 2,
+        "dir": 0,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 181.8181818181818,
+        "lastTime": 3842.000000004191,
+        "int": 10,
+        "agi": 11,
+        "str": 6,
+        "dex": 12,
+        "vit": 11,
+        "totHP": 120,
+        "hp": 120,
+        "mDmg": 12,
+        "rDmg": 24,
+        "sDmg": 20,
+        "speed": 13.1058
+      },
+      {
+        "race": [
+          "Uruk-Hai",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 2,
+            "agi": 4,
+            "str": 16,
+            "dex": 12,
+            "vit": 16
+          }
+        ],
+        "skill": [
+          "Samurai",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 20,
+            "ranged": 0,
+            "magic": 15
+          }
+        ],
+        "otherX": 6518.454577417603,
+        "otherY": -1235.0970540315939,
+        "x": 6518.454577417603,
+        "y": -1235.0970540315939,
+        "stuned": false,
+        "state": 2,
+        "dir": 0,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 500,
+        "lastTime": 3807.3999999905936,
+        "int": 2,
+        "agi": 4,
+        "str": 16,
+        "dex": 12,
+        "vit": 16,
+        "totHP": 170,
+        "hp": 170,
+        "mDmg": 32,
+        "rDmg": 24,
+        "sDmg": 4,
+        "speed": 11.9732
+      },
+      {
+        "race": [
+          "Half-Elf",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 10,
+            "agi": 11,
+            "str": 6,
+            "dex": 12,
+            "vit": 11
+          }
+        ],
+        "skill": [
+          "Samurai",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 20,
+            "ranged": 0,
+            "magic": 15
+          }
+        ],
+        "otherX": 7112.600449648914,
+        "otherY": -852.2405240365285,
+        "x": 7112.600449648914,
+        "y": -852.2405240365285,
+        "stuned": false,
+        "state": 2,
+        "dir": 2,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 181.8181818181818,
+        "lastTime": 3842.3999999649823,
+        "int": 10,
+        "agi": 11,
+        "str": 6,
+        "dex": 12,
+        "vit": 11,
+        "totHP": 120,
+        "hp": 120,
+        "mDmg": 12,
+        "rDmg": 24,
+        "sDmg": 20,
+        "speed": 13.1058
+      },
+      {
+        "race": [
+          "Orc",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 2,
+            "agi": 8,
+            "str": 15,
+            "dex": 13,
+            "vit": 12
+          }
+        ],
+        "skill": [
+          "Rogue",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 15,
+            "ranged": 10,
+            "magic": 10
+          }
+        ],
+        "otherX": 171.2100137022169,
+        "otherY": 3071.2450927394248,
+        "x": 171.2100137022169,
+        "y": 3071.2450927394248,
+        "stuned": false,
+        "state": 2,
+        "dir": 1,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 250,
+        "lastTime": 3807.8000000095926,
+        "int": 2,
+        "agi": 8,
+        "str": 15,
+        "dex": 13,
+        "vit": 12,
+        "totHP": 130,
+        "hp": 130,
+        "mDmg": 30,
+        "rDmg": 26,
+        "sDmg": 4,
+        "speed": 12.6204
+      },
+      {
+        "race": [
+          "Uruk-Hai",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 2,
+            "agi": 4,
+            "str": 16,
+            "dex": 12,
+            "vit": 16
+          }
+        ],
+        "skill": [
+          "Archer",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 5,
+            "ranged": 20,
+            "magic": 10
+          }
+        ],
+        "otherX": -5981.286121907236,
+        "otherY": -2971.799088912803,
+        "x": -5981.286121907236,
+        "y": -2971.799088912803,
+        "stuned": false,
+        "state": 2,
+        "dir": 0,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 500,
+        "lastTime": 3808.000000019092,
+        "int": 2,
+        "agi": 4,
+        "str": 16,
+        "dex": 12,
+        "vit": 16,
+        "totHP": 170,
+        "hp": 170,
+        "mDmg": 32,
+        "rDmg": 24,
+        "sDmg": 4,
+        "speed": 11.9732
+      },
+      {
+        "race": [
+          "Half-Elf",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 10,
+            "agi": 11,
+            "str": 6,
+            "dex": 12,
+            "vit": 11
+          }
+        ],
+        "skill": [
+          "Mage",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 5,
+            "ranged": 5,
+            "magic": 25
+          }
+        ],
+        "otherX": -6547.70501939383,
+        "otherY": 4554.727206977613,
+        "x": -6547.70501939383,
+        "y": 4554.727206977613,
+        "stuned": false,
+        "state": 2,
+        "dir": 0,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 181.8181818181818,
+        "lastTime": 3842.6999999792315,
+        "int": 10,
+        "agi": 11,
+        "str": 6,
+        "dex": 12,
+        "vit": 11,
+        "totHP": 120,
+        "hp": 120,
+        "mDmg": 12,
+        "rDmg": 24,
+        "sDmg": 20,
+        "speed": 13.1058
+      },
+      {
+        "race": [
+          "Goblin",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 0,
+            "agi": 17,
+            "str": 12,
+            "dex": 17,
+            "vit": 4
+          }
+        ],
+        "skill": [
+          "Trapper",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 18,
+            "ranged": 17,
+            "magic": 0
+          }
+        ],
+        "otherX": 7501.453681971258,
+        "otherY": -974.8112191404605,
+        "x": 7501.453681971258,
+        "y": -974.8112191404605,
+        "stuned": false,
+        "state": 2,
+        "dir": 3,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 117.6470588235294,
+        "lastTime": 3808.199999970384,
+        "int": 0,
+        "agi": 17,
+        "str": 12,
+        "dex": 17,
+        "vit": 4,
+        "totHP": 50,
+        "hp": 50,
+        "mDmg": 24,
+        "rDmg": 34,
+        "sDmg": 0,
+        "speed": 14.076600000000001
+      },
+      {
+        "race": [
+          "Half-Elf",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 10,
+            "agi": 11,
+            "str": 6,
+            "dex": 12,
+            "vit": 11
+          }
+        ],
+        "skill": [
+          "Archer",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 5,
+            "ranged": 20,
+            "magic": 10
+          }
+        ],
+        "otherX": -2801.20510511033,
+        "otherY": -3210.6418322686727,
+        "x": -2801.20510511033,
+        "y": -3210.6418322686727,
+        "stuned": false,
+        "state": 2,
+        "dir": 2,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 181.8181818181818,
+        "lastTime": 3842.899999988731,
+        "int": 10,
+        "agi": 11,
+        "str": 6,
+        "dex": 12,
+        "vit": 11,
+        "totHP": 120,
+        "hp": 120,
+        "mDmg": 12,
+        "rDmg": 24,
+        "sDmg": 20,
+        "speed": 13.1058
+      },
+      {
+        "race": [
+          "Elf",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 15,
+            "agi": 8,
+            "str": 5,
+            "dex": 8,
+            "vit": 14
+          }
+        ],
+        "skill": [
+          "Mage",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 5,
+            "ranged": 5,
+            "magic": 25
+          }
+        ],
+        "otherX": -5814.131208216837,
+        "otherY": -2524.736861481412,
+        "x": -5814.131208216837,
+        "y": -2524.736861481412,
+        "stuned": false,
+        "state": 2,
+        "dir": 3,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 250,
+        "lastTime": 3824.2999999783933,
+        "int": 15,
+        "agi": 8,
+        "str": 5,
+        "dex": 8,
+        "vit": 14,
+        "totHP": 150,
+        "hp": 150,
+        "mDmg": 10,
+        "rDmg": 16,
+        "sDmg": 30,
+        "speed": 12.6204
+      },
+      {
+        "race": [
+          "Human",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 10,
+            "agi": 10,
+            "str": 10,
+            "dex": 10,
+            "vit": 10
+          }
+        ],
+        "skill": [
+          "Rogue",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 15,
+            "ranged": 10,
+            "magic": 10
+          }
+        ],
+        "otherX": -6088.313332618703,
+        "otherY": -775.8512385166205,
+        "x": -6088.313332618703,
+        "y": -775.8512385166205,
+        "stuned": false,
+        "state": 2,
+        "dir": 1,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 200,
+        "lastTime": 3723.999999987427,
+        "int": 10,
+        "agi": 10,
+        "str": 10,
+        "dex": 10,
+        "vit": 10,
+        "totHP": 110,
+        "hp": 110,
+        "mDmg": 20,
+        "rDmg": 20,
+        "sDmg": 20,
+        "speed": 12.944
+      },
+      {
+        "race": [
+          "Goblin",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 0,
+            "agi": 17,
+            "str": 12,
+            "dex": 17,
+            "vit": 4
+          }
+        ],
+        "skill": [
+          "Cleric",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 5,
+            "ranged": 10,
+            "magic": 20
+          }
+        ],
+        "otherX": -6191.745330229229,
+        "otherY": 4686.576495587669,
+        "x": -6191.745330229229,
+        "y": 4686.576495587669,
+        "stuned": false,
+        "state": 2,
+        "dir": 3,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 117.6470588235294,
+        "lastTime": 3824.2999999783933,
+        "int": 0,
+        "agi": 17,
+        "str": 12,
+        "dex": 17,
+        "vit": 4,
+        "totHP": 50,
+        "hp": 50,
+        "mDmg": 24,
+        "rDmg": 34,
+        "sDmg": 0,
+        "speed": 14.076600000000001
+      },
+      {
+        "race": [
+          "Human",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 10,
+            "agi": 10,
+            "str": 10,
+            "dex": 10,
+            "vit": 10
+          }
+        ],
+        "skill": [
+          "Rogue",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 15,
+            "ranged": 10,
+            "magic": 10
+          }
+        ],
+        "otherX": -371.6600031797139,
+        "otherY": 4168.361537726426,
+        "x": -371.6600031797139,
+        "y": 4168.361537726426,
+        "stuned": false,
+        "state": 2,
+        "dir": 1,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 200,
+        "lastTime": 3724.1999999969266,
+        "int": 10,
+        "agi": 10,
+        "str": 10,
+        "dex": 10,
+        "vit": 10,
+        "totHP": 110,
+        "hp": 110,
+        "mDmg": 20,
+        "rDmg": 20,
+        "sDmg": 20,
+        "speed": 12.944
+      },
+      {
+        "race": [
+          "Half-Elf",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 10,
+            "agi": 11,
+            "str": 6,
+            "dex": 12,
+            "vit": 11
+          }
+        ],
+        "skill": [
+          "Ranger",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 13,
+            "ranged": 12,
+            "magic": 10
+          }
+        ],
+        "otherX": 1144.8509076600644,
+        "otherY": 1875.4073339632494,
+        "x": 1144.8509076600644,
+        "y": 1875.4073339632494,
+        "stuned": false,
+        "state": 2,
+        "dir": 0,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 181.8181818181818,
+        "lastTime": 3843.4000000124797,
+        "int": 10,
+        "agi": 11,
+        "str": 6,
+        "dex": 12,
+        "vit": 11,
+        "totHP": 120,
+        "hp": 120,
+        "mDmg": 12,
+        "rDmg": 24,
+        "sDmg": 20,
+        "speed": 13.1058
+      },
+      {
+        "race": [
+          "Half-Elf",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 10,
+            "agi": 11,
+            "str": 6,
+            "dex": 12,
+            "vit": 11
+          }
+        ],
+        "skill": [
+          "Archer",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 5,
+            "ranged": 20,
+            "magic": 10
+          }
+        ],
+        "otherX": 3015.142106628533,
+        "otherY": 1199.6112511249491,
+        "x": 3015.142106628533,
+        "y": 1199.6112511249491,
+        "stuned": false,
+        "state": 2,
+        "dir": 0,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 181.8181818181818,
+        "lastTime": 3843.5000000172295,
+        "int": 10,
+        "agi": 11,
+        "str": 6,
+        "dex": 12,
+        "vit": 11,
+        "totHP": 120,
+        "hp": 120,
+        "mDmg": 12,
+        "rDmg": 24,
+        "sDmg": 20,
+        "speed": 13.1058
+      },
+      {
+        "race": [
+          "Orc",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 2,
+            "agi": 8,
+            "str": 15,
+            "dex": 13,
+            "vit": 12
+          }
+        ],
+        "skill": [
+          "Cleric",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 5,
+            "ranged": 10,
+            "magic": 20
+          }
+        ],
+        "otherX": 2159.586405107354,
+        "otherY": -2859.6819764732363,
+        "x": 2159.586405107354,
+        "y": -2859.6819764732363,
+        "stuned": false,
+        "state": 2,
+        "dir": 3,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 250,
+        "lastTime": 3825.0000000116415,
+        "int": 2,
+        "agi": 8,
+        "str": 15,
+        "dex": 13,
+        "vit": 12,
+        "totHP": 130,
+        "hp": 130,
+        "mDmg": 30,
+        "rDmg": 26,
+        "sDmg": 4,
+        "speed": 12.6204
+      },
+      {
+        "race": [
+          "Human",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 10,
+            "agi": 10,
+            "str": 10,
+            "dex": 10,
+            "vit": 10
+          }
+        ],
+        "skill": [
+          "Archer",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 5,
+            "ranged": 20,
+            "magic": 10
+          }
+        ],
+        "otherX": 2470.241977431702,
+        "otherY": 1430.1100982212733,
+        "x": 2470.241977431702,
+        "y": 1430.1100982212733,
+        "stuned": false,
+        "state": 2,
+        "dir": 1,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 200,
+        "lastTime": 3724.6000000159256,
+        "int": 10,
+        "agi": 10,
+        "str": 10,
+        "dex": 10,
+        "vit": 10,
+        "totHP": 110,
+        "hp": 110,
+        "mDmg": 20,
+        "rDmg": 20,
+        "sDmg": 20,
+        "speed": 12.944
+      },
+      {
+        "race": [
+          "Goblin",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 0,
+            "agi": 17,
+            "str": 12,
+            "dex": 17,
+            "vit": 4
+          }
+        ],
+        "skill": [
+          "Fighter",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 20,
+            "ranged": 10,
+            "magic": 5
+          }
+        ],
+        "otherX": -593.6163494199861,
+        "otherY": 1506.541769629655,
+        "x": -593.6163494199861,
+        "y": 1506.541769629655,
+        "stuned": false,
+        "state": 2,
+        "dir": 1,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 117.6470588235294,
+        "lastTime": 3825.1999999629334,
+        "int": 0,
+        "agi": 17,
+        "str": 12,
+        "dex": 17,
+        "vit": 4,
+        "totHP": 50,
+        "hp": 50,
+        "mDmg": 24,
+        "rDmg": 34,
+        "sDmg": 0,
+        "speed": 14.076600000000001
+      },
+      {
+        "race": [
+          "Elf",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 15,
+            "agi": 8,
+            "str": 5,
+            "dex": 8,
+            "vit": 14
+          }
+        ],
+        "skill": [
+          "Mage",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 5,
+            "ranged": 5,
+            "magic": 25
+          }
+        ],
+        "otherX": -5908.992983808617,
+        "otherY": -1970.2739081431362,
+        "x": -5908.992983808617,
+        "y": -1970.2739081431362,
+        "stuned": false,
+        "state": 2,
+        "dir": 1,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 250,
+        "lastTime": 3825.299999967683,
+        "int": 15,
+        "agi": 8,
+        "str": 5,
+        "dex": 8,
+        "vit": 14,
+        "totHP": 150,
+        "hp": 150,
+        "mDmg": 10,
+        "rDmg": 16,
+        "sDmg": 30,
+        "speed": 12.6204
+      },
+      {
+        "race": [
+          "Dwarf",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 6,
+            "agi": 6,
+            "str": 16,
+            "dex": 8,
+            "vit": 14
+          }
+        ],
+        "skill": [
+          "Samurai",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 20,
+            "ranged": 0,
+            "magic": 15
+          }
+        ],
+        "otherX": 7573.49347584961,
+        "otherY": 3322.1054716792496,
+        "x": 7573.49347584961,
+        "y": 3322.1054716792496,
+        "stuned": false,
+        "state": 2,
+        "dir": 0,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 333.3333333333333,
+        "lastTime": 3642.999999981839,
+        "int": 6,
+        "agi": 6,
+        "str": 16,
+        "dex": 8,
+        "vit": 14,
+        "totHP": 150,
+        "hp": 150,
+        "mDmg": 32,
+        "rDmg": 16,
+        "sDmg": 12,
+        "speed": 12.296800000000001
+      },
+      {
+        "race": [
+          "Human",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 10,
+            "agi": 10,
+            "str": 10,
+            "dex": 10,
+            "vit": 10
+          }
+        ],
+        "skill": [
+          "Archer",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 5,
+            "ranged": 20,
+            "magic": 10
+          }
+        ],
+        "otherX": 675.640807483061,
+        "otherY": 1863.223552357526,
+        "x": 675.640807483061,
+        "y": 1863.223552357526,
+        "stuned": false,
+        "state": 2,
+        "dir": 1,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 200,
+        "lastTime": 3724.899999971967,
+        "int": 10,
+        "agi": 10,
+        "str": 10,
+        "dex": 10,
+        "vit": 10,
+        "totHP": 110,
+        "hp": 110,
+        "mDmg": 20,
+        "rDmg": 20,
+        "sDmg": 20,
+        "speed": 12.944
+      },
+      {
+        "race": [
+          "Elf",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 15,
+            "agi": 8,
+            "str": 5,
+            "dex": 8,
+            "vit": 14
+          }
+        ],
+        "skill": [
+          "Mage",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 5,
+            "ranged": 5,
+            "magic": 25
+          }
+        ],
+        "otherX": 1928.9043907088665,
+        "otherY": 1972.345030493547,
+        "x": 1928.9043907088665,
+        "y": 1972.345030493547,
+        "stuned": false,
+        "state": 2,
+        "dir": 3,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 250,
+        "lastTime": 3809.5999999786727,
+        "int": 15,
+        "agi": 8,
+        "str": 5,
+        "dex": 8,
+        "vit": 14,
+        "totHP": 150,
+        "hp": 150,
+        "mDmg": 10,
+        "rDmg": 16,
+        "sDmg": 30,
+        "speed": 12.6204
+      },
+      {
+        "race": [
+          "Goblin",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 0,
+            "agi": 17,
+            "str": 12,
+            "dex": 17,
+            "vit": 4
+          }
+        ],
+        "skill": [
+          "Fighter",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 20,
+            "ranged": 10,
+            "magic": 5
+          }
+        ],
+        "otherX": -5556.623655676338,
+        "otherY": 2155.0410035501554,
+        "x": -5556.623655676338,
+        "y": 2155.0410035501554,
+        "stuned": false,
+        "state": 2,
+        "dir": 3,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 117.6470588235294,
+        "lastTime": 3809.799999988172,
+        "int": 0,
+        "agi": 17,
+        "str": 12,
+        "dex": 17,
+        "vit": 4,
+        "totHP": 50,
+        "hp": 50,
+        "mDmg": 24,
+        "rDmg": 34,
+        "sDmg": 0,
+        "speed": 14.076600000000001
+      },
+      {
+        "race": [
+          "Goblin",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 0,
+            "agi": 17,
+            "str": 12,
+            "dex": 17,
+            "vit": 4
+          }
+        ],
+        "skill": [
+          "Fighter",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 20,
+            "ranged": 10,
+            "magic": 5
+          }
+        ],
+        "otherX": 3896.711526460127,
+        "otherY": 2964.1793186656278,
+        "x": 3896.711526460127,
+        "y": 2964.1793186656278,
+        "stuned": false,
+        "state": 2,
+        "dir": 3,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 117.6470588235294,
+        "lastTime": 3809.799999988172,
+        "int": 0,
+        "agi": 17,
+        "str": 12,
+        "dex": 17,
+        "vit": 4,
+        "totHP": 50,
+        "hp": 50,
+        "mDmg": 24,
+        "rDmg": 34,
+        "sDmg": 0,
+        "speed": 14.076600000000001
+      },
+      {
+        "race": [
+          "Halfling",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 10,
+            "agi": 12,
+            "str": 8,
+            "dex": 14,
+            "vit": 6
+          }
+        ],
+        "skill": [
+          "Ranger",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 13,
+            "ranged": 12,
+            "magic": 10
+          }
+        ],
+        "otherX": 4808.339407589971,
+        "otherY": 1420.115521246243,
+        "x": 4808.339407589971,
+        "y": 1420.115521246243,
+        "stuned": false,
+        "state": 2,
+        "dir": 0,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 166.66666666666666,
+        "lastTime": 3844.600000011269,
+        "int": 10,
+        "agi": 12,
+        "str": 8,
+        "dex": 14,
+        "vit": 6,
+        "totHP": 70,
+        "hp": 70,
+        "mDmg": 16,
+        "rDmg": 28,
+        "sDmg": 20,
+        "speed": 13.2676
+      },
+      {
+        "race": [
+          "Halfling",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 10,
+            "agi": 12,
+            "str": 8,
+            "dex": 14,
+            "vit": 6
+          }
+        ],
+        "skill": [
+          "Samurai",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 20,
+            "ranged": 0,
+            "magic": 15
+          }
+        ],
+        "otherX": -4859.405833206543,
+        "otherY": 1349.257757855744,
+        "x": -4859.405833206543,
+        "y": 1349.257757855744,
+        "stuned": false,
+        "state": 2,
+        "dir": 0,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 166.66666666666666,
+        "lastTime": 3844.7000000160187,
+        "int": 10,
+        "agi": 12,
+        "str": 8,
+        "dex": 14,
+        "vit": 6,
+        "totHP": 70,
+        "hp": 70,
+        "mDmg": 16,
+        "rDmg": 28,
+        "sDmg": 20,
+        "speed": 13.2676
+      },
+      {
+        "race": [
+          "Halfling",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 10,
+            "agi": 12,
+            "str": 8,
+            "dex": 14,
+            "vit": 6
+          }
+        ],
+        "skill": [
+          "Rogue",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 15,
+            "ranged": 10,
+            "magic": 10
+          }
+        ],
+        "otherX": 5127.0085795141395,
+        "otherY": 1554.8376618764535,
+        "x": 5127.0085795141395,
+        "y": 1554.8376618764535,
+        "stuned": false,
+        "state": 2,
+        "dir": 2,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 166.66666666666666,
+        "lastTime": 3844.799999962561,
+        "int": 10,
+        "agi": 12,
+        "str": 8,
+        "dex": 14,
+        "vit": 6,
+        "totHP": 70,
+        "hp": 70,
+        "mDmg": 16,
+        "rDmg": 28,
+        "sDmg": 20,
+        "speed": 13.2676
+      },
+      {
+        "race": [
+          "Human",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 10,
+            "agi": 10,
+            "str": 10,
+            "dex": 10,
+            "vit": 10
+          }
+        ],
+        "skill": [
+          "Cleric",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 5,
+            "ranged": 10,
+            "magic": 20
+          }
+        ],
+        "otherX": 1527.5161839356738,
+        "otherY": -4646.816930630024,
+        "x": 1527.5161839356738,
+        "y": -4646.816930630024,
+        "stuned": false,
+        "state": 2,
+        "dir": 1,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 200,
+        "lastTime": 3725.399999995716,
+        "int": 10,
+        "agi": 10,
+        "str": 10,
+        "dex": 10,
+        "vit": 10,
+        "totHP": 110,
+        "hp": 110,
+        "mDmg": 20,
+        "rDmg": 20,
+        "sDmg": 20,
+        "speed": 12.944
+      },
+      {
+        "race": [
+          "Uruk-Hai",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 2,
+            "agi": 4,
+            "str": 16,
+            "dex": 12,
+            "vit": 16
+          }
+        ],
+        "skill": [
+          "Mage",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 5,
+            "ranged": 5,
+            "magic": 25
+          }
+        ],
+        "otherX": -2954.8717266346725,
+        "otherY": -2064.8316479560585,
+        "x": -2954.8717266346725,
+        "y": -2064.8316479560585,
+        "stuned": false,
+        "state": 2,
+        "dir": 0,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 500,
+        "lastTime": 3810.300000011921,
+        "int": 2,
+        "agi": 4,
+        "str": 16,
+        "dex": 12,
+        "vit": 16,
+        "totHP": 170,
+        "hp": 170,
+        "mDmg": 32,
+        "rDmg": 24,
+        "sDmg": 4,
+        "speed": 11.9732
+      },
+      {
+        "race": [
+          "Halfling",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 10,
+            "agi": 12,
+            "str": 8,
+            "dex": 14,
+            "vit": 6
+          }
+        ],
+        "skill": [
+          "Samurai",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 20,
+            "ranged": 0,
+            "magic": 15
+          }
+        ],
+        "otherX": 1054.2965661592966,
+        "otherY": 2419.6843334141868,
+        "x": 1054.2965661592966,
+        "y": 2419.6843334141868,
+        "stuned": false,
+        "state": 2,
+        "dir": 0,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 166.66666666666666,
+        "lastTime": 3844.9999999720603,
+        "int": 10,
+        "agi": 12,
+        "str": 8,
+        "dex": 14,
+        "vit": 6,
+        "totHP": 70,
+        "hp": 70,
+        "mDmg": 16,
+        "rDmg": 28,
+        "sDmg": 20,
+        "speed": 13.2676
+      },
+      {
+        "race": [
+          "Halfling",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 10,
+            "agi": 12,
+            "str": 8,
+            "dex": 14,
+            "vit": 6
+          }
+        ],
+        "skill": [
+          "Fighter",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 20,
+            "ranged": 10,
+            "magic": 5
+          }
+        ],
+        "otherX": -4028.653379588171,
+        "otherY": -1720.6964815875074,
+        "x": -4028.653379588171,
+        "y": -1720.6964815875074,
+        "stuned": false,
+        "state": 2,
+        "dir": 2,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 166.66666666666666,
+        "lastTime": 3845.09999997681,
+        "int": 10,
+        "agi": 12,
+        "str": 8,
+        "dex": 14,
+        "vit": 6,
+        "totHP": 70,
+        "hp": 70,
+        "mDmg": 16,
+        "rDmg": 28,
+        "sDmg": 20,
+        "speed": 13.2676
+      },
+      {
+        "race": [
+          "Orc",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 2,
+            "agi": 8,
+            "str": 15,
+            "dex": 13,
+            "vit": 12
+          }
+        ],
+        "skill": [
+          "Cleric",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 5,
+            "ranged": 10,
+            "magic": 20
+          }
+        ],
+        "otherX": -4503.428222225446,
+        "otherY": -672.4827871900154,
+        "x": -4503.428222225446,
+        "y": -672.4827871900154,
+        "stuned": false,
+        "state": 2,
+        "dir": 3,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 250,
+        "lastTime": 3810.799999977462,
+        "int": 2,
+        "agi": 8,
+        "str": 15,
+        "dex": 13,
+        "vit": 12,
+        "totHP": 130,
+        "hp": 130,
+        "mDmg": 30,
+        "rDmg": 26,
+        "sDmg": 4,
+        "speed": 12.6204
+      },
+      {
+        "race": [
+          "Human",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "int": 10,
+            "agi": 10,
+            "str": 10,
+            "dex": 10,
+            "vit": 10
+          }
+        ],
+        "skill": [
+          "Rogue",
+          {
+            "width": 800,
+            "height": 600,
+            "canvas": {},
+            "drawingContext": {},
+            "_pixelDensity": 1,
+            "_modified": false,
+            "pixels": [],
+            "name": "p5.Image",
+            "modified": true
+          },
+          {
+            "melee": 15,
+            "ranged": 10,
+            "magic": 10
+          }
+        ],
+        "otherX": -4862.162094396889,
+        "otherY": 3512.541665475104,
+        "x": -4862.162094396889,
+        "y": 3512.541665475104,
+        "stuned": false,
+        "state": 2,
+        "dir": 1,
+        "UP": 0,
+        "RIGHT": 1,
+        "DOWN": 2,
+        "LEFT": 3,
+        "timeToStep": 200,
+        "lastTime": 3725.9000000194646,
+        "int": 10,
+        "agi": 10,
+        "str": 10,
+        "dex": 10,
+        "vit": 10,
+        "totHP": 110,
+        "hp": 110,
+        "mDmg": 20,
+        "rDmg": 20,
+        "sDmg": 20,
+        "speed": 12.944
+      }
+    ]
+  },
+  "player": {
+    "racePosistion": 6,
+    "skillPosistion": 5,
+    "raceImage": {
+      "width": 800,
+      "height": 600,
+      "canvas": {},
+      "drawingContext": {},
+      "_pixelDensity": 1,
+      "_modified": false,
+      "pixels": [],
+      "name": "p5.Image",
+      "modified": true
+    },
+    "skillImage": {
+      "width": 800,
+      "height": 600,
+      "canvas": {},
+      "drawingContext": {},
+      "_pixelDensity": 1,
+      "_modified": false,
+      "pixels": [],
+      "name": "p5.Image",
+      "modified": true
+    },
+    "int": 0,
+    "agi": 17,
+    "str": 12,
+    "dex": 17,
+    "vit": 4,
+    "hp": 50,
+    "mDmg": 24,
+    "rDmg": 34,
+    "sDmg": 0,
+    "x": 8090,
+    "y": 4845,
+    "speed": 14.076600000000001
+  },
+  "inventory": {
+    "mouseHolding": 0,
+    "itemsOnGround": [],
+    "numOfHpPotions": 3,
+    "numOfMpPotions": 3,
+    "numOfArrows": 10,
+    "numOfTraps": 10
+  }
+}
