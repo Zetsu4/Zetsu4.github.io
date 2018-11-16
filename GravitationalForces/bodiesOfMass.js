@@ -18,9 +18,9 @@ class bodyOfMass {
   move(aH, aV) {
     if (!this.fixed) {
       this.vH += aH;
-      this.x += this.vH;
-
       this.vV += aV;
+
+      this.x += this.vH;
       this.y += this.vV;
     }
   }
@@ -29,9 +29,11 @@ class bodyOfMass {
     return dist(mouseX, mouseY, this.x, this.y) <= this.radius;
   }
 
-  // collide(x, y, r) {
-  //   if (dist(this.x, this.y, x, y) < this.r + r) {
-  //     this.
-  //   }
-  // }
+  collide() {
+    this.x -= this.vH;
+    this.y -= this.vV;
+
+    this.vH = 0;
+    this.vV = 0;
+  }
 }

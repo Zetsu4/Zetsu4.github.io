@@ -75,11 +75,14 @@ function moveBodiesOfMass() {
 }
 
 function collisionOfBodies() {
-  // for (let i = 0; i < bodiesOfMass.length; i++) {
-  //   for (let j = 0; j < bodiesOfMass.length; j++) {
-  //     bodiesOfMass[i].collide(bodiesOfMass[j].x, bodiesOfMass[j].y, bodiesOfMass[j].radius);
-  //   }
-  // }
+  for (let i = 0; i < bodiesOfMass.length; i++) {
+    for (let j = 0; j < bodiesOfMass.length; j++) {
+      let radii = (bodiesOfMass[i].radius+bodiesOfMass[j].radius)/2;
+      if (i !== j && dist(bodiesOfMass[i].x, bodiesOfMass[i].y, bodiesOfMass[j].x, bodiesOfMass[j].y) < radii) {
+        bodiesOfMass[i].collide();
+      }
+    }
+  }
 }
 
 function showBodiesOfMass() {
@@ -221,7 +224,7 @@ function keyPressed() {
 function mousePressed() {
   if (deleteOn) {
     // delete
-    for (let i = 0; i < bodiesOfMass.length; i++) {
+    for (let i = bodiesOfMass.length-1; i >= 0; i--) {
       if (bodiesOfMass[i].mouseOver()) {
         bodiesOfMass.splice(i, 1);
       }
