@@ -27,7 +27,6 @@ function setup() {
 
   strokeWeight(5);
   noStroke();
-  // fill("black");
 
   rectMode(CENTER);
 
@@ -79,6 +78,7 @@ function collisionOfBodies() {
     for (let j = 0; j < bodiesOfMass.length; j++) {
       let radii = (bodiesOfMass[i].radius+bodiesOfMass[j].radius)/2;
       if (i !== j && dist(bodiesOfMass[i].x, bodiesOfMass[i].y, bodiesOfMass[j].x, bodiesOfMass[j].y) < radii) {
+        // thought - use angle between two colliding objects and figure out how they move after hitting
         bodiesOfMass[i].collide();
       }
     }

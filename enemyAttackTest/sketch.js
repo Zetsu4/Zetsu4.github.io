@@ -8,50 +8,37 @@ let things = [];
 
 class sword {
   constructor(x, y, size) {
-    this.x = x;
-    this.y = y;
+    this.x = 0;
+
+    this.realX;
+    this.realY;
+
+    this.xTranslate = x;
+    this.yTranslate = y;
 
     this.size = size;
-    // this.rotate = atan2(this.y - height/2, this.x - width/2);
-    this.rotate = atan2(height/2 - this.y, width/2 - this.x);
+    this.rotate = atan2(height/2 - y, width/2 - x);
 
     this.rotateing = random([true, false]);
   }
 
   destroy() {
-    return this.x < width/2 + this.size*2 && this.x > width/2 - this.size*2 &&
-    this.y < height/2 + this.size*2 && this.y > height/2 - this.size*2;
+    return this.realX < width/2 + this.size*2 && this.realX > width/2 - this.size*2
+    && this.realY < height/2 + this.size*2 && this.realY > height/2 - this.size*2;
   }
 
   move() {
-    if (this.x > width/2 + this.size) {
-      this.x -= 2;
-    }
-
-    if (this.x < width/2 - this.size) {
-      this.x += 2;
-    }
-
-    if (this.y > height/2 + this.size) {
-      this.y -= 2;
-    }
-
-    if (this.y < height/2 - this.size) {
-      this.y += 2;
-    }
+    this.x++;
+    this.realX = this.xTranslate + cos(this.rotate)*this.x;
+    this.realY = this.yTranslate + sin(this.rotate)*this.x;
   }
 
   show() {
     push();
-    if (this.rotateing) {
-      fill("green");
-      translate(this.x, this.y);
-      rotate(this.rotate);
-      rect(0, 0, this.size/2, this.size*2);
-    }
-    else {
-      rect(this.x, this.y, this.size/2, this.size*2);
-    }
+    fill("green");
+    translate(this.xTranslate, this.yTranslate);
+    rotate(this.rotate);
+    rect(this.x, 0, this.size/2, this.size*2);
     pop();
   }
 }
@@ -64,7 +51,7 @@ class badGuy {
     this.size = size;
     this.aSword = [];
 
-    this.timer = 1000;
+    this.timer = 100;
     this.otherTime = millis();
     this.state = 1;
   }
@@ -109,7 +96,7 @@ class badGuy {
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  // rectMode(CENTER);
+  rectMode(CENTER);
 }
 
 function draw() {
