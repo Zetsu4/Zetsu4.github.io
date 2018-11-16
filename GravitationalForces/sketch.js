@@ -26,9 +26,8 @@ function setup() {
   textAlign(LEFT, TOP);
 
   strokeWeight(5);
-  stroke("white");
-  fill("black");
-  noFill();
+  noStroke();
+  // fill("black");
 
   rectMode(CENTER);
 
@@ -48,15 +47,6 @@ function draw() {
   writeText();
 }
 
-function angle(sx, sy, ex, ey) {
-  let dy = ey - sy;
-  let dx = ex - sx;
-  let theta = Math.atan2(dy, dx); // range (-PI, PI]
-  theta *= 180 / Math.PI; // rads to degs, range (-180, 180]
-  //if (theta < 0) theta = 360 + theta; // range [0, 360)
-  return theta;
-}
-
 function moveBodiesOfMass() {
   for (let i = 0; i < bodiesOfMass.length; i++) {
     let totHorzForce = 0;
@@ -69,28 +59,13 @@ function moveBodiesOfMass() {
         let distance = dist(bodiesOfMass[i].x, bodiesOfMass[i].y, bodiesOfMass[j].x, bodiesOfMass[j].y);
         let force = 6.67e-11 * bodiesOfMass[i].mass * bodiesOfMass[j].mass/(distance*distance);
 
-        let theta = angle(bodiesOfMass[i].x, bodiesOfMass[i].y, bodiesOfMass[j].x, bodiesOfMass[j].y);
+        let theta = atan2(bodiesOfMass[i].y - bodiesOfMass[j].y, bodiesOfMass[i].x - bodiesOfMass[j].x);
 
         let fH = force*cos(theta);
         let fV = force*sin(theta);
 
-        // right
-        if (bodiesOfMass[i].x < bodiesOfMass[j].x) {
-          totHorzForce += fH;
-        }
-        // left
-        else {
-          totHorzForce -= fH;
-        }
-
-        // down
-        if (bodiesOfMass[i].y < bodiesOfMass[j].y) {
-          totVertForce += fV;
-        }
-        // up
-        else {
-          totVertForce -= fV;
-        }
+        totHorzForce -= fH;
+        totVertForce -= fV;
       }
     }
     accelerationH = totHorzForce/bodiesOfMass[i].mass;
@@ -255,9 +230,8 @@ function mousePressed() {
 
   // create
   else {
-    let randomCol = color(random(10, 255), random(10, 255), random(10, 255));
     let calculatedMass = mass*pow(10, exponent);
 
-    bodiesOfMass.push(new bodyOfMass(mouseX, mouseY, calculatedMass, radius, fixedPos, randomCol));
+    bodiesOfMass.push(new bodyOfMass(mouseX, mouseY, calculatedMass, radius, fixedPos));
   }
 }

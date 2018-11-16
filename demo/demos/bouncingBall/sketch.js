@@ -28,9 +28,6 @@ class Ball {
       this.dy *= -1;
     }
   }
-
-  bounce() {
-  }
 }
 
 
@@ -58,7 +55,6 @@ function draw() {
 
 function updateBall() {
   for (let i = balls.length-1; i > 0; i--) {
-    balls[i].bounce();
     balls[i].movement();
     balls[i].display();
   }

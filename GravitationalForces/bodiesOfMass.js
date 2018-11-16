@@ -1,20 +1,18 @@
 class bodyOfMass {
-  constructor(x, y, mass, radius, fixed, color) {
+  constructor(x, y, mass, radius, fixed) {
     this.x = x;
     this.y = y;
     this.mass = mass;
     this.radius = radius;
     this.fixed = fixed;
-    this.color = color;
+    this.color = color(random(255), random(255), random(255), 120);
     this.vH = 0;
     this.vV = 0;
   }
 
   show() {
-    push();
-    stroke(this.color);
+    fill(this.color);
     ellipse(this.x, this.y, this.radius);
-    pop();
   }
 
   move(aH, aV) {

@@ -1,35 +1,61 @@
-// Fireworks Demo
+// Fireworks
 // Travis Ahern
 // Nov. 14, 2018
 
 class Firework {
-  constructor(x, y, numOfBits) {
+  constructor(x, y, img) {
+    this.img = img;
+
+    // position
     this.x = x;
     this.y = y;
-    this.height = random(width*0.10, width*0.20);
-    this.dx = random(-5, 5);
-    this.dy = random(2, 7);
-    this.bits = numOfBits;
-    this.arrayOfBits = [];
+
+    // speed
+    this.dx = random(-1, 1);
+    this.dy = -random(2, 7);
+
+    // tracking change of height
+    this.changeY = 0;
+    this.height = random(height*0.30, height*0.80);
+
+    // tracking when to spawn bits
     this.state = 1;
+    this.timer = 250;
+    this.previousTimer = millis();
+  }
+
+  display() {
+    image(this.img, this.x, this.y, width*0.05, height*0.05);
   }
 
   update() {
+    // movement
     this.x += this.dx;
     this.y += this.dy;
+    this.changeY += -this.dy;
   }
 
-  smokeBits() {
-    if (this.y >= this.height) {
-      for (let i = 0; i < this.bits; i++) {
-        this.arrayOfBits.push(new Partical(this.x, this.y, false));
-      }
+  makeSmokeBits() {
+    // tracking bit spawn
+    if (this.state === 1) {
+      this.state = 0;
+      return true;
     }
+
     else {
-      for (let i = 0; i < this.bits; i++) {
-        this.arrayOfBits.push(new Partical(this.x, this.y, true));
+      let elapsedTime = millis() - this.previousTimer;
+      if (elapsedTime > this.timer) {
+        this.state = 1;
+        this.previousTimer = millis();
       }
     }
+
+    return false;
+  }
+
+  destroy() {
+    // when firework explodes
+    return this.changeY >= this.height;
   }
 }
 
@@ -37,15 +63,20 @@ class Partical {
   constructor(x, y, shorter) {
     this.x = x;
     this.y = y;
+    this.size;
+    this.dx;
+    this.dy;
 
     if (shorter) {
-      this.size = 2;
+      // smoke
+      this.size = (width*0.005 + height*0.005)/2;
       this.dx = random(-0.5, 0.5);
       this.dy = random(-0.5, 0.5);
     }
 
     else {
-      this.size = 5;
+      // explosion
+      this.size = (width*0.01 + height*0.01)/2;
       this.dx = random(-5, 5);
       this.dy = random(-5, 5);
     }
@@ -55,11 +86,12 @@ class Partical {
   }
 
   update() {
+    // move and fade
     this.x += this.dx;
     this.y += this.dy;
-    this.transparency -= 3;
+    this.transparency -= 2;
     this.color.setAlpha(this.transparency);
-    if (this.transparency < 0) {
+    if (this.transparency <= 0) {
       return true;
     }
   }
@@ -71,49 +103,68 @@ class Partical {
 }
 
 
+let fireworkImg;
 let fireworks = [];
-let addedParticals;
+let fireworkBits = [];
+let numOfBits;
+let paused = false;
 
+
+function preload() {
+  fireworkImg = loadImage("assets/firework.png");
+}
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  imageMode(CENTER);
   noStroke();
-  addedParticals = 50;
+  numOfBits = 10;
 }
 
 function draw() {
-  background(0);
-  moveParticals();
-  // pressedMouse();
+  if (!paused) {
+    background(0);
+    dealWithBits();
+    moveFireworks();
+  }
 }
 
-function moveParticals() {
-  for (let i = fireworks.length-1; i > 0; i--) {
-    if (fireworks[i].arrayOfBits.length > 0) {
-      for (let j = fireworks[i].arrayOfBits.length; j > 0; j--) {
-        fireworks[i].arrayOfBits[j].display();
-        for (let i = 0; i < this.bits; i++) {
-          this.arrayOfBits.push(new Partical(this.x, this.y, false));
-        }
+function moveFireworks() {
+  for (let i = fireworks.length-1; i >= 0; i--) {
+    fireworks[i].update();
+    fireworks[i].display();
+
+    if (fireworks[i].makeSmokeBits()) {
+      for (let j = 0; j < numOfBits; j++) {
+        fireworkBits.push(new Partical(fireworks[i].x, fireworks[i].y, true));
       }
     }
-    fireworks[i].smokeBits();
-    if (fireworks[i].update()) {
+
+    if (fireworks[i].destroy()){
+      for (let j = 0; j < numOfBits*5; j++) {
+        fireworkBits.push(new Partical(fireworks[i].x, fireworks[i].y, false));
+      }
       fireworks.splice(i, 1);
     }
   }
 }
 
-function pressedMouse() {
-  if (mouseIsPressed) {
-    for (let i = 0; i < addedParticals; i++) {
-      fireworks.push(new Firework(mouseX, mouseY));
+function dealWithBits() {
+  for (let i = fireworkBits.length-1; i > 0; i--) {
+    fireworkBits[i].display();
+    if (fireworkBits[i].update()) {
+      fireworkBits.splice(i, 1);
     }
   }
 }
 
-function mousePressed() {
-  for (let i = 0; i < addedParticals; i++) {
-    fireworks.push(new Firework(mouseX, mouseY, true));
+function keyPressed() {
+  if (keyCode === 32) {
+    paused = !paused;
   }
+}
+
+function mousePressed() {
+  fireworks.push(new Firework(mouseX, mouseY, fireworkImg));
+  fireworks[fireworks.length-1].display();
 }
