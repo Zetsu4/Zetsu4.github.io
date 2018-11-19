@@ -24,7 +24,7 @@
 // - Cody Flynn
 
 let img = {};
-let sprite = {};
+let spriteSize = {};
 let enemyBoxs = [];
 let numOfEnemys;
 
@@ -37,9 +37,9 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   imageMode(CENTER);
   rectMode(CENTER);
-  sprite.width = width*0.05;
-  sprite.height = height*0.05;
-  numOfEnemys = 10;
+  spriteSize.width = width*0.025;
+  spriteSize.height = height*0.025;
+  numOfEnemys = 20;
 
   stroke("white");
   noFill();
@@ -51,12 +51,15 @@ function draw() {
 }
 
 function enemyFoos() {
+  enemyBoxs.map(enysBox => enysBox.checkTurn());
   for (let i = enemyBoxs.length-1; i >= 0; i--) {
-    enemyBoxs[i].checkTurn();
+    if (enemyBoxs[i].hitBottom()) {
+      enemyBoxs.splice(i,1);
+    }
   }
 }
 
 function mousePressed() {
-  enemyBoxs.push(new EnemyBox(mouseX, mouseY, CommonEnemy, numOfEnemys, sprite.width, sprite.height, 1));
+  enemyBoxs.push(new EnemyBox(mouseX, mouseY, CommonEnemy, numOfEnemys, spriteSize.width, spriteSize.height, 1));
   enemyBoxs[enemyBoxs.length-1].spawnEnemys();
 }

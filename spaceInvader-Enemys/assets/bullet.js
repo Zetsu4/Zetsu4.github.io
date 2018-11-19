@@ -6,8 +6,8 @@ class Bullet {
     // position
     this.x = x;
     this.y = y;
-    this.dx = random(-width*0.003, width*0.003);
-    this.dy = random(height*0.003, height*0.004);
+    this.dx = random(-width*0.001, width*0.001);
+    this.dy = random(height*0.003, height*0.005);
 
     // sprite
     this.img = img.bullet;
@@ -15,12 +15,14 @@ class Bullet {
     this.sprtH = sprtH;
   }
 
-  display() {
-    image(this.img, this.x, this.y, this.sprtW, this.sprtH);
-  }
-
   move() {
     this.x += this.dx;
     this.y += this.dy;
+
+    image(this.img, this.x, this.y, this.sprtW, this.sprtH);
+  }
+
+  hitEdge() {
+    return this.y > height || this.x > width || this.x < 0;
   }
 }

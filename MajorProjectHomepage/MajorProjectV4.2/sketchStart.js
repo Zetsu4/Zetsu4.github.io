@@ -97,11 +97,8 @@ let badGuysObjects = {};
 let badGuysPosX = [];
 let badGuysPosY = [];
 
-let savedVars;
 
 function preload() {
-  savedVars = loadJSON("assets/moreSketches/saveFiles/test7.json");
-
   // backgrounds
   earth = loadImage("assets/lovelyHomepage.png");
   world.image = loadImage("assets/enviorment.png");
@@ -167,9 +164,6 @@ function setup() {
   settingsOptions = ["Resume", "Controls", "Map", "Save", "Load", "Main Menu"];
 
   greenColor = color(0, 255, 0);
-
-  // save files
-  allFileSave = ["New Save", "New Save", "New Save", "New Save", "New Save"];
 
   defaultKeyBinds();
   defaultWorldMap();
