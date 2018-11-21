@@ -26,6 +26,7 @@ class Baddies {
     this.attackPattern;
     this.lastAttack = 0;
     this.attacking = false;
+    this.attackEntety = [];
 
     // position in world
     this.movedX = movedX;
@@ -77,17 +78,17 @@ class Baddies {
     // settings attack pattern
     if (max(this.mDmg, this.rDmg, this.sDmg) === this.sDmg) {
       // magic attack
-      this.attackPattern = "magic";
+      this.attackPattern = FireBall;
     }
 
     else if (max(this.mDmg, this.rDmg, this.sDmg) === this.rDmg) {
       // ranged attack
-      this.attackPattern = "ranged";
+      this.attackPattern = Arrow;
     }
 
     else {
       // melee attack
-      this.attackPattern = "melee";
+      this.attackPattern = Sword;
     }
 
   }
@@ -211,20 +212,20 @@ class Baddies {
       }
     }
 
-    else if (this.attackPattern === "magic") {
-      // spell caster
-
-    }
-
-    else if (this.attackPattern === "ranged") {
-      // bowman
-
-    }
-
-    else if (this.attackPattern === "melee") {
-      // swrodsman
-
-    }
+    // else if (this.attackPattern === "magic") {
+    //   // spell caster
+    //
+    // }
+    //
+    // else if (this.attackPattern === "ranged") {
+    //   // bowman
+    //
+    // }
+    //
+    // else if (this.attackPattern === "melee") {
+    //   // swrodsman
+    //
+    // }
   }
 
   baddieOnScreen(playerX, playerY, worldW, worldH) {

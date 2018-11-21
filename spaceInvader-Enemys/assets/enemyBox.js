@@ -73,7 +73,6 @@ class EnemyBox {
   }
 
   display() {
-    // show yourselvs
     this.enemys.map(enys => enys.display());
   }
 

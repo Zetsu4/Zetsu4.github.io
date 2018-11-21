@@ -193,19 +193,20 @@ function itemDrops(x, y, otherX, otherY) {
     let changeOfY = random(-sprite.HEIGHT/2, sprite.HEIGHT/2);
     let randomItem = random(100);
 
-    if (randomItem <= 15) { // arrows
+    if (randomItem <= 30) { // arrows
       itemsOnGround.push(new Arrow(0, 0, objectImg.arrow, otherX + changeOfX, otherY + changeOfY, x, y));
     }
 
-    else if (randomItem <= 30) { // traps
+    else if (randomItem <= 60) { // traps
       itemsOnGround.push(new Trap(0, 0, objectImg.trap, 0, 0, true, otherX + changeOfX, otherY + changeOfY, x, y));
     }
 
-    else if (randomItem <= 40) { // hp Potions
+    randomItem = random(100);
+    else if (randomItem <= 10) { // hp Potions
       itemsOnGround.push(new HpPotion(objectImg.hpPotion, otherX + changeOfX, otherY + changeOfY, x, y));
     }
 
-    else if (randomItem <= 50) { // mp Potions
+    else if (randomItem <= 20) { // mp Potions
       itemsOnGround.push(new MpPotion(objectImg.mpPotion, otherX + changeOfX, otherY + changeOfY, x, y));
     }
   }

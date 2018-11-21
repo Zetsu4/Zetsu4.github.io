@@ -264,7 +264,7 @@ function defaultPlayer() {
   player.DOT = (width*0.005 + height*0.005)/4;
 
   // stats
-  nextLvl = 100;
+  nextLvl = 250;
   player.points = 0;
   player.exp = 0;
   player.lvl = 1;

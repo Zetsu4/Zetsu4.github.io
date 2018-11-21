@@ -130,16 +130,8 @@ function autoPotion() {
 }
 
 function playerMovement() {
-  if (player.toggleWalk) {
-    // walking
-    player.speed = player.totSpeed*player.walk;
-  }
-
-  else {
-    // normal
-    player.speed = player.totSpeed;
-  }
-
+  player.speed = player.toggleWalk ? player.totSpeed*player.walk : player.totSpeed;
+  
   // x-axis
   if (keyIsDown(keyBindings.get("keyArray")[4][1])) { // LEFT
     player.x -= player.speed;

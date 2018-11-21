@@ -2,12 +2,15 @@
 // Nov. 16, 2018
 
 class Bullet {
-  constructor(x, y, sprtW, sprtH) {
+  constructor(x, y, sprtW, sprtH, goodBad) {
     // position
     this.x = x;
     this.y = y;
-    this.dx = random(-width*0.001, width*0.001);
+    this.dx = random(-width*0.0005, width*0.0005);
     this.dy = random(height*0.003, height*0.005);
+    this.alingment = goodBad;
+
+    this.alingment === "good" ? this.dy *= -1: this.dy *= 1;
 
     // sprite
     this.img = img.bullet;
