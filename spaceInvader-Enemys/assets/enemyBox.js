@@ -10,7 +10,7 @@ class EnemyBox {
 
     // enemys
     this.enysAcrsX = int(numOfEnemys);
-    this.enysAcrsY = int(this.enysAcrsX*0.50);
+    this.enysAcrsY = int(this.enysAcrsX*0.70);
     this.enemyType = enemyType;
     this.sprtW = sprtW;
     this.sprtH = sprtH;
@@ -38,10 +38,10 @@ class EnemyBox {
     rect(this.x, this.y, this.sprtW*this.enysAcrsX, this.sprtH*this.enysAcrsY);
 
     this.enemys.map(shot => shot.moveShots());
-
     let elapsedTime = millis() - this.timer;
+    elapsedTime > this.timeDelay ? this.move() : this.enemys.map(enys => enys.display());
 
-    elapsedTime > this.timeDelay ? this.move() : this.display();
+    
   }
 
   move() {
@@ -70,13 +70,5 @@ class EnemyBox {
     return (side === "right" ?
     this.x + this.sprtW * this.enysAcrsX/2 + this.sprtW:
     this.x - this.sprtW * this.enysAcrsX/2 - this.sprtW);
-  }
-
-  display() {
-    this.enemys.map(enys => enys.display());
-  }
-
-  hitBottom() {
-    return this.y + this.enysAcrsY/2*this.sprtH >= height;
   }
 }

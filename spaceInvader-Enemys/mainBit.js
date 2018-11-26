@@ -28,6 +28,8 @@ let spriteSize = {};
 let enemyBoxs = [];
 let numOfEnemys;
 
+let bullets = [];
+
 function preload() {
   img.commonSprite = loadImage("assets/Img/Commons.png");
   img.bullet = loadImage("assets/Img/Bullets.png");
@@ -39,7 +41,7 @@ function setup() {
   rectMode(CENTER);
   spriteSize.width = width*0.025;
   spriteSize.height = height*0.025;
-  numOfEnemys = 20;
+  numOfEnemys = 15;
 
   stroke("white");
   noFill();
@@ -48,18 +50,25 @@ function setup() {
 function draw() {
   background(0);
   enemyFoos();
+
+  for (let i = bullets.length-1; i >= 0; i--) {
+    bullets[i].hitEdge() ? bullets.splice(i,1) : bullets[i].move();
+  }
 }
 
 function enemyFoos() {
-  enemyBoxs.map(enysBox => enysBox.checkTurn());
   for (let i = enemyBoxs.length-1; i >= 0; i--) {
-    if (enemyBoxs[i].hitBottom()) {
-      enemyBoxs.splice(i,1);
-    }
+    let y = enemyBoxs[i].y + enemyBoxs[i].enysAcrsY/2*enemyBoxs[i].sprtH;
+    y >= height ? enemyBoxs.splice(i,1) : enemyBoxs[i].checkTurn();
   }
 }
 
 function mousePressed() {
-  enemyBoxs.push(new EnemyBox(mouseX, mouseY, CommonEnemy, numOfEnemys, spriteSize.width, spriteSize.height, 1));
+  if (keyIsDown(16)) {
+    bullets.push(new Bullet(mouseX, mouseY, spriteSize.width, spriteSize.height, "good"));
+  }
+  else {
+    enemyBoxs.push(new EnemyBox(mouseX, mouseY, CommonEnemy, numOfEnemys, spriteSize.width, spriteSize.height, 1));
+  }
   enemyBoxs[enemyBoxs.length-1].spawnEnemys();
 }

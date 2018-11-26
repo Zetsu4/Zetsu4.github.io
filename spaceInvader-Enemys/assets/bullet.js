@@ -10,7 +10,7 @@ class Bullet {
     this.dy = random(height*0.003, height*0.005);
     this.alingment = goodBad;
 
-    this.alingment === "good" ? this.dy *= -1: this.dy *= 1;
+    this.dy *= this.alingment === "good" ? -1: 1;
 
     // sprite
     this.img = img.bullet;
@@ -26,6 +26,6 @@ class Bullet {
   }
 
   hitEdge() {
-    return this.y > height || this.x > width || this.x < 0;
+    return (this.alingment === "good" ? this.y < 0 : this.y > height) || this.x > width || this.x < 0;
   }
 }

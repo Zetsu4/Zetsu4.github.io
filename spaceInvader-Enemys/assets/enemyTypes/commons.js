@@ -17,11 +17,11 @@ class CommonEnemy {
     this.shots = [];
   }
 
-  takeTurn(dir, changedDir, numOfBulletes) {
+  takeTurn(dir, changedDir, numOfBullets) {
     this.move(dir, changedDir);
     this.display();
 
-    if (numOfBulletes <= 5) {
+    if (numOfBullets <= 5) {
       this.shoot();
     }
   }
