@@ -5,16 +5,13 @@
 // COMPLETED:
 // choose class and race
 // minimap function
-// Failing comp sci 20
 
 // TO DO:
 // RPG similar to LOTRO and Tale of Toast, but 2D
 // lvl based
 // guild that you can recruit for a party
-// Fail comp sci 30
 
 // stats:
-// Asir- The power of MEEE!
 // Intellegence - magic and attack rating with magic
 // Agillity - movement speed and dodge rating
 // Strength - damage and attack rating with melee wepeons
