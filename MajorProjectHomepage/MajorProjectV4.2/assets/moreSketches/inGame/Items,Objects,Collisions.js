@@ -202,7 +202,7 @@ function itemDrops(x, y, otherX, otherY) {
     }
 
     randomItem = random(100);
-    else if (randomItem <= 10) { // hp Potions
+    if (randomItem <= 10) { // hp Potions
       itemsOnGround.push(new HpPotion(objectImg.hpPotion, otherX + changeOfX, otherY + changeOfY, x, y));
     }
 
