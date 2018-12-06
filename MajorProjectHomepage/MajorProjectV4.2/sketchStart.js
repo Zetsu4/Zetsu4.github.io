@@ -100,12 +100,12 @@ let badGuysPosY = [];
 
 function preload() {
   // backgrounds
-  earth = loadImage("assets/lovelyHomepage.png");
-  world.image = loadImage("assets/enviorment.png");
+  earth = loadImage("assets/Img/lovelyHomepage.png");
+  world.image = loadImage("assets/Img/enviorment.png");
 
   // garbage can
-  world.trashCanClose = loadImage("assets/garbageClosed.png");
-  world.trashCanOpen = loadImage("assets/garbageOpened.png");
+  world.trashCanClose = loadImage("assets/Img/garbageClosed.png");
+  world.trashCanOpen = loadImage("assetsImg//garbageOpened.png");
 
   // items
   objectImg.sword = loadImage("assets/Objects/images/sword.png");
