@@ -1,6 +1,6 @@
 // arrows
 class Arrow {
-  constructor(x, swiftness, image, itemXchange = 0, itemYchange = 0, otherX = 0, otherY = 0) {
+  constructor(x, swiftness, itemXchange = 0, itemYchange = 0, otherX = 0, otherY = 0) {
     // positon
     this.x = x;
 
@@ -24,7 +24,7 @@ class Arrow {
     this.speed = swiftness*0.20;
 
     // sprite
-    this.image = image;
+    this.image = objectImg.arrow;
     this.direction = atan2(mouseY - height/2, mouseX - width/2);
   }
 

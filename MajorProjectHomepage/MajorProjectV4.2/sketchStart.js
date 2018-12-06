@@ -1,4 +1,4 @@
-// V4.2
+// V4.2 - not usable
 // Travis Ahern
 // Nov. 9, 2018
 //
@@ -98,14 +98,19 @@ let badGuysPosX = [];
 let badGuysPosY = [];
 
 
+let savedVars;
+
 function preload() {
+  // testing loading function
+  savedVars = loadJSON("assets/moreSketches/saveFiles/test8.json");
+
   // backgrounds
   earth = loadImage("assets/Img/lovelyHomepage.png");
   world.image = loadImage("assets/Img/enviorment.png");
 
   // garbage can
   world.trashCanClose = loadImage("assets/Img/garbageClosed.png");
-  world.trashCanOpen = loadImage("assetsImg//garbageOpened.png");
+  world.trashCanOpen = loadImage("assets/Img/garbageOpened.png");
 
   // items
   objectImg.sword = loadImage("assets/Objects/images/sword.png");

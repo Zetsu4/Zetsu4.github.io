@@ -194,20 +194,20 @@ function itemDrops(x, y, otherX, otherY) {
     let randomItem = random(100);
 
     if (randomItem <= 30) { // arrows
-      itemsOnGround.push(new Arrow(0, 0, objectImg.arrow, otherX + changeOfX, otherY + changeOfY, x, y));
+      itemsOnGround.push(new Arrow(0, 0, otherX + changeOfX, otherY + changeOfY, x, y));
     }
 
     else if (randomItem <= 60) { // traps
-      itemsOnGround.push(new Trap(0, 0, objectImg.trap, 0, 0, true, otherX + changeOfX, otherY + changeOfY, x, y));
+      itemsOnGround.push(new Trap(0, 0, 0, 0, true, otherX + changeOfX, otherY + changeOfY, x, y));
     }
 
     randomItem = random(100);
     if (randomItem <= 10) { // hp Potions
-      itemsOnGround.push(new HpPotion(objectImg.hpPotion, otherX + changeOfX, otherY + changeOfY, x, y));
+      itemsOnGround.push(new HpPotion(otherX + changeOfX, otherY + changeOfY, x, y));
     }
 
     else if (randomItem <= 20) { // mp Potions
-      itemsOnGround.push(new MpPotion(objectImg.mpPotion, otherX + changeOfX, otherY + changeOfY, x, y));
+      itemsOnGround.push(new MpPotion(otherX + changeOfX, otherY + changeOfY, x, y));
     }
   }
 }

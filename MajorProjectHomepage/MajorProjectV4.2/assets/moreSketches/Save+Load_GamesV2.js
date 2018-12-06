@@ -35,8 +35,8 @@ function loadSavedFile() {
 
   badGuys = [];
   for (let i = 0; i < savedVars.badGuysObjects.badGuysArray.length; i++) {
-    savedVars.badGuysObjects.badGuysArray[i].race[1] = loadImage(savedVars.badGuysObjects.badGuysArray[i].race[1]);
-    savedVars.badGuysObjects.badGuysArray[i].skill[1] = loadImage(savedVars.badGuysObjects.badGuysArray[i].skill[1]);
+    // savedVars.badGuysObjects.badGuysArray[i].race[1] = loadImage(savedVars.badGuysObjects.badGuysArray[i].race[1]);
+    // savedVars.badGuysObjects.badGuysArray[i].skill[1] = loadImage(savedVars.badGuysObjects.badGuysArray[i].skill[1]);
 
     badGuys.push(new Baddies(
       savedVars.badGuysObjects.badGuysArray[i].race, savedVars.badGuysObjects.badGuysArray[i].skill,
@@ -51,7 +51,7 @@ function loadSavedFile() {
   player.racePosistion = savedVars.player.racePosistion;
   player.skillPosistion = savedVars.player.skillPosistion;
   player.raceImage = allRaces[player.racePosistion][1];
-  player.skillImage = loadImage("assets/Skills/archer.png");
+  player.skillImage = allSkills[player.skillPosistion][1];
 
     // stats
   player.int = savedVars.player.int;

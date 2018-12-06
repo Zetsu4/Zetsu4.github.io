@@ -1,7 +1,7 @@
 class MpPotion {
-  constructor(img, itemInWorldX, itemInWorldY, itemMapX, itemMapY) {
+  constructor(itemInWorldX, itemInWorldY, itemMapX, itemMapY) {
     // sprite
-    this.img = img;
+    this.img = objectImg.mpPotion;
 
     // item changing positions
     this.itemX = itemInWorldX;

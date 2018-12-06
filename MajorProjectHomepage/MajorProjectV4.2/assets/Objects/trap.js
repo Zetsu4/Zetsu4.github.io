@@ -1,6 +1,6 @@
 // traps
 class Trap {
-  constructor(x, y, image, playerX, playerY, item, itemXchange = 0, itemYchange = 0, otherX = 0, otherY = 0) {
+  constructor(x, y, playerX, playerY, item, itemXchange = 0, itemYchange = 0, otherX = 0, otherY = 0) {
     // position
     this.x = x;
     this.y = y;
@@ -19,7 +19,7 @@ class Trap {
     this.item = item;
 
     // sprite
-    this.image = image;
+    this.image = objectImg.trap;
   }
 
   pickUp(spriteW, spriteH) {

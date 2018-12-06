@@ -1,7 +1,7 @@
 class HpPotion {
-  constructor(img, itemInWorldX, itemInWorldY, itemMapX, itemMapY) {
+  constructor(itemInWorldX, itemInWorldY, itemMapX, itemMapY) {
     // sprite
-    this.img = img;
+    this.img = objectImg.hpPotion;
 
     // item changing positions
     this.itemX = itemInWorldX;

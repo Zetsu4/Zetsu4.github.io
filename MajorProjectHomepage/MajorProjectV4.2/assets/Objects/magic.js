@@ -1,5 +1,5 @@
 class FireBall {
-  constructor(x, swiftness, image) {
+  constructor(x, swiftness) {
     // positon
     this.x = x;
 
@@ -15,7 +15,7 @@ class FireBall {
     this.speed = swiftness*0.15;
 
     // sprite
-    this.image = image;
+    this.image = objectImg.fireBall;
     this.direction = atan2(mouseY - height/2, mouseX - width/2);
   }
 

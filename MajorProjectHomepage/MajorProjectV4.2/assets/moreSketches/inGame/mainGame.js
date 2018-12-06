@@ -131,7 +131,7 @@ function autoPotion() {
 
 function playerMovement() {
   player.speed = player.toggleWalk ? player.totSpeed*player.walk : player.totSpeed;
-  
+
   // x-axis
   if (keyIsDown(keyBindings.get("keyArray")[4][1])) { // LEFT
     player.x -= player.speed;
@@ -354,7 +354,7 @@ function keyPressed() {
 
         // place traps
         if (keyCode === keyBindings.get("keyArray")[2][1] && objects.traps.length < maxTraps && numOfTraps > 0) {
-          objects.traps.push(new Trap(width/2, height/2, objectImg.trap, player.x, player.y, false));
+          objects.traps.push(new Trap(width/2, height/2, player.x, player.y, false));
           numOfTraps--;
         }
       }
@@ -368,7 +368,7 @@ function mousePressed() {
     // magic
     if (magicOn) {
       if (player.mp >= 10) {
-        objects.magic.push(new FireBall(0, sprite.WIDTH, objectImg.fireBall));
+        objects.magic.push(new FireBall(0, sprite.WIDTH));
         player.mp -= 10;
         attackCoolDown = true;
         lastTimeAttacked = millis();
@@ -377,14 +377,14 @@ function mousePressed() {
 
     // ranged
     else if (rangedOn && numOfArrows > 0) {
-      objects.arrows.push(new Arrow(0, sprite.WIDTH, objectImg.arrow));
+      objects.arrows.push(new Arrow(0, sprite.WIDTH));
       numOfArrows--;
       attackCoolDown = true;
       lastTimeAttacked = millis();
     }
     // melee
     else if (!rangedOn) {
-      objects.melee.push(new Sword(0, sprite.WIDTH, objectImg.sword));
+      objects.melee.push(new Sword(0, sprite.WIDTH));
       attackCoolDown = true;
       lastTimeAttacked = millis();
     }

@@ -1,6 +1,6 @@
 // sword swings
 class Sword {
-  constructor(x, swiftness, image, alingment = "good") {
+  constructor(x, swiftness, alingment = "good") {
     // positon
     this.x = x;
 
@@ -16,7 +16,7 @@ class Sword {
     this.speed = swiftness*0.15;
 
     // sprite
-    this.image = image;
+    this.image = objectImg.sword;
     this.alingment = alingment;
     this.direction;
     if (this.alingment === "good") {
