@@ -1,6 +1,7 @@
 # AMAZING COOL SUPERB Proposal
 
-I will make the most AMAZING, COOL, SUPERB, game that has ever existed in existences.
+I would like to make a game that is a top-down, RPG.
+It will play similarly to an MMO, but single player so MSO (Massively Single-player Offline).
 
 ## Need to Have List
   - movement
@@ -8,7 +9,7 @@ I will make the most AMAZING, COOL, SUPERB, game that has ever existed in existe
   - enemy attacks/deaths
   - mini-map
   - settings screen
-  - boundries
+  - boundaries
   - different attack types
   - start screen
   - inventory
@@ -21,4 +22,7 @@ I will make the most AMAZING, COOL, SUPERB, game that has ever existed in existe
   - rebinding keys
   - enemy AI
   - equipment
-  - equiping items
+  - equipping items
+  - pretty pictures
+  - interacting with inventory
+  - items
