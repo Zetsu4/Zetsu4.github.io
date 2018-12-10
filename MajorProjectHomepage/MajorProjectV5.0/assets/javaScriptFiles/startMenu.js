@@ -11,12 +11,9 @@ function startMenu() {
     text("WELCOME TO EQUESTRIA", 0, -height*0.45);
 
     // buttons
-    if (buttons.newGame.clicked()) {
-      startingState = 1;
-      state = 0;
-    }
+    buttonClick(buttons.newGame, 1, 0);
 
-    else if (buttons.loadGame.clicked()) {
+    if (buttons.loadGame.clicked()) {
       gameOver();
     }
   }

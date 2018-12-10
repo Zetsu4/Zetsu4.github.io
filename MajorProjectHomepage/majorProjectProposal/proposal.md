@@ -6,7 +6,7 @@ It will play similarly to an MMO, but single player so MSO (Massively Single-pla
 ## Need to Have List
   - movement
   - player attacks/deaths
-  - enemy attacks/deaths
+  - enemy deaths
   - mini-map
   - settings screen
   - boundaries
@@ -21,6 +21,7 @@ It will play similarly to an MMO, but single player so MSO (Massively Single-pla
   - sound effects
   - rebinding keys
   - enemy AI
+  - enemy attack
   - equipment
   - equipping items
   - pretty pictures

@@ -18,8 +18,20 @@ function draw() {
   else if (startingState === -1) {
     if (state === "cheaterEnding")
       cheaterEnding();
-      
+
     else if (state === "gameOver")
       gameOver();
   }
+}
+
+function buttonClick(theButton, changeState1, changeState2, backButton = false) {
+  push();
+  if (backButton)
+    textSize(textFontSize/2);
+
+  if (theButton.clicked()) {
+    startingState = changeState1;
+    state = changeState2;
+  }
+  pop();
 }

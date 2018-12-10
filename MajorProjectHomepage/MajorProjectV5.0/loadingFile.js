@@ -52,6 +52,9 @@ let player = {};
 // inventory
 let inventory = [];
 
+// settings
+let settings = {};
+
 // key-bindings
 let keyBindings;
 
@@ -66,17 +69,17 @@ function preload() {
   itemImg.garbageOpened = loadImage("assets/img/garbageOpened.png");
 
   // items
-  itemImg.swordAttack = loadImage("assets/items/img/sword.png");
-  itemImg.arrowAttack = loadImage("assets/items/img/arrows.png");
-  itemImg.fireBallAttack = loadImage("assets/items/img/fireBall.png");
-  itemImg.trap = loadImage("assets/items/img/traps.png");
-  itemImg.hpPotion = loadImage("assets/items/img/hpPotion.png");
-  itemImg.mpPotion = loadImage("assets/items/img/mpPotion.png");
+  itemImg.swordAttack = loadImage("assets/img/items/sword.png");
+  itemImg.arrowAttack = loadImage("assets/img/items/arrows.png");
+  itemImg.fireBallAttack = loadImage("assets/img/items/fireBall.png");
+  itemImg.trap = loadImage("assets/img/items/traps.png");
+  itemImg.hpPotion = loadImage("assets/img/items/hpPotion.png");
+  itemImg.mpPotion = loadImage("assets/img/items/mpPotion.png");
 
   // mouse pointers
-  itemImg.swordIcon = loadImage("assets/items/img/equippedIcons/swordIcon.png");
-  itemImg.bowIcon = loadImage("assets/items/img/equippedIcons/bowIcon.png");
-  itemImg.magicIcon = loadImage("assets/items/img/equippedIcons/magicIcon.png");
+  itemImg.swordIcon = loadImage("assets/img/items/equippedIcons/swordIcon.png");
+  itemImg.bowIcon = loadImage("assets/img/items/equippedIcons/bowIcon.png");
+  itemImg.magicIcon = loadImage("assets/img/items/equippedIcons/magicIcon.png");
 
   // sprites
   sprites.random = loadImage("assets/img/random.png");
@@ -117,7 +120,8 @@ function setup() {
   // buttons
   buttons.red = color(255, 0, 0);
   buttons.green = color(0, 255, 0);
-  buttons.back = new Button(-width*0.475, -height*0.475, width*0.025, height*0.025, buttons.red, buttons.green, "BACK");
+  buttons.back = new Button(-width*0.475, -height*0.475, width*0.05, height*0.05, buttons.red, buttons.green, "BACK");
+  buttons.continue = new Button(0, -height*0.475, width*0.15, height*0.05, buttons.red, buttons.green, "CONTINUE");
 
   // assinging variables
   settingKeyBindings();
@@ -125,6 +129,7 @@ function setup() {
   settingSprites();
   itemArrays();
   setPlayer();
+  setSettingsMenu();
   setButtonAtributes();
 }
 
@@ -169,7 +174,7 @@ function settingWorld() {
 function settingSprites() {
   // sprite size
   spriteSize.sampleWidth = width*0.30;
-  spriteSize.sampleHeight = height*0.30;
+  spriteSize.sampleHeight = height*0.50;
   spriteSize.width = width*0.05;
   spriteSize.height = height*0.10;
 
@@ -201,6 +206,10 @@ function setPlayer() {
   player.skill = allSkills[0];
 }
 
+function setSettingsMenu() {
+  settings = [];
+}
+
 function setButtonAtributes() {
   // universal
   buttonAtributes.width = width*0.15;
@@ -215,6 +224,6 @@ function setButtonAtributes() {
   buttonAtributes.skill.x = width*0.35;
 
   // settings
-  // buttonAtributes.settings.height = height*0.90/settings.length;
+  buttonAtributes.settings.height = height*0.90/settings.length;
   buttonAtributes.settings.x = 0;
 }
