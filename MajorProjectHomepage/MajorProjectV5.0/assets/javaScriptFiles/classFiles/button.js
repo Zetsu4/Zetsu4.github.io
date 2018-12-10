@@ -16,7 +16,7 @@ class Button {
     this.text = text;
   }
 
-  display() {
+  clicked() {
     let left = this.x + width/2 - this.width/2;
     let right = this.x + width/2 + this.width/2;
     let top = this.y + height/2 - this.height/2;

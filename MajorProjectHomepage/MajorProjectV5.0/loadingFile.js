@@ -20,6 +20,11 @@ let startingState = 0;
 let state = 0;
 let textFontSize;
 let buttons = {};
+let buttonAtributes = {
+  race: {},
+  skill: {},
+  settings: {}
+};
 
 // images
 let worldBackgrounds = {};
@@ -33,6 +38,10 @@ let spriteSize = {};
 // world
 let world = {};
 let minimap = {};
+
+// races/skills button arrays
+let raceButtons = [];
+let skillButtons = [];
 
 // items
 let items = {};
@@ -105,12 +114,18 @@ function setup() {
   imageMode(CENTER);
   rectMode(CENTER);
 
+  // buttons
+  buttons.red = color(255, 0, 0);
+  buttons.green = color(0, 255, 0);
+  buttons.back = new Button(-width*0.475, -height*0.475, width*0.025, height*0.025, buttons.red, buttons.green, "BACK");
+
   // assinging variables
   settingKeyBindings();
   settingWorld();
   settingSprites();
   itemArrays();
   setPlayer();
+  setButtonAtributes();
 }
 
 function settingKeyBindings() {
@@ -182,5 +197,24 @@ function itemArrays() {
 }
 
 function setPlayer() {
+  player.race = allRaces[0];
+  player.skill = allSkills[0];
+}
 
+function setButtonAtributes() {
+  // universal
+  buttonAtributes.width = width*0.15;
+  buttonAtributes.listStart = -height*0.40;
+
+  // race
+  buttonAtributes.race.height = height*0.90/allRaces.length;
+  buttonAtributes.race.x = -width*0.35;
+
+  // skill
+  buttonAtributes.skill.height = height*0.90/allSkills.length;
+  buttonAtributes.skill.x = width*0.35;
+
+  // settings
+  // buttonAtributes.settings.height = height*0.90/settings.length;
+  buttonAtributes.settings.x = 0;
 }
