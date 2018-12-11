@@ -27,3 +27,4 @@ It will play similarly to an MMO, but single player so MSO (Massively Single-pla
   - pretty pictures
   - interacting with inventory
   - items
+  - title for game

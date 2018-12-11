@@ -19,6 +19,7 @@
 let startingState = 0;
 let state = 0;
 let textFontSize;
+let fonts = {};
 let buttons = {};
 let buttonAtributes = {
   race: {},
@@ -60,6 +61,11 @@ let keyBindings;
 
 
 function preload() {
+  // fonts
+  fonts.font1 = loadFont("assets/fonts/anirb___.ttf");
+  fonts.font2 = loadFont("assets/fonts/anirm___.ttf");
+  fonts.font3 = loadFont("assets/fonts/RINGM___.TTF");
+
   // backgrounds
   worldBackgrounds.homePage = loadImage("assets/img/lovelyHomepage.png");
   worldBackgrounds.grass = loadImage("assets/img/grass.png");
@@ -110,7 +116,7 @@ function setup() {
 
   // text
   textFontSize = (width*0.03 + height*0.03)/2;
-  textSize(textFontSize);
+  textFont(fonts.font3, textFontSize);
 
   // alligning
   textAlign(CENTER, CENTER);
@@ -120,8 +126,8 @@ function setup() {
   // buttons
   buttons.red = color(255, 0, 0);
   buttons.green = color(0, 255, 0);
-  buttons.back = new Button(-width*0.475, -height*0.475, width*0.05, height*0.05, buttons.red, buttons.green, "BACK");
-  buttons.continue = new Button(0, -height*0.475, width*0.15, height*0.05, buttons.red, buttons.green, "CONTINUE");
+  buttons.back = new Button(-width*0.475, -height*0.475, width*0.05, height*0.05, buttons.red, buttons.green, "Back");
+  buttons.continue = new Button(0, -height*0.4625, width*0.20, height*0.075, buttons.red, buttons.green, "Continue");
 
   // assinging variables
   settingKeyBindings();

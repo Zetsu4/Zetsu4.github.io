@@ -8,7 +8,7 @@ function startMenu() {
   else if (state === 1) {
     // title screen
     fill(217, 128, 38);
-    text("WELCOME TO EQUESTRIA", 0, -height*0.45);
+    text("Welcome to\nEquestria", 0, -height*0.45);
 
     // buttons
     buttonClick(buttons.newGame, 1, 0);
