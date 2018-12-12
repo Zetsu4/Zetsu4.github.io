@@ -1,16 +1,16 @@
 function playingGame() {
-  // background
+  if (state === "Settings")
+    // settings
+    settingsMenu();
 
+  else if (state === "Inventory")
+    inventoryMenu();
 
-  // mini-map
+  else if (state === 0) {
+    // player
+    playerDisplays();
 
+    // enemys
 
-  // settings
-  
-
-  // player
-
-
-  // enemys
-
+  }
 }

@@ -1,6 +1,5 @@
 function createChar() {
   if (state === 0) {
-    player.raceIndex = 0;
     raceButtons = [];
     for (let i = 0; i < allRaces.length; i++)
       raceButtons.push(new Button(
@@ -8,7 +7,6 @@ function createChar() {
         buttonAtributes.width, buttonAtributes.race.height,
         buttons.red, buttons.green, allRaces[i].name));
 
-    player.skillIndex = 0;
     skillButtons = [];
     for (let i = 0; i < allSkills.length; i++)
       skillButtons.push(new Button(
@@ -20,14 +18,19 @@ function createChar() {
   }
 
   else if (state === 1) {
+    // character select
+    selectingRaces();
+    selectingSkills();
+
     // back/continue
     buttonClick(buttons.back, 0, 0, true);
     buttonClick(buttons.continue, 2, 0);
 
-    // character select
-    selectingRaces();
-    selectingSkills();
+    // random character
+    if (state !== 1)
+      selectRandom();
   }
+
 }
 
 // race
@@ -72,4 +75,19 @@ function highlightSkill() {
 
   fill("black");
   text(player.skill.name, buttonAtributes.skill.x, y);
+}
+
+// random character
+function selectRandom() {
+  if (player.race.name === "Random") {
+    let randomIndex = int(random(1, allRaces.length));
+    player.raceIndex = randomIndex;
+    player.race = allRaces[player.raceIndex];
+  }
+
+  if (player.skill.name === "Random") {
+    let randomIndex = int(random(1, allSkills.length));
+    player.skillIndex = randomIndex;
+    player.skill = allSkills[player.skillIndex];
+  }
 }

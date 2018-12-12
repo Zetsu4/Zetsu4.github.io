@@ -18,6 +18,7 @@
 // general
 let startingState = 0;
 let state = 0;
+let previousState = state;
 let textFontSize;
 let fonts = {};
 let buttons = {};
@@ -37,6 +38,7 @@ let sprites = {
 let spriteSize = {};
 
 // world
+let worldState;
 let world = {};
 let minimap = {};
 
@@ -62,9 +64,7 @@ let keyBindings;
 
 function preload() {
   // fonts
-  fonts.font1 = loadFont("assets/fonts/anirb___.ttf");
-  fonts.font2 = loadFont("assets/fonts/anirm___.ttf");
-  fonts.font3 = loadFont("assets/fonts/RINGM___.TTF");
+  fonts.default = loadFont("assets/fonts/default.TTF");
 
   // backgrounds
   worldBackgrounds.homePage = loadImage("assets/img/lovelyHomepage.png");
@@ -116,7 +116,7 @@ function setup() {
 
   // text
   textFontSize = (width*0.03 + height*0.03)/2;
-  textFont(fonts.font3, textFontSize);
+  textFont(fonts.default, textFontSize);
 
   // alligning
   textAlign(CENTER, CENTER);
@@ -142,25 +142,26 @@ function setup() {
 function settingKeyBindings() {
   keyBindings = new Map();
 
-  keyBindings.set("Settings", 27); // Escape
-  keyBindings.set("Toggle Walk", 16); // Shift
-  keyBindings.set("Toggle Ranged", 82); // R
-  keyBindings.set("Toggle Magic", 84); // T
+  keyBindings.set("Settings", {code: 27, state: "settings"}); // Escape
+  keyBindings.set("Open Map", {code: 77, state: "map"}); // M
+  keyBindings.set("Inventory", {code: 69, state: "inventory"}); // E
+  keyBindings.set("Toggle Ranged", {code: 82, state: "ranged"}); // R
+  keyBindings.set("Toggle Magic", {code: 84, state: "magic"}); // T
   keyBindings.set("Place Trap", 81); // Q
   keyBindings.set("Move Up", 87); // W
   keyBindings.set("Move Left", 65); // A
   keyBindings.set("Move Down", 83); // S
   keyBindings.set("Move Right", 68); // D
-  keyBindings.set("Interact", 32); // Space
-  keyBindings.set("Inventory", 69); // E
-  keyBindings.set("Open Map", 77); // M
+  keyBindings.set("Toggle Walk", {code: 16, state: "walk"}); // Shift
   keyBindings.set("Consume HP Poition", 70); // F
   keyBindings.set("Consume MP Poition", 71); // G
+  keyBindings.set("Interact", 32); // Space
 }
 
 function settingWorld() {
-  world.enviorment = "Meadow";
-  world.image = worldBackgrounds.grass;
+  worldState = new Map();
+  worldState.set("Meadow", {img: worldBackgrounds.grass, name: "Meadow"});
+  world.state = worldState.get("Meadow");
 
   // coordinates
   world.width = width*10;
@@ -169,12 +170,12 @@ function settingWorld() {
   world.changedY = 0;
 
   // minimap
-  minimap.padWidth = width*0.15;
-  minimap.padHeight = height*0.15;
-  minimap.imgWidth = width*0.10;
-  minimap.imgHeight = height*0.10;
-  minimap.x = minimap.imgWidth/2 + minimap.padWidth/2;
-  minimap.y = minimap.imgHeight/2 + minimap.padHieght/2;
+  minimap.padWidth = width*0.20;
+  minimap.padHeight = height*0.20;
+  minimap.imgWidth = width*0.18;
+  minimap.imgHeight = height*0.18;
+  minimap.x = -width/2 + minimap.padWidth/2;
+  minimap.y = -height/2 + minimap.padHeight/2;
 }
 
 function settingSprites() {
@@ -208,8 +209,11 @@ function itemArrays() {
 }
 
 function setPlayer() {
-  player.race = allRaces[0];
-  player.skill = allSkills[0];
+  player.raceIndex = 0
+  player.race = allRaces[player.raceIndex];
+
+  player.skillIndex = 0;
+  player.skill = allSkills[player.skillIndex];
 }
 
 function setSettingsMenu() {
