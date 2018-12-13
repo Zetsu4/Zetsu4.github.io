@@ -19,7 +19,7 @@
 let startingState = 0;
 let state = 0;
 let previousState = state;
-let textFontSize;
+let fontSize = {};
 let fonts = {};
 let buttons = {};
 let buttonAtributes = {
@@ -115,8 +115,9 @@ function setup() {
   noStroke();
 
   // text
-  textFontSize = (width*0.03 + height*0.03)/2;
-  textFont(fonts.default, textFontSize);
+  fontSize.default = (width*0.03 + height*0.03)/2;
+  fontSize.playersDisplay = fontSize.default/2;
+  textFont(fonts.default, fontSize.default);
 
   // alligning
   textAlign(CENTER, CENTER);
@@ -175,7 +176,7 @@ function settingWorld() {
   minimap.imgWidth = width*0.18;
   minimap.imgHeight = height*0.18;
   minimap.x = -width/2 + minimap.padWidth/2;
-  minimap.y = -height/2 + minimap.padHeight/2;
+  minimap.y = height/2 - minimap.padHeight/2;
 }
 
 function settingSprites() {
@@ -209,11 +210,44 @@ function itemArrays() {
 }
 
 function setPlayer() {
+  // character
+  player.name = "MOI";
+  
   player.raceIndex = 0
   player.race = allRaces[player.raceIndex];
 
   player.skillIndex = 0;
   player.skill = allSkills[player.skillIndex];
+
+  // stats
+  player.int = 0; // Intellegence
+  player.agi = 0; // Agillity
+  player.str = 0; // Strength
+  player.dex = 0; // Dexterity
+  player.vit = 0; // Vitality
+
+  player.totHp = 0;
+  player.hp = 0;
+
+  player.totMp = 0;
+  player.mp = 0;
+
+  // damage
+  player.mDmg = 0; // melee
+  player.rDmg = 0; // ranged
+  player.sDmg = 0; // magic
+  player.tDmg = 0; // trap
+
+  // movement speed
+  player.totSpeed = 0;
+  player.speedMultiplier = 0;
+  player.speed = 0;
+
+  // level
+  player.lvl = 0;
+  player.exp = 0;
+  player.nextLvl = 100;
+  player.points = 0;
 }
 
 function setSettingsMenu() {

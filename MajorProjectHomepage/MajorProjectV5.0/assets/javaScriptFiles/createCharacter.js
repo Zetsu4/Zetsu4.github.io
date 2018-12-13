@@ -26,9 +26,11 @@ function createChar() {
     buttonClick(buttons.back, 0, 0, true);
     buttonClick(buttons.continue, 2, 0);
 
-    // random character
-    if (state !== 1)
+    // continued
+    if (startingState === 2) {
       selectRandom();
+      setPlayerStats();
+    }
   }
 
 }
@@ -90,4 +92,28 @@ function selectRandom() {
     player.skillIndex = randomIndex;
     player.skill = allSkills[player.skillIndex];
   }
+}
+
+// set stats
+function setPlayerStats() {
+  player.int = player.race.stats.int;
+  player.agi = player.race.stats.agi;
+  player.str = player.race.stats.str;
+  player.dex = player.race.stats.dex;
+  player.vit = player.race.stats.vit;
+
+  player.totHp = 10*(player.vit+1);
+  player.hp = player.totHp;
+
+  player.totMp = 10*(player.int+1);
+  player.mp = player.totMp;
+
+  player.mDmg = int(player.str*(2 - player.skill.stats.melee/75)); // melee damage
+  player.rDmg = int(player.dex*(2 - player.skill.stats.ranged/75)); // ranged damage
+  player.sDmg = int(player.int*(2 - player.skill.stats.magic/75)); // spell damage
+  player.tDmg = int(player.agi*1.75);
+
+  player.totSpeed = width*0.006 + width*player.agi*pow(10, -4);
+  player.speedMultiplier = 0.75;
+  player.speed = player.totSpeed;
 }

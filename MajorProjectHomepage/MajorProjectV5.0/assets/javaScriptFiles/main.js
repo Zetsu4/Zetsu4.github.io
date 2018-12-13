@@ -27,7 +27,7 @@ function draw() {
 function buttonClick(theButton, changeState1, changeState2, backButton = false) {
   push();
   if (backButton)
-    textSize(textFontSize/2);
+    textSize(fontSize.playersDisplay);
 
   if (theButton.clicked()) {
     startingState = changeState1;

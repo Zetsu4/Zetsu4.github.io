@@ -27,4 +27,7 @@ It will play similarly to an MMO, but single player so MSO (Massively Single-pla
   - pretty pictures
   - interacting with inventory
   - items
+  - guilds
+  - party members
+  - party members AI
   - title for game

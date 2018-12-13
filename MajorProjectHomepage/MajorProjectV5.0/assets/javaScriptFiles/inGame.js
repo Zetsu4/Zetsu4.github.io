@@ -7,10 +7,10 @@ function playingGame() {
     inventoryMenu();
 
   else if (state === 0) {
-    // player
-    playerDisplays();
-
     // enemys
 
+
+    // player
+    playerDisplays();
   }
 }
