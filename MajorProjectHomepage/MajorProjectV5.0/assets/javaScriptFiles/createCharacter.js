@@ -5,14 +5,16 @@ function createChar() {
       raceButtons.push(new Button(
         buttonAtributes.race.x, (i*buttonAtributes.race.height)+buttonAtributes.listStart,
         buttonAtributes.width, buttonAtributes.race.height,
-        buttons.red, buttons.green, allRaces[i].name));
+        buttons.red, buttons.green, allRaces[i].name
+      ));
 
     skillButtons = [];
     for (let i = 0; i < allSkills.length; i++)
       skillButtons.push(new Button(
         buttonAtributes.skill.x, (i*buttonAtributes.skill.height)+buttonAtributes.listStart,
         buttonAtributes.width, buttonAtributes.skill.height,
-        buttons.red, buttons.green, allSkills[i].name));
+        buttons.red, buttons.green, allSkills[i].name
+      ));
 
     state = 1;
   }

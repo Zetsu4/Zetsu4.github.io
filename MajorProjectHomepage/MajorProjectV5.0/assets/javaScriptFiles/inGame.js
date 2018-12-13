@@ -1,7 +1,12 @@
 function playingGame() {
   if (state === "Settings")
-    // settings
     settingsMenu();
+
+  else if (state === "Controls")
+    openControls();
+
+  else if (state === "Map")
+    worldMap();
 
   else if (state === "Inventory")
     inventoryMenu();
@@ -13,5 +18,10 @@ function playingGame() {
     // player
     playerDisplays();
     movement();
+  }
+
+  else if (state === "Main Menu") {
+      startingState = 0;
+      state = 0;
   }
 }

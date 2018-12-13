@@ -116,7 +116,6 @@ function setup() {
 
   // text
   fontSize.default = (width+height)*0.015;
-  // fontSize.default = (width*0.03 + height*0.03)/2;
   fontSize.playersDisplay = fontSize.default/2;
   textFont(fonts.default, fontSize.default);
 
@@ -138,7 +137,6 @@ function setup() {
   itemArrays();
   setPlayer();
   setSettingsMenu();
-  setButtonAtributes();
 }
 
 function settingKeyBindings() {
@@ -194,7 +192,8 @@ function settingSprites() {
     {name: "Half-Elf", img: sprites.race.halfElf, stats: halfElf}, {name: "Elf", img: sprites.race.elf, stats: elf},
     {name: "Dwarf", img: sprites.race.dwarf, stats: dwarf}, {name: "Halfling", img: sprites.race.halfling, stats: halfling},
     {name: "Goblin", img: sprites.race.goblin, stats: goblin}, {name: "Orc", img: sprites.race.orc, stats: orc},
-    {name: "Uruk-Hai", img: sprites.race.urukHai, stats: urukHai}];
+    {name: "Uruk-Hai", img: sprites.race.urukHai, stats: urukHai}
+  ];
 
   // skill
   allSkills = [
@@ -202,7 +201,8 @@ function settingSprites() {
     {name: "Ranger", img: sprites.skill.ranger, stats: ranger}, {name: "Fighter", img: sprites.skill.fighter, stats: fighter},
     {name: "Samurai", img: sprites.skill.samurai, stats: samurai}, {name: "Mage", img: sprites.skill.mage, stats: mage},
     {name: "Cleric", img: sprites.skill.cleric, stats: cleric}, {name: "Rogue", img: sprites.skill.rogue, stats: rogue},
-    {name: "Trapper", img: sprites.skill.trapper, stats: trapper}];
+    {name: "Trapper", img: sprites.skill.trapper, stats: trapper}
+  ];
 }
 
 function itemArrays() {
@@ -258,10 +258,6 @@ function setPlayer() {
   player.dotSize = (width+height)*0.0025;
 }
 
-function setSettingsMenu() {
-  settings = [];
-}
-
 function setButtonAtributes() {
   // universal
   buttonAtributes.width = width*0.15;
@@ -276,6 +272,26 @@ function setButtonAtributes() {
   buttonAtributes.skill.x = width*0.35;
 
   // settings
-  buttonAtributes.settings.height = height*0.90/settings.length;
+  buttonAtributes.settings.height = height*0.90/settings.options.length;
   buttonAtributes.settings.x = 0;
+}
+
+function setSettingsMenu() {
+  settings.options = [
+    {name: "Resume", state: 0},
+    {name: "Controls", state: "Controls"},
+    {name: "Map", state: "Map"},
+    {name: "Save", state: "Settings"},
+    {name: "Load", state: "Settings"},
+    {name: "Main Menu", state: "Main Menu"}
+  ];
+
+  setButtonAtributes();
+  settings.boxs = [];
+  for (let i=0; i < settings.options.length; i++)
+    settings.boxs.push(new Button(
+      buttonAtributes.settings.x, buttonAtributes.listStart+(i*buttonAtributes.settings.height),
+      buttonAtributes.width, buttonAtributes.settings.height,
+      "orange", color(250, 220, 0), settings.options[i].name
+    ));
 }

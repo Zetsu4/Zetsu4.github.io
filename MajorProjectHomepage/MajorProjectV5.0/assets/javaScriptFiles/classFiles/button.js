@@ -21,13 +21,14 @@ class Button {
     let right = this.x + width/2 + this.width/2;
     let top = this.y + height/2 - this.height/2;
     let bottom = this.y + height/2 + this.height/2;
+    let pressed = false;
 
     if (mouseX > left && mouseX < right &&
         mouseY > top && mouseY < bottom) {
 
       fill(this.hoverCol);
       if (mouseIsPressed)
-        return true;
+        pressed = true;
     }
     else
       fill(this.restCol);
@@ -36,6 +37,6 @@ class Button {
 
     fill("black");
     text(this.text, this.x, this.y);
-    return false;
+    return pressed;
   }
 }

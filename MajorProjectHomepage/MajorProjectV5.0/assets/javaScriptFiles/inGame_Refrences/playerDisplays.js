@@ -67,7 +67,7 @@ function playerSprite() {
   push();
   fill("white");
   textAlign(LEFT, TOP);
-  text(player.name+"\n"+player.race.name+" - "+player.skill.name, -width*0.49, -height*0.485);
+  text(player.name+"\n"+player.race.name+", "+player.skill.name, -width*0.49, -height*0.485);
   pop();
 }
 

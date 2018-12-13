@@ -1,9 +1,9 @@
 function keyPressed() {
   // single press buttons
-  if (keyCode === keyBindings.get("Settings"))
+  if (keyCode === keyBindings.get("Settings").code)
     toggleStates("Settings");
 
-  if (keyCode === keyBindings.get("Inventory"))
+  if (keyCode === keyBindings.get("Inventory").code)
     toggleStates("Inventory");
 
   if (keyCode === keyBindings.get("Open Map").code)
