@@ -33,6 +33,31 @@ function miniMap() {
 
   // background image
   image(world.state.img, minimap.x, minimap.y, minimap.imgWidth, minimap.imgHeight);
+
+  mapPlayer();
+}
+
+function mapPlayer() {
+  // map position
+  let mapMinX = minimap.x - minimap.imgWidth/2 + player.dotSize;
+  let mapMaxX = minimap.x + minimap.imgWidth/2 - player.dotSize;
+  let mapMinY = minimap.y - minimap.imgHeight/2 + player.dotSize;
+  let mapMaxY = minimap.y + minimap.imgHeight/2 - player.dotSize;
+
+  // dot
+  let playerX = map(player.x, -world.width/2, world.width/2, mapMinX, mapMaxX);
+  let playerY = map(player.y, -world.height/2, world.height/2, mapMinY, mapMaxY);
+  fill("blue");
+  ellipse(playerX, playerY, player.dotSize);
+
+  // screen
+  let rectWidth = map(width, 0, world.width, mapMinX/world.sizeMult/1.75, mapMaxX/world.sizeMult/1.75);
+  let rectHeight = map(height, 0, world.height, mapMinY/world.sizeMult*1.75, mapMaxY/world.sizeMult*1.75);
+  push();
+  noFill();
+  stroke("white");
+  rect(playerX, playerY, rectWidth, rectHeight);
+  pop();
 }
 
 // player

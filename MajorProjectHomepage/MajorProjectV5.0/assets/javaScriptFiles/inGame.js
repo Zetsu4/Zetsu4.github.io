@@ -12,5 +12,6 @@ function playingGame() {
 
     // player
     playerDisplays();
+    movement();
   }
 }

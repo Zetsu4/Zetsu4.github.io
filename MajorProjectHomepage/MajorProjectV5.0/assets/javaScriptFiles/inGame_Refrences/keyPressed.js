@@ -5,6 +5,13 @@ function keyPressed() {
 
   if (keyCode === keyBindings.get("Inventory"))
     toggleStates("Inventory");
+
+  if (keyCode === keyBindings.get("Open Map").code)
+    toggleStates("Map");
+
+  // toggle speed
+  if (keyCode === keyBindings.get("Toggle Walk"))
+    player.toggleSpeed = !player.toggleSpeed;
 }
 
 function toggleStates(setState) {

@@ -115,7 +115,8 @@ function setup() {
   noStroke();
 
   // text
-  fontSize.default = (width*0.03 + height*0.03)/2;
+  fontSize.default = (width+height)*0.015;
+  // fontSize.default = (width*0.03 + height*0.03)/2;
   fontSize.playersDisplay = fontSize.default/2;
   textFont(fonts.default, fontSize.default);
 
@@ -153,7 +154,7 @@ function settingKeyBindings() {
   keyBindings.set("Move Left", 65); // A
   keyBindings.set("Move Down", 83); // S
   keyBindings.set("Move Right", 68); // D
-  keyBindings.set("Toggle Walk", {code: 16, state: "walk"}); // Shift
+  keyBindings.set("Toggle Walk", 16); // Shift
   keyBindings.set("Consume HP Poition", 70); // F
   keyBindings.set("Consume MP Poition", 71); // G
   keyBindings.set("Interact", 32); // Space
@@ -165,16 +166,17 @@ function settingWorld() {
   world.state = worldState.get("Meadow");
 
   // coordinates
-  world.width = width*10;
-  world.height = height*10;
+  world.sizeMult = 10;
+  world.width = width*world.sizeMult;
+  world.height = height*world.sizeMult;
   world.changedX = 0;
   world.changedY = 0;
 
   // minimap
   minimap.padWidth = width*0.20;
-  minimap.padHeight = height*0.20;
+  minimap.padHeight = height*0.30;
   minimap.imgWidth = width*0.18;
-  minimap.imgHeight = height*0.18;
+  minimap.imgHeight = height*0.28;
   minimap.x = -width/2 + minimap.padWidth/2;
   minimap.y = height/2 - minimap.padHeight/2;
 }
@@ -212,7 +214,7 @@ function itemArrays() {
 function setPlayer() {
   // character
   player.name = "MOI";
-  
+
   player.raceIndex = 0
   player.race = allRaces[player.raceIndex];
 
@@ -239,6 +241,7 @@ function setPlayer() {
   player.tDmg = 0; // trap
 
   // movement speed
+  player.toggleSpeed = false;
   player.totSpeed = 0;
   player.speedMultiplier = 0;
   player.speed = 0;
@@ -248,6 +251,11 @@ function setPlayer() {
   player.exp = 0;
   player.nextLvl = 100;
   player.points = 0;
+
+  // in world
+  player.x = 0;
+  player.y = 0;
+  player.dotSize = (width+height)*0.0025;
 }
 
 function setSettingsMenu() {
