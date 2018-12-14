@@ -147,15 +147,15 @@ function settingKeyBindings() {
   keyBindings.set("Inventory", {code: 69, state: "inventory"}); // E
   keyBindings.set("Toggle Ranged", {code: 82, state: "ranged"}); // R
   keyBindings.set("Toggle Magic", {code: 84, state: "magic"}); // T
-  keyBindings.set("Place Trap", 81); // Q
-  keyBindings.set("Move Up", 87); // W
-  keyBindings.set("Move Left", 65); // A
-  keyBindings.set("Move Down", 83); // S
-  keyBindings.set("Move Right", 68); // D
-  keyBindings.set("Toggle Walk", 16); // Shift
-  keyBindings.set("Consume HP Poition", 70); // F
-  keyBindings.set("Consume MP Poition", 71); // G
-  keyBindings.set("Interact", 32); // Space
+  keyBindings.set("Place Trap", {code: 81}); // Q
+  keyBindings.set("Move Up", {code: 87}); // W
+  keyBindings.set("Move Left", {code: 65}); // A
+  keyBindings.set("Move Down", {code: 83}); // S
+  keyBindings.set("Move Right", {code: 68}); // D
+  keyBindings.set("Toggle Walk", {code: 16}); // Shift
+  keyBindings.set("Consume HP Poition", {code: 70}); // F
+  keyBindings.set("Consume MP Poition", {code: 71}); // G
+  keyBindings.set("Interact", {code: 32}); // Space
 }
 
 function settingWorld() {

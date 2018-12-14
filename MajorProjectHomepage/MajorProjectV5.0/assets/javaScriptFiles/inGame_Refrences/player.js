@@ -1,22 +1,22 @@
 function movement() {
   player.speed = (player.toggleSpeed ? player.totSpeed*player.speedMultiplier : player.totSpeed);
 
-  if (keyIsDown(keyBindings.get("Move Up"))) {
+  if (keyIsDown(keyBindings.get("Move Up").code)) {
     player.y -= player.speed;
     world.changedY += player.speed;
   }
 
-  if (keyIsDown(keyBindings.get("Move Down"))) {
+  if (keyIsDown(keyBindings.get("Move Down").code)) {
     player.y += player.speed;
     world.changedY -= player.speed;
   }
 
-  if (keyIsDown(keyBindings.get("Move Left"))) {
+  if (keyIsDown(keyBindings.get("Move Left").code)) {
     player.x -= player.speed;
     world.changedX += player.speed;
   }
 
-  if (keyIsDown(keyBindings.get("Move Right"))) {
+  if (keyIsDown(keyBindings.get("Move Right").code)) {
     player.x += player.speed;
     world.changedX -= player.speed;
   }

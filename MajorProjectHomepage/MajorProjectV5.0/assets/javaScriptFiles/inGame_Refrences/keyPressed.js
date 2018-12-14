@@ -10,7 +10,7 @@ function keyPressed() {
     toggleStates("Map");
 
   // toggle speed
-  if (keyCode === keyBindings.get("Toggle Walk"))
+  if (keyCode === keyBindings.get("Toggle Walk").code)
     player.toggleSpeed = !player.toggleSpeed;
 }
 

@@ -37,18 +37,22 @@ function miniMap() {
   mapPlayer();
 }
 
-function mapPlayer() {
+function mapPlayer(
+  mapX = minimap.x, mapY = minimap.y,
+  mapW = minimap.imgWidth, mapH = minimap.imgHeight,
+  dotSize = player.dotSize
+) {
   // map position
-  let mapMinX = minimap.x - minimap.imgWidth/2 + player.dotSize;
-  let mapMaxX = minimap.x + minimap.imgWidth/2 - player.dotSize;
-  let mapMinY = minimap.y - minimap.imgHeight/2 + player.dotSize;
-  let mapMaxY = minimap.y + minimap.imgHeight/2 - player.dotSize;
+  let mapMinX = mapX - mapW/2 + dotSize;
+  let mapMaxX = mapX + mapW/2 - dotSize;
+  let mapMinY = mapY - mapH/2 + dotSize;
+  let mapMaxY = mapY + mapH/2 - dotSize;
 
   // dot
   let playerX = map(player.x, -world.width/2, world.width/2, mapMinX, mapMaxX);
   let playerY = map(player.y, -world.height/2, world.height/2, mapMinY, mapMaxY);
   fill("blue");
-  ellipse(playerX, playerY, player.dotSize);
+  ellipse(playerX, playerY, dotSize);
 
   // screen
   let rectWidth = map(width, 0, world.width, mapMinX/world.sizeMult/1.75, mapMaxX/world.sizeMult/1.75);

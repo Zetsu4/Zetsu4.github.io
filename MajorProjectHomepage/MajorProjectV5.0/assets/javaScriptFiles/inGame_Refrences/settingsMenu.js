@@ -4,6 +4,7 @@ function settingsMenu() {
       state = settings.options[i].state;
 }
 
+// controls
 function openControls() {
   fill("orange");
   rect(0, 0, width*0.60, height);
@@ -14,21 +15,23 @@ function openControls() {
 
 function displayControls(value, key, map) {
   let i = static();
-  value.code === undefined ? text(key+" - "+value.code, 0, -height*0.48+(i*fontSize.default)) : text(key+" - "+value, 0, -height*0.48+(i*fontSize.default));
+  let yPos = -height*0.48+(i*fontSize.default*1.1);
+  text(key+" - "+value.code, 0, yPos);
 }
-
-function worldMap() {
-
-}
-
 
 function static() {
-    if (typeof static.counter == "undefined") {
-        static.counter = 0;
-    }
-    if (static.counter >= 10) {
-      static.counter = 0;
-    }
-    // static.counter++;
-    return static.counter++;
+  if (typeof static.counter == "undefined") {
+    static.counter = 0;
+  }
+  if (static.counter >= keyBindings.size) {
+    static.counter = 0;
+  }
+  return static.counter++;
+}
+
+// map
+function worldMap() {
+  image(world.state.img, 0, 0, width, height);
+
+  mapPlayer(0, 0, width + minimap.padWidth/2, height + minimap.padHeight/4, player.dotSize*2);
 }
