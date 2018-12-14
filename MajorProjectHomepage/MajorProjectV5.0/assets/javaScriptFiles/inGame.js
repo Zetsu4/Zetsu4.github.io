@@ -17,7 +17,11 @@ function playingGame() {
 
     // player
     playerDisplays();
-    movement();
+    playerMovement();
+    playerCoolDown();
+
+    // items
+    itemsInWorld();
   }
 
   else if (state === "Main Menu") {

@@ -1,4 +1,4 @@
-function movement() {
+function playerMovement() {
   player.speed = (player.toggleSpeed ? player.totSpeed*player.speedMultiplier : player.totSpeed);
 
   if (keyIsDown(keyBindings.get("Move Up").code)) {
@@ -27,4 +27,10 @@ function movement() {
 
   world.changedX = constrain(world.changedX, -world.width/2 + width/2, world.width/2 - width/2);
   world.changedY = constrain(world.changedY, -world.height/2 + height/2, world.height/2 - height/2);
+}
+
+function playerCoolDown() {
+  let elapsedTime = millis() - player.previousAttack;
+  if (player.coolDown && elapsedTime >= player.coolDownTime) 
+    player.coolDown = false;
 }

@@ -30,6 +30,7 @@ function createChar() {
 
     // continued
     if (startingState === 2) {
+      clickWait();
       selectRandom();
       setPlayerStats();
     }
@@ -98,23 +99,28 @@ function selectRandom() {
 
 // set stats
 function setPlayerStats() {
+  // stats
   player.int = player.race.stats.int;
   player.agi = player.race.stats.agi;
   player.str = player.race.stats.str;
   player.dex = player.race.stats.dex;
   player.vit = player.race.stats.vit;
 
+  // health and mana
   player.totHp = 10*(player.vit+1);
   player.hp = player.totHp;
 
   player.totMp = 10*(player.int+1);
   player.mp = player.totMp;
 
+  // attack
+  player.coolDownTime = 1000 - (player.vit+player.agi)*10;
   player.mDmg = int(player.str*(2 - player.skill.stats.melee/75)); // melee damage
   player.rDmg = int(player.dex*(2 - player.skill.stats.ranged/75)); // ranged damage
   player.sDmg = int(player.int*(2 - player.skill.stats.magic/75)); // spell damage
   player.tDmg = int(player.agi*1.75);
 
+  // movement
   player.totSpeed = width*0.006 + width*player.agi*pow(10, -4);
   player.speedMultiplier = 0.75;
   player.speed = player.totSpeed;

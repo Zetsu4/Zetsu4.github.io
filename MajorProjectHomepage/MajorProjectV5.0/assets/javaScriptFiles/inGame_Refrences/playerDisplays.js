@@ -11,6 +11,7 @@ function playerDisplays() {
   textSize(fontSize.playersDisplay);
   playerSprite();
   playerLvL();
+  playerAttackIcon();
   inventoryQuickCheck();
   infoBars();
   pop();
@@ -82,6 +83,29 @@ function playerLvL() {
   fill("white");
   text("Exp. " + player.exp + "/" + player.nextLvl, 0, height*0.475);
   text("Lv. " + player.lvl, 0, spriteSize.height*0.60);
+}
+
+function playerAttackIcon() {
+  let pointAngle = atan2(mouseY - height/2, mouseX - width/2);
+  let itemIcon;
+
+  push();
+  rotate(pointAngle);
+  if (player.attackState === "melee")
+    itemIcon = itemImg.swordIcon;
+
+  else if (player.attackState === "ranged")
+    itemIcon = itemImg.bowIcon;
+
+  else if (player.attackState === "magic")
+    itemIcon = itemImg.magicIcon;
+
+  if (player.coolDown) {
+    fill(50, 175);
+    ellipse(spriteSize.width*0.50, 0, spriteSize.height);
+  }
+  image(itemIcon, spriteSize.width*0.50, 0, spriteSize.width, spriteSize.height);
+  pop();
 }
 
 function inventoryQuickCheck() {

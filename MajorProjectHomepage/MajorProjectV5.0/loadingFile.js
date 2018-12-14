@@ -172,6 +172,7 @@ function settingSprites() {
 }
 
 function setSettingsMenu() {
+  // all options found in the settings menu
   settings.options = [
     {name: "Resume", state: 0},
     {name: "Controls", state: "Controls"},
@@ -182,6 +183,7 @@ function setSettingsMenu() {
   ];
 
   setButtonAtributes();
+  // buttons for the settings options
   settings.boxs = [];
   for (let i=0; i < settings.options.length; i++)
     settings.boxs.push(new Button(
@@ -192,6 +194,7 @@ function setSettingsMenu() {
   }
 
 function settingKeyBindings() {
+  // key bindings
   keyBindings = new Map();
 
   keyBindings.set("Settings", {code: 27, state: "settings", button: 0}); // Escape
@@ -213,6 +216,7 @@ function settingKeyBindings() {
 }
 
 function settingWorld() {
+  // different enviorments
   worldState = new Map();
   worldState.set("Meadow", {img: worldBackgrounds.grass, name: "Meadow"});
   world.state = worldState.get("Meadow");
@@ -234,6 +238,7 @@ function settingWorld() {
 }
 
 function itemArrays() {
+  // items in hte world
   items.onGround = [];
   items.playerAttack = [];
   items.enemyAttack = [];
@@ -262,13 +267,17 @@ function setPlayer() {
   player.totMp = 0;
   player.mp = 0;
 
-  // damage
+  // atack
+  player.attackState = "melee";
+  player.coolDown = false;
+  player.coolDownTime = 0;
+  player.previousAttack = 0;
   player.mDmg = 0; // melee
   player.rDmg = 0; // ranged
   player.sDmg = 0; // magic
   player.tDmg = 0; // trap
 
-  // movement speed
+  // movement
   player.toggleSpeed = false;
   player.totSpeed = 0;
   player.speedMultiplier = 0;
@@ -305,6 +314,7 @@ function setButtonAtributes() {
 }
 
 function setKeyButtons(value, key, map) {
+  // buttons to rebind keys
   let i = static(map.size);
   let yPos = -height*0.48+(i*fontSize.default*1.5);
   map.get(key).button = new Button(fontSize.default*4.5, yPos, width*0.10, fontSize.default*1.5, buttons.orange, buttons.lightOrange, "");

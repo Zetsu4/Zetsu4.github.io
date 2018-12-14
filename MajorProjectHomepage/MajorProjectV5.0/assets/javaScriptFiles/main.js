@@ -25,6 +25,7 @@ function draw() {
 }
 
 function buttonClick(theButton, changeState1, changeState2) {
+  // button that changes states
   if (theButton.clicked()) {
     startingState = changeState1;
     state = changeState2;
@@ -32,16 +33,19 @@ function buttonClick(theButton, changeState1, changeState2) {
 }
 
 function static(size) {
-  if (typeof static.counter == "undefined") {
+  // creates and keeps track of a static variable
+  if (typeof static.counter == "undefined")
     static.counter = 0;
-  }
-  if (static.counter >= size) {
+
+  if (static.counter >= size)
     static.counter = 0;
-  }
+
   return static.counter++;
 }
 
 function clickWait() {
+  // called after clicking a button
+  // so that the button is only clicked once
   let waiting = millis();
   while (millis() - waiting <= WAIT_TIME) {
     continue;
