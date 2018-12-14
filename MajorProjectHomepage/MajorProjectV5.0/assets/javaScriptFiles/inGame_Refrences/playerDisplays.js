@@ -56,7 +56,7 @@ function mapPlayer(
 
   // screen
   let rectWidth = map(width, 0, world.width, mapMinX/world.sizeMult/1.75, mapMaxX/world.sizeMult/1.75);
-  let rectHeight = map(height, 0, world.height, mapMinY/world.sizeMult*1.75, mapMaxY/world.sizeMult*1.75);
+  let rectHeight = map(height, 0, world.height, mapMinY/world.sizeMult, mapMaxY/world.sizeMult);
   push();
   noFill();
   stroke("white");

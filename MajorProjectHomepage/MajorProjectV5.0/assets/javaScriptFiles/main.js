@@ -24,14 +24,26 @@ function draw() {
   }
 }
 
-function buttonClick(theButton, changeState1, changeState2, backButton = false) {
-  push();
-  if (backButton)
-    textSize(fontSize.playersDisplay);
-
+function buttonClick(theButton, changeState1, changeState2) {
   if (theButton.clicked()) {
     startingState = changeState1;
     state = changeState2;
   }
-  pop();
+}
+
+function static(size) {
+  if (typeof static.counter == "undefined") {
+    static.counter = 0;
+  }
+  if (static.counter >= size) {
+    static.counter = 0;
+  }
+  return static.counter++;
+}
+
+function clickWait() {
+  let waiting = millis();
+  while (millis() - waiting <= WAIT_TIME) {
+    continue;
+  }
 }

@@ -60,7 +60,11 @@ let settings = {};
 
 // key-bindings
 let keyBindings;
+let rebindButtons = [];
 
+// waiting
+let waiting;
+const WAIT_TIME = 150;
 
 function preload() {
   // fonts
@@ -127,56 +131,18 @@ function setup() {
   // buttons
   buttons.red = color(255, 0, 0);
   buttons.green = color(0, 255, 0);
-  buttons.back = new Button(-width*0.475, -height*0.475, width*0.05, height*0.05, buttons.red, buttons.green, "Back");
-  buttons.continue = new Button(0, -height*0.4625, width*0.20, height*0.075, buttons.red, buttons.green, "Continue");
+  buttons.orange = color(255, 165, 0);
+  buttons.lightOrange = color(255, 220, 0);
+  buttons.back = new Button(-width*0.475, -height*0.475, width*0.05, height*0.05, buttons.red, buttons.green, "Back", fontSize.playersDisplay);
+  buttons.continue = new Button(0, -height*0.4625, width*0.20, height*0.075, buttons.red, buttons.green, "Continue", fontSize.default);
 
   // assinging variables
+  settingSprites();
+  setSettingsMenu();
   settingKeyBindings();
   settingWorld();
-  settingSprites();
   itemArrays();
   setPlayer();
-  setSettingsMenu();
-}
-
-function settingKeyBindings() {
-  keyBindings = new Map();
-
-  keyBindings.set("Settings", {code: 27, state: "settings"}); // Escape
-  keyBindings.set("Open Map", {code: 77, state: "map"}); // M
-  keyBindings.set("Inventory", {code: 69, state: "inventory"}); // E
-  keyBindings.set("Toggle Ranged", {code: 82, state: "ranged"}); // R
-  keyBindings.set("Toggle Magic", {code: 84, state: "magic"}); // T
-  keyBindings.set("Place Trap", {code: 81}); // Q
-  keyBindings.set("Move Up", {code: 87}); // W
-  keyBindings.set("Move Left", {code: 65}); // A
-  keyBindings.set("Move Down", {code: 83}); // S
-  keyBindings.set("Move Right", {code: 68}); // D
-  keyBindings.set("Toggle Walk", {code: 16}); // Shift
-  keyBindings.set("Consume HP Poition", {code: 70}); // F
-  keyBindings.set("Consume MP Poition", {code: 71}); // G
-  keyBindings.set("Interact", {code: 32}); // Space
-}
-
-function settingWorld() {
-  worldState = new Map();
-  worldState.set("Meadow", {img: worldBackgrounds.grass, name: "Meadow"});
-  world.state = worldState.get("Meadow");
-
-  // coordinates
-  world.sizeMult = 10;
-  world.width = width*world.sizeMult;
-  world.height = height*world.sizeMult;
-  world.changedX = 0;
-  world.changedY = 0;
-
-  // minimap
-  minimap.padWidth = width*0.20;
-  minimap.padHeight = height*0.30;
-  minimap.imgWidth = width*0.18;
-  minimap.imgHeight = height*0.28;
-  minimap.x = -width/2 + minimap.padWidth/2;
-  minimap.y = height/2 - minimap.padHeight/2;
 }
 
 function settingSprites() {
@@ -203,6 +169,68 @@ function settingSprites() {
     {name: "Cleric", img: sprites.skill.cleric, stats: cleric}, {name: "Rogue", img: sprites.skill.rogue, stats: rogue},
     {name: "Trapper", img: sprites.skill.trapper, stats: trapper}
   ];
+}
+
+function setSettingsMenu() {
+  settings.options = [
+    {name: "Resume", state: 0},
+    {name: "Controls", state: "Controls"},
+    {name: "Map", state: "Map"},
+    {name: "Save", state: "Settings"},
+    {name: "Load", state: "Settings"},
+    {name: "Main Menu", state: "Main Menu"}
+  ];
+
+  setButtonAtributes();
+  settings.boxs = [];
+  for (let i=0; i < settings.options.length; i++)
+    settings.boxs.push(new Button(
+      buttonAtributes.settings.x, buttonAtributes.listStart+(i*buttonAtributes.settings.height),
+      buttonAtributes.width, buttonAtributes.settings.height,
+      buttons.orange, buttons.lightOrange, settings.options[i].name
+    ));
+  }
+
+function settingKeyBindings() {
+  keyBindings = new Map();
+
+  keyBindings.set("Settings", {code: 27, state: "settings", button: 0}); // Escape
+  keyBindings.set("Open Map", {code: 77, state: "map", button: 0}); // M
+  keyBindings.set("Inventory", {code: 69, state: "inventory", button: 0}); // E
+  keyBindings.set("Toggle Ranged", {code: 82, state: "ranged", button: 0}); // R
+  keyBindings.set("Toggle Magic", {code: 84, state: "magic", button: 0}); // T
+  keyBindings.set("Place Trap", {code: 81, button: 0}); // Q
+  keyBindings.set("Move Up", {code: 87, button: 0}); // W
+  keyBindings.set("Move Left", {code: 65, button: 0}); // A
+  keyBindings.set("Move Down", {code: 83, button: 0}); // S
+  keyBindings.set("Move Right", {code: 68, button: 0}); // D
+  keyBindings.set("Toggle Walk", {code: 16, button: 0}); // Shift
+  keyBindings.set("Consume HP Poition", {code: 70, button: 0}); // F
+  keyBindings.set("Consume MP Poition", {code: 71, button: 0}); // G
+  keyBindings.set("Interact", {code: 32, button: 0}); // Space
+
+  keyBindings.forEach(setKeyButtons);
+}
+
+function settingWorld() {
+  worldState = new Map();
+  worldState.set("Meadow", {img: worldBackgrounds.grass, name: "Meadow"});
+  world.state = worldState.get("Meadow");
+
+  // coordinates
+  world.sizeMult = 10;
+  world.width = width*world.sizeMult;
+  world.height = height*world.sizeMult;
+  world.changedX = 0;
+  world.changedY = 0;
+
+  // minimap
+  minimap.padWidth = width*0.20;
+  minimap.padHeight = height*0.20;
+  minimap.imgWidth = width*0.18;
+  minimap.imgHeight = height*0.18;
+  minimap.x = -width/2 + minimap.padWidth/2;
+  minimap.y = height/2 - minimap.padHeight/2;
 }
 
 function itemArrays() {
@@ -276,22 +304,8 @@ function setButtonAtributes() {
   buttonAtributes.settings.x = 0;
 }
 
-function setSettingsMenu() {
-  settings.options = [
-    {name: "Resume", state: 0},
-    {name: "Controls", state: "Controls"},
-    {name: "Map", state: "Map"},
-    {name: "Save", state: "Settings"},
-    {name: "Load", state: "Settings"},
-    {name: "Main Menu", state: "Main Menu"}
-  ];
-
-  setButtonAtributes();
-  settings.boxs = [];
-  for (let i=0; i < settings.options.length; i++)
-    settings.boxs.push(new Button(
-      buttonAtributes.settings.x, buttonAtributes.listStart+(i*buttonAtributes.settings.height),
-      buttonAtributes.width, buttonAtributes.settings.height,
-      "orange", color(250, 220, 0), settings.options[i].name
-    ));
+function setKeyButtons(value, key, map) {
+  let i = static(map.size);
+  let yPos = -height*0.48+(i*fontSize.default*1.5);
+  map.get(key).button = new Button(fontSize.default*4.5, yPos, width*0.10, fontSize.default*1.5, buttons.orange, buttons.lightOrange, "");
 }
