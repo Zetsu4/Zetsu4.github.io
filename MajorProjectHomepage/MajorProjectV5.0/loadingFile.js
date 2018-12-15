@@ -62,6 +62,10 @@ let settings = {};
 let keyBindings;
 let rebindButtons = [];
 
+// enemys
+let enemyArr = [];
+const NUM_OF_ENEMYS = 100;
+
 // waiting
 let waiting;
 const WAIT_TIME = 150;

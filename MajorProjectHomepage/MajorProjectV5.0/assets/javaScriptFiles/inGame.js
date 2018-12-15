@@ -13,7 +13,7 @@ function playingGame() {
 
   else if (state === 0) {
     // enemys
-
+    
 
     // player
     playerDisplays();

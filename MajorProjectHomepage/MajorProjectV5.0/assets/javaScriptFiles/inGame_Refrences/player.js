@@ -4,21 +4,25 @@ function playerMovement() {
   if (keyIsDown(keyBindings.get("Move Up").code)) {
     player.y -= player.speed;
     world.changedY += player.speed;
+    moveItemsY(1);
   }
 
   if (keyIsDown(keyBindings.get("Move Down").code)) {
     player.y += player.speed;
     world.changedY -= player.speed;
+    moveItemsY(-1);
   }
 
   if (keyIsDown(keyBindings.get("Move Left").code)) {
     player.x -= player.speed;
     world.changedX += player.speed;
+    moveItemsX(1);
   }
 
   if (keyIsDown(keyBindings.get("Move Right").code)) {
     player.x += player.speed;
     world.changedX -= player.speed;
+    moveItemsX(-1);
   }
 
   // constrain
@@ -31,6 +35,6 @@ function playerMovement() {
 
 function playerCoolDown() {
   let elapsedTime = millis() - player.previousAttack;
-  if (player.coolDown && elapsedTime >= player.coolDownTime) 
+  if (player.coolDown && elapsedTime >= player.coolDownTime)
     player.coolDown = false;
 }

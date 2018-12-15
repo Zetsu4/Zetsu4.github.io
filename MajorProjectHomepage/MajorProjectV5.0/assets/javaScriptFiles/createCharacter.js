@@ -114,7 +114,7 @@ function setPlayerStats() {
   player.mp = player.totMp;
 
   // attack
-  player.coolDownTime = 1000 - (player.vit+player.agi)*10;
+  player.coolDownTime = 1000 - (player.vit+player.agi)*20;
   player.mDmg = int(player.str*(2 - player.skill.stats.melee/75)); // melee damage
   player.rDmg = int(player.dex*(2 - player.skill.stats.ranged/75)); // ranged damage
   player.sDmg = int(player.int*(2 - player.skill.stats.magic/75)); // spell damage
