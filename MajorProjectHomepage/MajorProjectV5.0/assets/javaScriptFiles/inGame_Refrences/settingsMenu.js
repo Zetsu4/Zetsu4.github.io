@@ -66,7 +66,16 @@ function displayControls(value, key, map) {
 function worldMap() {
   image(world.state.img, 0, 0, width, height);
 
-  mapPlayer(0, 0, width + minimap.padWidth/2, height + minimap.padHeight/2, player.dotSize*1.5);
+  let playrDot = player.dotSize*1.5;
+  mapPlayer(0, 0, width + minimap.padWidth/2, height + minimap.padHeight/2, playrDot);
+
+  for (let i=enemyArr.length-1; i >= 0; i--)
+    enemyArr[i].mapping(
+      world.width, world.height,
+      0, 0,
+      width + minimap.padWidth/2, height + minimap.padHeight/2,
+      playrDot*0.75
+    );
 
   buttonClick(buttons.back, 2, "Settings");
 }

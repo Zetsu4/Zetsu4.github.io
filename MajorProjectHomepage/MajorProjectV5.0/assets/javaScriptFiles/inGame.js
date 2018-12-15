@@ -1,4 +1,5 @@
 function playingGame() {
+  textFont("BOLD");
   if (state === "Settings")
     settingsMenu();
 
@@ -12,20 +13,22 @@ function playingGame() {
     inventoryMenu();
 
   else if (state === 0) {
-    // enemys
-    
+    // background
+    image(world.state.img, world.changedX, world.changedY, world.width, world.height);
 
     // player
     playerDisplays();
     playerMovement();
     playerCoolDown();
 
+    // enemys
+    enemys();
+
     // items
     itemsInWorld();
   }
 
   else if (state === "Main Menu") {
-      startingState = 0;
-      state = 0;
+    setup();
   }
 }

@@ -1,28 +1,35 @@
 class Attack {
-  constructor(x, y, changeX, changeY, dx, dist, img, wid = spriteSize.width, hei = spriteSize.height) {
+  constructor(x, y, changeX, changeY, dx, dist, damage, img, wid = spriteSize.width, hei = spriteSize.height) {
     // position
     this.x = x;
     this.y = y;
+
     this.changeX = changeX;
     this.changeY = changeY;
-    this.realX = 0;
-    this.realY = 0;
+
+    this.rotation = atan2(mouseY - height/2, mouseX - width/2);
+
+    this.realX = this.changeX+cos(this.rotation)*this.x;
+    this.realY = this.changeY+sin(this.rotation)*this.x;
 
     // speed
     this.dx = dx;
     this.dist = dist;
 
+    // damage
+    this.damage = damage;
+    this.trap = false;
+
     // image
     this.img = img;
-    this.rotation = atan2(mouseY - height/2, mouseX - width/2);
     this.width = wid;
     this.height = hei;
   }
 
   move() {
     this.x += this.dx;
-    this.realX = width/2 + this.changeX + cos(this.rotation)*this.x;
-    this.realY = height/2 + this.changeY + sin(this.rotation)*this.x;
+    this.realX = this.changeX+cos(this.rotation)*this.x;
+    this.realY = this.changeY+sin(this.rotation)*this.x;
     return this.x >= this.dist;
   }
 

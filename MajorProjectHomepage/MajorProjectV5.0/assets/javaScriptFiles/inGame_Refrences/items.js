@@ -6,6 +6,41 @@ function itemsInWorld() {
   }
 }
 
+// loot drop
+function lootDrop(x, y) {
+  let numOfItems = int(random(player.lvl*1.5));
+  numOfItems = constrain(numOfItems, 2, 15);
+
+  for (let i = 0; i < numOfItems; i++) {
+    let changeX = random(-spriteSize.width*0.75, spriteSize.width*0.75);
+    let changeY = random(-spriteSize.height*0.75, spriteSize.height*0.75);
+    let randomItem = random(100);
+
+    // items
+    if (randomItem <= 20) { // arrows
+      items.onGround.push();
+    }
+
+    else if (randomItem <= 40) { // traps
+      items.onGround.push();
+    }
+
+    else if (randomItem <= 80) { // equipment
+      randomItem = random();
+      // items.onGround.push();
+    }
+
+    // potions
+    randomItem = random(100);
+    if (randomItem <= 20) { // hp potions
+      items.onGround.push();
+    }
+    else if (randomItem <= 20) { // mp potions
+      items.onGround.push();
+    }
+}
+
+// move with player
 function moveItemsX(dir) {
   let speed = player.speed*dir;
 

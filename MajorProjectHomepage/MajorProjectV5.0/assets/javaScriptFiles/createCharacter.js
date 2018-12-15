@@ -27,15 +27,31 @@ function createChar() {
     // back/continue
     buttonClick(buttons.back, 0, 0, true);
     buttonClick(buttons.continue, 2, 0);
+    if (buttons.reName.clicked()) {
+      clickWait();
+      reName();
+    }
 
     // continued
     if (startingState === 2) {
       clickWait();
       selectRandom();
       setPlayerStats();
+      createEnemys();
     }
   }
 
+}
+
+function reName() {
+  let newName = prompt("Input New Name:", player.name);
+
+  if (newName !== null) {
+    if (newName !== "") {
+      player.name = newName;
+      buttons.reName.text = player.name;
+    }
+  }
 }
 
 // race
@@ -115,13 +131,13 @@ function setPlayerStats() {
 
   // attack
   player.coolDownTime = 1000 - (player.vit+player.agi)*20;
-  player.mDmg = int(player.str*(2 - player.skill.stats.melee/75)); // melee damage
-  player.rDmg = int(player.dex*(2 - player.skill.stats.ranged/75)); // ranged damage
-  player.sDmg = int(player.int*(2 - player.skill.stats.magic/75)); // spell damage
+  player.mDmg = int(player.str*(1 + player.skill.stats.melee)); // melee damage
+  player.rDmg = int(player.dex*(1 + player.skill.stats.ranged)); // ranged damage
+  player.sDmg = int(player.int*(1 + player.skill.stats.magic)); // spell damage
   player.tDmg = int(player.agi*1.75);
 
   // movement
-  player.totSpeed = width*0.006 + width*player.agi*pow(10, -4);
+  player.totSpeed = width*0.003 + width*player.agi*pow(10, -4);
   player.speedMultiplier = 0.75;
   player.speed = player.totSpeed;
 }

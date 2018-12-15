@@ -27,6 +27,7 @@ function draw() {
 function buttonClick(theButton, changeState1, changeState2) {
   // button that changes states
   if (theButton.clicked()) {
+    clickWait()
     startingState = changeState1;
     state = changeState2;
   }

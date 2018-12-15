@@ -1,8 +1,8 @@
 // Archer
 let archer = {
-  melee: 5,
-  ranged: 20,
-  magic: 10,
+  melee: 0.05,
+  ranged: 0.30,
+  magic: 0.15,
   startingHpPotions: 2,
   startingMpPotions: 1,
   startingArrows: 20,
@@ -13,9 +13,9 @@ let archer = {
 
 // Ranger
 let ranger = {
-  melee: 13,
-  ranged: 12,
-  magic: 10,
+  melee: 0.20,
+  ranged: 0.20,
+  magic: 0.10,
   startingHpPotions: 4,
   startingMpPotions: 2,
   startingArrows: 15,
@@ -26,9 +26,9 @@ let ranger = {
 
 // Fighter
 let fighter = {
-  melee: 20,
-  ranged: 10,
-  magic: 5,
+  melee: 0.30,
+  ranged: 0.05,
+  magic: 0.15,
   startingHpPotions: 6,
   startingMpPotions: 0,
   startingArrows: 5,
@@ -39,9 +39,9 @@ let fighter = {
 
 // Samurai
 let samurai = {
-  melee: 20,
-  ranged: 0,
-  magic: 15,
+  melee: 0.40,
+  ranged: 0.00,
+  magic: 0.10,
   startingHpPotions: 4,
   startingMpPotions: 4,
   startingArrows: 0,
@@ -52,9 +52,9 @@ let samurai = {
 
 // Mage
 let mage = {
-  melee: 5,
-  ranged: 5,
-  magic: 25,
+  melee: 0.00,
+  ranged: 0.05,
+  magic: 0.45,
   startingHpPotions: 1,
   startingMpPotions: 6,
   startingArrows: 0,
@@ -65,9 +65,9 @@ let mage = {
 
 // Cleric
 let cleric = {
-  melee: 5,
-  ranged: 10,
-  magic: 20,
+  melee: 0.05,
+  ranged: 0.05,
+  magic: 0.40,
   startingHpPotions: 10,
   startingMpPotions: 10,
   startingArrows: 5,
@@ -78,9 +78,9 @@ let cleric = {
 
 // Rogue
 let rogue = {
-  melee: 15,
-  ranged: 10,
-  magic: 10,
+  melee: 0.25,
+  ranged: 0.15,
+  magic: 0.10,
   startingHpPotions: 4,
   startingMpPotions: 3,
   startingArrows: 6,
@@ -91,9 +91,9 @@ let rogue = {
 
 // Trapper
 let trapper = {
-  melee: 18,
-  ranged: 17,
-  magic: 0,
+  melee: 0.25,
+  ranged: 0.25,
+  magic: 0.00,
   startingHpPotions: 4,
   startingMpPotions: 2,
   startingArrows: 10,

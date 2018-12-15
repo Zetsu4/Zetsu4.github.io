@@ -122,6 +122,11 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   noStroke();
 
+  // resetting
+  startingState = 0;
+  state = 0;
+  enemyArr = [];
+
   // text
   fontSize.default = (width+height)*0.015;
   fontSize.playersDisplay = fontSize.default/2;
@@ -131,6 +136,7 @@ function setup() {
   textAlign(CENTER, CENTER);
   imageMode(CENTER);
   rectMode(CENTER);
+  ellipseMode(CENTER);
 
   // buttons
   buttons.red = color(255, 0, 0);
@@ -139,6 +145,7 @@ function setup() {
   buttons.lightOrange = color(255, 220, 0);
   buttons.back = new Button(-width*0.475, -height*0.475, width*0.05, height*0.05, buttons.red, buttons.green, "Back", fontSize.playersDisplay);
   buttons.continue = new Button(0, -height*0.4625, width*0.20, height*0.075, buttons.red, buttons.green, "Continue", fontSize.default);
+  buttons.reName = new Button(0, -height*0.15, width*0.15, height*0.075, buttons.red, buttons.green, "MOI", fontSize.default);
 
   // assinging variables
   settingSprites();

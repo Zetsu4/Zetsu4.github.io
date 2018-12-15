@@ -1,7 +1,6 @@
 function playerDisplays() {
-  // background
+  // check enviorment
   checkWorld();
-  displayBackground();
 
   // mini-map
   miniMap();
@@ -17,13 +16,9 @@ function playerDisplays() {
   pop();
 }
 
-// background
+// check enviorment
 function checkWorld() {
 
-}
-
-function displayBackground() {
-  image(world.state.img, world.changedX, world.changedY, world.width, world.height);
 }
 
 // mini-map
@@ -50,14 +45,14 @@ function mapPlayer(
   let mapMaxY = mapY + mapH/2 - dotSize;
 
   // dot
-  let playerX = map(player.x, -world.width/2, world.width/2, mapMinX, mapMaxX);
-  let playerY = map(player.y, -world.height/2, world.height/2, mapMinY, mapMaxY);
+  let playerX = map(player.x, -world.width/2, world.width/2, mapMinX - minimap.padWidth*0.02, mapMaxX + minimap.padWidth*0.02);
+  let playerY = map(player.y, -world.height/2, world.height/2, mapMinY - minimap.padHeight*0.02, mapMaxY + minimap.padHeight*0.02);
   fill("blue");
   ellipse(playerX, playerY, dotSize);
 
   // screen
-  let rectWidth = map(width, 0, world.width, mapMinX/world.sizeMult/1.75, mapMaxX/world.sizeMult/1.75);
-  let rectHeight = map(height, 0, world.height, mapMinY/world.sizeMult, mapMaxY/world.sizeMult);
+  let rectWidth = map(width, 0, world.width, mapMinX/world.sizeMult*0.40, mapMaxX/world.sizeMult*0.40);
+  let rectHeight = map(height, 0, world.height, mapMinY/world.sizeMult*0.70, mapMaxY/world.sizeMult*0.70);
   push();
   noFill();
   stroke("white");
@@ -69,9 +64,11 @@ function mapPlayer(
 function playerSprite() {
   image(player.race.img, 0, 0, spriteSize.width, spriteSize.height);
 
+  // name and character
   push();
   fill("white");
   textAlign(LEFT, TOP);
+  textFont(fonts.default);
   text(player.name+"\n"+player.race.name+", "+player.skill.name, -width*0.49, -height*0.485);
   pop();
 }
@@ -109,7 +106,8 @@ function playerAttackIcon() {
 }
 
 function inventoryQuickCheck() {
-
+  push();
+  pop();
 }
 
 function infoBars() {
@@ -120,6 +118,7 @@ function infoBars() {
     let h = height*0.02;
     let textX = left+w/2;
     rectMode(CORNER);
+
     // health
     push();
     backBar(left, top, w, h);
@@ -129,7 +128,7 @@ function infoBars() {
     rect(left, top, w-mappedHP, h);
 
     fill("white");
-    text(player.hp + "/" + player.totHp, textX, top+h/4);
+    text(player.hp + "/" + player.totHp, textX, top+h/2);
     pop();
 
     // mana
@@ -143,7 +142,7 @@ function infoBars() {
     rect(left, top2, w-mappedMP, h);
 
     fill("white");
-    text(player.mp + "/" + player.totMp, textX, top2+h/4);
+    text(player.mp + "/" + player.totMp, textX, top2+h/2);
     pop();
   pop();
 }
