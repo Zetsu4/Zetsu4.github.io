@@ -1,4 +1,14 @@
 function itemsInWorld() {
+  // items on ground
+  for (let i=items.onGround.length-1; i >= 0; i--) {
+    items.onGround[i].display();
+    if (dist(items.onGround[i].x, items.onGround[i].y, 0, 0) <= (spriteSize.width+spriteSize.height)/2) {
+      
+      items.onGround.splice(i, 1);
+    }
+  }
+
+  // player attacks
   for (let i=items.playerAttack.length-1; i >= 0; i--) {
     items.playerAttack[i].display();
     if (items.playerAttack[i].move())
@@ -17,13 +27,11 @@ function lootDrop(x, y) {
     let randomItem = random(100);
 
     // items
-    if (randomItem <= 20) { // arrows
-      items.onGround.push();
-    }
+    if (randomItem <= 20)  // arrows
+      items.onGround.push(new Item(x, y, itemImg.arrowAttack, "Arrow", spriteSize.width, spriteSize.height/2));
 
-    else if (randomItem <= 40) { // traps
-      items.onGround.push();
-    }
+    else if (randomItem <= 40)  // traps
+      items.onGround.push(new Item(x, y, itemImg.trap, "Trap"));
 
     else if (randomItem <= 80) { // equipment
       randomItem = random();
@@ -32,12 +40,12 @@ function lootDrop(x, y) {
 
     // potions
     randomItem = random(100);
-    if (randomItem <= 20) { // hp potions
-      items.onGround.push();
-    }
-    else if (randomItem <= 20) { // mp potions
-      items.onGround.push();
-    }
+    if (randomItem <= 20)  // hp potions
+      items.onGround.push(new Item(x, y, itemImg.hpPotion, "Hp Potion"));
+
+    else if (randomItem <= 20)  // mp potions
+      items.onGround.push(new Item(x, y, itemImg.mpPotion, "Mp Potion"));
+  }
 }
 
 // move with player
@@ -45,7 +53,7 @@ function moveItemsX(dir) {
   let speed = player.speed*dir;
 
   for (let i=items.onGround.length-1; i >= 0; i--) {
-    items.onGround[i].changeX += speed;
+    items.onGround[i].x += speed;
   }
 
   for (let i=items.playerAttack.length-1; i >= 0; i--) {
@@ -61,7 +69,7 @@ function moveItemsY(dir) {
   let speed = player.speed*dir;
 
   for (let i=items.onGround.length-1; i >= 0; i--) {
-    items.onGround[i].changeY += speed;
+    items.onGround[i].y += speed;
   }
 
   for (let i=items.playerAttack.length-1; i >= 0; i--) {

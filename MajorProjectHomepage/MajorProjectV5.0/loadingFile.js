@@ -53,7 +53,7 @@ let items = {};
 let player = {};
 
 // inventory
-let inventory = [];
+let inventory = {};
 
 // settings
 let settings = {};
@@ -304,6 +304,16 @@ function setPlayer() {
   player.x = 0;
   player.y = 0;
   player.dotSize = (width+height)*0.0025;
+
+  // inventory
+  setInventory();
+  player.inventory = make2DGrid(inventory.width, inventory.height);
+}
+
+function setInventory() {
+  inventory.boxSize = (width+height)*0.025;
+  inventory.width = 10;
+  inventory.height = 10;
 }
 
 function setButtonAtributes() {
@@ -329,4 +339,15 @@ function setKeyButtons(value, key, map) {
   let i = static(map.size);
   let yPos = -height*0.48+(i*fontSize.default*1.5);
   map.get(key).button = new Button(fontSize.default*4.5, yPos, width*0.10, fontSize.default*1.5, buttons.orange, buttons.lightOrange, "");
+}
+
+function make2DGrid(rows, cols) {
+  let newArray = [];
+  for (let y = 0; y < rows; y++) {
+    newArray.push([]);
+    for (let x = 0; x < cols; x++) {
+      newArray[y].push(0);
+    }
+  }
+  return newArray;
 }

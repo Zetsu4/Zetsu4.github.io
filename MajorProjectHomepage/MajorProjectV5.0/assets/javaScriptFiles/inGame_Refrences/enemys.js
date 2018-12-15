@@ -17,6 +17,7 @@ function enemys() {
         items.playerAttack.splice(j, 1);
       }
     }
+    
     // dead enemy
     if (enemyArr[i].hp <= 0) {
       let expGained = enemyArr[i].expGained;
