@@ -138,11 +138,15 @@ function setup() {
   rectMode(CENTER);
   ellipseMode(CENTER);
 
-  // buttons
+  // button colors
   buttons.red = color(255, 0, 0);
   buttons.green = color(0, 255, 0);
   buttons.orange = color(255, 165, 0);
   buttons.lightOrange = color(255, 220, 0);
+  buttons.brown = color(153, 77, 0);
+  buttons.lightBrown = color(179, 89, 0);
+
+  // buttons
   buttons.back = new Button(-width*0.475, -height*0.475, width*0.05, height*0.05, buttons.red, buttons.green, "Back", fontSize.playersDisplay);
   buttons.continue = new Button(0, -height*0.4625, width*0.20, height*0.075, buttons.red, buttons.green, "Continue", fontSize.default);
   buttons.reName = new Button(0, -height*0.15, width*0.15, height*0.075, buttons.red, buttons.green, "MOI", fontSize.default);
@@ -154,6 +158,14 @@ function setup() {
   settingWorld();
   itemArrays();
   setPlayer();
+
+  // level up buttons
+  buttons.lvlUp = [];
+  for (let i=0; i<5; i++) {
+    let x = inventory.width*inventory.boxSize + inventory.boxSize*2;
+    let y = (inventory.boxSize+fontSize.playersDisplay*1.6*10) + fontSize.playersDisplay*1.6*i - height/2;
+    buttons.lvlUp.push(new Button(x-width/2, y, width*0.02, height*0.025, buttons.brown, buttons.lightBrown, "+", fontSize.playersDisplay));
+  }
 }
 
 function settingSprites() {
@@ -194,6 +206,7 @@ function setSettingsMenu() {
   ];
 
   setButtonAtributes();
+
   // buttons for the settings options
   settings.boxs = [];
   for (let i=0; i < settings.options.length; i++)
@@ -298,7 +311,7 @@ function setPlayer() {
   player.lvl = 0;
   player.exp = 0;
   player.nextLvl = 100;
-  player.points = 0;
+  player.points = 10;
 
   // in world
   player.x = 0;
@@ -311,6 +324,7 @@ function setPlayer() {
 }
 
 function setInventory() {
+  // inventory atributes
   inventory.boxSize = (width+height)*0.025;
   inventory.width = 10;
   inventory.height = 10;
@@ -337,11 +351,12 @@ function setButtonAtributes() {
 function setKeyButtons(value, key, map) {
   // buttons to rebind keys
   let i = static(map.size);
-  let yPos = -height*0.48+(i*fontSize.default*1.5);
-  map.get(key).button = new Button(fontSize.default*4.5, yPos, width*0.10, fontSize.default*1.5, buttons.orange, buttons.lightOrange, "");
+  let yPos = -height*0.48+(i*fontSize.default*1.4);
+  map.get(key).button = new Button(fontSize.default*4.5, yPos, width*0.10, fontSize.default*1.4, buttons.orange, buttons.lightOrange, "");
 }
 
 function make2DGrid(rows, cols) {
+  // for inventory display purposes
   let newArray = [];
   for (let y = 0; y < rows; y++) {
     newArray.push([]);

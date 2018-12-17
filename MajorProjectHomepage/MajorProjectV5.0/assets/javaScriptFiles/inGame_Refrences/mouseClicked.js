@@ -1,6 +1,7 @@
 function mousePressed() {
   if (startingState === 2 && state === 0) {
     if (!player.coolDown) {
+      // player attacks
       if (player.attackState === "melee")
         items.playerAttack.push(new Attack(0, 0, 0, 0, width*0.0025, width*0.075, player.mDmg, itemImg.swordAttack));
 

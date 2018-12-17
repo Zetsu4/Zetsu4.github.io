@@ -1,8 +1,8 @@
 class Enemy {
-  constructor(x, y, race, skill, minLvl, maxLvl, wid = spriteSize.width, hei = spriteSize.height, fontSizeChange = fontSize.playersDisplay) {
+  constructor(x, y, race, skill, minLvl, maxLvl, offSetX = 0, offSetY = 0, wid = spriteSize.width, hei = spriteSize.height, fontSizeChange = fontSize.playersDisplay) {
     // position
-    this.x = x;
-    this.y = y;
+    this.x = x+offSetX;
+    this.y = y+offSetY;
 
     this.mapX = this.x;
     this.mapY = this.y;
@@ -59,10 +59,12 @@ class Enemy {
   }
 
   takeDamage(dmg, trapped = false) {
+    // taking damage
     this.hp -= dmg;
     this.stuned = true;
     this.lastAttack = millis();
     if (trapped)
+      // reducing speed
       this.speed *= 0.85;
   }
 
@@ -121,7 +123,7 @@ class Enemy {
       this.display();
     }
 
-    // move freely
+    // move about
     else {
       if (this.headingTo) {
         // find point
@@ -186,6 +188,7 @@ class Enemy {
   }
 
   attackPlayer() {
+    // persuing player
     if (this.x > 0) {
       this.x -= this.speed;
       this.mapX -= this.speed;
@@ -208,22 +211,9 @@ class Enemy {
   }
 
   constrainToWorld(worldW, worldH, playerX, playerY) {
-    this.x = constrain(this.x, -worldW/2 - playerX, worldW/2 - playerX);
-    this.y = constrain(this.y, -worldH/2 - playerY, worldH/2 - playerY);
-  }
-
-  moveEnemysX(moveSpeed, dir) {
-    moveSpeed *= dir;
-
-    this.x += moveSpeed;
-    this.headToX += moveSpeed;
-  }
-
-  moveEnemysY(moveSpeed, dir) {
-    moveSpeed *= dir;
-
-    this.y += moveSpeed;
-    this.headToY += moveSpeed;
+    // staying on the map
+    this.x = constrain(this.x, -worldW/2-playerX - width/2, worldW/2-playerX + width/2);
+    this.y = constrain(this.y, -worldH/2-playerY - height/2, worldH/2-playerY + height/2);
   }
 
   mapping(worldW, worldH, mapX, mapY, mapW, mapH, dotSize) {
@@ -238,5 +228,20 @@ class Enemy {
     let enemyY = map(this.mapY, -worldH/2, worldH/2, mapMinY, mapMaxY);
     fill("red");
     ellipse(enemyX, enemyY, dotSize);
+  }
+
+  // move with player
+  moveEnemysX(moveSpeed, dir) {
+    moveSpeed *= dir;
+
+    this.x += moveSpeed;
+    this.headToX += moveSpeed;
+  }
+
+  moveEnemysY(moveSpeed, dir) {
+    moveSpeed *= dir;
+
+    this.y += moveSpeed;
+    this.headToY += moveSpeed;
   }
 }

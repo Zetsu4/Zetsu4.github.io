@@ -1,5 +1,5 @@
 class Item {
-  constructor(x, y, img, name, wid = spriteSize.width, hei = spriteSize.height) {
+  constructor(x, y, img, item, wid = spriteSize.width, hei = spriteSize.height) {
     // position
     this.x = x;
     this.y = y;
@@ -9,10 +9,30 @@ class Item {
     this.width = wid;
     this.height = hei;
 
-    this.itemName = name;
+    this.item = item;
   }
 
   display() {
     image(this.img, this.x, this.y, this.width, this.height);
+    this.mapping();
+  }
+
+  mapping(
+    worldW = world.width, worldH = world.height,
+    mapX = minimap.x, mapY = minimap.y,
+    mapW = minimap.imgWidth, mapH = minimap.imgHeight,
+    dotSize = player.dotSize*0.50
+  ) {
+    // map position
+    let mapMinX = mapX - mapW/2 + dotSize;
+    let mapMaxX = mapX + mapW/2 - dotSize;
+    let mapMinY = mapY - mapH/2 + dotSize;
+    let mapMaxY = mapY + mapH/2 - dotSize;
+
+    // dot
+    let enemyX = map(player.x+this.x, -worldW/2, worldW/2, mapMinX, mapMaxX);
+    let enemyY = map(player.y+this.y, -worldH/2, worldH/2, mapMinY, mapMaxY);
+    fill("white");
+    ellipse(enemyX, enemyY, dotSize);
   }
 }

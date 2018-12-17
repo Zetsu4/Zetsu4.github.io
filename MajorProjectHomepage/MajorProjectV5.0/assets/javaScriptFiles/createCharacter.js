@@ -1,5 +1,6 @@
 function createChar() {
   if (state === 0) {
+    // race options
     raceButtons = [];
     for (let i = 0; i < allRaces.length; i++)
       raceButtons.push(new Button(
@@ -8,6 +9,7 @@ function createChar() {
         buttons.red, buttons.green, allRaces[i].name
       ));
 
+    // skill options
     skillButtons = [];
     for (let i = 0; i < allSkills.length; i++)
       skillButtons.push(new Button(
@@ -44,6 +46,7 @@ function createChar() {
 }
 
 function reName() {
+  // re-name character
   let newName = prompt("Input New Name:", player.name);
 
   if (newName !== null) {
@@ -122,6 +125,10 @@ function setPlayerStats() {
   player.dex = player.race.stats.dex;
   player.vit = player.race.stats.vit;
 
+  calculateStats();
+}
+
+function calculateStats() {
   // health and mana
   player.totHp = 10*(player.vit+1);
   player.hp = player.totHp;

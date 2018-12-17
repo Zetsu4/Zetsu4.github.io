@@ -36,7 +36,7 @@ function miniMap() {
 function mapPlayer(
   mapX = minimap.x, mapY = minimap.y,
   mapW = minimap.imgWidth, mapH = minimap.imgHeight,
-  dotSize = player.dotSize
+  dotSize = player.dotSize, hideScreen = false
 ) {
   // map position
   let mapMinX = mapX - mapW/2 + dotSize;
@@ -50,14 +50,16 @@ function mapPlayer(
   fill("blue");
   ellipse(playerX, playerY, dotSize);
 
-  // screen
-  let rectWidth = map(width, 0, world.width, mapMinX/world.sizeMult*0.40, mapMaxX/world.sizeMult*0.40);
-  let rectHeight = map(height, 0, world.height, mapMinY/world.sizeMult*0.70, mapMaxY/world.sizeMult*0.70);
-  push();
-  noFill();
-  stroke("white");
-  rect(playerX, playerY, rectWidth, rectHeight);
-  pop();
+  if (!hideScreen) {
+    // screen
+    let rectWidth = map(width, 0, world.width, mapMinX/world.sizeMult*0.40, mapMaxX/world.sizeMult*0.40);
+    let rectHeight = map(height, 0, world.height, mapMinY/world.sizeMult*0.70, mapMaxY/world.sizeMult*0.70);
+    push();
+    noFill();
+    stroke("white");
+    rect(playerX, playerY, rectWidth, rectHeight);
+    pop();
+  }
 }
 
 // player
@@ -75,11 +77,22 @@ function playerSprite() {
 
 function playerLvL() {
   fill("black");
-  rect(0, height*0.475, width*0.10, height*0.05);
+  rect(0, height*0.475, width*0.20, height*0.05);
 
+  // level and experience
   fill("white");
   text("Exp. " + player.exp + "/" + player.nextLvl, 0, height*0.475);
   text("Lv. " + player.lvl, 0, spriteSize.height*0.60);
+
+  // points to spend
+  if (player.points > 0) {
+    push();
+    textSize(fontSize.default);
+    fill("yellow");
+    text("!", -width*0.105, height*0.475);
+    text("!", width*0.105, height*0.475);
+    pop();
+  }
 }
 
 function playerAttackIcon() {
@@ -87,6 +100,7 @@ function playerAttackIcon() {
   let itemIcon;
 
   push();
+  // point icon at pointer
   rotate(pointAngle);
   if (player.attackState === "melee")
     itemIcon = itemImg.swordIcon;
@@ -97,17 +111,17 @@ function playerAttackIcon() {
   else if (player.attackState === "magic")
     itemIcon = itemImg.magicIcon;
 
+  // effect when unable to attack
   if (player.coolDown) {
     fill(50, 175);
     ellipse(spriteSize.width*0.50, 0, spriteSize.height);
   }
+
   image(itemIcon, spriteSize.width*0.50, 0, spriteSize.width, spriteSize.height);
   pop();
 }
 
 function inventoryQuickCheck() {
-  push();
-  pop();
 }
 
 function infoBars() {
@@ -126,7 +140,7 @@ function infoBars() {
     let mappedHP = map(changeOfHP, 0, player.totHp, 0, w);
     fill("red");
     rect(left, top, w-mappedHP, h);
-
+    // numbers
     fill("white");
     text(player.hp + "/" + player.totHp, textX, top+h/2);
     pop();
@@ -140,7 +154,7 @@ function infoBars() {
     let mappedMP = map(changeOfMP, 0, player.totMp, 0, w);
     fill("blue");
     rect(left, top2, w-mappedMP, h);
-
+    // numbers
     fill("white");
     text(player.mp + "/" + player.totMp, textX, top2+h/2);
     pop();

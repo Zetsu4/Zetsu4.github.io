@@ -8,7 +8,7 @@ let human = {
   expGained: 10
 };
 
-// HalfElf
+// Half-Elf
 let halfElf = {
   int: 10,
   agi: 11,
@@ -68,7 +68,7 @@ let orc = {
   expGained: 15
 };
 
-// UrukHai
+// Uruk-Hai
 let urukHai = {
   int: 2,
   agi: 4,

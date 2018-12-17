@@ -1,4 +1,5 @@
 function playerMovement() {
+  // to check if hit edge
   let oldX = player.x;
   let oldY = player.y;
 
@@ -19,7 +20,7 @@ function playerMovement() {
     }
 
     // resetting the original position
-    oldY = player.y
+    oldY = player.y;
   }
 
   if (keyIsDown(keyBindings.get("Move Down").code)) {
@@ -37,7 +38,7 @@ function playerMovement() {
     }
 
     // resetting the original position
-    oldY = player.y
+    oldY = player.y;
   }
 
   if (keyIsDown(keyBindings.get("Move Left").code)) {
@@ -55,7 +56,7 @@ function playerMovement() {
     }
 
     // resetting the original position
-    oldX = player.x
+    oldX = player.x;
   }
 
   if (keyIsDown(keyBindings.get("Move Right").code)) {
@@ -73,13 +74,15 @@ function playerMovement() {
     }
 
     // resetting the original position
-    oldX = player.x
+    oldX = player.x;
   }
 }
 
 function playerExp(amount) {
+  // gaining exp
   player.exp += amount;
   if (player.exp >= player.nextLvl) {
+    // level up
     player.lvl++;
     player.points += 5;
     player.nextLvl = player.nextLvl*2 + player.lvl*50;
@@ -87,6 +90,7 @@ function playerExp(amount) {
 }
 
 function playerCoolDown() {
+  // cool down from attacks
   let elapsedTime = millis() - player.previousAttack;
   if (player.coolDown && elapsedTime >= player.coolDownTime)
     player.coolDown = false;

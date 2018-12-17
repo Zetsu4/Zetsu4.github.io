@@ -26,7 +26,7 @@ class Button {
 
     if (mouseX > left && mouseX < right &&
         mouseY > top && mouseY < bottom) {
-
+      // hovering
       fill(this.hoverCol);
       if (mouseIsPressed)
         pressed = true;
@@ -34,8 +34,10 @@ class Button {
     else
       fill(this.restCol);
 
+    // box
     rect(this.x, this.y, this.width, this.height);
 
+    // text
     fill("black");
     push();
     textSize(this.fontSize);

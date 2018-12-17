@@ -1,7 +1,11 @@
 function enemys() {
+  // loop through enemys
   for (let i=enemyArr.length-1; i >= 0; i--) {
+    // move
     enemyArr[i].movement(world.width, world.height, player.x, player.y);
     enemyArr[i].constrainToWorld(world.width, world.height, player.x, player.y);
+
+    // map
     enemyArr[i].mapping(
       world.width, world.height,
       minimap.x, minimap.y,
@@ -17,7 +21,7 @@ function enemys() {
         items.playerAttack.splice(j, 1);
       }
     }
-    
+
     // dead enemy
     if (enemyArr[i].hp <= 0) {
       let expGained = enemyArr[i].expGained;
@@ -26,6 +30,7 @@ function enemys() {
       enemyArr.splice(i, 1);
     }
   }
+  respawnEnemys();
 }
 
 // move with player
@@ -39,6 +44,22 @@ function enemysMoveY(dir) {
     enemyArr[i].moveEnemysY(player.speed, dir);
 }
 
+// respawn enemys
+function respawnEnemys() {
+  if (enemyArr.length <= floor(NUM_OF_ENEMYS*0.70)) {
+    // re-spawning baddies
+    let race = int(random(1, allRaces.length));
+    let skill = int(random(1, allSkills.length));
+    let xSpawn = random(-world.width/2-player.x, world.width/2+player.x);
+    let ySpawn = random(-world.height/2-player.y, world.height/2+player.y);
+
+    xy = rerstrainEnemySpawn(xSpawn, ySpawn);
+    xSpawn = xy[0];
+    ySpawn = xy[1];
+
+    enemyArr.push(new Enemy(xSpawn, ySpawn, allRaces[race], allSkills[skill], player.lvl+2, player.lvl+8));
+  }
+}
 
 // spawn starting enemys
 function createEnemys() {
@@ -65,6 +86,7 @@ function createEnemys() {
 }
 
 function rerstrainEnemySpawn(xSpawn, ySpawn) {
+  // restraining enemys from player
   let coordinates = [xSpawn, ySpawn];
 
   while (xSpawn >= -width && xSpawn <= width

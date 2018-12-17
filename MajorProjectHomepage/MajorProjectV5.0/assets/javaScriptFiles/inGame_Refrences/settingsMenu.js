@@ -1,4 +1,6 @@
 function settingsMenu() {
+  textFont(fonts.default);
+  // settings options
   for (let i=0; i < settings.boxs.length; i++)
     if (settings.boxs[i].clicked()) {
       clickWait();
@@ -8,6 +10,9 @@ function settingsMenu() {
 
 // controls
 function openControls() {
+  textFont(fonts.default);
+
+  // rectangle of controls
   fill("orange");
   rect(0, 0, width*0.60, height);
 
@@ -19,7 +24,7 @@ function openControls() {
 
 function displayControls(value, key, map) {
   let i = static(map.size);
-  let yPos = -height*0.48+(i*fontSize.default*1.5);
+  let yPos = -height*0.48+(i*fontSize.default*1.4);
   let charValue = String.fromCharCode(value.code);
   if (value.code === 27) // Escape
     charValue = "Escape";
@@ -55,26 +60,50 @@ function displayControls(value, key, map) {
   }
 
   push();
-  textAlign(RIGHT, CENTER);
-  text(key+" - ", fontSize.default*2, yPos);
-  textAlign(LEFT, CENTER);
-  text(charValue, fontSize.default*2.5, yPos);
+    // function of key
+    textAlign(RIGHT, CENTER);
+    text(key+" - ", fontSize.default*2, yPos);
+
+    // key
+    textAlign(LEFT, CENTER);
+    text(charValue, fontSize.default*2.5, yPos);
   pop();
 }
 
 // map
 function worldMap() {
+  textFont(fonts.default);
   image(world.state.img, 0, 0, width, height);
 
+  // player
   let playrDot = player.dotSize*1.5;
-  mapPlayer(0, 0, width + minimap.padWidth/2, height + minimap.padHeight/2, playrDot);
+  mapPlayer(0, 0, width + minimap.padWidth/2, height + minimap.padHeight/2, playrDot, true);
 
+  // enemys
   for (let i=enemyArr.length-1; i >= 0; i--)
     enemyArr[i].mapping(
       world.width, world.height,
       0, 0,
       width + minimap.padWidth/2, height + minimap.padHeight/2,
       playrDot*0.75
+    );
+
+  // items
+  for (let theItem of items.onGround)
+    theItem.mapping(
+      world.width, world.height,
+      0, 0,
+      width + minimap.padWidth/2, height + minimap.padHeight/2,
+      playrDot*0.70
+    );
+
+  // traps
+  for (let trap of items.playerAttack)
+    trap.mapping(
+      world.width, world.height,
+      0, 0,
+      width + minimap.padWidth/2, height + minimap.padHeight/2,
+      playrDot*0.70
     );
 
   buttonClick(buttons.back, 2, "Settings");

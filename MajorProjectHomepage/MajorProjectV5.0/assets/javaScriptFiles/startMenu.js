@@ -1,5 +1,6 @@
 function startMenu() {
   if (state === 0) {
+    // set buttons
     buttons.newGame = new Button(0, height*0.05, width*0.30, height*0.20, buttons.red, buttons.green, "New Game");
     buttons.loadGame = new Button(0, height*0.30, width*0.30, height*0.20, buttons.red, buttons.green, "Load Game - not working");
     state = 1;
@@ -12,9 +13,7 @@ function startMenu() {
 
     // buttons
     buttonClick(buttons.newGame, 1, 0);
-
-    if (buttons.loadGame.clicked()) {
+    if (buttons.loadGame.clicked())
       gameOver();
-    }
   }
 }

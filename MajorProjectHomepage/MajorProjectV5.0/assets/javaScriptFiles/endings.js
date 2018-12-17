@@ -1,4 +1,5 @@
 function cheaterEnding() {
+  // for those that broke the game
   startingState = -1;
   state = "cheaterEnding";
   background(255);
@@ -11,6 +12,7 @@ function cheaterEnding() {
 }
 
 function gameOver() {
+  // dead or other ways that the player failed
   startingState = -1;
   state = "gameOver";
   background(0);

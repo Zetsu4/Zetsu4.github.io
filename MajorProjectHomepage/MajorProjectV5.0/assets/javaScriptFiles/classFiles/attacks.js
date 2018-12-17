@@ -27,6 +27,7 @@ class Attack {
   }
 
   move() {
+    // moving
     this.x += this.dx;
     this.realX = this.changeX+cos(this.rotation)*this.x;
     this.realY = this.changeY+sin(this.rotation)*this.x;
@@ -39,5 +40,9 @@ class Attack {
     rotate(this.rotation);
     image(this.img, this.x, 0, this.width, this.height);
     pop();
+  }
+
+  mapping() {
+    // error preventing
   }
 }

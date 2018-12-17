@@ -1,15 +1,15 @@
 function playingGame() {
   textFont("BOLD");
-  if (state === "Settings")
+  if (state === "Settings") // settings
     settingsMenu();
 
-  else if (state === "Controls")
+  else if (state === "Controls") // controls
     openControls();
 
-  else if (state === "Map")
+  else if (state === "Map") // map
     worldMap();
 
-  else if (state === "Inventory")
+  else if (state === "Inventory") // inventory
     inventoryMenu();
 
   else if (state === 0) {
@@ -28,7 +28,6 @@ function playingGame() {
     itemsInWorld();
   }
 
-  else if (state === "Main Menu") {
+  else if (state === "Main Menu")
     setup();
-  }
 }
