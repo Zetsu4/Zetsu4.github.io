@@ -6,12 +6,31 @@ function itemsInWorld() {
       // pick up item
       if (allItems.get(items.onGround[i].name).amount <= 0) {
         let added = false;
+
         for (let y = 0; y < player.inventory.length; y++) {
           for (let x = 0; x < player.inventory[y].length; x++) {
-            if (player.inventory[y][x] === "empty" && !added) {
-              player.inventory[y][x] = allItems.get(items.onGround[i].name);
-              player.inventory[y][x].amount++;
-              added = true;
+            if (!added) {
+              if (player.inventory[y][x] !== "empty" && player.inventory[y][x].name === items.onGround[i].name) {
+                allItems.get(player.inventory[y][x].name).amount++;
+                added = true;
+              }
+            }
+          }
+        }
+
+        for (let y = 0; y < player.inventory.length; y++) {
+          for (let x = 0; x < player.inventory[y].length; x++) {
+            if (!added) {
+              if (player.inventory[y][x] === "empty") {
+                player.inventory[y][x] = allItems.get(items.onGround[i].name);
+                allItems.get(items.onGround[i].name).amount++;
+                added = true;
+              }
+
+              else if (player.inventory[y][x].name === items.onGround[i].name) {
+                allItems.get(player.inventory[y][x].name).amount++;
+                added = true;
+              }
             }
           }
         }
@@ -40,10 +59,10 @@ function lootDrop(x, y) {
 
     // random items
     if (randomItem <= 20)  // arrows
-      items.onGround.push(new ItemOnGround(x, y, itemImg.arrowAttack, "Arrows", spriteSize.width, spriteSize.height/2));
+      items.onGround.push(new ItemOnGround(x, y, allItems.get("Arrows"), spriteSize.width, spriteSize.height/2));
 
     else if (randomItem <= 40)  // traps
-      items.onGround.push(new ItemOnGround(x, y, itemImg.trap, "Traps"));
+      items.onGround.push(new ItemOnGround(x, y, allItems.get("Traps")));
 
     else if (randomItem <= 80) { // equipment
       randomItem = random();
@@ -53,10 +72,10 @@ function lootDrop(x, y) {
     // random potions
     randomItem = random(100);
     if (randomItem <= 20)  // hp potions
-      items.onGround.push(new ItemOnGround(x, y, itemImg.hpPotion, "Hp Potion"));
+      items.onGround.push(new ItemOnGround(x, y, allItems.get("Hp Potion")));
 
     else if (randomItem <= 20)  // mp potions
-      items.onGround.push(new ItemOnGround(x, y, itemImg.mpPotion, "Mp Potion"));
+      items.onGround.push(new ItemOnGround(x, y, allItems.get("Mp Potion")));
   }
 }
 

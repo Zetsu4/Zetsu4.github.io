@@ -1,15 +1,15 @@
 class ItemOnGround {
-  constructor(x, y, img, name, wid = spriteSize.width, hei = spriteSize.height) {
+  constructor(x, y, item, wid = spriteSize.width, hei = spriteSize.height) {
     // position
     this.x = x;
     this.y = y;
 
     // sprite
-    this.img = img;
+    this.img = item.img;
     this.width = wid;
     this.height = hei;
 
-    this.name = name;
+    this.name = item.name;
   }
 
   display() {

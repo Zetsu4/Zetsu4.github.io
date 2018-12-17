@@ -7,7 +7,7 @@ function playerDisplays() {
 
   // player
   push();
-  textSize(fontSize.playersDisplay);
+  textFont(fonts.default, fontSize.playersDisplay);
   playerSprite();
   playerLvL();
   playerAttackIcon();
@@ -70,7 +70,6 @@ function playerSprite() {
   push();
   fill("white");
   textAlign(LEFT, TOP);
-  textFont(fonts.default);
   text(player.name+"\n"+player.race.name+", "+player.skill.name, -width*0.49, -height*0.485);
   pop();
 }
@@ -122,10 +121,32 @@ function playerAttackIcon() {
 }
 
 function inventoryQuickCheck() {
+  push();
+  textAlign(RIGHT, BOTTOM);
+  textSize(player.playersDisplay);
+  fill("red");
+  let infoStuff = "";
+
+  if (allItems.get("Hp Potion").amount > 0)
+    infoStuff = infoStuff + "Hp Potions - "+allItems.get("Hp Potion").amount+"\n";
+
+  if (allItems.get("Mp Potion").amount > 0)
+    infoStuff = infoStuff + "Mp Potions - "+allItems.get("Mp Potion").amount+"\n";
+
+  if (allItems.get("Arrows").amount > 0)
+    infoStuff = infoStuff + "Arrows - "+allItems.get("Arrows").amount+"\n";
+
+  if (allItems.get("Traps").amount > 0)
+    infoStuff = infoStuff + "Traps - "+allItems.get("Traps").amount+"\n";
+
+
+  text(infoStuff, width*0.48, height*0.50);
+  pop();
 }
 
 function infoBars() {
   push();
+    textFont("BOLD");
     let left = -width*0.49;
     let top = -height*0.425;
     let w = width*0.15;
