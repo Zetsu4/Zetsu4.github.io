@@ -12,6 +12,7 @@ function drawGrid(xPos, yPos) {
   background(179, 119, 0);
   stroke(204, 102, 0);
   rectMode(CORNER);
+  imageMode(CORNER);
   translate(-width/2, -height/2);
   for (let y = 0; y < player.inventory.length; y++) {
     for (let x = 0; x < player.inventory[y].length; x++) {
@@ -21,12 +22,16 @@ function drawGrid(xPos, yPos) {
       // inventory grid
       fill(153, 77, 0);
       rect(xPos2, yPos2, inventory.boxSize, inventory.boxSize);
+      if (player.inventory[y][x] !== "empty")
+      // draw image
+        image(player.inventory[y][x].img, xPos2, yPos2, inventory.boxSize, inventory.boxSize);
     }
   }
   hoverOverTile();
 
   // garbage
   garbageCan(xPos, yPos);
+  mouseHolding();
   pop();
 }
 
@@ -36,18 +41,50 @@ function hoverOverTile() {
   let y = floor(mouseY/inventory.boxSize);
 
   if (x < inventory.width && x >= 0 && y < inventory.height && y >= 0) {
+    let xPos2 = x*inventory.boxSize;
+    let yPos2 = y*inventory.boxSize;
+
+    // highlight box
     fill(179, 89, 0);
-    rect(x*inventory.boxSize, y*inventory.boxSize, inventory.boxSize, inventory.boxSize);
+    rect(xPos2, yPos2, inventory.boxSize, inventory.boxSize);
+    if (player.inventory[y][x] !== "empty")
+      // redraw image
+      image(player.inventory[y][x].img, xPos2, yPos2, inventory.boxSize, inventory.boxSize);
+
+    // mouse clicking in inventory
+    if (mouseIsPressed) {
+      clickWait();
+      let newMouseCarring = player.inventory[y][x];
+      let newPlayerInventory = mouseCarring;
+
+      mouseCarring = newMouseCarring;
+      player.inventory[y][x] = newPlayerInventory;
+    }
   }
+
 }
 
 function garbageCan(x, y) {
-  if (mouseX >= x - inventory.boxSize/2 && mouseX <= x + inventory.boxSize/2
-   && mouseY >= y - inventory.boxSize/2 && mouseY <= y + inventory.boxSize/2)
-    image(itemImg.garbageOpened, x, y, inventory.boxSize, inventory.boxSize);
+  let newX = x - inventory.boxSize/2;
+  let newY = y - inventory.boxSize/2;
+  if (mouseX >= newX && mouseX <= x + inventory.boxSize/2
+   && mouseY >= newY && mouseY <= y + inventory.boxSize/2) {
+    image(itemImg.garbageOpened, newX, newY, inventory.boxSize, inventory.boxSize);
+    if (mouseIsPressed) {
+      if (mouseCarring !== "empty") {
+        mouseCarring.amount = 0;
+        mouseCarring = "empty";
+      }
+    }
+  }
 
   else
-    image(itemImg.garbageClosed, x, y, inventory.boxSize, inventory.boxSize);
+    image(itemImg.garbageClosed, newX, newY, inventory.boxSize, inventory.boxSize);
+}
+
+function mouseHolding() {
+  if (mouseCarring !== "empty")
+    image(mouseCarring.img, mouseX - inventory.boxSize/2, mouseY - inventory.boxSize/2, inventory.boxSize, inventory.boxSize);
 }
 
 // stats

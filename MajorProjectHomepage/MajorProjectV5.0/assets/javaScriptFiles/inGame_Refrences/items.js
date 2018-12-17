@@ -4,6 +4,18 @@ function itemsInWorld() {
     items.onGround[i].display();
     if (dist(items.onGround[i].x, items.onGround[i].y, 0, 0) <= (spriteSize.width+spriteSize.height)/2) {
       // pick up item
+      if (allItems.get(items.onGround[i].name).amount <= 0) {
+        let added = false;
+        for (let y = 0; y < player.inventory.length; y++) {
+          for (let x = 0; x < player.inventory[y].length; x++) {
+            if (player.inventory[y][x] === "empty" && !added) {
+              player.inventory[y][x] = allItems.get(items.onGround[i].name);
+              player.inventory[y][x].amount++;
+              added = true;
+            }
+          }
+        }
+      }
       items.onGround.splice(i, 1);
     }
   }
@@ -28,10 +40,10 @@ function lootDrop(x, y) {
 
     // random items
     if (randomItem <= 20)  // arrows
-      items.onGround.push(new Item(x, y, itemImg.arrowAttack, "Arrow", spriteSize.width, spriteSize.height/2));
+      items.onGround.push(new ItemOnGround(x, y, itemImg.arrowAttack, "Arrows", spriteSize.width, spriteSize.height/2));
 
     else if (randomItem <= 40)  // traps
-      items.onGround.push(new Item(x, y, itemImg.trap, "Trap"));
+      items.onGround.push(new ItemOnGround(x, y, itemImg.trap, "Traps"));
 
     else if (randomItem <= 80) { // equipment
       randomItem = random();
@@ -41,10 +53,10 @@ function lootDrop(x, y) {
     // random potions
     randomItem = random(100);
     if (randomItem <= 20)  // hp potions
-      items.onGround.push(new Item(x, y, itemImg.hpPotion, "Hp Potion"));
+      items.onGround.push(new ItemOnGround(x, y, itemImg.hpPotion, "Hp Potion"));
 
     else if (randomItem <= 20)  // mp potions
-      items.onGround.push(new Item(x, y, itemImg.mpPotion, "Mp Potion"));
+      items.onGround.push(new ItemOnGround(x, y, itemImg.mpPotion, "Mp Potion"));
   }
 }
 

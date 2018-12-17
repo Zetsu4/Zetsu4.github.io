@@ -47,6 +47,7 @@ let raceButtons = [];
 let skillButtons = [];
 
 // items
+let allItems;
 let items = {};
 
 // player
@@ -54,6 +55,7 @@ let player = {};
 
 // inventory
 let inventory = {};
+let mouseCarring = "empty";
 
 // settings
 let settings = {};
@@ -156,7 +158,7 @@ function setup() {
   setSettingsMenu();
   settingKeyBindings();
   settingWorld();
-  itemArrays();
+  setItems();
   setPlayer();
 
   // level up buttons
@@ -261,8 +263,12 @@ function settingWorld() {
   minimap.y = height/2 - minimap.padHeight/2;
 }
 
-function itemArrays() {
-  // items in hte world
+function setItems() {
+  allItems = new Map();
+
+  settingItemMap();
+
+  // items in the world
   items.onGround = [];
   items.playerAttack = [];
   items.enemyAttack = [];
@@ -361,7 +367,7 @@ function make2DGrid(rows, cols) {
   for (let y = 0; y < rows; y++) {
     newArray.push([]);
     for (let x = 0; x < cols; x++) {
-      newArray[y].push(0);
+      newArray[y].push("empty");
     }
   }
   return newArray;
