@@ -84,6 +84,9 @@ function preload() {
   itemImg.garbageClosed = loadImage("assets/img/garbageClosed.png");
   itemImg.garbageOpened = loadImage("assets/img/garbageOpened.png");
 
+  // layout
+  itemImg.inventoryLayout = loadImage("assets/img/inventroyEquipLayout.png");
+
   // items
   itemImg.swordAttack = loadImage("assets/img/items/sword.png");
   itemImg.arrowAttack = loadImage("assets/img/items/arrows.png");
@@ -226,8 +229,8 @@ function settingKeyBindings() {
   keyBindings.set("Settings", {code: 27, state: "settings", button: 0}); // Escape
   keyBindings.set("Open Map", {code: 77, state: "map", button: 0}); // M
   keyBindings.set("Inventory", {code: 69, state: "inventory", button: 0}); // E
-  keyBindings.set("Toggle Ranged", {code: 82, state: "ranged", button: 0}); // R
-  keyBindings.set("Toggle Magic", {code: 84, state: "magic", button: 0}); // T
+  keyBindings.set("Toggle Ranged", {code: 49, state: "ranged", button: 0}); // R
+  keyBindings.set("Toggle Magic", {code: 50, state: "magic", button: 0}); // T
   keyBindings.set("Place Trap", {code: 81, button: 0}); // Q
   keyBindings.set("Move Up", {code: 87, button: 0}); // W
   keyBindings.set("Move Left", {code: 65, button: 0}); // A
@@ -317,7 +320,7 @@ function setPlayer() {
   player.lvl = 0;
   player.exp = 0;
   player.nextLvl = 100;
-  player.points = 10;
+  player.points = 0;
 
   // in world
   player.x = 0;
@@ -334,6 +337,20 @@ function setInventory() {
   inventory.boxSize = (width+height)*0.025;
   inventory.width = 10;
   inventory.height = 10;
+
+  // equip slots
+  let x = width*0.25;
+  let y = -height*0.10;
+  let wid = inventory.boxSize*10;
+  let hei = inventory.boxSize*10;
+  inventory.equipSlots = [];
+  inventory.equipSlots.push(new EquipBox(x-wid/2, y      , inventory.boxSize, inventory.boxSize, buttons.brown, buttons.lightBrown, "empty")); // weapon
+  inventory.equipSlots.push(new EquipBox(x      , y-hei/2, inventory.boxSize, inventory.boxSize, buttons.brown, buttons.lightBrown, "empty")); // head
+  inventory.equipSlots.push(new EquipBox(x      , y      , inventory.boxSize, inventory.boxSize, buttons.brown, buttons.lightBrown, "empty")); // chest
+  inventory.equipSlots.push(new EquipBox(x      , y+hei/2, inventory.boxSize, inventory.boxSize, buttons.brown, buttons.lightBrown, "empty")); // feet
+  inventory.equipSlots.push(new EquipBox(x+wid/4, y-hei/3, inventory.boxSize, inventory.boxSize, buttons.brown, buttons.lightBrown, "empty")); // shoulders
+  inventory.equipSlots.push(new EquipBox(x+wid/4, y+hei/3, inventory.boxSize, inventory.boxSize, buttons.brown, buttons.lightBrown, "empty")); // legs
+  inventory.equipSlots.push(new EquipBox(x+wid/2, y      , inventory.boxSize, inventory.boxSize, buttons.brown, buttons.lightBrown, "empty")); // hands
 }
 
 function setButtonAtributes() {

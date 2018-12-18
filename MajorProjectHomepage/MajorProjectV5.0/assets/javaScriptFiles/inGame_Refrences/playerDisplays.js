@@ -76,20 +76,21 @@ function playerSprite() {
 
 function playerLvL() {
   fill("black");
-  rect(0, height*0.475, width*0.20, height*0.05);
+  rect(0, height*0.475, width*0.20, height*0.075);
 
   // level and experience
+  let expPercent = player.exp/player.nextLvl*100;
   fill("white");
-  text("Exp. " + player.exp + "/" + player.nextLvl, 0, height*0.475);
-  text("Lv. " + player.lvl, 0, spriteSize.height*0.60);
+  text("Exp. "+player.exp+"/"+player.nextLvl+"\n"+expPercent.toFixed(2)+"%", 0, height*0.46);
+  text("Lv. "+player.lvl, 0, spriteSize.height*0.60);
 
   // points to spend
   if (player.points > 0) {
     push();
-    textSize(fontSize.default);
+    textSize(fontSize.default*2);
     fill("yellow");
-    text("!", -width*0.105, height*0.475);
-    text("!", width*0.105, height*0.475);
+    text("!", -width*0.105, height*0.45);
+    text("!", width*0.105, height*0.45);
     pop();
   }
 }

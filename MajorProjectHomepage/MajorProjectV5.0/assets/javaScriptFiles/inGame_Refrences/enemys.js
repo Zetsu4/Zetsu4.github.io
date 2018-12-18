@@ -64,8 +64,8 @@ function respawnEnemys() {
 // spawn starting enemys
 function createEnemys() {
   for (let i = 0; i < NUM_OF_ENEMYS; i++) {
-    // in case world is too small
     if (world.width <= width*4 && world.height <= height*4) {
+      // in case world is too small
       cheaterEnding();
       break;
     }

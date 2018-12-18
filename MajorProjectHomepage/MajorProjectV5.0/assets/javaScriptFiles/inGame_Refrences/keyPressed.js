@@ -30,8 +30,29 @@ function keyPressed() {
     }
 
     // place trap
-    if (keyCode === keyBindings.get("Place Trap").code)
+    if (keyCode === keyBindings.get("Place Trap").code && allItems.get("Traps").amount > 0) {
       items.playerAttack.push(new Trap(0, 0, 0, 0, player.tDmg, itemImg.trap));
+      allItems.get("Traps").amount--;
+      if (allItems.get("Traps").amount <= 0)
+        checkEmpty("Traps");
+    }
+
+    // consume potions
+    if (keyCode === keyBindings.get("Consume HP Poition").code && allItems.get("Hp Potion").amount > 0) { // helath
+      player.hp += (player.lvl+1)*player.vit/2;
+      player.hp = constrain(player.hp, 0, player.totHp);
+      allItems.get("Hp Potion").amount--;
+      if (allItems.get("Hp Potion").amount <= 0)
+        checkEmpty("Hp Potion");
+    }
+
+    if (keyCode === keyBindings.get("Consume MP Poition").code && allItems.get("Mp Potion").amount > 0) { // mana
+      player.mp += (player.lvl+1)*player.int/2;
+      player.mp = constrain(player.mp, 0, player.totMp);
+      allItems.get("Mp Potion").amount--;
+      if (allItems.get("Mp Potion").amount <= 0)
+        checkEmpty("Mp Potion");
+    }
   }
 }
 

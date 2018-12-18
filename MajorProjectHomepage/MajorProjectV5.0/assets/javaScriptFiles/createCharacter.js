@@ -125,6 +125,27 @@ function setPlayerStats() {
   player.dex = player.race.stats.dex;
   player.vit = player.race.stats.vit;
 
+  // set starting equipment
+  if (player.skill.stats.startingHpPotions > 0) { // starting Hp potions
+    player.inventory[0][0] = allItems.get("Hp Potion");
+    player.inventory[0][0].amount = player.skill.stats.startingHpPotions;
+  }
+
+  if (player.skill.stats.startingMpPotions > 0) { // starting Mp potions
+    player.inventory[0][1] = allItems.get("Mp Potion");
+    player.inventory[0][1].amount = player.skill.stats.startingMpPotions;
+  }
+
+  if (player.skill.stats.startingArrows > 0) { // starting Arrows
+    player.inventory[0][2] = allItems.get("Arrows");
+    player.inventory[0][2].amount = player.skill.stats.startingArrows;
+  }
+
+  if (player.skill.stats.startingTraps > 0) { // starting Traps
+    player.inventory[0][3] = allItems.get("Traps");
+    player.inventory[0][3].amount = player.skill.stats.startingTraps;
+  }
+
   calculateStats();
 }
 

@@ -1,8 +1,14 @@
 function inventoryMenu() {
   let xPos = inventory.width*inventory.boxSize + inventory.boxSize/2;
   let yPos = inventory.boxSize/2;
+  // grid
   drawGrid(xPos, yPos);
+
+  // stats
   displayStats(xPos, yPos);
+
+  // equipment
+  equipLayout();
 }
 
 // grid
@@ -11,6 +17,7 @@ function drawGrid(xPos, yPos) {
   // show inventory grid
   background(179, 119, 0);
   stroke(204, 102, 0);
+  fill(buttons.brown);
   rectMode(CORNER);
   imageMode(CORNER);
   translate(-width/2, -height/2);
@@ -20,10 +27,9 @@ function drawGrid(xPos, yPos) {
       let yPos2 = y*inventory.boxSize;
 
       // inventory grid
-      fill(153, 77, 0);
       rect(xPos2, yPos2, inventory.boxSize, inventory.boxSize);
       if (player.inventory[y][x] !== "empty")
-        drawItemIninventory(player.inventory[y][x].img, player.inventory[y][x].amount, xPos2, yPos2);
+        drawItemInInventory(player.inventory[y][x].img, player.inventory[y][x].amount, xPos2, yPos2);
     }
   }
   hoverOverTile();
@@ -34,7 +40,7 @@ function drawGrid(xPos, yPos) {
   pop();
 }
 
-function drawItemIninventory(img, number, x, y) {
+function drawItemInInventory(img, number, x, y) {
     // draw image
     image(img, x, y, inventory.boxSize, inventory.boxSize);
     push();
@@ -56,10 +62,21 @@ function hoverOverTile() {
     let yPos2 = y*inventory.boxSize;
 
     // highlight box
-    fill(179, 89, 0);
+    fill(buttons.lightBrown);
     rect(xPos2, yPos2, inventory.boxSize, inventory.boxSize);
-    if (player.inventory[y][x] !== "empty")
-      drawItemIninventory(player.inventory[y][x].img, player.inventory[y][x].amount, xPos2, yPos2);
+    if (player.inventory[y][x] !== "empty") {
+      drawItemInInventory(player.inventory[y][x].img, player.inventory[y][x].amount, xPos2, yPos2);
+      rect(mouseX+width*0.01, mouseY, width*0.10, height*0.05);
+
+      // description of item
+      push();
+      noStroke();
+      fill("black");
+      textAlign(LEFT, TOP);
+      textSize(fontSize.playersDisplay);
+      text(player.inventory[y][x].description, mouseX+width*0.015, mouseY);
+      pop();
+    }
 
     // mouse clicking in inventory
     if (mouseIsPressed) {
@@ -93,7 +110,7 @@ function garbageCan(x, y) {
 
 function mouseHolding() {
   if (mouseCarring !== "empty")
-    drawItemIninventory(mouseCarring.img, mouseCarring.amount, mouseX-inventory.boxSize/2, mouseY-inventory.boxSize/2);
+    drawItemInInventory(mouseCarring.img, mouseCarring.amount, mouseX-inventory.boxSize/2, mouseY-inventory.boxSize/2);
 }
 
 // stats
@@ -161,4 +178,19 @@ function levelingUp(i) {
     player.dex++;
   else if (i === 4)
     player.vit++;
+}
+
+// equipment
+function equipLayout() {
+  let x = width*0.25;
+  let y = -height*0.10;
+  let wid = inventory.boxSize*10;
+  let hei = inventory.boxSize*10;
+  // layout
+  image(itemImg.inventoryLayout, x, y, wid, hei);
+
+  // equip slots
+  for (let i=0; i < inventory.equipSlots.length; i++) {
+    inventory.equipSlots[i].display();
+  }
 }
