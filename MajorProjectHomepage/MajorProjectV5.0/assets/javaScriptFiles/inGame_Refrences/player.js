@@ -95,3 +95,10 @@ function playerCoolDown() {
   if (player.coolDown && elapsedTime >= player.coolDownTime)
     player.coolDown = false;
 }
+
+function playerTakeDamage(dmg) {
+  player.hp -= dmg;
+  if (player.hp <= 0) {
+    gameOver();
+  }
+}

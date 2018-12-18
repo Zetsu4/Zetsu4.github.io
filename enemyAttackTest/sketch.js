@@ -18,8 +18,6 @@ class sword {
 
     this.size = size;
     this.rotate = atan2(height/2 - y, width/2 - x);
-
-    this.rotateing = random([true, false]);
   }
 
   destroy() {

@@ -55,7 +55,7 @@ let player = {};
 
 // inventory
 let inventory = {};
-let mouseCarring = "empty";
+let mouseCarring;
 
 // settings
 let settings = {};
@@ -66,7 +66,7 @@ let rebindButtons = [];
 
 // enemys
 let enemyArr = [];
-const NUM_OF_ENEMYS = 100;
+const NUM_OF_ENEMYS = 25;
 
 // waiting
 let waiting;
@@ -131,6 +131,7 @@ function setup() {
   startingState = 0;
   state = 0;
   enemyArr = [];
+  mouseCarring = "empty";
 
   // text
   fontSize.default = (width+height)*0.015;

@@ -1,47 +1,79 @@
 function enemys() {
   // loop through enemys
   for (let i=enemyArr.length-1; i >= 0; i--) {
-    // move
-    enemyArr[i].movement(world.width, world.height, player.x, player.y);
-    enemyArr[i].constrainToWorld(world.width, world.height, player.x, player.y);
+    if (enemyArr[i].hp >= 0) {
+      // move
+      enemyArr[i].movement(world.width, world.height, player.x, player.y);
+      enemyArr[i].constrainToWorld(world.width, world.height, player.x, player.y);
 
-    // map
-    enemyArr[i].mapping(
-      world.width, world.height,
-      minimap.x, minimap.y,
-      minimap.imgWidth, minimap.imgHeight,
-      player.dotSize*0.75
-    );
+      // map
+      enemyArr[i].mapping(
+        world.width, world.height,
+        minimap.x, minimap.y,
+        minimap.imgWidth, minimap.imgHeight,
+        player.dotSize*0.75
+      );
 
-    // collisions
-    for (let j=items.playerAttack.length-1; j >= 0; j--) {
-      if (dist(items.playerAttack[j].realX, items.playerAttack[j].realY, enemyArr[i].x, enemyArr[i].y) <= (enemyArr[i].width+enemyArr[i].height)/2) {
-        let dmg = items.playerAttack[j].damage;
-        items.playerAttack[j].trap ? enemyArr[i].takeDamage(dmg, true) : enemyArr[i].takeDamage(dmg, false);
-        items.playerAttack.splice(j, 1);
+      // collisions
+      for (let j=items.playerAttack.length-1; j >= 0; j--) {
+        if (dist(items.playerAttack[j].realX, items.playerAttack[j].realY, enemyArr[i].x, enemyArr[i].y) <= (enemyArr[i].width+enemyArr[i].height)/2) {
+          let dmg = items.playerAttack[j].damage;
+          items.playerAttack[j].trap ? enemyArr[i].takeDamage(dmg, true) : enemyArr[i].takeDamage(dmg, false);
+          items.playerAttack.splice(j, 1);
+        }
       }
     }
 
+    // attacks
+    enemyAttackFoo(i);
+
     // dead enemy
-    if (enemyArr[i].hp <= 0) {
+    if (enemyArr[i].hp <= 0 && enemyArr[i].allAttacks.length <= 0) {
       let expGained = enemyArr[i].expGained;
       playerExp(expGained);
       lootDrop(enemyArr[i].x, enemyArr[i].y);
       enemyArr.splice(i, 1);
     }
   }
+
   respawnEnemys();
 }
 
 // move with player
 function enemysMoveX(dir) {
-  for (let i=enemyArr.length-1; i >= 0; i--)
+  let speed = player.speed*dir;
+
+  for (let i=enemyArr.length-1; i >= 0; i--) {
     enemyArr[i].moveEnemysX(player.speed, dir);
+    for (let j=enemyArr[i].allAttacks.length-1; j >= 0; j--) {
+      enemyArr[i].allAttacks[j].changeX += speed;
+    }
+  }
 }
 
 function enemysMoveY(dir) {
-  for (let i=enemyArr.length-1; i >= 0; i--)
+  let speed = player.speed*dir;
+
+  for (let i=enemyArr.length-1; i >= 0; i--) {
     enemyArr[i].moveEnemysY(player.speed, dir);
+    for (let j=enemyArr[i].allAttacks.length-1; j >= 0; j--) {
+      enemyArr[i].allAttacks[j].changeY += speed;
+    }
+  }
+}
+
+// enemy attacks
+function enemyAttackFoo(enemyIndex) {
+  for (let i = enemyArr[enemyIndex].allAttacks.length-1; i >= 0; i--) {
+    enemyArr[enemyIndex].allAttacks[i].display();
+    if (enemyArr[enemyIndex].allAttacks[i].move())
+      enemyArr[enemyIndex].allAttacks.splice(i, 1);
+
+    else if (dist(enemyArr[enemyIndex].allAttacks[i].realX, enemyArr[enemyIndex].allAttacks[i].realY, 0, 0) < (spriteSize.width+spriteSize.height)/3) {
+      playerTakeDamage(enemyArr[enemyIndex].allAttacks[i].damage);
+      enemyArr[enemyIndex].allAttacks.splice(i, 1);
+    }
+  }
 }
 
 // respawn enemys

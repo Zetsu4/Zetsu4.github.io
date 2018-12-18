@@ -1,5 +1,5 @@
 class Enemy {
-  constructor(x, y, race, skill, minLvl, maxLvl, offSetX = 0, offSetY = 0, wid = spriteSize.width, hei = spriteSize.height, fontSizeChange = fontSize.playersDisplay) {
+  constructor(x, y, race, skill, minLvl, maxLvl, attack = EnemyAttack, offSetX = 0, offSetY = 0, wid = spriteSize.width, hei = spriteSize.height, fontSizeChange = fontSize.playersDisplay) {
     // position
     this.x = x+offSetX;
     this.y = y+offSetY;
@@ -44,12 +44,16 @@ class Enemy {
     this.rDmg = ceil(this.dex*(1 + this.skill.stats.ranged)); // ranged damage
     this.sDmg = ceil(this.int*(1 + this.skill.stats.magic)); // magic damage
 
+    this.allAttacks = [];
+    this.attackType = attack;
+    this.attackState = 0;
     this.lastAttack = 0;
-    this.timer = 1000 - (this.vit+this.agi)*15;
+    this.attackTimer = 1500 - (this.vit+this.agi)*20;
 
     // movement
     this.speed = width*0.002 + width*this.agi*pow(10, -4);
-    this.stuned = false;
+    this.stun = false;
+    this.timer = 1000 - (this.vit+this.agi)*20;
 
     // path finding
     this.dist = (width+height)*(this.agi/50);
@@ -61,7 +65,7 @@ class Enemy {
   takeDamage(dmg, trapped = false) {
     // taking damage
     this.hp -= dmg;
-    this.stuned = true;
+    this.stun = true;
     this.lastAttack = millis();
     if (trapped)
       // reducing speed
@@ -70,10 +74,10 @@ class Enemy {
 
   stuned() {
     // stuned
-    if (this.stuned) {
+    if (this.stun) {
       let elapsedTime = millis() - this.lastAttack;
       if (elapsedTime >= this.timer)
-        this.stuned = false;
+        this.stun = false;
     }
   }
 
@@ -117,96 +121,122 @@ class Enemy {
 
   // AI
   movement(worldW, worldH, playerX, playerY) {
-    // attack player
-    if (this.x > -width*0.75 && this.x < width*0.75 && this.y > -height*0.75 && this.y < height*0.75) {
-      this.attackPlayer();
-      this.display();
+    // not stuned
+    if (!this.stun) {
+      // attack player
+      if (this.x > -width*0.75 && this.x < width*0.75 && this.y > -height*0.75 && this.y < height*0.75) {
+        this.persuePlayer();
+        this.attackPlayer();
+        this.display();
+      }
+
+      // move about
+      else {
+        if (this.headingTo) {
+          // find point
+          if (this.findingPoint) {
+            this.headToX = this.x + random(-this.dist/2, this.dist/2);
+            this.headToY = this.y + random(-this.dist/2, this.dist/2);
+
+            // constrain point to the world
+            this.headToX = constrain(this.headToX, -worldW/2 - playerX, worldW/2 - playerX);
+            this.headToY = constrain(this.headToY, -worldH/2 - playerY, worldH/2 - playerY);
+            this.findingPoint = false;
+          }
+
+          // move to point
+          else {
+            let moved = false;
+            let pointXMin = this.headToX - width*0.01;
+            let pointXMax = this.headToX + width*0.01;
+            let pointYMin = this.headToY - height*0.01;
+            let pointYMax = this.headToY + height*0.01;
+
+            if (this.x > pointXMax) { // left
+              moved = true;
+              this.x -= this.speed;
+              this.mapX -= this.speed;
+            }
+
+            else if (this.x < pointXMin) { // right
+              moved = true;
+              this.x += this.speed;
+              this.mapX += this.speed;
+            }
+
+            if (this.y > pointYMax) { // top
+              moved = true;
+              this.y -= this.speed;
+              this.mapY -= this.speed;
+            }
+
+            else if (this.y < pointYMin) { // bottom
+              moved = true;
+              this.y += this.speed;
+              this.mapY += this.speed;
+            }
+
+            // if not moved then rest
+            if (!moved) {
+              this.findingPoint = true;
+              this.headingTo = false;
+              this.resting = millis();
+            }
+          }
+        }
+
+        // resting
+        else {
+          let elapsedTime = millis() - this.resting;
+          if (elapsedTime >= this.timer*2)
+            this.headingTo = true;
+        }
+      }
     }
 
-    // move about
+    // stuned
     else {
-      if (this.headingTo) {
-        // find point
-        if (this.findingPoint) {
-          this.headToX = this.x + random(-this.dist/2, this.dist/2);
-          this.headToY = this.y + random(-this.dist/2, this.dist/2);
-
-          // constrain point to the world
-          this.headToX = constrain(this.headToX, -worldW/2 - playerX, worldW/2 - playerX);
-          this.headToY = constrain(this.headToY, -worldH/2 - playerY, worldH/2 - playerY);
-          this.findingPoint = false;
-        }
-
-        // move to point
-        else {
-          let moved = false;
-          let pointXMin = this.headToX - width*0.01;
-          let pointXMax = this.headToX + width*0.01;
-          let pointYMin = this.headToY - height*0.01;
-          let pointYMax = this.headToY + height*0.01;
-
-          if (this.x > pointXMax) { // left
-            moved = true;
-            this.x -= this.speed;
-            this.mapX -= this.speed;
-          }
-
-          else if (this.x < pointXMin) { // right
-            moved = true;
-            this.x += this.speed;
-            this.mapX += this.speed;
-          }
-
-          if (this.y > pointYMax) { // top
-            moved = true;
-            this.y -= this.speed;
-            this.mapY -= this.speed;
-          }
-
-          else if (this.y < pointYMin) { // bottom
-            moved = true;
-            this.y += this.speed;
-            this.mapY += this.speed;
-          }
-
-          // if not moved then rest
-          if (!moved) {
-            this.findingPoint = true;
-            this.headingTo = false;
-            this.resting = millis();
-          }
-        }
-      }
-
-      // resting
-      else {
-        let elapsedTime = millis() - this.resting;
-        if (elapsedTime >= this.timer*2)
-          this.headingTo = true;
-      }
+      this.display();
+      this.stuned();
     }
   }
 
-  attackPlayer() {
+  persuePlayer() {
     // persuing player
-    if (this.x > 0) {
+    if (this.x > -this.width) {
       this.x -= this.speed;
       this.mapX -= this.speed;
     }
 
-    if (this.x < 0) {
+    if (this.x < this.width) {
       this.x += this.speed;
       this.mapX += this.speed;
     }
 
-    if (this.y > 0) {
+    if (this.y > -this.height) {
       this.y -= this.speed;
       this.mapY -= this.speed;
     }
 
-    if (this.y < 0) {
+    if (this.y < this.height) {
       this.y += this.speed;
       this.mapY += this.speed;
+    }
+  }
+
+  attackPlayer() {
+    if (this.attackState === 1) {
+      this.allAttacks.push(new this.attackType(0, 0, this.x, this.y, width*0.0005, width*0.10, this.str));
+      this.attackState = 0;
+      this.lastAttack = millis();
+    }
+
+    else {
+      let elapsedTime = millis() - this.lastAttack;
+      if (elapsedTime > this.attackTimer) {
+        this.attackState = 1;
+        this.lastAttack = millis();
+      }
     }
   }
 

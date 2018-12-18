@@ -46,3 +46,8 @@
 ## Nov 9, 2018 - Dec 6, 2018
 - rewrote code to make it more organized and more efficient
 - changed the fonts of text
+- fixed problems with inventory
+- improved the AI for enemy's
+- added a place to equip equipment
+- fixed rebinding keys
+- fixed boundaries

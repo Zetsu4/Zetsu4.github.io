@@ -20,9 +20,6 @@ function gameOver() {
   text("GAME OVER,\nyou suck", 0, 0);
   text("Press 'Esc' to return to main menu", 0, height*0.40);
 
-  if (keyCode === 27) { // Escape
-    startingState = 0;
-    state = 0;
+  if (keyCode === 27) // Escape
     setup();
-  }
 }
