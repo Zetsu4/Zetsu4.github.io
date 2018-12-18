@@ -4,7 +4,7 @@ function mousePressed() {
       let attacked = false;
       // player attacks
       if (player.attackState === "melee") {
-        items.playerAttack.push(new Attack(0, 0, 0, 0, width*0.0025, width*0.075, player.mDmg, itemImg.swordAttack));
+        items.playerAttack.push(new Attack(0, 0, 0, 0, width*0.005, width*0.05, player.mDmg, itemImg.swordAttack));
         attacked = true;
       }
 

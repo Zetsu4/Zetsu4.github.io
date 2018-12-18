@@ -28,15 +28,18 @@ function enemys() {
     enemyAttackFoo(i);
 
     // dead enemy
-    if (enemyArr[i].hp <= 0 && enemyArr[i].allAttacks.length <= 0) {
-      let expGained = enemyArr[i].expGained;
-      playerExp(expGained);
-      lootDrop(enemyArr[i].x, enemyArr[i].y);
-      enemyArr.splice(i, 1);
+    if (enemyArr[i].hp <= 0) {
+      enemyArr[i].dead();
+      if (enemyArr[i].allAttacks.length <= 0) {
+        let expGained = enemyArr[i].expGained;
+        playerExp(expGained);
+        lootDrop(enemyArr[i].x, enemyArr[i].y);
+        enemyArr.splice(i, 1);
+      }
     }
   }
 
-  respawnEnemys();
+  spawnEnemys(0.75);
 }
 
 // move with player
@@ -76,31 +79,12 @@ function enemyAttackFoo(enemyIndex) {
   }
 }
 
-// respawn enemys
-function respawnEnemys() {
-  if (enemyArr.length <= floor(NUM_OF_ENEMYS*0.70)) {
-    // re-spawning baddies
-    let race = int(random(1, allRaces.length));
-    let skill = int(random(1, allSkills.length));
-    let xSpawn = random(-world.width/2-player.x, world.width/2+player.x);
-    let ySpawn = random(-world.height/2-player.y, world.height/2+player.y);
-
-    xy = rerstrainEnemySpawn(xSpawn, ySpawn);
-    xSpawn = xy[0];
-    ySpawn = xy[1];
-
-    enemyArr.push(new Enemy(xSpawn, ySpawn, allRaces[race], allSkills[skill], player.lvl+2, player.lvl+8));
-  }
-}
-
 // spawn starting enemys
-function createEnemys() {
-  for (let i = 0; i < NUM_OF_ENEMYS; i++) {
-    if (world.width <= width*4 && world.height <= height*4) {
+function spawnEnemys(mult = 1) {
+  if (enemyArr.length < NUM_OF_ENEMYS*mult) {
+    if (world.width <= width*2.5 && world.height <= height*2.5)
       // in case world is too small
       cheaterEnding();
-      break;
-    }
 
     // enemy vars
     let race = int(random(1, allRaces.length));
@@ -112,8 +96,10 @@ function createEnemys() {
     xSpawn = xy[0];
     ySpawn = xy[1];
 
-    // spawn them in
-    enemyArr.push(new Enemy(xSpawn, ySpawn, allRaces[race], allSkills[skill], player.lvl+2, player.lvl+8));
+    // spawn
+    let minLvl = player.lvl-2;
+    let maxLvl = player.lvl+player.exp/player.nextlvl*10;
+    enemyArr.push(new Enemy(xSpawn, ySpawn, allRaces[race], allSkills[skill], minLvl, maxLvl, -player.x, -player.y));
   }
 }
 
@@ -124,8 +110,8 @@ function rerstrainEnemySpawn(xSpawn, ySpawn) {
   while (xSpawn >= -width && xSpawn <= width
       && ySpawn >= -height && ySpawn <= height) {
 
-    xSpawn = random(-world.width/2, world.width/2);
-    ySpawn = random(-world.height/2, world.height/2);
+    xSpawn = random(-world.width/2+player.x, world.width/2+player.x);
+    ySpawn = random(-world.height/2+player.y, world.height/2+player.y);
   }
 
   coordinates[0] = xSpawn;

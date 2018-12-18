@@ -39,7 +39,10 @@ function createChar() {
       clickWait();
       selectRandom();
       setPlayerStats();
-      createEnemys();
+
+      // spawn initial enemys
+      for (let i=0; i < NUM_OF_ENEMYS; i++)
+        spawnEnemys();
     }
   }
 

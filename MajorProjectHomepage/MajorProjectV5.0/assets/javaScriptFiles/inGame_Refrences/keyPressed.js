@@ -1,13 +1,15 @@
 function keyPressed() {
-  // single press buttons
-  if (keyCode === keyBindings.get("Settings").code) // open settings
-    toggleStates("Settings");
+  if (startingState === 2) {
+    // single press buttons
+    if (keyCode === keyBindings.get("Settings").code) // open settings
+      toggleStates("Settings");
 
-  if (keyCode === keyBindings.get("Inventory").code) // open inventory
-    toggleStates("Inventory");
+    if (keyCode === keyBindings.get("Inventory").code) // open inventory
+      toggleStates("Inventory");
 
-  if (keyCode === keyBindings.get("Open Map").code) // open world map
-    toggleStates("Map");
+    if (keyCode === keyBindings.get("Open Map").code) // open world map
+      toggleStates("Map");
+  }
 
   if (state === 0) {
     // toggle speed
@@ -39,19 +41,11 @@ function keyPressed() {
 
     // consume potions
     if (keyCode === keyBindings.get("Consume HP Poition").code && allItems.get("Hp Potion").amount > 0) { // helath
-      player.hp += (player.lvl+1)*player.vit/2;
-      player.hp = constrain(player.hp, 0, player.totHp);
-      allItems.get("Hp Potion").amount--;
-      if (allItems.get("Hp Potion").amount <= 0)
-        checkEmpty("Hp Potion");
+      consumePotion("Hp Potion");
     }
 
     if (keyCode === keyBindings.get("Consume MP Poition").code && allItems.get("Mp Potion").amount > 0) { // mana
-      player.mp += (player.lvl+1)*player.int/2;
-      player.mp = constrain(player.mp, 0, player.totMp);
-      allItems.get("Mp Potion").amount--;
-      if (allItems.get("Mp Potion").amount <= 0)
-        checkEmpty("Mp Potion");
+      consumePotion("Mp Potion");
     }
   }
 }

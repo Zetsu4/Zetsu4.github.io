@@ -66,7 +66,7 @@ let rebindButtons = [];
 
 // enemys
 let enemyArr = [];
-const NUM_OF_ENEMYS = 25;
+const NUM_OF_ENEMYS = 100;
 
 // waiting
 let waiting;
@@ -101,6 +101,8 @@ function preload() {
   itemImg.magicIcon = loadImage("assets/img/items/equippedIcons/magicIcon.png");
 
   // sprites
+  sprites.death = loadImage("assets/img/enemyDeath.png");
+
   sprites.random = loadImage("assets/img/random.png");
 
   sprites.race.dwarf = loadImage("assets/races/img/dwarf.png");

@@ -1,11 +1,11 @@
 class Enemy {
-  constructor(x, y, race, skill, minLvl, maxLvl, attack = EnemyAttack, offSetX = 0, offSetY = 0, wid = spriteSize.width, hei = spriteSize.height, fontSizeChange = fontSize.playersDisplay) {
+  constructor(x, y, race, skill, minLvl, maxLvl, offSetX = 0, offSetY = 0, attack = EnemyAttack, wid = spriteSize.width, hei = spriteSize.height, fontSizeChange = fontSize.playersDisplay, deathImage = sprites.death) {
     // position
     this.x = x+offSetX;
     this.y = y+offSetY;
 
-    this.mapX = this.x;
-    this.mapY = this.y;
+    this.mapX = x;
+    this.mapY = y;
 
     this.headToX = this.x;
     this.headToY = this.y;
@@ -18,12 +18,14 @@ class Enemy {
     this.raceImg = this.race.img;
     this.skillImg = this.skill.img;
 
+    this.death = deathImage;
+
     this.width = wid;
     this.height = hei;
     this.fontSize = fontSizeChange;
 
     // stats
-    this.lvl = int(random(minLvl, maxLvl));
+    this.lvl = constrain(int(random(minLvl, maxLvl)), 0, Infinity);
     this.expGained = (this.race.stats.expGained+this.skill.stats.expGained)*this.lvl/2;
 
     let extraPoints = (this.lvl-1)*5;
@@ -44,6 +46,7 @@ class Enemy {
     this.rDmg = ceil(this.dex*(1 + this.skill.stats.ranged)); // ranged damage
     this.sDmg = ceil(this.int*(1 + this.skill.stats.magic)); // magic damage
 
+    this.distMultiplier = 1;
     this.allAttacks = [];
     this.attackType = attack;
     this.attackState = 0;
@@ -53,13 +56,17 @@ class Enemy {
     // movement
     this.speed = width*0.002 + width*this.agi*pow(10, -4);
     this.stun = false;
-    this.timer = 1000 - (this.vit+this.agi)*20;
+    this.timer = 800 - (this.vit+this.agi)*20;
 
     // path finding
     this.dist = (width+height)*(this.agi/50);
     this.headingTo = false;
     this.findingPoint = true;
     this.resting = millis();
+  }
+
+  dead() {
+    image(this.death, this.x, this.y, this.width, this.height);
   }
 
   takeDamage(dmg, trapped = false) {
@@ -125,7 +132,7 @@ class Enemy {
     if (!this.stun) {
       // attack player
       if (this.x > -width*0.75 && this.x < width*0.75 && this.y > -height*0.75 && this.y < height*0.75) {
-        this.persuePlayer();
+        this.persuePlayer(worldW, worldH, playerX, playerY);
         this.attackPlayer();
         this.display();
       }
@@ -133,50 +140,14 @@ class Enemy {
       // move about
       else {
         if (this.headingTo) {
-          // find point
-          if (this.findingPoint) {
-            this.headToX = this.x + random(-this.dist/2, this.dist/2);
-            this.headToY = this.y + random(-this.dist/2, this.dist/2);
-
-            // constrain point to the world
-            this.headToX = constrain(this.headToX, -worldW/2 - playerX, worldW/2 - playerX);
-            this.headToY = constrain(this.headToY, -worldH/2 - playerY, worldH/2 - playerY);
-            this.findingPoint = false;
-          }
+          // find point to go to
+          if (this.findingPoint)
+            this.findPoint(worldW, worldH, playerX, playerY);
 
           // move to point
           else {
-            let moved = false;
-            let pointXMin = this.headToX - width*0.01;
-            let pointXMax = this.headToX + width*0.01;
-            let pointYMin = this.headToY - height*0.01;
-            let pointYMax = this.headToY + height*0.01;
-
-            if (this.x > pointXMax) { // left
-              moved = true;
-              this.x -= this.speed;
-              this.mapX -= this.speed;
-            }
-
-            else if (this.x < pointXMin) { // right
-              moved = true;
-              this.x += this.speed;
-              this.mapX += this.speed;
-            }
-
-            if (this.y > pointYMax) { // top
-              moved = true;
-              this.y -= this.speed;
-              this.mapY -= this.speed;
-            }
-
-            else if (this.y < pointYMin) { // bottom
-              moved = true;
-              this.y += this.speed;
-              this.mapY += this.speed;
-            }
-
-            // if not moved then rest
+            let moved = this.goToPoint();
+            // if didn't moved then rest
             if (!moved) {
               this.findingPoint = true;
               this.headingTo = false;
@@ -201,32 +172,93 @@ class Enemy {
     }
   }
 
-  persuePlayer() {
-    // persuing player
-    if (this.x > -this.width) {
+  findPoint(worldW, worldH, playerX, playerY, wandering = true) {
+    // find point
+    if (wandering) {
+      this.headToX = this.x + random(-this.dist/2, this.dist/2);
+      this.headToY = this.y + random(-this.dist/2, this.dist/2);
+    }
+
+    else {
+      this.headToX = this.x + random(-this.dist/2, this.dist/2);
+      this.headToY = this.y + random(-this.dist/2, this.dist/2);
+    }
+
+    // constrain point to the world
+    this.headToX = constrain(this.headToX, -worldW/2 - playerX, worldW/2 - playerX);
+    this.headToY = constrain(this.headToY, -worldH/2 - playerY, worldH/2 - playerY);
+    this.findingPoint = false;
+  }
+
+  goToPoint() {
+    let moved = false;
+    let pointXMin = this.headToX - width*0.01;
+    let pointXMax = this.headToX + width*0.01;
+    let pointYMin = this.headToY - height*0.01;
+    let pointYMax = this.headToY + height*0.01;
+
+    if (this.x > pointXMax) { // left
+      moved = true;
       this.x -= this.speed;
       this.mapX -= this.speed;
     }
 
-    if (this.x < this.width) {
+    else if (this.x < pointXMin) { // right
+      moved = true;
       this.x += this.speed;
       this.mapX += this.speed;
     }
 
-    if (this.y > -this.height) {
+    if (this.y > pointYMax) { // top
+      moved = true;
       this.y -= this.speed;
       this.mapY -= this.speed;
     }
 
-    if (this.y < this.height) {
+    else if (this.y < pointYMin) { // bottom
+      moved = true;
       this.y += this.speed;
       this.mapY += this.speed;
+    }
+
+    return moved;
+  }
+
+  persuePlayer(worldW, worldH, playerX, playerY) {
+    // persuing player
+    if (dist(0, 0, this.x, this.y) >= (this.width+this.height)*this.distMultiplier) {
+      this.findingPoint = true;
+
+      if (this.x > -this.width/2) {
+        this.x -= this.speed;
+        this.mapX -= this.speed;
+      }
+
+      if (this.x < this.width/2) {
+        this.x += this.speed;
+        this.mapX += this.speed;
+      }
+
+      if (this.y > -this.height/2) {
+        this.y -= this.speed;
+        this.mapY -= this.speed;
+      }
+
+      if (this.y < this.height/2) {
+        this.y += this.speed;
+        this.mapY += this.speed;
+      }
+    }
+
+    else {
+      this.findPoint(worldW, worldH, playerX, playerY, false);
+
     }
   }
 
   attackPlayer() {
     if (this.attackState === 1) {
-      this.allAttacks.push(new this.attackType(0, 0, this.x, this.y, width*0.0005, width*0.10, this.str));
+      this.allAttacks.push(new this.attackType(0, 0, this.x, this.y, width*0.005, width*0.10, this.str));
       this.attackState = 0;
       this.lastAttack = millis();
     }
@@ -244,6 +276,8 @@ class Enemy {
     // staying on the map
     this.x = constrain(this.x, -worldW/2-playerX - width/2, worldW/2-playerX + width/2);
     this.y = constrain(this.y, -worldH/2-playerY - height/2, worldH/2-playerY + height/2);
+    this.mapX = constrain(this.mapX, -worldW/2 - width/2, worldW/2 + width/2);
+    this.mapY = constrain(this.mapY, -worldH/2 - height/2, worldH/2 + height/2);
   }
 
   mapping(worldW, worldH, mapX, mapY, mapW, mapH, dotSize) {
@@ -254,8 +288,8 @@ class Enemy {
     let mapMaxY = mapY + mapH/2 - dotSize;
 
     // dot
-    let enemyX = map(this.mapX, -worldW/2, worldW/2, mapMinX, mapMaxX);
-    let enemyY = map(this.mapY, -worldH/2, worldH/2, mapMinY, mapMaxY);
+    let enemyX = map(this.mapX, -worldW/2, worldW/2, mapMinX, mapMaxX, true);
+    let enemyY = map(this.mapY, -worldH/2, worldH/2, mapMinY, mapMaxY, true);
     fill("red");
     ellipse(enemyX, enemyY, dotSize);
   }

@@ -78,14 +78,23 @@ function playerMovement() {
   }
 }
 
+function consumePotion(name) {
+  player.hp += (player.lvl+1)*player.vit/2;
+  player.hp = constrain(player.hp, 0, player.totHp);
+  allItems.get(name).amount--;
+  if (allItems.get(name).amount <= 0)
+    checkEmpty(name);
+}
+
 function playerExp(amount) {
   // gaining exp
   player.exp += amount;
   if (player.exp >= player.nextLvl) {
     // level up
     player.lvl++;
+    player.exp = 0;
     player.points += 5;
-    player.nextLvl = player.nextLvl*2 + player.lvl*50;
+    player.nextLvl = player.nextLvl*2 + player.lvl*25;
   }
 }
 
