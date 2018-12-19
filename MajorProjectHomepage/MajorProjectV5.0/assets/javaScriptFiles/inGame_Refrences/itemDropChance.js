@@ -10,9 +10,9 @@ function itemDropChance(x, y) {
   else if (randomItem <= 60)  // traps
     items.onGround.push(new ItemOnGround(x, y, allItems.get("Traps")));
 
-  else if (randomItem <= 85) { // equipment
+  else if (randomItem <= 80) { // equipment
     randomItem = random(1000);
-    // items.onGround.push(new ItemOnGround(x, y, allItems.get("")));
+    items.onGround.push(new ItemOnGround(x, y, allItems.get("Pitch Fork")));
   }
 
   // random potions

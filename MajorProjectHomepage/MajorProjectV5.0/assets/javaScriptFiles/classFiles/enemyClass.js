@@ -63,6 +63,7 @@ class Enemy {
     this.attackTimer = constrain(this.attackTimer, 500, 5000);
 
     // movement
+    this.havePersued = false;
     this.speed = width*0.002 + width*this.agi*pow(10, -4);
     this.stun = false;
     this.timer = 800 - (this.vit+this.agi)*10;
@@ -96,6 +97,12 @@ class Enemy {
       if (elapsedTime >= this.timer)
         this.stun = false;
     }
+  }
+
+  restingFoo(attacking = false) {
+    let elapsedTime = millis() - this.resting;
+    if (elapsedTime >= (attacking ? this.timer : this.timer*2))
+      this.headingTo = true;
   }
 
   display() {
@@ -143,36 +150,31 @@ class Enemy {
       // attack player
       if (this.x > -width*0.75 && this.x < width*0.75 && this.y > -height*0.75 && this.y < height*0.75) {
         this.persuePlayer(worldW, worldH, playerX, playerY);
-        this.attackPlayer();
         this.display();
       }
 
-      // move about
-      else {
-        if (this.headingTo) {
-          // find point to go to
-          if (this.findingPoint)
-            this.findPoint(worldW, worldH, playerX, playerY);
+      // monkeying about - RvB refrence
+      else if (this.headingTo) {
+        this.havePersued = false;
+        // find point to go to
+        if (this.findingPoint)
+          this.findPoint(worldW, worldH, playerX, playerY);
 
-          // move to point
-          else {
-            let moved = this.goToPoint();
-            // if didn't moved then rest
-            if (!moved) {
-              this.findingPoint = true;
-              this.headingTo = false;
-              this.resting = millis();
-            }
+        // move to point
+        else {
+          let moved = this.goToPoint();
+          // if didn't moved then rest
+          if (!moved) {
+            this.findingPoint = true;
+            this.headingTo = false;
+            this.resting = millis();
           }
         }
-
-        // resting
-        else {
-          let elapsedTime = millis() - this.resting;
-          if (elapsedTime >= this.timer*2)
-            this.headingTo = true;
-        }
       }
+
+      // resting
+      else
+        this.restingFoo();
     }
 
     // stuned
@@ -190,8 +192,8 @@ class Enemy {
     }
 
     else {
-      this.headToX = this.x + random(-this.dist/2, this.dist/2);
-      this.headToY = this.y + random(-this.dist/2, this.dist/2);
+      this.headToX = this.x + random(-this.attackPattern.enemyDist/2, this.attackPattern.enemyDist/2);
+      this.headToY = this.y + random(-this.attackPattern.enemyDist/2, this.attackPattern.enemyDist/2);
     }
 
     // constrain point to the world
@@ -202,10 +204,10 @@ class Enemy {
 
   goToPoint() {
     let moved = false;
-    let pointXMin = this.headToX - width*0.01;
-    let pointXMax = this.headToX + width*0.01;
-    let pointYMin = this.headToY - height*0.01;
-    let pointYMax = this.headToY + height*0.01;
+    let pointXMin = this.headToX - this.speed*1.5;
+    let pointXMax = this.headToX + this.speed*1.5;
+    let pointYMin = this.headToY - this.speed*1.5;
+    let pointYMax = this.headToY + this.speed*1.5;
 
     if (this.x > pointXMax) { // left
       moved = true;
@@ -235,8 +237,34 @@ class Enemy {
   }
 
   persuePlayer(worldW, worldH, playerX, playerY) {
+    if (this.havePersued) {
+      // monkeying about - RvB refrence
+      if (this.headingTo) {
+        // find point to go to
+        if (this.findingPoint)
+        this.findPoint(worldW, worldH, playerX, playerY, false);
+
+        // move to point
+        else {
+          let moved = this.goToPoint();
+          // if didn't moved then rest
+          if (!moved) {
+            this.findingPoint = true;
+            this.headingTo = false;
+            this.resting = millis();
+          }
+        }
+      }
+
+      // resting
+      else {
+        this.restingFoo(true);
+        this.attackPlayer();
+      }
+    }
+
     // persuing player
-    if (dist(0, 0, this.x, this.y) >= this.attackPattern.enemyDist) {
+    else if (dist(0, 0, this.x, this.y) >= this.attackPattern.enemyDist) {
       this.findingPoint = true;
 
       if (this.x > -this.width/2) {
@@ -260,10 +288,8 @@ class Enemy {
       }
     }
 
-    else {
-      this.findPoint(worldW, worldH, playerX, playerY, false);
-      this.goToPoint();
-    }
+    else
+      this.havePersued = true;
   }
 
   attackPlayer() {

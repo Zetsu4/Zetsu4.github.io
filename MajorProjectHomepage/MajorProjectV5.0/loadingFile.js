@@ -3,16 +3,20 @@
 // Dec. 6, 2018 - Dec. , 2018
 //
 // PROBLEMS:
-// - nothing exists
+// - enemy AI
+// - equipping items
+// - saving and loading games
+// - going to new areas
+// - NPC's
+// - no shops
+// - no story
 //
 // CREDITS:
 // background images by: Steven Valley
 // sprites by: Travis Ahern
+// other images by: Travis Ahern
 // made using javascript, in the Atom text editor.
 // -Asir added- I am the best, no one can defeat me, not even Mr. Schellenberg!! -Asir ended-
-//
-// TO DO:
-// everything ----- 0%
 
 
 // general
@@ -45,6 +49,10 @@ let minimap = {};
 // races/skills button arrays
 let raceButtons = [];
 let skillButtons = [];
+
+let random = {
+  description: "Random",
+};
 
 // items
 let allItems;
@@ -100,6 +108,11 @@ function preload() {
   itemImg.swordIcon = loadImage("assets/img/items/equippedIcons/swordIcon.png");
   itemImg.bowIcon = loadImage("assets/img/items/equippedIcons/bowIcon.png");
   itemImg.magicIcon = loadImage("assets/img/items/equippedIcons/magicIcon.png");
+
+  // equipment
+  itemImg.equipment = {};
+
+  itemImg.equipment.pitchFork = loadImage("assets/img/items/equipment/pitchFork.png");
 
   // sprites
   sprites.death = loadImage("assets/img/enemyDeath.png");
@@ -208,7 +221,7 @@ function settingSprites() {
 
   // race
   allRaces = [
-    {name: "Random", img: sprites.random}, {name: "Human", img: sprites.race.human, stats: human},
+    {name: "Random", img: sprites.random, stats: random}, {name: "Human", img: sprites.race.human, stats: human},
     {name: "Half-Elf", img: sprites.race.halfElf, stats: halfElf}, {name: "Elf", img: sprites.race.elf, stats: elf},
     {name: "Dwarf", img: sprites.race.dwarf, stats: dwarf}, {name: "Halfling", img: sprites.race.halfling, stats: halfling},
     {name: "Goblin", img: sprites.race.goblin, stats: goblin}, {name: "Orc", img: sprites.race.orc, stats: orc},
@@ -217,7 +230,7 @@ function settingSprites() {
 
   // skill
   allSkills = [
-    {name: "Random", img: sprites.random}, {name: "Archer", img: sprites.skill.archer, stats: archer},
+    {name: "Random", img: sprites.random, stats: random}, {name: "Archer", img: sprites.skill.archer, stats: archer},
     {name: "Ranger", img: sprites.skill.ranger, stats: ranger}, {name: "Fighter", img: sprites.skill.fighter, stats: fighter},
     {name: "Samurai", img: sprites.skill.samurai, stats: samurai}, {name: "Mage", img: sprites.skill.mage, stats: mage},
     {name: "Cleric", img: sprites.skill.cleric, stats: cleric}, {name: "Rogue", img: sprites.skill.rogue, stats: rogue},

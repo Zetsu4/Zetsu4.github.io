@@ -80,6 +80,28 @@ function highlightRace() {
 
   fill("black");
   text(player.race.name, buttonAtributes.race.x, y);
+
+  raceDescription();
+}
+
+function raceDescription() {
+  push();
+  let x = buttonAtributes.race.x+buttonAtributes.width*0.60;
+  rectMode(CORNER);
+  textAlign(LEFT, TOP);
+  strokeWeight(5);
+  stroke(51, 249, 255);
+  fill("white");
+  rect(x, buttonAtributes.listStart, buttonAtributes.width, buttonAtributes.race.height);
+  noStroke();
+  fill("black");
+  let i = 0;
+  for (let stat in player.race.stats) {
+    let y = (i*fontSize.default)+buttonAtributes.listStart;
+    text(stat, x, y);
+    i++;
+  }
+  pop();
 }
 
 // skill
@@ -102,6 +124,28 @@ function highlightSkill() {
 
   fill("black");
   text(player.skill.name, buttonAtributes.skill.x, y);
+
+  skillDescription();
+}
+
+function skillDescription() {
+  push();
+  let x = buttonAtributes.skill.x-buttonAtributes.width*0.60;
+  rectMode(CORNERS);
+  textAlign(LEFT, TOP);
+  strokeWeight(5);
+  stroke(51, 249, 255);
+  fill("white");
+  rect(x, buttonAtributes.listStart, buttonAtributes.width, buttonAtributes.skill.height);
+  noStroke();
+  fill("black");
+  let i = 0;
+  for (let stat in player.skill.stats) {
+    let y = (i*fontSize.default)+buttonAtributes.listStart;
+    text(stat, x, y);
+    i++;
+  }
+  pop();
 }
 
 // random character
