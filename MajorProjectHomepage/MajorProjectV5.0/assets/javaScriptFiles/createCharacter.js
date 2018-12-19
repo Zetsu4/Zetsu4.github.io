@@ -22,6 +22,11 @@ function createChar() {
   }
 
   else if (state === 1) {
+    if (drawingBack) {
+      raceDescription();
+      skillDescription();
+    }
+    drawingBack = false;
     // character select
     selectingRaces();
     selectingSkills();
@@ -66,6 +71,7 @@ function selectingRaces() {
     if (raceButtons[i].clicked()) {
       player.raceIndex = i;
       player.race = allRaces[i];
+      drawingBack = true;
     }
     highlightRace();
   }
@@ -80,8 +86,6 @@ function highlightRace() {
 
   fill("black");
   text(player.race.name, buttonAtributes.race.x, y);
-
-  raceDescription();
 }
 
 function raceDescription() {
@@ -89,18 +93,17 @@ function raceDescription() {
   let x = buttonAtributes.race.x+buttonAtributes.width*0.60;
   rectMode(CORNER);
   textAlign(LEFT, TOP);
+  textSize(fontSize.playersDisplay);
   strokeWeight(5);
   stroke(51, 249, 255);
   fill("white");
-  rect(x, buttonAtributes.listStart, buttonAtributes.width, buttonAtributes.race.height);
+  rect(x, buttonAtributes.listStart, buttonAtributes.width, buttonAtributes.race.height+fontSize.playersDisplay*3);
   noStroke();
   fill("black");
-  let i = 0;
-  for (let stat in player.race.stats) {
-    let y = (i*fontSize.default)+buttonAtributes.listStart;
-    text(stat, x, y);
-    i++;
-  }
+  let runningText = "";
+  for (let stat in player.race.stats)
+      runningText += stat+"- "+player.race.stats[stat]+"\n";
+  text(runningText, x+fontSize.playersDisplay*0.25, buttonAtributes.listStart);
   pop();
 }
 
@@ -110,11 +113,12 @@ function selectingSkills() {
     if (skillButtons[i].clicked()) {
       player.skillIndex = i;
       player.skill = allSkills[i];
+      drawingBack = true;
     }
     highlightSkill();
   }
 
-  image(player.skill.img, spriteSize.sampleWidth*0.60, height*0.0125, spriteSize.sampleWidth/4, spriteSize.sampleHeight/4);
+  image(player.skill.img, spriteSize.sampleWidth/2+spriteSize.sampleWidth/8, height*0.0125, spriteSize.sampleWidth/4, spriteSize.sampleHeight/4);
 }
 
 function highlightSkill() {
@@ -124,27 +128,24 @@ function highlightSkill() {
 
   fill("black");
   text(player.skill.name, buttonAtributes.skill.x, y);
-
-  skillDescription();
 }
 
 function skillDescription() {
   push();
-  let x = buttonAtributes.skill.x-buttonAtributes.width*0.60;
-  rectMode(CORNERS);
+  let x = buttonAtributes.skill.x-buttonAtributes.width*1.60;
+  rectMode(CORNER);
   textAlign(LEFT, TOP);
+  textSize(fontSize.playersDisplay);
   strokeWeight(5);
   stroke(51, 249, 255);
   fill("white");
-  rect(x, buttonAtributes.listStart, buttonAtributes.width, buttonAtributes.skill.height);
+  rect(x, buttonAtributes.listStart, buttonAtributes.width, buttonAtributes.skill.height+fontSize.playersDisplay*6.5);
   noStroke();
   fill("black");
-  let i = 0;
-  for (let stat in player.skill.stats) {
-    let y = (i*fontSize.default)+buttonAtributes.listStart;
-    text(stat, x, y);
-    i++;
-  }
+  let runningText = "";
+  for (let stat in player.skill.stats)
+      runningText += stat+"- "+player.skill.stats[stat]+"\n";
+  text(runningText, x+fontSize.playersDisplay*0.25, buttonAtributes.listStart);
   pop();
 }
 

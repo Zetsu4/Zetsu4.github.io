@@ -70,14 +70,28 @@ function enemysMoveY(dir) {
 
 // enemy attacks
 function enemyAttackFoo(enemyIndex) {
+  let collisionDist = (spriteSize.width+spriteSize.height)/3;
   for (let i = enemyArr[enemyIndex].allAttacks.length-1; i >= 0; i--) {
+    // attacks do stuff
     enemyArr[enemyIndex].allAttacks[i].display();
     if (enemyArr[enemyIndex].allAttacks[i].move())
       enemyArr[enemyIndex].allAttacks.splice(i, 1);
 
-    else if (dist(enemyArr[enemyIndex].allAttacks[i].realX, enemyArr[enemyIndex].allAttacks[i].realY, 0, 0) < (spriteSize.width+spriteSize.height)/3) {
+    // collision with player
+    else if (dist(enemyArr[enemyIndex].allAttacks[i].realX, enemyArr[enemyIndex].allAttacks[i].realY, 0, 0) < collisionDist) {
       playerTakeDamage(enemyArr[enemyIndex].allAttacks[i].damage);
       enemyArr[enemyIndex].allAttacks.splice(i, 1);
+    }
+
+    // collision with player attack
+    else {
+      for (let j=items.playerAttack.length-1; j >= 0; j--) {
+        if (dist(enemyArr[enemyIndex].allAttacks[i].realX, enemyArr[enemyIndex].allAttacks[i].realY, items.playerAttack[j].realX, items.playerAttack[j].realY) < collisionDist) {
+          enemyArr[enemyIndex].allAttacks.splice(i, 1);
+          items.playerAttack.splice(j, 1);
+          break;
+        }
+      }
     }
   }
 }

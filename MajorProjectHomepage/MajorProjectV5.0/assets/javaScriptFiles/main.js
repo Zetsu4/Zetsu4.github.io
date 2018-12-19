@@ -1,6 +1,7 @@
 function draw() {
   translate(width/2, height/2);
-  image(worldBackgrounds.homePage, 0, 0, width, height);
+  if (drawingBack)
+    image(worldBackgrounds.homePage, 0, 0, width, height);
 
   // start menu
   if (startingState === 0)

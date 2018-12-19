@@ -42,6 +42,7 @@ let sprites = {
 let spriteSize = {};
 
 // world
+let drawingBack = true;
 let worldState;
 let world = {};
 let minimap = {};
@@ -50,7 +51,7 @@ let minimap = {};
 let raceButtons = [];
 let skillButtons = [];
 
-let random = {
+let randomChoice = {
   description: "Random",
 };
 
@@ -221,7 +222,7 @@ function settingSprites() {
 
   // race
   allRaces = [
-    {name: "Random", img: sprites.random, stats: random}, {name: "Human", img: sprites.race.human, stats: human},
+    {name: "Random", img: sprites.random, stats: randomChoice}, {name: "Human", img: sprites.race.human, stats: human},
     {name: "Half-Elf", img: sprites.race.halfElf, stats: halfElf}, {name: "Elf", img: sprites.race.elf, stats: elf},
     {name: "Dwarf", img: sprites.race.dwarf, stats: dwarf}, {name: "Halfling", img: sprites.race.halfling, stats: halfling},
     {name: "Goblin", img: sprites.race.goblin, stats: goblin}, {name: "Orc", img: sprites.race.orc, stats: orc},
@@ -230,7 +231,7 @@ function settingSprites() {
 
   // skill
   allSkills = [
-    {name: "Random", img: sprites.random, stats: random}, {name: "Archer", img: sprites.skill.archer, stats: archer},
+    {name: "Random", img: sprites.random, stats: randomChoice}, {name: "Archer", img: sprites.skill.archer, stats: archer},
     {name: "Ranger", img: sprites.skill.ranger, stats: ranger}, {name: "Fighter", img: sprites.skill.fighter, stats: fighter},
     {name: "Samurai", img: sprites.skill.samurai, stats: samurai}, {name: "Mage", img: sprites.skill.mage, stats: mage},
     {name: "Cleric", img: sprites.skill.cleric, stats: cleric}, {name: "Rogue", img: sprites.skill.rogue, stats: rogue},
@@ -383,13 +384,13 @@ function setInventory() {
   let wid = inventory.boxSize*10;
   let hei = inventory.boxSize*10;
   inventory.equipSlots = [];
-  inventory.equipSlots.push(new EquipBox(x-wid/2, y      , inventory.boxSize, inventory.boxSize, buttons.brown, buttons.lightBrown, "empty")); // weapon
-  inventory.equipSlots.push(new EquipBox(x      , y-hei/2, inventory.boxSize, inventory.boxSize, buttons.brown, buttons.lightBrown, "empty")); // head
-  inventory.equipSlots.push(new EquipBox(x      , y      , inventory.boxSize, inventory.boxSize, buttons.brown, buttons.lightBrown, "empty")); // chest
-  inventory.equipSlots.push(new EquipBox(x      , y+hei/2, inventory.boxSize, inventory.boxSize, buttons.brown, buttons.lightBrown, "empty")); // feet
-  inventory.equipSlots.push(new EquipBox(x+wid/4, y-hei/3, inventory.boxSize, inventory.boxSize, buttons.brown, buttons.lightBrown, "empty")); // shoulders
-  inventory.equipSlots.push(new EquipBox(x+wid/4, y+hei/3, inventory.boxSize, inventory.boxSize, buttons.brown, buttons.lightBrown, "empty")); // legs
-  inventory.equipSlots.push(new EquipBox(x+wid/2, y      , inventory.boxSize, inventory.boxSize, buttons.brown, buttons.lightBrown, "empty")); // hands
+  inventory.equipSlots.push(new EquipBox(x-wid/2, y      , inventory.boxSize, inventory.boxSize, buttons.brown, buttons.lightBrown, "weapon")); // weapon
+  inventory.equipSlots.push(new EquipBox(x      , y-hei/2, inventory.boxSize, inventory.boxSize, buttons.brown, buttons.lightBrown, "head")); // head
+  inventory.equipSlots.push(new EquipBox(x      , y      , inventory.boxSize, inventory.boxSize, buttons.brown, buttons.lightBrown, "chest")); // chest
+  inventory.equipSlots.push(new EquipBox(x      , y+hei/2, inventory.boxSize, inventory.boxSize, buttons.brown, buttons.lightBrown, "feet")); // feet
+  inventory.equipSlots.push(new EquipBox(x+wid/4, y-hei/3, inventory.boxSize, inventory.boxSize, buttons.brown, buttons.lightBrown, "shoulders")); // shoulders
+  inventory.equipSlots.push(new EquipBox(x+wid/4, y+hei/3, inventory.boxSize, inventory.boxSize, buttons.brown, buttons.lightBrown, "legs")); // legs
+  inventory.equipSlots.push(new EquipBox(x+wid/2, y      , inventory.boxSize, inventory.boxSize, buttons.brown, buttons.lightBrown, "hands")); // hands
 }
 
 function setButtonAtributes() {

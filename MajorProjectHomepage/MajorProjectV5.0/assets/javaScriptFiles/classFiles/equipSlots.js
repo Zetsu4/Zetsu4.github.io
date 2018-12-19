@@ -1,5 +1,5 @@
 class EquipBox {
-  constructor(x, y, w, h, rest, hover, img) {
+  constructor(x, y, w, h, rest, hover, spot) {
     // position
     this.x = x;
     this.y = y;
@@ -7,11 +7,15 @@ class EquipBox {
     // sprite
     this.width = w;
     this.height = h;
-    this.img = img;
+    this.img = null;
 
     // color
     this.restCol = rest;
     this.hoverCol = hover;
+
+    // equip slot
+    this.bodyPosition = spot;
+    this.equipped = "empty";
   }
 
   display() {
@@ -24,10 +28,18 @@ class EquipBox {
 
     rect(this.x, this.y, this.width, this.height);
 
-    if (this.img !== "empty") {
+    if (this.equipped !== "empty") {
       image(this.img, this.x, this.y, this.width, this.height);
     }
     pop();
+  }
+
+  requip() {
+    // changing the equip slot
+    if (this.equipped = "empty")
+      this.img = null;
+    else
+      this.img = this.equipped.img;
   }
 
   hovering() {

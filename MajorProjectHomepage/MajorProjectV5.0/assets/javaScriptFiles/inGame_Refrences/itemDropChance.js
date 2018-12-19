@@ -1,5 +1,5 @@
 function itemDropChance(x, y) {
-  let changeX = random(-spriteSize.width*1.75, spriteSize.width*1.75);
+  let changeX = random(-spriteSize.width*10, spriteSize.width*10);
   let changeY = random(-spriteSize.height*1.75, spriteSize.height*1.75);
   let randomItem = random(100);
 

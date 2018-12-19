@@ -1,21 +1,52 @@
 function inventoryMenu() {
+  background(179, 119, 0);
   let xPos = inventory.width*inventory.boxSize + inventory.boxSize/2;
   let yPos = inventory.boxSize/2;
+  
+  // equipment
+  equipLayout();
+
   // grid
   drawGrid(xPos, yPos);
 
   // stats
   displayStats(xPos, yPos);
+}
 
-  // equipment
-  equipLayout();
+// equipment
+function equipLayout() {
+  let x = width*0.25;
+  let y = -height*0.10;
+  let wid = inventory.boxSize*10;
+  let hei = inventory.boxSize*10;
+  // layout
+  image(itemImg.inventoryLayout, x, y, wid, hei);
+
+  // equip slots
+  for (let i=0; i < inventory.equipSlots.length; i++) {
+    inventory.equipSlots[i].display();
+
+    // clicking slot
+    if (inventory.equipSlots[i].hovering() && mouseIsPressed) {
+      if (mouseCarring !== "empty") {
+        if (mouseCarring.equipable) {
+          clickWait();
+          let newMouseCarring = inventory.equipSlots[i].equipped;
+          let newInventorySlot = mouseCarring;
+
+          mouseCarring = newMouseCarring;
+          inventory.equipSlots[i].equipped = newInventorySlot;
+          inventory.equipSlots[i].requip();
+        }
+      }
+    }
+  }
 }
 
 // grid
 function drawGrid(xPos, yPos) {
   push();
   // show inventory grid
-  background(179, 119, 0);
   stroke(204, 102, 0);
   fill(buttons.brown);
   rectMode(CORNER);
@@ -178,19 +209,4 @@ function levelingUp(i) {
     player.dex++;
   else if (i === 4)
     player.vit++;
-}
-
-// equipment
-function equipLayout() {
-  let x = width*0.25;
-  let y = -height*0.10;
-  let wid = inventory.boxSize*10;
-  let hei = inventory.boxSize*10;
-  // layout
-  image(itemImg.inventoryLayout, x, y, wid, hei);
-
-  // equip slots
-  for (let i=0; i < inventory.equipSlots.length; i++) {
-    inventory.equipSlots[i].display();
-  }
 }
