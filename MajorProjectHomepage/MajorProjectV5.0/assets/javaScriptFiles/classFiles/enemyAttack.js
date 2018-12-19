@@ -1,5 +1,5 @@
 class EnemyAttack {
-  constructor(x, y, changeX, changeY, dx, dist, damage, img = itemImg.swordAttack, wid = spriteSize.width, hei = spriteSize.height) {
+  constructor(x, y, changeX, changeY, dx, dist, damage, img, wid = spriteSize.width, hei = spriteSize.height) {
     // position
     this.x = x;
     this.y = y;

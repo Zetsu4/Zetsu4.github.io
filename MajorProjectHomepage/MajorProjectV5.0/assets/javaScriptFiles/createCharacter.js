@@ -150,15 +150,16 @@ function setPlayerStats() {
   }
 
   calculateStats();
+
+  //set current health and mana
+  player.hp = player.totHp;
+  player.mp = player.totMp;
 }
 
 function calculateStats() {
-  // health and mana
-  player.totHp = 10*(player.vit+1);
-  player.hp = player.totHp;
-
-  player.totMp = 10*(player.int+1);
-  player.mp = player.totMp;
+  // total health and mana
+  player.totHp = 10*(player.vit+1)+pow(player.lvl, 2);
+  player.totMp = 10*(player.int+1)+pow(player.lvl, 2);
 
   // attack
   player.coolDownTime = 1000 - (player.vit+player.agi)*20;

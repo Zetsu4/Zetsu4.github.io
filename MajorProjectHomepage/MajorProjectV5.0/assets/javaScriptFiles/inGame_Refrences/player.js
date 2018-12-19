@@ -78,22 +78,26 @@ function playerMovement() {
   }
 }
 
-function consumePotion(name) {
-  player.hp += (player.lvl+1)*player.vit/2;
-  player.hp = constrain(player.hp, 0, player.totHp);
+function consumePotion(name, points, totPoints) {
+  points += (player.lvl+player.vit)/2*(name === "Hp Potion" ? player.str : player.int);
+  points = constrain(ceil(points), 1, totPoints);
   allItems.get(name).amount--;
   if (allItems.get(name).amount <= 0)
     checkEmpty(name);
+
+  name === "Hp Potion" ? player.hp = points : player.mp = points;
 }
 
 function playerExp(amount) {
   // gaining exp
   player.exp += amount;
-  if (player.exp >= player.nextLvl) {
+  while (player.exp >= player.nextLvl) {
     // level up
     player.lvl++;
-    player.exp = 0;
     player.points += 5;
+    player.hp = player.totHp;
+    player.mp = player.totMp;
+    player.exp -= player.nextLvl;
     player.nextLvl = player.nextLvl*2 + player.lvl*25;
   }
 }

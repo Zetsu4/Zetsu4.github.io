@@ -25,8 +25,8 @@ class Enemy {
     this.fontSize = fontSizeChange;
 
     // stats
-    this.lvl = constrain(int(random(minLvl, maxLvl)), 0, Infinity);
-    this.expGained = (this.race.stats.expGained+this.skill.stats.expGained)*this.lvl/2;
+    this.lvl = constrain(int(random(minLvl, maxLvl+1)), 0, 100);
+    this.expGained = (this.race.stats.expGained+this.skill.stats.expGained)*(this.lvl+1)/2;
 
     let extraPoints = (this.lvl-1)*5;
     this.int = this.race.stats.int + ceil(extraPoints/5);
@@ -46,21 +46,31 @@ class Enemy {
     this.rDmg = ceil(this.dex*(1 + this.skill.stats.ranged)); // ranged damage
     this.sDmg = ceil(this.int*(1 + this.skill.stats.magic)); // magic damage
 
-    this.distMultiplier = 1;
+    this.mainDmg = max(this.mDmg, this.rDmg, this.sDmg);
+    this.attackPattern;
+    if (this.mainDmg === this.mDmg)
+      this.attackPattern = melee;
+    else if (this.mainDmg === this.rDmg)
+      this.attackPattern = ranged;
+    else if (this.mainDmg === this.sDmg)
+      this.attackPattern = spellCaster;
+
     this.allAttacks = [];
     this.attackType = attack;
     this.attackState = 0;
     this.lastAttack = 0;
-    this.attackTimer = 1500 - (this.vit+this.agi)*20;
+    this.attackTimer = 1500 - (this.vit+this.agi)*10;
+    this.attackTimer = constrain(this.attackTimer, 500, 5000);
 
     // movement
     this.speed = width*0.002 + width*this.agi*pow(10, -4);
     this.stun = false;
-    this.timer = 800 - (this.vit+this.agi)*20;
+    this.timer = 800 - (this.vit+this.agi)*10;
+    this.timer = constrain(this.timer, 250, 5000);
 
     // path finding
     this.dist = (width+height)*(this.agi/50);
-    this.headingTo = false;
+    this.headingTo = random(true, false);
     this.findingPoint = true;
     this.resting = millis();
   }
@@ -226,7 +236,7 @@ class Enemy {
 
   persuePlayer(worldW, worldH, playerX, playerY) {
     // persuing player
-    if (dist(0, 0, this.x, this.y) >= (this.width+this.height)*this.distMultiplier) {
+    if (dist(0, 0, this.x, this.y) >= this.attackPattern.enemyDist) {
       this.findingPoint = true;
 
       if (this.x > -this.width/2) {
@@ -252,13 +262,13 @@ class Enemy {
 
     else {
       this.findPoint(worldW, worldH, playerX, playerY, false);
-
+      this.goToPoint();
     }
   }
 
   attackPlayer() {
     if (this.attackState === 1) {
-      this.allAttacks.push(new this.attackType(0, 0, this.x, this.y, width*0.005, width*0.10, this.str));
+      this.allAttacks.push(new this.attackType(0, 0, this.x, this.y, this.attackPattern.attackSpeed, this.attackPattern.attackDist, this.mainDmg, this.attackPattern.img));
       this.attackState = 0;
       this.lastAttack = millis();
     }

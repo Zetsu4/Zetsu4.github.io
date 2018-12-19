@@ -40,13 +40,11 @@ function keyPressed() {
     }
 
     // consume potions
-    if (keyCode === keyBindings.get("Consume HP Poition").code && allItems.get("Hp Potion").amount > 0) { // helath
-      consumePotion("Hp Potion");
-    }
+    if (keyCode === keyBindings.get("Consume HP Poition").code && allItems.get("Hp Potion").amount > 0)  // helath
+      consumePotion("Hp Potion", player.hp, player.totHp);
 
-    if (keyCode === keyBindings.get("Consume MP Poition").code && allItems.get("Mp Potion").amount > 0) { // mana
-      consumePotion("Mp Potion");
-    }
+    if (keyCode === keyBindings.get("Consume MP Poition").code && allItems.get("Mp Potion").amount > 0)  // mana
+      consumePotion("Mp Potion", player.mp, player.totMp);
   }
 }
 

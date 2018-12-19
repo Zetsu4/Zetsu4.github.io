@@ -1,6 +1,6 @@
 // V5.0
 // Travis Ahern
-// Dec. 6, 2018
+// Dec. 6, 2018 - Dec. , 2018
 //
 // PROBLEMS:
 // - nothing exists
@@ -65,8 +65,9 @@ let keyBindings;
 let rebindButtons = [];
 
 // enemys
+let killedEnemys = 0;
 let enemyArr = [];
-const NUM_OF_ENEMYS = 100;
+const NUM_OF_ENEMYS = 75;
 
 // waiting
 let waiting;
@@ -139,6 +140,28 @@ function setup() {
   fontSize.default = (width+height)*0.015;
   fontSize.playersDisplay = fontSize.default/2;
   textFont(fonts.default, fontSize.default);
+
+  // setting attack types
+  melee = {
+    enemyDist: width*0.10,
+    attackDist: width*0.10,
+    attackSpeed: width*0.0075,
+    img: itemImg.swordAttack
+  };
+
+  ranged = {
+    enemyDist: width*0.30,
+    attackDist: width*0.75,
+    attackSpeed: width*0.01,
+    img: itemImg.arrowAttack
+  };
+
+  spellCaster = {
+    enemyDist: width*0.20,
+    attackDist: width*0.50,
+    attackSpeed: width*0.008,
+    img: itemImg.fireBallAttack
+  };
 
   // alligning
   textAlign(CENTER, CENTER);

@@ -8,7 +8,7 @@ let archer = {
   startingArrows: 20,
   startingTraps: 3,
   maxTraps: 2,
-  expGained: 10
+  expGained: 20
 };
 
 // Ranger
@@ -21,7 +21,7 @@ let ranger = {
   startingArrows: 15,
   startingTraps: 4,
   maxTraps: 2,
-  expGained: 20
+  expGained: 30
 };
 
 // Fighter
@@ -34,7 +34,7 @@ let fighter = {
   startingArrows: 5,
   startingTraps: 2,
   maxTraps: 1,
-  expGained: 20
+  expGained: 30
 };
 
 // Samurai
@@ -47,7 +47,7 @@ let samurai = {
   startingArrows: 0,
   startingTraps: 0,
   maxTraps: 3,
-  expGained: 20
+  expGained: 30
 };
 
 // Mage
@@ -60,7 +60,7 @@ let mage = {
   startingArrows: 0,
   startingTraps: 5,
   maxTraps: 3,
-  expGained: 15
+  expGained: 25
 };
 
 // Cleric
@@ -73,7 +73,7 @@ let cleric = {
   startingArrows: 5,
   startingTraps: 1,
   maxTraps: 1,
-  expGained: 5
+  expGained: 15
 };
 
 // Rogue
@@ -86,7 +86,7 @@ let rogue = {
   startingArrows: 6,
   startingTraps: 8,
   maxTraps: 4,
-  expGained: 10
+  expGained: 20
 };
 
 // Trapper
@@ -99,5 +99,5 @@ let trapper = {
   startingArrows: 10,
   startingTraps: 20,
   maxTraps: 8,
-  expGained: 10
+  expGained: 20
 };

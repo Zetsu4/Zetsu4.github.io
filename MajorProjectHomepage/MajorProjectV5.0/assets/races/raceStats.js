@@ -5,7 +5,7 @@ let human = {
   str: 10,
   dex: 10,
   vit: 10,
-  expGained: 10
+  expGained: 20
 };
 
 // Half-Elf
@@ -15,7 +15,7 @@ let halfElf = {
   str: 6,
   dex: 12,
   vit: 11,
-  expGained: 15
+  expGained: 25
 };
 
 // Elf
@@ -25,7 +25,7 @@ let elf = {
   str: 5,
   dex: 8,
   vit: 14,
-  expGained: 20
+  expGained: 30
 };
 
 // Dwarf
@@ -35,7 +35,7 @@ let dwarf = {
   str: 16,
   dex: 8,
   vit: 14,
-  expGained: 20
+  expGained: 30
 };
 
 // Halfling
@@ -45,7 +45,7 @@ let halfling = {
   str: 8,
   dex: 14,
   vit: 6,
-  expGained: 10
+  expGained: 20
 };
 
 // Goblin
@@ -55,7 +55,7 @@ let goblin = {
   str: 9,
   dex: 18,
   vit: 4,
-  expGained: 15
+  expGained: 25
 };
 
 // Orc
@@ -65,7 +65,7 @@ let orc = {
   str: 15,
   dex: 13,
   vit: 12,
-  expGained: 15
+  expGained: 25
 };
 
 // Uruk-Hai
@@ -75,5 +75,5 @@ let urukHai = {
   str: 16,
   dex: 12,
   vit: 16,
-  expGained: 20
+  expGained: 30
 };

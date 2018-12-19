@@ -124,7 +124,7 @@ function playerAttackIcon() {
 function inventoryQuickCheck() {
   push();
   textAlign(RIGHT, BOTTOM);
-  textSize(player.playersDisplay);
+  textSize(fontSize.default);
   fill("red");
   let infoStuff = "";
 
@@ -147,11 +147,11 @@ function inventoryQuickCheck() {
 
 function infoBars() {
   push();
-    textFont("BOLD");
+    textFont("BOLD", fontSize.default*0.75);
     let left = -width*0.49;
     let top = -height*0.425;
-    let w = width*0.15;
-    let h = height*0.02;
+    let w = width*0.20;
+    let h = height*0.04;
     let textX = left+w/2;
     rectMode(CORNER);
 
@@ -169,7 +169,7 @@ function infoBars() {
 
     // mana
     push();
-    let top2 = top + h*2;
+    let top2 = top + h*1.25;
     backBar(left, top2, w, h);
 
     let changeOfMP = player.totMp - player.mp;
