@@ -3,8 +3,6 @@
 // Dec. 6, 2018 - Dec. , 2018
 //
 // PROBLEMS:
-// - enemy AI
-// - equipping items
 // - saving and loading games
 // - going to new areas
 // - NPC's
@@ -42,7 +40,7 @@ let sprites = {
 let spriteSize = {};
 
 // world
-let drawingBack = true;
+let drawingBack;
 let worldState;
 let world = {};
 let minimap = {};
@@ -114,6 +112,7 @@ function preload() {
   itemImg.equipment = {};
 
   itemImg.equipment.pitchFork = loadImage("assets/img/items/equipment/pitchFork.png");
+  itemImg.equipment.shiftySword = loadImage("assets/img/items/equipment/shiftySword.png");
 
   // sprites
   sprites.death = loadImage("assets/img/enemyDeath.png");
@@ -148,7 +147,7 @@ function setup() {
   startingState = 0;
   state = 0;
   enemyArr = [];
-  mouseCarring = "empty";
+  drawingBack = true;
 
   // text
   fontSize.default = (width+height)*0.015;
@@ -361,6 +360,7 @@ function setPlayer() {
   player.exp = 0;
   player.nextLvl = 100;
   player.points = 0;
+  player.expBonus = 0;
 
   // in world
   player.x = 0;
@@ -373,10 +373,12 @@ function setPlayer() {
 }
 
 function setInventory() {
+  mouseCarring = "empty";
+  
   // inventory atributes
   inventory.boxSize = (width+height)*0.025;
-  inventory.width = 10;
-  inventory.height = 10;
+  inventory.width = 5;
+  inventory.height = 8;
 
   // equip slots
   let x = width*0.25;
@@ -418,7 +420,7 @@ function setKeyButtons(value, key, map) {
   map.get(key).button = new Button(fontSize.default*4.5, yPos, width*0.10, fontSize.default*1.4, buttons.orange, buttons.lightOrange, "");
 }
 
-function make2DGrid(rows, cols) {
+function make2DGrid(cols, rows) {
   // for inventory display purposes
   let newArray = [];
   for (let y = 0; y < rows; y++) {

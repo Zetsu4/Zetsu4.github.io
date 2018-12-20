@@ -57,4 +57,6 @@ function toggleStates(setState) {
 
   else
     state = previousState;
+
+  drawingBack = true;
 }

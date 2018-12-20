@@ -87,7 +87,7 @@ class Enemy {
     this.lastAttack = millis();
     if (trapped)
       // reducing speed
-      this.speed *= 0.85;
+      this.speed *= 0.75;
   }
 
   stuned() {

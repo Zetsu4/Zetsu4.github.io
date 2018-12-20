@@ -202,19 +202,47 @@ function setPlayerStats() {
 }
 
 function calculateStats() {
+  let runningStats = {
+    int: 0,
+    agi: 0,
+    str: 0,
+    dex: 0,
+    vit: 0,
+    melee: 0,
+    ranged: 0,
+    magic: 0,
+    trap: 0,
+    expBonus: 0
+  };
+
+  // calculating equipment bonuses
+  for (let i=0; i < inventory.equipSlots.length; i++) {
+    for (let theStat in inventory.equipSlots[i].equipped.stats) {
+      for (let runningStat in runningStats) {
+        if (runningStat === theStat)
+          runningStats[runningStat] += inventory.equipSlots[i].equipped.stats[theStat];
+      }
+    }
+  }
+
+  player.expBonus = runningStats.expBonus;
+
   // total health and mana
-  player.totHp = 10*(player.vit+1)+pow(player.lvl, 2);
-  player.totMp = 10*(player.int+1)+pow(player.lvl, 2);
+  player.totHp = 10*(player.vit+1+runningStats.vit)+pow(player.lvl, 2);
+  player.hp = constrain(player.hp, 0, player.totHp);
+
+  player.totMp = 10*(player.int+1+runningStats.int)+pow(player.lvl, 2);
+  player.mp = constrain(player.mp, 0, player.totMp);
 
   // attack
-  player.coolDownTime = 1000 - (player.vit+player.agi)*20;
-  player.mDmg = int(player.str*(1 + player.skill.stats.melee)); // melee damage
-  player.rDmg = int(player.dex*(1 + player.skill.stats.ranged)); // ranged damage
-  player.sDmg = int(player.int*(1 + player.skill.stats.magic)); // spell damage
-  player.tDmg = int(player.agi*1.75);
+  player.coolDownTime = 1000 - (player.vit+runningStats.vit + player.agi+runningStats.agi)*20;
+  player.mDmg = int((player.str+runningStats.str)*(1 + (player.skill.stats.melee+runningStats.melee))); // melee damage
+  player.rDmg = int((player.dex+runningStats.dex)*(1 + (player.skill.stats.ranged+runningStats.ranged))); // ranged damage
+  player.sDmg = int((player.int+runningStats.int)*(1 + (player.skill.stats.magic+runningStats.magic))); // spell damage
+  player.tDmg = int((player.agi+runningStats.agi)*(1.75+runningStats.trap));
 
   // movement
-  player.totSpeed = width*0.003 + width*player.agi*pow(10, -4);
+  player.totSpeed = width*0.003 + width*(player.agi+runningStats.agi)*pow(10, -4);
   player.speedMultiplier = 0.75;
   player.speed = player.totSpeed;
 }

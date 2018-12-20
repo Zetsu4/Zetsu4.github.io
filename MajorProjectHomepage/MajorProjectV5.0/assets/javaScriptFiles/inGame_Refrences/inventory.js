@@ -2,15 +2,15 @@ function inventoryMenu() {
   background(179, 119, 0);
   let xPos = inventory.width*inventory.boxSize + inventory.boxSize/2;
   let yPos = inventory.boxSize/2;
-  
+
   // equipment
   equipLayout();
 
-  // grid
-  drawGrid(xPos, yPos);
-
   // stats
   displayStats(xPos, yPos);
+
+  // grid
+  drawGrid(xPos, yPos);
 }
 
 // equipment
@@ -28,15 +28,39 @@ function equipLayout() {
 
     // clicking slot
     if (inventory.equipSlots[i].hovering() && mouseIsPressed) {
-      if (mouseCarring !== "empty") {
-        if (mouseCarring.equipable) {
-          clickWait();
-          let newMouseCarring = inventory.equipSlots[i].equipped;
-          let newInventorySlot = mouseCarring;
+      if (inventory.equipSlots[i].equipped !== "empty") {
+        // if equip slot has an item,
+        // put that item in inventory
+        let added = false;
+        for (let y = 0; y < player.inventory.length; y++) {
+          for (let x = 0; x < player.inventory[y].length; x++) {
+            if (player.inventory[y][x] === "empty" && !added) {
+              player.inventory[y][x] = allItems.get(inventory.equipSlots[i].equipped.name);
+              added = true;
+            }
+          }
+        }
+        inventory.equipSlots[i].equipped = "empty";
 
-          mouseCarring = newMouseCarring;
-          inventory.equipSlots[i].equipped = newInventorySlot;
-          inventory.equipSlots[i].requip();
+        // calculating removed equipment
+        calculateStats();
+      }
+
+      // if mouse is holding an item
+      if (mouseCarring !== "empty") {
+        // and that item is equipment
+        if (mouseCarring.equipable) {
+          // AND that item is equipping to the correct spot
+          if (mouseCarring.equipSlot === inventory.equipSlots[i].bodyPosition) {
+            clickWait();
+            // then equip it
+            inventory.equipSlots[i].equipped = mouseCarring;
+            inventory.equipSlots[i].requip();
+            mouseCarring = "empty";
+
+            // calculating newly equipped gear
+            calculateStats();
+          }
         }
       }
     }
@@ -52,6 +76,11 @@ function drawGrid(xPos, yPos) {
   rectMode(CORNER);
   imageMode(CORNER);
   translate(-width/2, -height/2);
+
+  // garbage
+  garbageCan(xPos, yPos);
+
+  // inventory
   for (let y = 0; y < player.inventory.length; y++) {
     for (let x = 0; x < player.inventory[y].length; x++) {
       let xPos2 = x*inventory.boxSize;
@@ -64,9 +93,6 @@ function drawGrid(xPos, yPos) {
     }
   }
   hoverOverTile();
-
-  // garbage
-  garbageCan(xPos, yPos);
   mouseHolding();
   pop();
 }
@@ -97,15 +123,25 @@ function hoverOverTile() {
     rect(xPos2, yPos2, inventory.boxSize, inventory.boxSize);
     if (player.inventory[y][x] !== "empty") {
       drawItemInInventory(player.inventory[y][x].img, player.inventory[y][x].amount, xPos2, yPos2);
-      rect(mouseX+width*0.01, mouseY, width*0.10, height*0.05);
+      rect(mouseX+width*0.01, mouseY, width*0.10, height*0.05+(fontSize.default+fontSize.playersDisplay*12));
 
       // description of item
       push();
       noStroke();
       fill("black");
       textAlign(LEFT, TOP);
+
+      // item name
+      textSize(fontSize.default*0.75);
+      text(player.inventory[y][x].name, mouseX+width*0.015, mouseY);
+
+      // description and stats
       textSize(fontSize.playersDisplay);
-      text(player.inventory[y][x].description, mouseX+width*0.015, mouseY);
+      let statText = "";
+      statText += player.inventory[y][x].description+"\n";
+      for (let theStat in player.inventory[y][x].stats)
+        statText += theStat+": "+player.inventory[y][x].stats[theStat]+"\n";
+      text(statText, mouseX+width*0.015, mouseY+fontSize.default*0.75);
       pop();
     }
 

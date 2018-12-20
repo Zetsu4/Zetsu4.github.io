@@ -86,10 +86,12 @@ function enemyAttackFoo(enemyIndex) {
     // collision with player attack
     else {
       for (let j=items.playerAttack.length-1; j >= 0; j--) {
-        if (dist(enemyArr[enemyIndex].allAttacks[i].realX, enemyArr[enemyIndex].allAttacks[i].realY, items.playerAttack[j].realX, items.playerAttack[j].realY) < collisionDist) {
-          enemyArr[enemyIndex].allAttacks.splice(i, 1);
-          items.playerAttack.splice(j, 1);
-          break;
+        if (!items.playerAttack[j].trap) {
+          if (dist(enemyArr[enemyIndex].allAttacks[i].realX, enemyArr[enemyIndex].allAttacks[i].realY, items.playerAttack[j].realX, items.playerAttack[j].realY) < collisionDist) {
+            enemyArr[enemyIndex].allAttacks.splice(i, 1);
+            items.playerAttack.splice(j, 1);
+            break;
+          }
         }
       }
     }

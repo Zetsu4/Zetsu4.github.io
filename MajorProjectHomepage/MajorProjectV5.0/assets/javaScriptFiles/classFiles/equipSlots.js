@@ -36,7 +36,7 @@ class EquipBox {
 
   requip() {
     // changing the equip slot
-    if (this.equipped = "empty")
+    if (this.equipped === "empty")
       this.img = null;
     else
       this.img = this.equipped.img;

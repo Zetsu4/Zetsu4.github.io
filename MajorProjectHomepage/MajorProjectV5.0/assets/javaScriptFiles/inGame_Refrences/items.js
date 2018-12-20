@@ -24,7 +24,7 @@ function itemsInWorld() {
           // in inventory
           allItems.get("Traps").amount++;
       }
-      
+
       items.playerAttack.splice(i, 1);
     }
   }
@@ -60,7 +60,7 @@ function itemsInWorld() {
 function lootDrop(x, y) {
   // loot drop
   let numOfItems = int(random(player.lvl*1.5));
-  numOfItems = constrain(numOfItems, 2, 15);
+  numOfItems = constrain(numOfItems, 5, 30);
 
   for (let i = 0; i < numOfItems; i++)
     itemDropChance(x, y);
