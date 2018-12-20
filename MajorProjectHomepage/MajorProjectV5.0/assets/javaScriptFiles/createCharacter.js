@@ -228,21 +228,21 @@ function calculateStats() {
   player.expBonus = runningStats.expBonus;
 
   // total health and mana
-  player.totHp = 10*(player.vit+1+runningStats.vit)+pow(player.lvl, 2);
+  player.totHp = constrain((10*(player.vit+1+runningStats.vit)+pow(player.lvl, 2)), 10, Infinity);
   player.hp = constrain(player.hp, 0, player.totHp);
 
-  player.totMp = 10*(player.int+1+runningStats.int)+pow(player.lvl, 2);
+  player.totMp = constrain((10*(player.int+1+runningStats.int)+pow(player.lvl, 2)), 0, Infinity);
   player.mp = constrain(player.mp, 0, player.totMp);
 
   // attack
-  player.coolDownTime = 1000 - (player.vit+runningStats.vit + player.agi+runningStats.agi)*20;
-  player.mDmg = int((player.str+runningStats.str)*(1 + (player.skill.stats.melee+runningStats.melee))); // melee damage
-  player.rDmg = int((player.dex+runningStats.dex)*(1 + (player.skill.stats.ranged+runningStats.ranged))); // ranged damage
-  player.sDmg = int((player.int+runningStats.int)*(1 + (player.skill.stats.magic+runningStats.magic))); // spell damage
-  player.tDmg = int((player.agi+runningStats.agi)*(1.75+runningStats.trap));
+  player.coolDownTime = constrain((1000 - (player.vit+runningStats.vit + player.agi+runningStats.agi)*20), 150, 1000);
+  player.mDmg = constrain(int((player.str+runningStats.str)*(1 + (player.skill.stats.melee+runningStats.melee))), 0, Infinity); // melee damage
+  player.rDmg = constrain(int((player.dex+runningStats.dex)*(1 + (player.skill.stats.ranged+runningStats.ranged))), 0, Infinity); // ranged damage
+  player.sDmg = constrain(int((player.int+runningStats.int)*(1 + (player.skill.stats.magic+runningStats.magic))), 0, Infinity); // spell damage
+  player.tDmg = constrain(int((player.agi+runningStats.agi)*(1.75+runningStats.trap)), 0, Infinity);
 
   // movement
-  player.totSpeed = width*0.003 + width*(player.agi+runningStats.agi)*pow(10, -4);
+  player.totSpeed = constrain((width*0.003 + width*(player.agi+runningStats.agi)*pow(10, -4)), width*0.0001, width*0.10);
   player.speedMultiplier = 0.75;
   player.speed = player.totSpeed;
 }

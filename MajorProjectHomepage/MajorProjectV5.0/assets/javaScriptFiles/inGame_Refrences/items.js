@@ -5,20 +5,9 @@ function itemsInWorld() {
     if (items.playerAttack[i].move()) {
       if (items.playerAttack[i].trap) {
         // pick up placed trap
-        if (allItems.get("Traps").amount <= 0) {
+        if (allItems.get("Traps").amount <= 0)
           // not in inventory
-          let added = false;
-          for (let y = 0; y < player.inventory.length; y++) {
-            for (let x = 0; x < player.inventory[y].length; x++) {
-              if (player.inventory[y][x] === "empty" && !added) {
-                player.inventory[y][x] = allItems.get("Traps");
-                player.inventory[y][x].amount++;
-                added = true;
-                break;
-              }
-            }
-          }
-        }
+          putInInventory({name: "Traps"});
 
         else
           // in inventory
@@ -35,20 +24,9 @@ function itemsInWorld() {
     if (dist(items.onGround[i].x, items.onGround[i].y, 0, 0) <= (spriteSize.width+spriteSize.height)/2) {
       // pick up item
       let itemToAdd = items.onGround.splice(i, 1);
-      if (allItems.get(itemToAdd[0].name).amount <= 0) {
+      if (allItems.get(itemToAdd[0].name).amount <= 0) 
         // not in inventory
-        let added = false;
-        for (let y = 0; y < player.inventory.length; y++) {
-          for (let x = 0; x < player.inventory[y].length; x++) {
-            if (player.inventory[y][x] === "empty" && !added) {
-              player.inventory[y][x] = allItems.get(itemToAdd[0].name);
-              player.inventory[y][x].amount++;
-              added = true;
-              break;
-            }
-          }
-        }
-      }
+        putInInventory(itemToAdd[0]);
 
       else
         // in inventory

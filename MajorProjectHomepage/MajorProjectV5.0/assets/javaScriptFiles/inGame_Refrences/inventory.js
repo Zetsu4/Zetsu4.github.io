@@ -13,6 +13,22 @@ function inventoryMenu() {
   drawGrid(xPos, yPos);
 }
 
+// putting items in inventory
+function putInInventory(theItem) {
+  let added = false;
+  for (let y = 0; y < player.inventory.length; y++) {
+    for (let x = 0; x < player.inventory[y].length; x++) {
+      if (player.inventory[y][x] === "empty" && !added) {
+        player.inventory[y][x] = allItems.get(theItem.name);
+        if (player.inventory[y][x].amount <= 0) {
+          player.inventory[y][x].amount++;
+        }
+        added = true;
+      }
+    }
+  }
+}
+
 // equipment
 function equipLayout() {
   let x = width*0.25;
@@ -28,18 +44,15 @@ function equipLayout() {
 
     // clicking slot
     if (inventory.equipSlots[i].hovering() && mouseIsPressed) {
+      let newMousecarring = "empty";
+      let newInventroyEquipped = "empty";
+      
       if (inventory.equipSlots[i].equipped !== "empty") {
+        newMousecarring = inventory.equipSlots[i].equipped;
+
         // if equip slot has an item,
         // put that item in inventory
-        let added = false;
-        for (let y = 0; y < player.inventory.length; y++) {
-          for (let x = 0; x < player.inventory[y].length; x++) {
-            if (player.inventory[y][x] === "empty" && !added) {
-              player.inventory[y][x] = allItems.get(inventory.equipSlots[i].equipped.name);
-              added = true;
-            }
-          }
-        }
+        putInInventory(inventory.equipSlots[i].equipped);
         inventory.equipSlots[i].equipped = "empty";
 
         // calculating removed equipment
@@ -205,7 +218,7 @@ agi- "+player.agi+"\n\
 str- "+player.str+"\n\
 dex- "+player.dex+"\n\
 vit- "+player.vit
-  , x-width*0.515, -height*0.47);
+  , x-width*0.515, -height*0.50+inventory.boxSize);
   pop();
 
   // points to spend

@@ -111,12 +111,37 @@ function preload() {
   // equipment
   itemImg.equipment = {};
 
-  itemImg.equipment.pitchFork = loadImage("assets/img/items/equipment/pitchFork.png");
-  itemImg.equipment.shiftySword = loadImage("assets/img/items/equipment/shiftySword.png");
-  itemImg.equipment.crossBow = loadImage("assets/img/items/equipment/crossBow.png");
-  itemImg.equipment.crossBoe = loadImage("assets/img/items/equipment/crossBoe.png");
-  itemImg.equipment.realWand = loadImage("assets/img/items/equipment/realWand.png");
-  itemImg.equipment.realStaff = loadImage("assets/img/items/equipment/realStaff.png");
+    // weapons
+  itemImg.equipment.pitchFork = loadImage("assets/img/items/equipment/weapons/pitchFork.png");
+  itemImg.equipment.shiftySword = loadImage("assets/img/items/equipment/weapons/shiftySword.png");
+  itemImg.equipment.crossBow = loadImage("assets/img/items/equipment/weapons/crossBow.png");
+  itemImg.equipment.crossBoe = loadImage("assets/img/items/equipment/weapons/crossBoe.png");
+  itemImg.equipment.realWand = loadImage("assets/img/items/equipment/weapons/realWand.png");
+  itemImg.equipment.realStaff = loadImage("assets/img/items/equipment/weapons/realStaff.png");
+
+    // head
+  itemImg.equipment.paperbag = loadImage("assets/img/items/equipment/head/paperBag.png");
+  itemImg.equipment.flatRock = loadImage("assets/img/items/equipment/head/flatRock.png");
+
+    // chest
+  itemImg.equipment.brownShirt = loadImage("assets/img/items/equipment/chest/brownShirt.png");
+  itemImg.equipment.greyShirt = loadImage("assets/img/items/equipment/chest/greyShirt.png");
+
+    // feet
+  itemImg.equipment.grass = loadImage("assets/img/items/equipment/feet/grass.png");
+  itemImg.equipment.grassShoes = loadImage("assets/img/items/equipment/feet/grassShoes.png");
+
+    // shoulders
+  itemImg.equipment.weakPlates = loadImage("assets/img/items/equipment/shoulders/weakPlates.png");
+  itemImg.equipment.roundRocks = loadImage("assets/img/items/equipment/shoulders/roundRocks.png");
+
+    // legs
+  itemImg.equipment.bluePants = loadImage("assets/img/items/equipment/legs/bluePants.png");
+  itemImg.equipment.grassPants = loadImage("assets/img/items/equipment/legs/grassPants.png");
+
+    // hands
+  itemImg.equipment.leatherGloves = loadImage("assets/img/items/equipment/hands/leatherGloves.png");
+  itemImg.equipment.rockGloves = loadImage("assets/img/items/equipment/hands/rockGloves.png");
 
   // sprites
   sprites.death = loadImage("assets/img/enemyDeath.png");

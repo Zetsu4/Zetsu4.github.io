@@ -55,57 +55,57 @@ function equipmentLootDrops(x, y) {
       items.onGround.push(new ItemOnGround(x+changeX, y+changeY, allItems.get("Real Staff")));
   }
 
-  // // head
-  // else if (randomEquipment <= chance*2) {
-  //   if (randomItem <= 200)
-  //     items.onGround.push(new ItemOnGround(x+changeX, y+changeY, allItems.get("Pitch Fork")));
-  //
-  //   else if (randomItem <= 400)
-  //     items.onGround.push(new ItemOnGround(x+changeX, y+changeY, allItems.get("Shifty Sword")));
-  // }
-  //
-  // // chest
-  // else if (randomEquipment <= chance*3) {
-  //   if (randomItem <= 200)
-  //     items.onGround.push(new ItemOnGround(x+changeX, y+changeY, allItems.get("Pitch Fork")));
-  //
-  //   else if (randomItem <= 400)
-  //     items.onGround.push(new ItemOnGround(x+changeX, y+changeY, allItems.get("Shifty Sword")));
-  // }
-  //
-  // // feet
-  // else if (randomEquipment <= chance*4) {
-  //   if (randomItem <= 200)
-  //     items.onGround.push(new ItemOnGround(x+changeX, y+changeY, allItems.get("Pitch Fork")));
-  //
-  //   else if (randomItem <= 400)
-  //     items.onGround.push(new ItemOnGround(x+changeX, y+changeY, allItems.get("Shifty Sword")));
-  // }
-  //
-  // // shoulders
-  // else if (randomEquipment <= chance*5) {
-  //   if (randomItem <= 200)
-  //     items.onGround.push(new ItemOnGround(x+changeX, y+changeY, allItems.get("Pitch Fork")));
-  //
-  //   else if (randomItem <= 400)
-  //     items.onGround.push(new ItemOnGround(x+changeX, y+changeY, allItems.get("Shifty Sword")));
-  // }
-  //
-  // // legs
-  // else if (randomEquipment <= chance*6) {
-  //   if (randomItem <= 200)
-  //     items.onGround.push(new ItemOnGround(x+changeX, y+changeY, allItems.get("Pitch Fork")));
-  //
-  //   else if (randomItem <= 400)
-  //     items.onGround.push(new ItemOnGround(x+changeX, y+changeY, allItems.get("Shifty Sword")));
-  // }
-  //
-  // // hands
-  // else if (randomEquipment <= chance*7) {
-  //   if (randomItem <= 200)
-  //     items.onGround.push(new ItemOnGround(x+changeX, y+changeY, allItems.get("Pitch Fork")));
-  //
-  //   else if (randomItem <= 400)
-  //     items.onGround.push(new ItemOnGround(x+changeX, y+changeY, allItems.get("Shifty Sword")));
-  // }
+  // head
+  else if (randomEquipment <= chance*2) {
+    if (randomItem <= 200)
+      items.onGround.push(new ItemOnGround(x+changeX, y+changeY, allItems.get("Pitch Fork")));
+
+    else if (randomItem <= 400)
+      items.onGround.push(new ItemOnGround(x+changeX, y+changeY, allItems.get("Shifty Sword")));
+  }
+
+  // chest
+  else if (randomEquipment <= chance*3) {
+    if (randomItem <= 200)
+      items.onGround.push(new ItemOnGround(x+changeX, y+changeY, allItems.get("Pitch Fork")));
+
+    else if (randomItem <= 400)
+      items.onGround.push(new ItemOnGround(x+changeX, y+changeY, allItems.get("Shifty Sword")));
+  }
+
+  // feet
+  else if (randomEquipment <= chance*4) {
+    if (randomItem <= 200)
+      items.onGround.push(new ItemOnGround(x+changeX, y+changeY, allItems.get("Pitch Fork")));
+
+    else if (randomItem <= 400)
+      items.onGround.push(new ItemOnGround(x+changeX, y+changeY, allItems.get("Shifty Sword")));
+  }
+
+  // shoulders
+  else if (randomEquipment <= chance*5) {
+    if (randomItem <= 200)
+      items.onGround.push(new ItemOnGround(x+changeX, y+changeY, allItems.get("Pitch Fork")));
+
+    else if (randomItem <= 400)
+      items.onGround.push(new ItemOnGround(x+changeX, y+changeY, allItems.get("Shifty Sword")));
+  }
+
+  // legs
+  else if (randomEquipment <= chance*6) {
+    if (randomItem <= 200)
+      items.onGround.push(new ItemOnGround(x+changeX, y+changeY, allItems.get("Pitch Fork")));
+
+    else if (randomItem <= 400)
+      items.onGround.push(new ItemOnGround(x+changeX, y+changeY, allItems.get("Shifty Sword")));
+  }
+
+  // hands
+  else if (randomEquipment <= chance*7) {
+    if (randomItem <= 200)
+      items.onGround.push(new ItemOnGround(x+changeX, y+changeY, allItems.get("Pitch Fork")));
+
+    else if (randomItem <= 400)
+      items.onGround.push(new ItemOnGround(x+changeX, y+changeY, allItems.get("Shifty Sword")));
+  }
 }
