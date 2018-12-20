@@ -21,17 +21,17 @@ function equipmentWeapons() {
   allItems.set("Shifty Sword", {name:"Shifty Sword",  amount: 0, description: "careful, it's shifty",
   img: itemImg.equipment.shiftySword, stats: shiftySword, equipable: true, equipSlot: "weapon"});
 
-  // allItems.set("", {name:"",  amount: 0, description: "",
-  // img: itemImg.equipment., stats: , equipable: true, equipSlot: "weapon"});
-  //
-  // allItems.set("", {name:"",  amount: 0, description: "",
-  // img: itemImg.equipment., stats: , equipable: true, equipSlot: "weapon"});
-  //
-  // allItems.set("", {name:"",  amount: 0, description: "",
-  // img: itemImg.equipment., stats: , equipable: true, equipSlot: "weapon"});
-  //
-  // allItems.set("", {name:"",  amount: 0, description: "",
-  // img: itemImg.equipment., stats: , equipable: true, equipSlot: "weapon"});
+  allItems.set("Cross Bow", {name:"Cross Bow",  amount: 0, description: "It's a cross bow",
+  img: itemImg.equipment.crossBow, stats: crossBow, equipable: true, equipSlot: "weapon"});
+
+  allItems.set("Cross Boe", {name:"Cross Boe",  amount: 0, description: "It's crossed boe's",
+  img: itemImg.equipment.crossBoe, stats: crossBoe, equipable: true, equipSlot: "weapon"});
+
+  allItems.set("Real Wand", {name:"Real Wand",  amount: 0, description: "Totally a real wand\n(not a stick)",
+  img: itemImg.equipment.realWand, stats: realWand, equipable: true, equipSlot: "weapon"});
+
+  allItems.set("Real Staff", {name:"Real Staff",  amount: 0, description: "Surely it's different\nfrom a stick",
+  img: itemImg.equipment.realStaff, stats: realStaff, equipable: true, equipSlot: "weapon"});
 }
 
 // function equipmentHead() {

@@ -90,7 +90,7 @@ function consumePotion(name, points, totPoints) {
 
 function playerExp(amount) {
   // gaining exp
-  player.exp += amount;
+  player.exp += amount*(1+player.expBonus/1000);
   while (player.exp >= player.nextLvl) {
     // level up
     player.lvl++;

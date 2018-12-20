@@ -60,10 +60,13 @@ function itemsInWorld() {
 function lootDrop(x, y) {
   // loot drop
   let numOfItems = int(random(player.lvl*1.5));
-  numOfItems = constrain(numOfItems, 5, 30);
+  numOfItems = constrain(numOfItems, 5, 20);
 
   for (let i = 0; i < numOfItems; i++)
     itemDropChance(x, y);
+
+  for (let i = 0; i < numOfItems/2; i++)
+    equipmentLootDrops(x, y);
 }
 
 // move with player

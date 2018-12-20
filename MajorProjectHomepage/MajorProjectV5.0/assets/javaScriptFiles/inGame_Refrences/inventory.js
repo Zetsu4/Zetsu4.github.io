@@ -17,8 +17,8 @@ function inventoryMenu() {
 function equipLayout() {
   let x = width*0.25;
   let y = -height*0.10;
-  let wid = inventory.boxSize*10;
-  let hei = inventory.boxSize*10;
+  let wid = inventory.boxSize*5;
+  let hei = inventory.boxSize*5;
   // layout
   image(itemImg.inventoryLayout, x, y, wid, hei);
 

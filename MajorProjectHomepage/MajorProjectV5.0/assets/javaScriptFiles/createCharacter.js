@@ -139,7 +139,7 @@ function skillDescription() {
   strokeWeight(5);
   stroke(51, 249, 255);
   fill("white");
-  rect(x, buttonAtributes.listStart, buttonAtributes.width, buttonAtributes.skill.height+fontSize.playersDisplay*6.5);
+  rect(x, buttonAtributes.listStart, buttonAtributes.width, buttonAtributes.skill.height+fontSize.playersDisplay*5.5);
   noStroke();
   fill("black");
   let runningText = "";

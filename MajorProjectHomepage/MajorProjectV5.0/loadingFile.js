@@ -113,6 +113,10 @@ function preload() {
 
   itemImg.equipment.pitchFork = loadImage("assets/img/items/equipment/pitchFork.png");
   itemImg.equipment.shiftySword = loadImage("assets/img/items/equipment/shiftySword.png");
+  itemImg.equipment.crossBow = loadImage("assets/img/items/equipment/crossBow.png");
+  itemImg.equipment.crossBoe = loadImage("assets/img/items/equipment/crossBoe.png");
+  itemImg.equipment.realWand = loadImage("assets/img/items/equipment/realWand.png");
+  itemImg.equipment.realStaff = loadImage("assets/img/items/equipment/realStaff.png");
 
   // sprites
   sprites.death = loadImage("assets/img/enemyDeath.png");
@@ -297,10 +301,10 @@ function settingWorld() {
   world.changedY = 0;
 
   // minimap
-  minimap.padWidth = width*0.20;
-  minimap.padHeight = height*0.20;
-  minimap.imgWidth = width*0.18;
-  minimap.imgHeight = height*0.18;
+  minimap.padWidth = width*0.25;
+  minimap.padHeight = height*0.30;
+  minimap.imgWidth = minimap.padWidth-width*0.02;
+  minimap.imgHeight = minimap.padHeight-height*0.02;
   minimap.x = -width/2 + minimap.padWidth/2;
   minimap.y = height/2 - minimap.padHeight/2;
 }
@@ -374,17 +378,17 @@ function setPlayer() {
 
 function setInventory() {
   mouseCarring = "empty";
-  
+
   // inventory atributes
-  inventory.boxSize = (width+height)*0.025;
-  inventory.width = 5;
+  inventory.boxSize = (width+height)*0.04;
+  inventory.width = 4;
   inventory.height = 8;
 
   // equip slots
   let x = width*0.25;
   let y = -height*0.10;
-  let wid = inventory.boxSize*10;
-  let hei = inventory.boxSize*10;
+  let wid = inventory.boxSize*5;
+  let hei = inventory.boxSize*5;
   inventory.equipSlots = [];
   inventory.equipSlots.push(new EquipBox(x-wid/2, y      , inventory.boxSize, inventory.boxSize, buttons.brown, buttons.lightBrown, "weapon")); // weapon
   inventory.equipSlots.push(new EquipBox(x      , y-hei/2, inventory.boxSize, inventory.boxSize, buttons.brown, buttons.lightBrown, "head")); // head
