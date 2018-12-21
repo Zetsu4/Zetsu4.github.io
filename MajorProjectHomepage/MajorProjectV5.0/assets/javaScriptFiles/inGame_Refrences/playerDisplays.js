@@ -81,7 +81,7 @@ function playerLvL() {
   // level and experience
   let expPercent = player.exp/player.nextLvl*100;
   fill("white");
-  text("Exp. "+player.exp+"/"+player.nextLvl+"\n"+expPercent.toFixed(2)+"%", 0, height*0.46);
+  text("Exp. "+player.exp.toFixed(0)+"/"+player.nextLvl.toFixed(0)+"\n"+expPercent.toFixed(2)+"%", 0, height*0.46);
   text("Lv. "+player.lvl, 0, spriteSize.height*0.60);
 
   // points to spend

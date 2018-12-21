@@ -93,12 +93,13 @@ function playerExp(amount) {
   player.exp += amount*(1+player.expBonus/1000);
   while (player.exp >= player.nextLvl) {
     // level up
+    player.exp -= player.nextLvl;
+    player.nextLvl += player.nextLvl + player.lvl*10;
     player.lvl++;
     player.points += 5;
+    calculateStats();
     player.hp = player.totHp;
     player.mp = player.totMp;
-    player.exp -= player.nextLvl;
-    player.nextLvl = player.nextLvl*2 + player.lvl*25;
   }
 }
 

@@ -120,7 +120,7 @@ function preload() {
   itemImg.equipment.realStaff = loadImage("assets/img/items/equipment/weapons/realStaff.png");
 
     // head
-  itemImg.equipment.paperbag = loadImage("assets/img/items/equipment/head/paperBag.png");
+  itemImg.equipment.paperBag = loadImage("assets/img/items/equipment/head/paperBag.png");
   itemImg.equipment.flatRock = loadImage("assets/img/items/equipment/head/flatRock.png");
 
     // chest
@@ -235,8 +235,8 @@ function setup() {
   // level up buttons
   buttons.lvlUp = [];
   for (let i=0; i<5; i++) {
-    let x = inventory.width*inventory.boxSize + inventory.boxSize*2;
-    let y = (inventory.boxSize+fontSize.playersDisplay*1.6*10) + fontSize.playersDisplay*1.6*i - height/2;
+    let x = inventory.width*inventory.boxSize + inventory.boxSize*1.75;
+    let y = (inventory.boxSize+fontSize.playersDisplay*1.8*10) + (fontSize.playersDisplay/3+height*0.025)*i - height/2;
     buttons.lvlUp.push(new Button(x-width/2, y, width*0.02, height*0.025, buttons.brown, buttons.lightBrown, "+", fontSize.playersDisplay));
   }
 }

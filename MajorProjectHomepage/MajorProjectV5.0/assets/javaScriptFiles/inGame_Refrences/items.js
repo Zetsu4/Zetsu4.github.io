@@ -24,7 +24,7 @@ function itemsInWorld() {
     if (dist(items.onGround[i].x, items.onGround[i].y, 0, 0) <= (spriteSize.width+spriteSize.height)/2) {
       // pick up item
       let itemToAdd = items.onGround.splice(i, 1);
-      if (allItems.get(itemToAdd[0].name).amount <= 0) 
+      if (allItems.get(itemToAdd[0].name).amount <= 0)
         // not in inventory
         putInInventory(itemToAdd[0]);
 
@@ -37,14 +37,11 @@ function itemsInWorld() {
 
 function lootDrop(x, y) {
   // loot drop
-  let numOfItems = int(random(player.lvl*1.5));
-  numOfItems = constrain(numOfItems, 5, 20);
+  let numOfItems = int(random(player.lvl+1));
+  numOfItems = constrain(numOfItems, 0, 15);
 
   for (let i = 0; i < numOfItems; i++)
     itemDropChance(x, y);
-
-  for (let i = 0; i < numOfItems/2; i++)
-    equipmentLootDrops(x, y);
 }
 
 // move with player

@@ -228,10 +228,10 @@ function calculateStats() {
   player.expBonus = runningStats.expBonus;
 
   // total health and mana
-  player.totHp = constrain((10*(player.vit+1+runningStats.vit)+pow(player.lvl, 2)), 10, Infinity);
+  player.totHp = constrain((10*(player.vit+1+runningStats.vit)+pow(player.lvl, 3)), 10, Infinity);
   player.hp = constrain(player.hp, 0, player.totHp);
 
-  player.totMp = constrain((10*(player.int+1+runningStats.int)+pow(player.lvl, 2)), 0, Infinity);
+  player.totMp = constrain((10*(player.int+1+runningStats.int)+pow(player.lvl, 3)), 0, Infinity);
   player.mp = constrain(player.mp, 0, player.totMp);
 
   // attack

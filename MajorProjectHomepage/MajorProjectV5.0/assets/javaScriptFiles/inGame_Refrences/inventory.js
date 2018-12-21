@@ -44,12 +44,7 @@ function equipLayout() {
 
     // clicking slot
     if (inventory.equipSlots[i].hovering() && mouseIsPressed) {
-      let newMousecarring = "empty";
-      let newInventroyEquipped = "empty";
-      
       if (inventory.equipSlots[i].equipped !== "empty") {
-        newMousecarring = inventory.equipSlots[i].equipped;
-
         // if equip slot has an item,
         // put that item in inventory
         putInInventory(inventory.equipSlots[i].equipped);
@@ -204,7 +199,7 @@ function displayStats(x, y) {
   let lvlPercent = (player.exp/player.nextLvl)*100;
   text("\n\
 Lvl- "+player.lvl+"\n\
-exp- "+player.exp+"/"+player.nextLvl+" = "+lvlPercent.toFixed(2)+"%\n\
+exp- "+player.exp.toFixed(0)+"/"+player.nextLvl.toFixed(0)+" = "+lvlPercent.toFixed(2)+"%\n\
 hp- "+player.hp+"/"+player.totHp+"\n\
 mp- "+player.mp+"/"+player.totMp+"\n\
 Speed- "+player.speed.toFixed(2)+"\n\
@@ -222,19 +217,15 @@ vit- "+player.vit
   pop();
 
   // points to spend
-  checkForPoints(x, y);
+  checkForPoints();
 }
 
-function checkForPoints(x, y) {
+function checkForPoints() {
   // spending point boxes
   if (player.points > 0) {
     push();
     stroke(204, 102, 0);
-    let newX = x + inventory.boxSize*1.5;
-
     for (let i = 0; i < buttons.lvlUp.length; i++) {
-      let newY = i*y;
-
       if (buttons.lvlUp[i].clicked()) {
         clickWait();
         player.points--;
