@@ -62,6 +62,8 @@ class Enemy {
     this.attackTimer = 1500 - (this.vit+this.agi)*10;
     this.attackTimer = constrain(this.attackTimer, 500, 5000);
 
+    this.theta = atan(this.y/this.x);
+
     // movement
     this.havePersued = false;
     this.speed = width*0.002 + width*this.agi*pow(10, -4);
@@ -187,8 +189,8 @@ class Enemy {
   findPoint(worldW, worldH, playerX, playerY, wandering = true) {
     // find point
     if (wandering) {
-      this.headToX = this.x + random(-this.dist/2, this.dist/2);
-      this.headToY = this.y + random(-this.dist/2, this.dist/2);
+      this.headToX = this.x + random(-this.dist, this.dist);
+      this.headToY = this.y + random(-this.dist, this.dist);
     }
 
     else {
@@ -237,6 +239,69 @@ class Enemy {
   }
 
   persuePlayer(worldW, worldH, playerX, playerY) {
+    // // persuing player
+    // if (dist(0, 0, this.x, this.y) >= this.attackPattern.enemyDist+this.speed) {
+    //   this.findingPoint = true;
+    //
+    //   if (this.x > -this.width/2) {
+    //     this.x -= this.speed;
+    //     this.mapX -= this.speed;
+    //   }
+    //
+    //   if (this.x < this.width/2) {
+    //     this.x += this.speed;
+    //     this.mapX += this.speed;
+    //   }
+    //
+    //   if (this.y > -this.height/2) {
+    //     this.y -= this.speed;
+    //     this.mapY -= this.speed;
+    //   }
+    //
+    //   if (this.y < this.height/2) {
+    //     this.y += this.speed;
+    //     this.mapY += this.speed;
+    //   }
+    //
+    //   this.headingTo = false;
+    //   this.havePersued = true;
+    // }
+    //
+    // else {
+    //   if (this.havePersued) {
+    //     this.persuePoint = int(random(-this.speed*5, this.speed*5));
+    //     this.havePersued = false;
+    //     this.theta = atan(this.y/this.x);
+    //   }
+    //
+    //   else if (this.persuePoint !== 0) {
+    //     if (this.persuePoint > 0) {
+    //       this.theta += this.persuePoint;
+    //       this.persuePoint--;
+    //     }
+    //
+    //     else {
+    //       this.theta += this.persuePoint;
+    //       this.persuePoint++;
+    //     }
+    //   }
+    //
+    //   else {
+    //     this.headingTo = false;
+    //     this.havePersued = true;
+    //   }
+    //
+    //   if (!this.headingTo) {
+    //     this.headToX = cos(this.theta) * this.attackPattern.enemyDist;
+    //     this.headToY = cos(this.theta) * this.attackPattern.enemyDist;
+    //     this.headingTo = true;
+    //   }
+    //
+    //   else {
+    //     this.headingTo = this.goToPoint();
+    //   }
+    // }
+
     if (this.havePersued) {
       // monkeying about - RvB refrence
       if (this.headingTo) {
