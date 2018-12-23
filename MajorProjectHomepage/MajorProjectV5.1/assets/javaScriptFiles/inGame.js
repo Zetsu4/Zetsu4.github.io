@@ -1,5 +1,6 @@
 function playingGame() {
   textFont("BOLD");
+
   if (state === "Settings") // settings
     settingsMenu();
 
@@ -11,6 +12,12 @@ function playingGame() {
 
   else if (state === "Inventory") // inventory
     inventoryMenu();
+
+  else if (state === "Save")  // save game
+    saveGame();
+
+  else if (state === "Load")  // load game
+    loadGame();
 
   else if (state === 0) {
     // background

@@ -1,6 +1,6 @@
-// V5.0
+// V5.1
 // Travis Ahern
-// Dec. 6, 2018 - Dec. , 2018
+// Dec. 11, 2018
 //
 // PROBLEMS:
 // - saving and loading games
@@ -80,7 +80,13 @@ const NUM_OF_ENEMYS = 75;
 let waiting;
 const WAIT_TIME = 150;
 
+
+let testFile;
+
 function preload() {
+  // load files
+  testFile = loadJSON("testLoading/Test1.json");
+
   // fonts
   fonts.default = loadFont("assets/fonts/default.TTF");
 
@@ -273,8 +279,8 @@ function setSettingsMenu() {
     {name: "Resume", state: 0},
     {name: "Controls", state: "Controls"},
     {name: "Map", state: "Map"},
-    {name: "Save", state: "Settings"},
-    {name: "Load", state: "Settings"},
+    {name: "Save", state: "Save"},
+    {name: "Load", state: "Load"},
     {name: "Main Menu", state: "Main Menu"}
   ];
 

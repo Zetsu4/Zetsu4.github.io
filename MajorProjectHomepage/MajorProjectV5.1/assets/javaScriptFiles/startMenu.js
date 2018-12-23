@@ -14,6 +14,6 @@ function startMenu() {
     // buttons
     buttonClick(buttons.newGame, 1, 0);
     if (buttons.loadGame.clicked())
-      gameOver();
+      loadGame();
   }
 }

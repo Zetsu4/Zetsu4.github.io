@@ -1,6 +1,6 @@
 // V5.0
 // Travis Ahern
-// Dec. 6, 2018 - Dec. , 2018
+// Dec. 6, 2018
 //
 // PROBLEMS:
 // - saving and loading games
