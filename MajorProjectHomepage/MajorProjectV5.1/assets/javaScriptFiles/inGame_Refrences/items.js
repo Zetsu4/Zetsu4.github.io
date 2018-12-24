@@ -30,15 +30,15 @@ function itemsInWorld() {
 
       else
         // in inventory
-        allItems.get(itemToAdd[0].name).amount++;
+        allItems.get(itemToAdd[0].name).amount += itemToAdd[0].amount;
     }
   }
 }
 
 function lootDrop(x, y) {
   // loot drop
-  let numOfItems = int(random(player.lvl+1));
-  numOfItems = constrain(numOfItems, 0, 15);
+  let numOfItems = int(random(player.lvl));
+  numOfItems = constrain(numOfItems, 0, 20);
 
   for (let i = 0; i < numOfItems; i++)
     itemDropChance(x, y);

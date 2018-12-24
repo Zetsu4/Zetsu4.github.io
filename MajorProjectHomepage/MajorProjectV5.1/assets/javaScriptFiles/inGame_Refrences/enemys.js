@@ -4,7 +4,6 @@ function enemys() {
     if (enemyArr[i].hp > 0) {
       // move
       enemyArr[i].movement(world.width, world.height, player.x, player.y);
-      enemyArr[i].constrainToWorld(world.width, world.height, player.x, player.y);
 
       // map
       enemyArr[i].mapping(
@@ -41,8 +40,10 @@ function enemys() {
   }
 
   // respawn enemys
-  if (enemyArr.length < NUM_OF_ENEMYS*0.50)
+  if (enemyArr.length < world.state.numOfEnemys)
     spawnEnemys();
+  else if (enemyArr.length > world.state.numOfEnemys)
+    enemyArr.splice(enemyArr.length-1, 1);
 }
 
 // move with player
@@ -107,16 +108,16 @@ function spawnEnemys() {
   // enemy vars
   let race = int(random(1, allRaces.length));
   let skill = int(random(1, allSkills.length));
-  let xSpawn = random(-world.width/2, world.width/2);
-  let ySpawn = random(-world.height/2, world.height/2);
+  let xSpawn = random(world.state.zone.x-world.state.zone.wid/2+width/2, world.state.zone.x+world.state.zone.wid/2-width/2);
+  let ySpawn = random(world.state.zone.y-world.state.zone.hei/2+height/2, world.state.zone.y+world.state.zone.hei/2-height/2);
 
   xy = rerstrainEnemySpawn(xSpawn, ySpawn);
   xSpawn = xy[0];
   ySpawn = xy[1];
 
   // spawn
-  let minLvl = constrain(player.lvl-2, 0, 90);
-  let maxLvl = constrain(player.lvl+(player.exp/player.nextLvl*10*killedEnemys*0.05), 2, 100);
+  let minLvl = constrain(player.lvl-2, 0, 90) + world.state.enemyLvlBonus;
+  let maxLvl = constrain(player.lvl+(player.exp/player.nextLvl*10*killedEnemys*0.05), 4, 100) + world.state.enemyLvlBonus;
   enemyArr.push(new Enemy(xSpawn, ySpawn, allRaces[race], allSkills[skill], minLvl, maxLvl, -player.x, -player.y));
 }
 
@@ -127,8 +128,8 @@ function rerstrainEnemySpawn(xSpawn, ySpawn) {
   while (xSpawn >= -width && xSpawn <= width
       && ySpawn >= -height && ySpawn <= height) {
 
-    xSpawn = random(-world.width/2+player.x, world.width/2+player.x);
-    ySpawn = random(-world.height/2+player.y, world.height/2+player.y);
+    xSpawn = random(world.state.zone.x-world.state.zone.wid/2+width/2, world.state.zone.x+world.state.zone.wid/2-width/2);
+    ySpawn = random(world.state.zone.y-world.state.zone.hei/2+height/2, world.state.zone.y+world.state.zone.hei/2-height/2);
   }
 
   coordinates[0] = xSpawn;

@@ -46,7 +46,7 @@ function createChar() {
       setPlayerStats();
 
       // spawn initial enemys
-      for (let i=0; i < NUM_OF_ENEMYS; i++)
+      for (let i=0; i < world.state.numOfEnemys; i++)
         spawnEnemys();
     }
   }
@@ -97,12 +97,15 @@ function raceDescription() {
   strokeWeight(5);
   stroke(51, 249, 255);
   fill("white");
-  rect(x, buttonAtributes.listStart, buttonAtributes.width, buttonAtributes.race.height+fontSize.playersDisplay*3);
+  rect(x, buttonAtributes.listStart, buttonAtributes.width, buttonAtributes.race.height+fontSize.playersDisplay*1.5);
   noStroke();
   fill("black");
   let runningText = "";
-  for (let stat in player.race.stats)
+  for (let stat in player.race.stats) {
+    if (stat !== "expGained") {
       runningText += stat+"- "+player.race.stats[stat]+"\n";
+    }
+  }
   text(runningText, x+fontSize.playersDisplay*0.25, buttonAtributes.listStart);
   pop();
 }
@@ -139,12 +142,15 @@ function skillDescription() {
   strokeWeight(5);
   stroke(51, 249, 255);
   fill("white");
-  rect(x, buttonAtributes.listStart, buttonAtributes.width, buttonAtributes.skill.height+fontSize.playersDisplay*5.5);
+  rect(x, buttonAtributes.listStart, buttonAtributes.width, buttonAtributes.skill.height+fontSize.playersDisplay*4);
   noStroke();
   fill("black");
   let runningText = "";
-  for (let stat in player.skill.stats)
+  for (let stat in player.skill.stats) {
+    if (stat !== "expGained") {
       runningText += stat+"- "+player.skill.stats[stat]+"\n";
+    }
+  }
   text(runningText, x+fontSize.playersDisplay*0.25, buttonAtributes.listStart);
   pop();
 }
@@ -235,11 +241,11 @@ function calculateStats() {
   player.mp = constrain(player.mp, 0, player.totMp);
 
   // attack
-  player.coolDownTime = constrain((1000 - (player.vit+runningStats.vit + player.agi+runningStats.agi)*20), 150, 1000);
-  player.mDmg = constrain(int((player.str+runningStats.str)*(1 + (player.skill.stats.melee+runningStats.melee))), 0, Infinity); // melee damage
-  player.rDmg = constrain(int((player.dex+runningStats.dex)*(1 + (player.skill.stats.ranged+runningStats.ranged))), 0, Infinity); // ranged damage
-  player.sDmg = constrain(int((player.int+runningStats.int)*(1 + (player.skill.stats.magic+runningStats.magic))), 0, Infinity); // spell damage
-  player.tDmg = constrain(int((player.agi+runningStats.agi)*(1.75+runningStats.trap)), 0, Infinity);
+  player.coolDownTime = constrain((2000 - (player.vit+runningStats.vit + player.agi+runningStats.agi)*15), 150, 1000);
+  player.mDmg = constrain(int((player.str+runningStats.str)*(0.75 + (player.skill.stats.melee+runningStats.melee))), 0, Infinity); // melee damage
+  player.rDmg = constrain(int((player.dex+runningStats.dex)*(0.75 + (player.skill.stats.ranged+runningStats.ranged))), 0, Infinity); // ranged damage
+  player.sDmg = constrain(int((player.int+runningStats.int)*(0.75 + (player.skill.stats.magic+runningStats.magic))), 0, Infinity); // spell damage
+  player.tDmg = constrain(int((player.agi+runningStats.agi)*(1+runningStats.trap)), 0, Infinity);
 
   // movement
   player.totSpeed = constrain((width*0.003 + width*(player.agi+runningStats.agi)*pow(10, -4)), width*0.0001, width*0.10);

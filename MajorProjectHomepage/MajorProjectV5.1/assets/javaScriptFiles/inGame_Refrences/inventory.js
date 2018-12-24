@@ -197,7 +197,7 @@ function displayStats(x, y) {
   textAlign(LEFT, TOP);
 
   let lvlPercent = (player.exp/player.nextLvl)*100;
-  text("\n\
+  text("Money - "+player.money+"\n\
 Lvl- "+player.lvl+"\n\
 exp- "+player.exp.toFixed(0)+"/"+player.nextLvl.toFixed(0)+" = "+lvlPercent.toFixed(2)+"%\n\
 hp- "+player.hp+"/"+player.totHp+"\n\

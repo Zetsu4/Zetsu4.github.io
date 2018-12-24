@@ -1,5 +1,5 @@
 class ItemOnGround {
-  constructor(x, y, item, wid = spriteSize.width, hei = spriteSize.height) {
+  constructor(x, y, item, amount = 1, wid = spriteSize.width, hei = spriteSize.height) {
     // position
     this.x = x;
     this.y = y;
@@ -10,6 +10,7 @@ class ItemOnGround {
     this.height = hei;
 
     this.name = item.name;
+    this.amount = amount;
   }
 
   display() {

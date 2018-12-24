@@ -1,13 +1,14 @@
 function playerDisplays() {
+  push();
+  textFont(fonts.default, fontSize.playersDisplay);
   // check enviorment
+  displayEnviorment();
   checkWorld();
 
   // mini-map
   miniMap();
 
   // player
-  push();
-  textFont(fonts.default, fontSize.playersDisplay);
   playerSprite();
   playerLvL();
   playerAttackIcon();
@@ -17,8 +18,35 @@ function playerDisplays() {
 }
 
 // check enviorment
-function checkWorld() {
+function displayEnviorment() {
+  push();
+  fill(world.state.color);
+  textAlign(CENTER, TOP);
+  text(world.state.name, 0, -height/2);
+  pop();
+}
 
+function checkWorld() {
+  if (world.checkingState) {
+    worldEnviorment.forEach(checkZone);
+    world.checkingState = false;
+    world.lastCheck = millis();
+  }
+  else {
+    let elapsedTime = millis() - world.lastCheck;
+    if (elapsedTime > world.checkTimer)
+      world.checkingState = true;
+  }
+}
+
+function checkZone(value, key, map) {
+  if (inZone(player.x, player.y, value.zone))
+    world.state = map.get(key);
+}
+
+function inZone(x, y, zone) {
+  return x >= zone.x-zone.wid/2 && x <= zone.x+zone.wid/2
+   && y >= zone.y-zone.hei/2 && y <= zone.y+zone.hei/2;
 }
 
 // mini-map
@@ -28,7 +56,7 @@ function miniMap() {
   rect(minimap.x, minimap.y, minimap.padWidth, minimap.padHeight);
 
   // background image
-  image(world.state.img, minimap.x, minimap.y, minimap.imgWidth, minimap.imgHeight);
+  image(world.state.img, minimap.x, minimap.y, minimap.imgWidth-minimap.screenWidth/2, minimap.imgHeight-minimap.screenHeight/2);
 
   mapPlayer();
 }
@@ -52,12 +80,12 @@ function mapPlayer(
 
   if (!hideScreen) {
     // screen
-    let rectWidth = map(width, 0, world.width, mapMinX/world.sizeMult*0.40, mapMaxX/world.sizeMult*0.40);
-    let rectHeight = map(height, 0, world.height, mapMinY/world.sizeMult*0.70, mapMaxY/world.sizeMult*0.70);
     push();
     noFill();
     stroke("white");
-    rect(playerX, playerY, rectWidth, rectHeight);
+    playerX = constrain(playerX, mapX-minimap.imgWidth/2+minimap.screenWidth*0.85, mapX+minimap.imgWidth/2-minimap.screenWidth*0.85);
+    playerY = constrain(playerY, mapY-minimap.imgHeight/2+minimap.screenHeight*0.85, mapY+minimap.imgHeight/2-minimap.screenHeight*0.85);
+    rect(playerX, playerY, minimap.screenWidth, minimap.screenHeight);
     pop();
   }
 }

@@ -3,6 +3,7 @@ function settingItemMap() {
   allItems.set("Mp Potion", {name:"Mp Potion",  amount: 0, description: "Replenishes MP", img: itemImg.mpPotion, equipable: false});
   allItems.set("Arrows", {name:"Arrows",  amount: 0, description: "Used with bow", img: itemImg.arrowAttack, equipable: false});
   allItems.set("Traps", {name:"Traps",  amount: 0, description: "Traps to slow\nfast enemy's", img: itemImg.trap, equipable: false});
+  allItems.set("Money", {name:"Money",  amount: 0, description: "The currency\nof equestria", img: itemImg.money, equipable: false});
 
   // equipment
   equipmentWeapons();

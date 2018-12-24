@@ -32,6 +32,7 @@ let buttonAtributes = {
 
 // images
 let worldBackgrounds = {};
+let npcImg = {};
 let itemImg = {};
 let sprites = {
   race: {},
@@ -74,25 +75,22 @@ let rebindButtons = [];
 // enemys
 let killedEnemys = 0;
 let enemyArr = [];
-const NUM_OF_ENEMYS = 75;
 
 // waiting
 let waiting;
 const WAIT_TIME = 150;
 
-
-let testFile;
-
 function preload() {
-  // load files
-  testFile = loadJSON("testLoading/Test1.json");
-
   // fonts
   fonts.default = loadFont("assets/fonts/default.TTF");
 
   // backgrounds
   worldBackgrounds.homePage = loadImage("assets/img/lovelyHomepage.png");
   worldBackgrounds.grass = loadImage("assets/img/grass.png");
+
+  // NPC's
+  npcImg.genericNPC = loadImage("assets/img/NPC.png");
+  npcImg.shopKeep = loadImage("assets/img/shopKeep.png");
 
   // inventory delete button
   itemImg.garbageClosed = loadImage("assets/img/garbageClosed.png");
@@ -105,9 +103,10 @@ function preload() {
   itemImg.swordAttack = loadImage("assets/img/items/sword.png");
   itemImg.arrowAttack = loadImage("assets/img/items/arrows.png");
   itemImg.fireBallAttack = loadImage("assets/img/items/fireBall.png");
-  itemImg.trap = loadImage("assets/img/items/traps.png");
   itemImg.hpPotion = loadImage("assets/img/items/hpPotion.png");
   itemImg.mpPotion = loadImage("assets/img/items/mpPotion.png");
+  itemImg.trap = loadImage("assets/img/items/traps.png");
+  itemImg.money = loadImage("assets/img/items/money.png");
 
   // mouse pointers
   itemImg.swordIcon = loadImage("assets/img/items/equippedIcons/swordIcon.png");
@@ -319,23 +318,32 @@ function settingKeyBindings() {
 }
 
 function settingWorld() {
-  // different enviorments
-  worldState = new Map();
-  worldState.set("Meadow", {img: worldBackgrounds.grass, name: "Meadow"});
-  world.state = worldState.get("Meadow");
-
   // coordinates
-  world.sizeMult = 10;
+  world.sizeMult = 15;
   world.width = width*world.sizeMult;
   world.height = height*world.sizeMult;
   world.changedX = 0;
   world.changedY = 0;
+
+  // different enviorments
+  worldEnviorment = new Map();
+  worldEnviorment.set("Meadows", {img: worldBackgrounds.grass, name: "Meadows", color: color(249, 166, 6), numOfEnemys: 50, enemyLvlBonus: 0, zone: {x: 0, y: 0, wid: world.width, hei: world.height}});
+  worldEnviorment.set("Town", {img: worldBackgrounds.grass, name: "Town", color: color(0, 255, 0), numOfEnemys: 0, enemyLvlBonus: 0, zone: {x: 0, y: 0, wid: world.width*0.15, hei: world.height*0.15}});
+  worldEnviorment.set("Desert", {img: worldBackgrounds.grass, name: "Desert", color: color(0, 0, 255), numOfEnemys: 60, enemyLvlBonus: 0, zone: {x: -world.width*0.30, y: world.height*0.30, wid: world.width*0.40, hei: world.height*0.40}});
+  worldEnviorment.set("Forest", {img: worldBackgrounds.grass, name: "Forest", color: color(135, 96, 66), numOfEnemys: 60, enemyLvlBonus: 2, zone: {x: world.width*0.30, y: -world.height*0.30, wid: world.width*0.40, hei: world.height*0.40}});
+  worldEnviorment.set("Mountains", {img: worldBackgrounds.grass, name: "Mountains", color: color(162, 206, 228), numOfEnemys: 65, enemyLvlBonus: 4, zone: {x: -world.width*0.30, y: -world.height*0.30, wid: world.width*0.40, hei: world.height*0.40}});
+  world.state = worldEnviorment.get("Town");
+  world.checkingState = true;
+  world.checkTimer = 4*1000;
+  world.lastCheck = 0;
 
   // minimap
   minimap.padWidth = width*0.25;
   minimap.padHeight = height*0.30;
   minimap.imgWidth = minimap.padWidth-width*0.02;
   minimap.imgHeight = minimap.padHeight-height*0.02;
+  minimap.screenWidth = map(width, 0, width, 0, minimap.imgWidth/world.sizeMult);
+  minimap.screenHeight = map(height, 0, height, 0, minimap.imgHeight/world.sizeMult);
   minimap.x = -width/2 + minimap.padWidth/2;
   minimap.y = height/2 - minimap.padHeight/2;
 }
@@ -354,6 +362,7 @@ function setItems() {
 function setPlayer() {
   // character
   player.name = "MOI";
+  player.money = 0;
 
   player.raceIndex = 0
   player.race = allRaces[player.raceIndex];
@@ -400,7 +409,7 @@ function setPlayer() {
   // in world
   player.x = 0;
   player.y = 0;
-  player.dotSize = (width+height)*0.0025;
+  player.dotSize = (width+height)*0.002;
 
   // inventory
   setInventory();

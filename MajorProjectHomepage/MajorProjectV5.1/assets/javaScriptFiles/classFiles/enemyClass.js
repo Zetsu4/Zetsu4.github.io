@@ -29,11 +29,11 @@ class Enemy {
     this.expGained = (this.race.stats.expGained+this.skill.stats.expGained)*(this.lvl+1)/2;
 
     let extraPoints = (this.lvl-1)*5;
-    this.int = this.race.stats.int + ceil(extraPoints/5);
-    this.agi = this.race.stats.agi + ceil(extraPoints/5);
-    this.str = this.race.stats.str + ceil(extraPoints/5);
-    this.dex = this.race.stats.dex + ceil(extraPoints/5);
-    this.vit = this.race.stats.vit + ceil(extraPoints/5);
+    this.int = this.race.stats.int + ceil(extraPoints/3);
+    this.agi = this.race.stats.agi + ceil(extraPoints/3);
+    this.str = this.race.stats.str + ceil(extraPoints/3);
+    this.dex = this.race.stats.dex + ceil(extraPoints/3);
+    this.vit = this.race.stats.vit + ceil(extraPoints/3);
 
     // health and mana
     this.totHp = 10*(this.vit+1);
@@ -59,7 +59,7 @@ class Enemy {
     this.attackType = attack;
     this.attackState = 0;
     this.lastAttack = 0;
-    this.attackTimer = 1500 - (this.vit+this.agi)*10;
+    this.attackTimer = 2000 - (this.vit+this.agi)*10;
     this.attackTimer = constrain(this.attackTimer, 500, 5000);
 
     this.theta = atan(this.y/this.x);
@@ -68,7 +68,8 @@ class Enemy {
     this.havePersued = false;
     this.speed = width*0.002 + width*this.agi*pow(10, -4);
     this.stun = false;
-    this.timer = 800 - (this.vit+this.agi)*10;
+    this.stunTimer = 0;
+    this.timer = 1000 - (this.vit+this.agi)*10;
     this.timer = constrain(this.timer, 250, 5000);
 
     // path finding
@@ -86,7 +87,7 @@ class Enemy {
     // taking damage
     this.hp -= dmg;
     this.stun = true;
-    this.lastAttack = millis();
+    this.stunTimer = millis();
     if (trapped)
       // reducing speed
       this.speed *= 0.75;
@@ -95,7 +96,7 @@ class Enemy {
   stuned() {
     // stuned
     if (this.stun) {
-      let elapsedTime = millis() - this.lastAttack;
+      let elapsedTime = millis() - this.stunTimer;
       if (elapsedTime >= this.timer)
         this.stun = false;
     }
@@ -199,8 +200,8 @@ class Enemy {
     }
 
     // constrain point to the world
-    this.headToX = constrain(this.headToX, -worldW/2 - playerX, worldW/2 - playerX);
-    this.headToY = constrain(this.headToY, -worldH/2 - playerY, worldH/2 - playerY);
+    this.headToX = constrain(this.headToX, -worldW/2-playerX+width*0.51, worldW/2-playerX-width*0.51);
+    this.headToY = constrain(this.headToY, -worldH/2-playerY+height*0.51, worldH/2-playerY-height*0.51);
     this.findingPoint = false;
   }
 
@@ -223,13 +224,13 @@ class Enemy {
       this.mapX += this.speed;
     }
 
-    if (this.y > pointYMax) { // top
+    if (this.y > pointYMax) { // up
       moved = true;
       this.y -= this.speed;
       this.mapY -= this.speed;
     }
 
-    else if (this.y < pointYMin) { // bottom
+    else if (this.y < pointYMin) { // down
       moved = true;
       this.y += this.speed;
       this.mapY += this.speed;
@@ -303,11 +304,11 @@ class Enemy {
     // }
 
     if (this.havePersued) {
-      // monkeying about - RvB refrence
+      // on persute
       if (this.headingTo) {
         // find point to go to
         if (this.findingPoint)
-        this.findPoint(worldW, worldH, playerX, playerY, false);
+          this.findPoint(worldW, worldH, playerX, playerY, false);
 
         // move to point
         else {
@@ -322,10 +323,9 @@ class Enemy {
       }
 
       // resting
-      else {
+      else
         this.restingFoo(true);
-        this.attackPlayer();
-      }
+      this.attackPlayer();
     }
 
     // persuing player
@@ -371,14 +371,6 @@ class Enemy {
         this.lastAttack = millis();
       }
     }
-  }
-
-  constrainToWorld(worldW, worldH, playerX, playerY) {
-    // staying on the map
-    this.x = constrain(this.x, -worldW/2-playerX - width/2, worldW/2-playerX + width/2);
-    this.y = constrain(this.y, -worldH/2-playerY - height/2, worldH/2-playerY + height/2);
-    this.mapX = constrain(this.mapX, -worldW/2 - width/2, worldW/2 + width/2);
-    this.mapY = constrain(this.mapY, -worldH/2 - height/2, worldH/2 + height/2);
   }
 
   mapping(worldW, worldH, mapX, mapY, mapW, mapH, dotSize) {
