@@ -57,3 +57,4 @@
 - made a shop
 - shop refreshes
 - added a heal button in the shop
+- added recent pick up list
