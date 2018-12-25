@@ -101,32 +101,33 @@ function enemyAttackFoo(enemyIndex) {
 
 // spawn starting enemys
 function spawnEnemys() {
-  if (world.width <= width*2.5 && world.height <= height*2.5)
-    // in case world is too small
-    cheaterEnding();
-
   // enemy vars
-  let race = int(random(1, allRaces.length));
-  let skill = int(random(1, allSkills.length));
+  let raceArr = world.state.enemy.race;
+  let skillArr = world.state.enemy.skill;
+
+  let race = int(random(1, raceArr.length));
+  let skill = int(random(1, skillArr.length));
   let xSpawn = random(world.state.zone.x-world.state.zone.wid/2+width/2, world.state.zone.x+world.state.zone.wid/2-width/2);
   let ySpawn = random(world.state.zone.y-world.state.zone.hei/2+height/2, world.state.zone.y+world.state.zone.hei/2-height/2);
 
-  xy = rerstrainEnemySpawn(xSpawn, ySpawn);
-  xSpawn = xy[0];
-  ySpawn = xy[1];
+  if (world.area === "Over World") {
+    xy = rerstrainEnemySpawn(xSpawn, ySpawn);
+    xSpawn = xy[0];
+    ySpawn = xy[1];
+  }
 
   // spawn
-  let minLvl = constrain(player.lvl-2, 0, 90) + world.state.enemyLvlBonus;
-  let maxLvl = constrain(player.lvl+(player.exp/player.nextLvl*10*killedEnemys*0.05), 4, 100) + world.state.enemyLvlBonus;
-  enemyArr.push(new Enemy(xSpawn, ySpawn, allRaces[race], allSkills[skill], minLvl, maxLvl, -player.x, -player.y));
+  let minLvl = constrain(player.lvl-2, 0, 90) + world.state.enemy.lvlBonus;
+  let maxLvl = constrain(player.lvl+(player.exp/player.nextLvl*10*killedEnemys*0.05), 4, 100) + world.state.enemy.lvlBonus;
+  enemyArr.push(new Enemy(xSpawn, ySpawn, raceArr[race], skillArr[skill], minLvl, maxLvl, -player.x, -player.y));
 }
 
 function rerstrainEnemySpawn(xSpawn, ySpawn) {
   // restraining enemys from player
   let coordinates = [xSpawn, ySpawn];
 
-  while (xSpawn >= -worldEnviorment.get("Town").zone.wid/2 && xSpawn <= worldEnviorment.get("Town").zone.wid/2
-      && ySpawn >= -worldEnviorment.get("Town").zone.hei/2 && ySpawn <= worldEnviorment.get("Town").zone.hei/2) {
+  while (xSpawn >= -worldEnviorment.overWorld.get("Town").zone.wid/2 && xSpawn <= worldEnviorment.overWorld.get("Town").zone.wid/2
+      && ySpawn >= -worldEnviorment.overWorld.get("Town").zone.hei/2 && ySpawn <= worldEnviorment.overWorld.get("Town").zone.hei/2) {
 
     xSpawn = random(world.state.zone.x-world.state.zone.wid/2+width/2, world.state.zone.x+world.state.zone.wid/2-width/2);
     ySpawn = random(world.state.zone.y-world.state.zone.hei/2+height/2, world.state.zone.y+world.state.zone.hei/2-height/2);

@@ -45,6 +45,12 @@ let sprites = {
 };
 let spriteSize = {};
 
+// race/skill arrays
+let allRaces = [];
+let allSkills = [];
+let raceSpecific = {};
+let skillSpecific = {};
+
 // NPC's
 let numOfNPCs = 50;
 let allNPCs = [];
@@ -54,7 +60,6 @@ let lastRefresh;
 
 // world
 let drawingBack;
-let worldState;
 let world = {};
 let minimap = {};
 
@@ -255,6 +260,8 @@ function setup() {
   startingState = 0;
   state = 0;
   enemyArr = [];
+  allNPCs = [];
+  shopKeeps = [];
   drawingBack = true;
   refreshTimer = 30*1000;
   lastRefresh = millis();
@@ -347,6 +354,16 @@ function settingSprites() {
     {name: "Uruk-Hai", img: sprites.race.urukHai, stats: urukHai}
   ];
 
+  raceSpecific.cave = [0,
+    {name: "Goblin", img: sprites.race.goblin, stats: goblin}, {name: "Orc", img: sprites.race.orc, stats: orc},
+    {name: "Uruk-Hai", img: sprites.race.urukHai, stats: urukHai}
+  ];
+
+  raceSpecific.demons = [0,
+    {name: "Goblin", img: sprites.race.goblin, stats: goblin}, {name: "Orc", img: sprites.race.orc, stats: orc},
+    {name: "Uruk-Hai", img: sprites.race.urukHai, stats: urukHai}
+  ];
+
   // skill
   allSkills = [
     {name: "Random", img: sprites.random, stats: randomChoice}, {name: "Archer", img: sprites.skill.archer, stats: archer},
@@ -411,13 +428,23 @@ function settingWorld() {
   world.changedY = 0;
 
   // different enviorments
-  worldEnviorment = new Map();
-  worldEnviorment.set("Meadows", {img: worldBackgrounds.grass, name: "Meadows", color: color(249, 166, 6), numOfEnemys: 30, enemyLvlBonus: 0, zone: {x: 0, y: 0, wid: world.width, hei: world.height}});
-  worldEnviorment.set("Town", {img: worldBackgrounds.grass, name: "Town", color: color(0, 255, 0), numOfEnemys: 0, enemyLvlBonus: 0, zone: {x: 0, y: 0, wid: world.width*0.15, hei: world.height*0.15}});
-  worldEnviorment.set("Desert", {img: worldBackgrounds.grass, name: "Desert", color: color(0, 0, 255), numOfEnemys: 40, enemyLvlBonus: 0, zone: {x: -world.width*0.35, y: world.height*0.35, wid: world.width*0.30, hei: world.height*0.30}});
-  worldEnviorment.set("Forest", {img: worldBackgrounds.grass, name: "Forest", color: color(135, 96, 66), numOfEnemys: 40, enemyLvlBonus: 2, zone: {x: world.width*0.35, y: -world.height*0.35, wid: world.width*0.30, hei: world.height*0.30}});
-  worldEnviorment.set("Mountains", {img: worldBackgrounds.grass, name: "Mountains", color: color(162, 206, 228), numOfEnemys: 45, enemyLvlBonus: 4, zone: {x: -world.width*0.35, y: -world.height*0.35, wid: world.width*0.30, hei: world.height*0.30}});
-  world.state = worldEnviorment.get("Town");
+  worldEnviorment = {};
+
+    // over world
+  worldEnviorment.overWorld = new Map();
+  worldEnviorment.overWorld.set("Meadows", {img: worldBackgrounds.grass, name: "Meadows", color: color(249, 166, 6), numOfEnemys: 30, enemy: {lvlBonus: 0, race: allRaces, skill: allSkills}, zone: {x: 0, y: 0, wid: world.width, hei: world.height}});
+  worldEnviorment.overWorld.set("Town", {img: worldBackgrounds.grass, name: "Town", color: color(0, 255, 0), numOfEnemys: 0, enemy: {lvlBonus: 0, race: allRaces, skill: allSkills}, zone: {x: 0, y: 0, wid: world.width*0.15, hei: world.height*0.15}});
+  worldEnviorment.overWorld.set("Desert", {img: worldBackgrounds.grass, name: "Desert", color: color(0, 0, 255), numOfEnemys: 40, enemy: {lvlBonus: 0, race: allRaces, skill: allSkills}, zone: {x: -world.width*0.35, y: world.height*0.35, wid: world.width*0.30, hei: world.height*0.30}});
+  worldEnviorment.overWorld.set("Forest", {img: worldBackgrounds.grass, name: "Forest", color: color(135, 96, 66), numOfEnemys: 40, enemy: {lvlBonus: 2, race: allRaces, skill: allSkills}, zone: {x: world.width*0.35, y: -world.height*0.35, wid: world.width*0.30, hei: world.height*0.30}});
+  worldEnviorment.overWorld.set("Mountains", {img: worldBackgrounds.grass, name: "Mountains", color: color(162, 206, 228), numOfEnemys: 45, enemy: {lvlBonus: 4, race: allRaces, skill: allSkills}, zone: {x: -world.width*0.35, y: -world.height*0.35, wid: world.width*0.30, hei: world.height*0.30}});
+
+  //   // caves
+  // worldEnviorment.cave = new Map();
+  // worldEnviorment.cave.set("Cave", {img: worldBackgrounds.grass, name: "Cave", color: color(139, 15, 205), numOfEnemys: 40, enemy: {lvlBonus: 3, race: [allRaces[], allRaces[], allRaces[]], skill: allSkills}, zone: {x: 0, y: 0, wid: world.width, hei: world.height}});
+  // worldEnviorment.cave.set("Demon Gate", {img: worldBackgrounds.grass, name: "Demon Gate", color: color(25, 255, 199), numOfEnemys: 50, enemy: {lvlBonus: 5, race: , skill: [allSkills]}, zone: {x: 0, y: 0, wid: world.width*0.20, hei: world.height*0.20}});
+
+  world.state = worldEnviorment.overWorld.get("Town");
+  world.area = "Over World";
   world.checkingState = true;
   world.checkTimer = 4*1000;
   world.lastCheck = 0;

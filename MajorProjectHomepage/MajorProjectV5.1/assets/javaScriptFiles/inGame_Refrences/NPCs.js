@@ -1,12 +1,12 @@
 function nonPlayableCharacters() {
   for (let i=0; i < allNPCs.length; i++) {
-    allNPCs[i].display(worldEnviorment.get("Town").zone, player.x, player.y);
+    allNPCs[i].display(worldEnviorment.overWorld.get("Town").zone, player.x, player.y);
     if (dist(0, 0, allNPCs[i].x, allNPCs[i].y) <= spriteSize.height)
       allNPCs[i].interact(keyBindings.get("Interact").code);
   }
 
   for (let i=0; i < shopKeeps.length; i++) {
-    shopKeeps[i].display(worldEnviorment.get("Town").zone, player.x, player.y);
+    shopKeeps[i].display(worldEnviorment.overWorld.get("Town").zone, player.x, player.y);
     shopKeeps[i].mapping();
     if (dist(0, 0, shopKeeps[i].x, shopKeeps[i].y) <= spriteSize.height)
       if (shopKeeps[i].interact(keyBindings.get("Interact").code))

@@ -26,7 +26,7 @@ function itemsInWorld() {
       let itemToAdd = items.onGround.splice(i, 1);
       if (allItems.get(itemToAdd[0].name).amount <= 0)
         // not in inventory
-        putInInventory(itemToAdd[0]);
+        putInInventory(itemToAdd[0], itemToAdd[0].amount);
 
       else
         // in inventory

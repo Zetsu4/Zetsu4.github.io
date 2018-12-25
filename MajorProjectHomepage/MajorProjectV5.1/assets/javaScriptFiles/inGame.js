@@ -4,7 +4,7 @@ function playingGame() {
 
   if (state === 0) {
     // draw enviorments
-    worldEnviorment.forEach(onScreen);
+    checkState();
 
     // player
     playerMovement();
@@ -19,7 +19,7 @@ function playingGame() {
 
     // NPC's
     nonPlayableCharacters();
-    if (world.state.name === "Town") 
+    if (world.state.name === "Town")
       if (timerFoo(lastRefresh, refreshTimer))
         // refresh items in the shop
         refreshShops();
@@ -48,6 +48,14 @@ function playingGame() {
 
   else if (state === "Shop")
     shopMenu();
+}
+
+function checkState() {
+  if (world.area = "Over World")
+    worldEnviorment.overWorld.forEach(onScreen);
+
+  else if (world.area = "Cave")
+    worldEnviorment.cave.forEach(onScreen);
 }
 
 function onScreen(value, key, map) {
