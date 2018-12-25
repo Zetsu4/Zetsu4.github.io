@@ -37,87 +37,92 @@ function itemDropChance(x, y) {
       items.onGround.push(new ItemOnGround(x+changeX, y+changeY, allItems.get("Mp Potion")));
 
     else // equipment
-      equipmentLootDrops(x, y, changeX, changeY);
+      items.onGround.push(new ItemOnGround(x+changeX, y+changeY, allItems.get(equipmentLootDrops())));
   }
 }
 
-function equipmentLootDrops(x, y, changeX, changeY) {
+function equipmentLootDrops() {
   let randomEquipment = random(100);
   let randomItem = random(1000);
-  let chance = 100/3.5;
+  let chance = 100/7;
 
   // weapons
   if (randomEquipment <= chance*1) {
     if (randomItem <= 100)
-      items.onGround.push(new ItemOnGround(x+changeX, y+changeY, allItems.get("Pitch Fork")));
+      return "Pitch Fork";
 
     else if (randomItem <= 200)
-      items.onGround.push(new ItemOnGround(x+changeX, y+changeY, allItems.get("Shifty Sword")));
+      return "Shifty Sword";
 
     else if (randomItem <= 300)
-      items.onGround.push(new ItemOnGround(x+changeX, y+changeY, allItems.get("Cross Bow")));
+      return "Cross Bow";
 
     else if (randomItem <= 400)
-      items.onGround.push(new ItemOnGround(x+changeX, y+changeY, allItems.get("Cross Boe")));
+      return "Cross Boe";
 
     else if (randomItem <= 500)
-      items.onGround.push(new ItemOnGround(x+changeX, y+changeY, allItems.get("Real Wand")));
+      return "Real Wand";
 
     else if (randomItem <= 600)
-      items.onGround.push(new ItemOnGround(x+changeX, y+changeY, allItems.get("Real Staff")));
+      return "Real Staff";
+
+    else if (randomItem <= 602)
+      return "Stick";
   }
 
   // head
   else if (randomEquipment <= chance*2) {
     if (randomItem <= 200)
-      items.onGround.push(new ItemOnGround(x+changeX, y+changeY, allItems.get("Flat Rock")));
+      return "Flat Rock";
 
     else if (randomItem <= 400)
-      items.onGround.push(new ItemOnGround(x+changeX, y+changeY, allItems.get("Paper Bag")));
+      return "Paper Bag";
   }
 
   // chest
   else if (randomEquipment <= chance*3) {
     if (randomItem <= 200)
-      items.onGround.push(new ItemOnGround(x+changeX, y+changeY, allItems.get("Brown Shirt")));
+      return "Brown Shirt";
 
     else if (randomItem <= 400)
-      items.onGround.push(new ItemOnGround(x+changeX, y+changeY, allItems.get("Grey Shirt")));
+      return "Grey Shirt";
   }
 
   // feet
   else if (randomEquipment <= chance*4) {
     if (randomItem <= 200)
-      items.onGround.push(new ItemOnGround(x+changeX, y+changeY, allItems.get("Grass")));
+      return "Grass";
 
     else if (randomItem <= 400)
-      items.onGround.push(new ItemOnGround(x+changeX, y+changeY, allItems.get("Grass Shoes")));
+      return "Grass Shoes";
   }
 
   // shoulders
   else if (randomEquipment <= chance*5) {
     if (randomItem <= 200)
-      items.onGround.push(new ItemOnGround(x+changeX, y+changeY, allItems.get("Round Rocks")));
+      return "Round Rocks";
 
     else if (randomItem <= 400)
-      items.onGround.push(new ItemOnGround(x+changeX, y+changeY, allItems.get("Weak Plates")));
+      return "Weak Plates";
   }
 
   // legs
   else if (randomEquipment <= chance*6) {
     if (randomItem <= 200)
-      items.onGround.push(new ItemOnGround(x+changeX, y+changeY, allItems.get("Blue Pants")));
+      return "Blue Pants";
 
     else if (randomItem <= 400)
-      items.onGround.push(new ItemOnGround(x+changeX, y+changeY, allItems.get("Grass Pants")));
+      return "Grass Pants";
   }
 
   // hands
   else if (randomEquipment <= chance*7) {
     if (randomItem <= 200)
-      items.onGround.push(new ItemOnGround(x+changeX, y+changeY, allItems.get("Leather Gloves")));
+      return "Leather Gloves";
 
     else if (randomItem <= 400)
-      items.onGround.push(new ItemOnGround(x+changeX, y+changeY, allItems.get("Rock Gloves")));
+      return "Rock Gloves";
   }
+
+  return "Small Rock";
 }

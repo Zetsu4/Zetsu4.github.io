@@ -77,6 +77,32 @@ let realStaff = {
   expBonus: +2
 };
 
+let stick = {
+  int: +20,
+  agi: +20,
+  str: +20,
+  dex: +20,
+  vit: +20,
+  melee: +1.5,
+  ranged: +1.5,
+  magic: +1.5,
+  trap: +1.5,
+  expBonus: +50
+};
+
+let smallRock = {
+  int: +1,
+  agi: +1,
+  str: +1,
+  dex: -2,
+  vit: -2,
+  melee: +0.01,
+  ranged: +0.01,
+  magic: +0.01,
+  trap: +0.01,
+  expBonus: -2
+};
+
 // head
 let flatRock = {
   int: -5,

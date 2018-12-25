@@ -1,14 +1,13 @@
 function playerDisplays() {
-  push();
-  textFont(fonts.default, fontSize.playersDisplay);
-  // check enviorment
+  // // check enviorment
   displayEnviorment();
-  checkWorld();
 
   // mini-map
   miniMap();
 
   // player
+  push();
+  textFont(fonts.default, fontSize.playersDisplay);
   playerSprite();
   playerLvL();
   playerAttackIcon();
@@ -17,36 +16,14 @@ function playerDisplays() {
   pop();
 }
 
-// check enviorment
+// display enviorment
 function displayEnviorment() {
   push();
   fill(world.state.color);
+  textFont(fonts.default, fontSize.default);
   textAlign(CENTER, TOP);
   text(world.state.name, 0, -height/2);
   pop();
-}
-
-function checkWorld() {
-  if (world.checkingState) {
-    worldEnviorment.forEach(checkZone);
-    world.checkingState = false;
-    world.lastCheck = millis();
-  }
-  else {
-    let elapsedTime = millis() - world.lastCheck;
-    if (elapsedTime > world.checkTimer)
-      world.checkingState = true;
-  }
-}
-
-function checkZone(value, key, map) {
-  if (inZone(player.x, player.y, value.zone))
-    world.state = map.get(key);
-}
-
-function inZone(x, y, zone) {
-  return x >= zone.x-zone.wid/2 && x <= zone.x+zone.wid/2
-   && y >= zone.y-zone.hei/2 && y <= zone.y+zone.hei/2;
 }
 
 // mini-map

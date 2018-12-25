@@ -24,7 +24,7 @@ class Trap {
     this.realX = this.changeX+cos(0)*this.x;
     this.realY = this.changeY+sin(0)*this.x;
 
-    // pick up 
+    // pick up
     if (this.x+this.changeX > -this.width/2 && this.x+this.changeX < this.width/2
      && this.y+this.changeY > -this.height/2 && this.y+this.changeY < this.height/2) {
           let charValue = interact;
@@ -67,9 +67,9 @@ class Trap {
     let mapMaxY = mapY + mapH/2 - dotSize;
 
     // dot
-    let enemyX = map(player.x+this.changeX, -worldW/2, worldW/2, mapMinX, mapMaxX);
-    let enemyY = map(player.y+this.changeY, -worldH/2, worldH/2, mapMinY, mapMaxY);
+    let trapX = map(player.x+this.changeX, -worldW/2, worldW/2, mapMinX, mapMaxX);
+    let trapY = map(player.y+this.changeY, -worldH/2, worldH/2, mapMinY, mapMaxY);
     fill(0, 255, 255);
-    ellipse(enemyX, enemyY, dotSize);
+    ellipse(trapX, trapY, dotSize);
   }
 }

@@ -1,4 +1,5 @@
 function draw() {
+  easterEggs();
   translate(width/2, height/2);
   if (drawingBack)
     image(worldBackgrounds.homePage, 0, 0, width, height);
@@ -52,4 +53,9 @@ function clickWait() {
   while (millis() - waiting <= WAIT_TIME) {
     continue;
   }
+}
+
+function timerFoo(lastTime, theTimer) {
+  let elapsedTime = millis() - lastTime;
+  return elapsedTime > theTimer;
 }

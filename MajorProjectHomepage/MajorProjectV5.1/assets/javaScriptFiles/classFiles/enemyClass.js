@@ -95,17 +95,12 @@ class Enemy {
 
   stuned() {
     // stuned
-    if (this.stun) {
-      let elapsedTime = millis() - this.stunTimer;
-      if (elapsedTime >= this.timer)
-        this.stun = false;
-    }
+    if (this.stun)
+      this.stun = !timerFoo(this.stunTimer, this.timer);
   }
 
   restingFoo(attacking = false) {
-    let elapsedTime = millis() - this.resting;
-    if (elapsedTime >= (attacking ? this.timer : this.timer*2))
-      this.headingTo = true;
+    this.headingTo = timerFoo(this.resting, (attacking ? this.timer : this.timer*2));
   }
 
   display() {
@@ -364,13 +359,8 @@ class Enemy {
       this.lastAttack = millis();
     }
 
-    else {
-      let elapsedTime = millis() - this.lastAttack;
-      if (elapsedTime > this.attackTimer) {
-        this.attackState = 1;
-        this.lastAttack = millis();
-      }
-    }
+    else
+      this.attackState = (timerFoo(this.lastAttack, this.attackTimer) ? 1:0);
   }
 
   mapping(worldW, worldH, mapX, mapY, mapW, mapH, dotSize) {

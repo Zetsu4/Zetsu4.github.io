@@ -21,14 +21,20 @@
 let startingState = 0;
 let state = 0;
 let previousState = state;
-let fontSize = {};
-let fonts = {};
 let buttons = {};
 let buttonAtributes = {
   race: {},
   skill: {},
   settings: {}
 };
+let easterEgg = {};
+
+// sound
+let sounds = {}
+
+// text
+let fontSize = {};
+let fonts = {};
 
 // images
 let worldBackgrounds = {};
@@ -39,6 +45,13 @@ let sprites = {
   skill: {}
 };
 let spriteSize = {};
+
+// NPC's
+let numOfNPCs = 50;
+let allNPCs = [];
+let shopKeeps = [];
+let refreshTimer;
+let lastRefresh;
 
 // world
 let drawingBack;
@@ -81,23 +94,33 @@ let waiting;
 const WAIT_TIME = 150;
 
 function preload() {
+  // sounds
+  // sounds.attack = loadSound("assets/sound/attack.mp3");
+  // sounds.pickUp = loadSound("assets/sound/pickUp.mp3");
+  // sounds.enemyDeath = loadSound("assets/sound/enemyDeath.mp3");
+  // sounds.lose = loadSound("assets/sound/lose.mp3");
+
   // fonts
   fonts.default = loadFont("assets/fonts/default.TTF");
 
   // backgrounds
-  worldBackgrounds.homePage = loadImage("assets/img/lovelyHomepage.png");
-  worldBackgrounds.grass = loadImage("assets/img/grass.png");
+  worldBackgrounds.homePage = loadImage("assets/img/backgrounds/lovelyHomepage.png");
+  worldBackgrounds.grass = loadImage("assets/img/backgrounds/grass.png");
+  // worldBackgrounds.town = loadImage("assets/img/backgrounds/town.png");
+  // worldBackgrounds.desert = loadImage("assets/img/backgrounds/desert.png");
+  // worldBackgrounds.forest = loadImage("assets/img/backgrounds/forest.png");
+  // worldBackgrounds.mountain = loadImage("assets/img/backgrounds/mountain.png");
 
   // NPC's
-  npcImg.genericNPC = loadImage("assets/img/NPC.png");
-  npcImg.shopKeep = loadImage("assets/img/shopKeep.png");
+  npcImg.genericNPC = loadImage("assets/img/sprites/NPC.png");
+  npcImg.shopKeep = loadImage("assets/img/sprites/shopKeep.png");
 
   // inventory delete button
-  itemImg.garbageClosed = loadImage("assets/img/garbageClosed.png");
-  itemImg.garbageOpened = loadImage("assets/img/garbageOpened.png");
+  itemImg.garbageClosed = loadImage("assets/img/inventory/garbageClosed.png");
+  itemImg.garbageOpened = loadImage("assets/img/inventory/garbageOpened.png");
 
   // layout
-  itemImg.inventoryLayout = loadImage("assets/img/inventroyEquipLayout.png");
+  itemImg.inventoryLayout = loadImage("assets/img/inventory/inventroyEquipLayout.png");
 
   // items
   itemImg.swordAttack = loadImage("assets/img/items/sword.png");
@@ -123,6 +146,7 @@ function preload() {
   itemImg.equipment.crossBoe = loadImage("assets/img/items/equipment/weapons/crossBoe.png");
   itemImg.equipment.realWand = loadImage("assets/img/items/equipment/weapons/realWand.png");
   itemImg.equipment.realStaff = loadImage("assets/img/items/equipment/weapons/realStaff.png");
+  itemImg.equipment.smallRock = loadImage("assets/img/items/equipment/weapons/smallRock.png");
 
     // head
   itemImg.equipment.paperBag = loadImage("assets/img/items/equipment/head/paperBag.png");
@@ -149,9 +173,8 @@ function preload() {
   itemImg.equipment.rockGloves = loadImage("assets/img/items/equipment/hands/rockGloves.png");
 
   // sprites
-  sprites.death = loadImage("assets/img/enemyDeath.png");
-
-  sprites.random = loadImage("assets/img/random.png");
+  sprites.death = loadImage("assets/img/sprites/enemyDeath.png");
+  sprites.random = loadImage("assets/img/sprites/random.png");
 
   sprites.race.dwarf = loadImage("assets/races/img/dwarf.png");
   sprites.race.elf = loadImage("assets/races/img/elf.png");
@@ -170,6 +193,25 @@ function preload() {
   sprites.skill.rogue = loadImage("assets/skills/img/rogue.png");
   sprites.skill.samurai = loadImage("assets/skills/img/samurai.png");
   sprites.skill.trapper = loadImage("assets/skills/img/trapper.png");
+
+  // easter eggs
+    // sounds
+  sounds.secret = {};
+
+  // sounds.secret.blipAttack = loadSound("assets/easterEggs/sound/blipAttack.mp3");
+  // sounds.secret.blipPickUp = loadSound("assets/easterEggs/sound/blipPickUp.mp3");
+  // sounds.secret.blipEnemyDeath = loadSound("assets/easterEggs/sound/blipDeath.mp3");
+  // sounds.secret.blipLose = loadSound("assets/easterEggs/sound/blipDeath.mp3");
+
+    // backgrounds
+  worldBackgrounds.secret = {};
+
+  // worldBackgrounds.secret. = loadImage("assets/easterEggs/background/.png");
+
+    // images
+  itemImg.secret = {};
+
+  // itemImg.secret. = loadImage("assets/easterEggs/image/.png");
 }
 
 function setup() {
@@ -182,6 +224,8 @@ function setup() {
   state = 0;
   enemyArr = [];
   drawingBack = true;
+  refreshTimer = 30*1000;
+  lastRefresh = millis();
 
   // text
   fontSize.default = (width+height)*0.015;
@@ -236,6 +280,12 @@ function setup() {
   settingWorld();
   setItems();
   setPlayer();
+  setNPCs();
+
+  setEasterEgg();
+
+  // heal button
+  buttons.heal = new Button(-(inventory.width+1)*inventory.boxSize+width*0.2, -height*0.45, inventory.boxSize, inventory.boxSize, buttons.brown, buttons.lightBrown, "Heal", fontSize.default);
 
   // level up buttons
   buttons.lvlUp = [];
@@ -319,7 +369,7 @@ function settingKeyBindings() {
 
 function settingWorld() {
   // coordinates
-  world.sizeMult = 15;
+  world.sizeMult = 20;
   world.width = width*world.sizeMult;
   world.height = height*world.sizeMult;
   world.changedX = 0;
@@ -327,11 +377,11 @@ function settingWorld() {
 
   // different enviorments
   worldEnviorment = new Map();
-  worldEnviorment.set("Meadows", {img: worldBackgrounds.grass, name: "Meadows", color: color(249, 166, 6), numOfEnemys: 50, enemyLvlBonus: 0, zone: {x: 0, y: 0, wid: world.width, hei: world.height}});
+  worldEnviorment.set("Meadows", {img: worldBackgrounds.grass, name: "Meadows", color: color(249, 166, 6), numOfEnemys: 30, enemyLvlBonus: 0, zone: {x: 0, y: 0, wid: world.width, hei: world.height}});
   worldEnviorment.set("Town", {img: worldBackgrounds.grass, name: "Town", color: color(0, 255, 0), numOfEnemys: 0, enemyLvlBonus: 0, zone: {x: 0, y: 0, wid: world.width*0.15, hei: world.height*0.15}});
-  worldEnviorment.set("Desert", {img: worldBackgrounds.grass, name: "Desert", color: color(0, 0, 255), numOfEnemys: 60, enemyLvlBonus: 0, zone: {x: -world.width*0.30, y: world.height*0.30, wid: world.width*0.40, hei: world.height*0.40}});
-  worldEnviorment.set("Forest", {img: worldBackgrounds.grass, name: "Forest", color: color(135, 96, 66), numOfEnemys: 60, enemyLvlBonus: 2, zone: {x: world.width*0.30, y: -world.height*0.30, wid: world.width*0.40, hei: world.height*0.40}});
-  worldEnviorment.set("Mountains", {img: worldBackgrounds.grass, name: "Mountains", color: color(162, 206, 228), numOfEnemys: 65, enemyLvlBonus: 4, zone: {x: -world.width*0.30, y: -world.height*0.30, wid: world.width*0.40, hei: world.height*0.40}});
+  worldEnviorment.set("Desert", {img: worldBackgrounds.grass, name: "Desert", color: color(0, 0, 255), numOfEnemys: 40, enemyLvlBonus: 0, zone: {x: -world.width*0.35, y: world.height*0.35, wid: world.width*0.30, hei: world.height*0.30}});
+  worldEnviorment.set("Forest", {img: worldBackgrounds.grass, name: "Forest", color: color(135, 96, 66), numOfEnemys: 40, enemyLvlBonus: 2, zone: {x: world.width*0.35, y: -world.height*0.35, wid: world.width*0.30, hei: world.height*0.30}});
+  worldEnviorment.set("Mountains", {img: worldBackgrounds.grass, name: "Mountains", color: color(162, 206, 228), numOfEnemys: 45, enemyLvlBonus: 4, zone: {x: -world.width*0.35, y: -world.height*0.35, wid: world.width*0.30, hei: world.height*0.30}});
   world.state = worldEnviorment.get("Town");
   world.checkingState = true;
   world.checkTimer = 4*1000;
@@ -362,7 +412,6 @@ function setItems() {
 function setPlayer() {
   // character
   player.name = "MOI";
-  player.money = 0;
 
   player.raceIndex = 0
   player.race = allRaces[player.raceIndex];
@@ -416,6 +465,27 @@ function setPlayer() {
   player.inventory = make2DGrid(inventory.width, inventory.height);
 }
 
+function setNPCs() {
+  for (let i=0; i < numOfNPCs; i++) {
+    let xSpawn = random(world.state.zone.x-world.state.zone.wid/2, world.state.zone.x+world.state.zone.wid/2);
+    let ySpawn = random(world.state.zone.y-world.state.zone.hei/2, world.state.zone.y+world.state.zone.hei/2);
+    allNPCs.push(new NonPlayableCharacters(xSpawn, ySpawn, npcImg.genericNPC, "Hello, world!"));
+  }
+
+  shopKeeps.push(new NonPlayableCharacters(spriteSize.width, 0, npcImg.shopKeep, "Welcome to\nthe shop.", true));
+  setShops();
+}
+
+function setShops() {
+  shopInventory = make2DGrid(inventory.shop.width, inventory.shop.height);
+
+  // items always in shop
+  shopInventory[0][0] = {name: "Hp Potion", img: itemImg.hpPotion};
+  shopInventory[0][1] = {name: "Mp Potion", img: itemImg.mpPotion};
+  shopInventory[0][2] = {name: "Arrows", img: itemImg.arrowAttack};
+  shopInventory[0][3] = {name: "Traps", img: itemImg.trap};
+}
+
 function setInventory() {
   mouseCarring = "empty";
 
@@ -423,6 +493,12 @@ function setInventory() {
   inventory.boxSize = (width+height)*0.04;
   inventory.width = 4;
   inventory.height = 8;
+
+  // shop inventory
+  inventory.shop = {};
+  inventory.shop.width = 6;
+  inventory.shop.height = 8;
+  inventory.shop.offsetX = 7;
 
   // equip slots
   let x = width*0.25;
@@ -474,4 +550,10 @@ function make2DGrid(cols, rows) {
     }
   }
   return newArray;
+}
+
+function setEasterEgg() {
+  easterEgg.backgrounds = false;
+  easterEgg.sounds = false;
+  easterEgg.images = false;
 }

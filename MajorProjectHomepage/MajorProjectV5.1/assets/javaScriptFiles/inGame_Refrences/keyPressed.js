@@ -46,6 +46,9 @@ function keyPressed() {
     if (keyCode === keyBindings.get("Consume MP Poition").code && allItems.get("Mp Potion").amount > 0)  // mana
       consumePotion("Mp Potion", player.mp, player.totMp);
   }
+
+  if (world.state.name === "Town" && keyCode === keyBindings.get("Interact").code)
+    player.attackState = "melee";
 }
 
 function toggleStates(setState) {

@@ -20,9 +20,7 @@ function putInInventory(theItem) {
     for (let x = 0; x < player.inventory[y].length; x++) {
       if (player.inventory[y][x] === "empty" && !added) {
         player.inventory[y][x] = allItems.get(theItem.name);
-        if (player.inventory[y][x].amount <= 0) {
-          player.inventory[y][x].amount++;
-        }
+        player.inventory[y][x].amount++;
         added = true;
       }
     }
@@ -131,26 +129,7 @@ function hoverOverTile() {
     rect(xPos2, yPos2, inventory.boxSize, inventory.boxSize);
     if (player.inventory[y][x] !== "empty") {
       drawItemInInventory(player.inventory[y][x].img, player.inventory[y][x].amount, xPos2, yPos2);
-      rect(mouseX+width*0.01, mouseY, width*0.10, height*0.05+(fontSize.default+fontSize.playersDisplay*12));
-
-      // description of item
-      push();
-      noStroke();
-      fill("black");
-      textAlign(LEFT, TOP);
-
-      // item name
-      textSize(fontSize.default*0.75);
-      text(player.inventory[y][x].name, mouseX+width*0.015, mouseY);
-
-      // description and stats
-      textSize(fontSize.playersDisplay);
-      let statText = "";
-      statText += player.inventory[y][x].description+"\n";
-      for (let theStat in player.inventory[y][x].stats)
-        statText += theStat+": "+player.inventory[y][x].stats[theStat]+"\n";
-      text(statText, mouseX+width*0.015, mouseY+fontSize.default*0.75);
-      pop();
+      itemDescription(player.inventory[y][x]);
     }
 
     // mouse clicking in inventory
@@ -163,6 +142,29 @@ function hoverOverTile() {
       player.inventory[y][x] = newPlayerInventory;
     }
   }
+}
+
+function itemDescription(item) {
+  rect(mouseX+width*0.01, mouseY, width*0.10, height*0.05+(fontSize.default+fontSize.playersDisplay*13));
+  // description of item
+  push();
+  noStroke();
+  fill("black");
+  textAlign(LEFT, TOP);
+
+  // item name
+  textSize(fontSize.default*0.75);
+  text(item.name, mouseX+width*0.015, mouseY);
+
+  // description and stats
+  textSize(fontSize.playersDisplay);
+  let statText = "";
+  statText += item.description+"\n";
+  statText += "cost: "+item.cost+"\n";
+  for (let theStat in item.stats)
+    statText += theStat+": "+item.stats[theStat]+"\n";
+  text(statText, mouseX+width*0.015, mouseY+fontSize.default*0.75);
+  pop();
 }
 
 function garbageCan(x, y) {
@@ -197,7 +199,7 @@ function displayStats(x, y) {
   textAlign(LEFT, TOP);
 
   let lvlPercent = (player.exp/player.nextLvl)*100;
-  text("Money - "+player.money+"\n\
+  text("Money - "+allItems.get("Money").amount+"\n\
 Lvl- "+player.lvl+"\n\
 exp- "+player.exp.toFixed(0)+"/"+player.nextLvl.toFixed(0)+" = "+lvlPercent.toFixed(2)+"%\n\
 hp- "+player.hp+"/"+player.totHp+"\n\

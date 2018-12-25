@@ -125,8 +125,8 @@ function rerstrainEnemySpawn(xSpawn, ySpawn) {
   // restraining enemys from player
   let coordinates = [xSpawn, ySpawn];
 
-  while (xSpawn >= -width && xSpawn <= width
-      && ySpawn >= -height && ySpawn <= height) {
+  while (xSpawn >= -worldEnviorment.get("Town").zone.wid/2 && xSpawn <= worldEnviorment.get("Town").zone.wid/2
+      && ySpawn >= -worldEnviorment.get("Town").zone.hei/2 && ySpawn <= worldEnviorment.get("Town").zone.hei/2) {
 
     xSpawn = random(world.state.zone.x-world.state.zone.wid/2+width/2, world.state.zone.x+world.state.zone.wid/2-width/2);
     ySpawn = random(world.state.zone.y-world.state.zone.hei/2+height/2, world.state.zone.y+world.state.zone.hei/2-height/2);

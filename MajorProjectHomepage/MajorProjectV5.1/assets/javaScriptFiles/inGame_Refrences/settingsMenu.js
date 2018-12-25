@@ -77,16 +77,16 @@ function worldMap() {
   image(world.state.img, 0, 0, width, height);
 
   // player
-  let playrDot = player.dotSize*1.5;
-  mapPlayer(0, 0, width + minimap.padWidth/2, height + minimap.padHeight/2, player.dotSize, true);
+  let dotSizes = player.dotSize*2;
+  mapPlayer(0, 0, width, height, dotSizes, true);
 
   // enemys
-  for (let i=enemyArr.length-1; i >= 0; i--)
-    enemyArr[i].mapping(
+  for (let theEnemy of enemyArr)
+    theEnemy.mapping(
       world.width, world.height,
       0, 0,
-      width + minimap.padWidth/2, height + minimap.padHeight/2,
-      playrDot*0.75
+      width, height,
+      dotSizes*0.75
     );
 
   // items
@@ -94,8 +94,8 @@ function worldMap() {
     theItem.mapping(
       world.width, world.height,
       0, 0,
-      width + minimap.padWidth/2, height + minimap.padHeight/2,
-      playrDot*0.70
+      width, height,
+      dotSizes*0.70
     );
 
   // traps
@@ -103,8 +103,17 @@ function worldMap() {
     trap.mapping(
       world.width, world.height,
       0, 0,
-      width + minimap.padWidth/2, height + minimap.padHeight/2,
-      playrDot*0.70
+      width, height,
+      dotSizes*0.70
+    );
+
+  // shops
+  for (let shopKeep of shopKeeps)
+    shopKeep.mapping(
+      world.width, world.height,
+      0, 0,
+      width, height,
+      dotSizes*0.70
     );
 
   buttonClick(buttons.back, 2, "Settings");

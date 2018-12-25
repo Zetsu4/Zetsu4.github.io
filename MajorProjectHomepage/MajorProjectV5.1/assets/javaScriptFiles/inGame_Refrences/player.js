@@ -15,6 +15,7 @@ function playerMovement() {
 
     // moving stuff with player
     if (player.y !== oldY) {
+      moveNPCsY(1);
       moveItemsY(1);
       enemysMoveY(1);
     }
@@ -33,6 +34,7 @@ function playerMovement() {
 
     // moving stuff with player
     if (player.y !== oldY) {
+      moveNPCsY(-1);
       moveItemsY(-1);
       enemysMoveY(-1);
     }
@@ -51,6 +53,7 @@ function playerMovement() {
 
     // moving stuff with player
     if (player.x !== oldX) {
+      moveNPCsX(1);
       moveItemsX(1);
       enemysMoveX(1);
     }
@@ -69,6 +72,7 @@ function playerMovement() {
 
     // moving stuff with player
     if (player.x !== oldX) {
+      moveNPCsX(-1);
       moveItemsX(-1);
       enemysMoveX(-1);
     }
@@ -105,9 +109,7 @@ function playerExp(amount) {
 
 function playerCoolDown() {
   // cool down from attacks
-  let elapsedTime = millis() - player.previousAttack;
-  if (player.coolDown && elapsedTime >= player.coolDownTime)
-    player.coolDown = false;
+  player.coolDown = !timerFoo(player.previousAttack, player.coolDownTime);
 }
 
 function playerTakeDamage(dmg) {

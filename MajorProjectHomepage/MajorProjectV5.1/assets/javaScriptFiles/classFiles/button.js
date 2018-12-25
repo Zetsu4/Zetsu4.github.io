@@ -18,14 +18,9 @@ class Button {
   }
 
   clicked() {
-    let left = this.x + width/2 - this.width/2;
-    let right = this.x + width/2 + this.width/2;
-    let top = this.y + height/2 - this.height/2;
-    let bottom = this.y + height/2 + this.height/2;
     let pressed = false;
 
-    if (mouseX > left && mouseX < right &&
-        mouseY > top && mouseY < bottom) {
+    if (this.hovering()) {
       // hovering
       fill(this.hoverCol);
       if (mouseIsPressed)
@@ -44,5 +39,15 @@ class Button {
     text(this.text, this.x, this.y);
     pop();
     return pressed;
+  }
+
+  hovering() {
+    let left = this.x + width/2 - this.width/2;
+    let right = this.x + width/2 + this.width/2;
+    let top = this.y + height/2 - this.height/2;
+    let bottom = this.y + height/2 + this.height/2;
+
+    return mouseX > left && mouseX < right &&
+           mouseY > top && mouseY < bottom;
   }
 }
