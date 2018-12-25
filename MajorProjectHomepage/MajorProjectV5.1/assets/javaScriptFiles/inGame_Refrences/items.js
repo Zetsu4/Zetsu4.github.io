@@ -31,6 +31,10 @@ function itemsInWorld() {
       else
         // in inventory
         allItems.get(itemToAdd[0].name).amount += itemToAdd[0].amount;
+
+      // add text to recent pick ups
+      recentPickUps += itemToAdd[0].name+" - "+itemToAdd[0].amount+"\n";
+      recentsLastTime = millis();
     }
   }
 }

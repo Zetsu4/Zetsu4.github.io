@@ -4,18 +4,17 @@
 //
 // PROBLEMS:
 // - saving and loading games
-// - going to new areas
-// - NPC's
-// - no shops
+// - NPC's only say one thing
+// - going into; caves, dungeons, etc.
 // - no story
+// - things are not balanced (stats, equippment, money, etc.)
 //
 // CREDITS:
 // background images by: Steven Valley
 // sprites by: Travis Ahern
 // other images by: Travis Ahern
 // made using javascript, in the Atom text editor.
-// -Asir added- I am the best, no one can defeat me, not even Mr. Schellenberg!! -Asir ended-
-
+// -Asir added, as Travis- I am the best, no one can defeat me, not even Mr. Schellenberg!! -Asir has ended, because of Travis-
 
 // general
 let startingState = 0;
@@ -70,6 +69,9 @@ let randomChoice = {
 // items
 let allItems;
 let items = {};
+let recentPickUps = "";
+let recentsTimer;
+let recentsLastTime;
 
 // player
 let player = {};
@@ -212,6 +214,36 @@ function preload() {
   itemImg.secret = {};
 
   // itemImg.secret. = loadImage("assets/easterEggs/image/.png");
+
+    // sprites
+  sprites.secret = {};
+  sprites.secret.race = {};
+  sprites.secret.skill = {};
+
+  sprites.secret.death = loadImage("assets/img/sprites/enemyDeath.png");
+  sprites.secret.random = loadImage("assets/img/sprites/random.png");
+
+  sprites.secret.race.dwarf = loadImage("assets/races/img/dwarf.png");
+  sprites.secret.race.elf = loadImage("assets/races/img/elf.png");
+  sprites.secret.race.goblin = loadImage("assets/races/img/goblin.png");
+  sprites.secret.race.halfElf = loadImage("assets/races/img/half-elf.png");
+  sprites.secret.race.halfling = loadImage("assets/races/img/halfling.png");
+  sprites.secret.race.human = loadImage("assets/races/img/human.png");
+  sprites.secret.race.orc = loadImage("assets/races/img/orc.png");
+  sprites.secret.race.urukHai = loadImage("assets/races/img/uruk-hai.png");
+
+  sprites.secret.skill.archer = loadImage("assets/skills/img/archer.png");
+  sprites.secret.skill.cleric = loadImage("assets/skills/img/cleric.png");
+  sprites.secret.skill.fighter = loadImage("assets/skills/img/fighter.png");
+  sprites.secret.skill.mage = loadImage("assets/skills/img/mage.png");
+  sprites.secret.skill.ranger = loadImage("assets/skills/img/ranger.png");
+  sprites.secret.skill.rogue = loadImage("assets/skills/img/rogue.png");
+  sprites.secret.skill.samurai = loadImage("assets/skills/img/samurai.png");
+  sprites.secret.skill.trapper = loadImage("assets/skills/img/trapper.png");
+
+  npcImg.secret = {};
+  npcImg.secret.genericNPC = loadImage("assets/img/sprites/NPC.png");
+  npcImg.secret.shopKeep = loadImage("assets/img/sprites/shopKeep.png");
 }
 
 function setup() {
@@ -226,6 +258,8 @@ function setup() {
   drawingBack = true;
   refreshTimer = 30*1000;
   lastRefresh = millis();
+  recentsTimer = 5000;
+  recentsLastTime = millis();
 
   // text
   fontSize.default = (width+height)*0.015;
@@ -285,7 +319,8 @@ function setup() {
   setEasterEgg();
 
   // heal button
-  buttons.heal = new Button(-(inventory.width+1)*inventory.boxSize+width*0.2, -height*0.45, inventory.boxSize, inventory.boxSize, buttons.brown, buttons.lightBrown, "Heal", fontSize.default);
+  let shorterLine /*great variable name*/ = (inventory.width+1)*inventory.boxSize-width/2+inventory.boxSize;
+  buttons.heal = new Button(shorterLine, -height*0.45, inventory.boxSize, inventory.boxSize, buttons.brown, buttons.lightBrown, "Heal", fontSize.default);
 
   // level up buttons
   buttons.lvlUp = [];
@@ -556,4 +591,5 @@ function setEasterEgg() {
   easterEgg.backgrounds = false;
   easterEgg.sounds = false;
   easterEgg.images = false;
+  easterEgg.spritesOG = false;
 }

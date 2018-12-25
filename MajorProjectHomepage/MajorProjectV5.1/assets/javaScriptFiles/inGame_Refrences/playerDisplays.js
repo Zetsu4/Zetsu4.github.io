@@ -7,12 +7,13 @@ function playerDisplays() {
 
   // player
   push();
-  textFont(fonts.default, fontSize.playersDisplay);
+  textFont("BOLD", fontSize.playersDisplay);
   playerSprite();
   playerLvL();
   playerAttackIcon();
   inventoryQuickCheck();
   infoBars();
+  recentPickUp();
   pop();
 }
 
@@ -74,6 +75,7 @@ function playerSprite() {
   // name and character
   push();
   fill("white");
+  textFont(fonts.default);
   textAlign(LEFT, TOP);
   text(player.name+"\n"+player.race.name+", "+player.skill.name, -width*0.49, -height*0.485);
   pop();
@@ -94,8 +96,8 @@ function playerLvL() {
     push();
     textSize(fontSize.default*2);
     fill("yellow");
-    text("!", -width*0.105, height*0.45);
-    text("!", width*0.105, height*0.45);
+    text("!", -width*0.105, height*0.475);
+    text("!", width*0.105, height*0.475);
     pop();
   }
 }
@@ -133,6 +135,9 @@ function inventoryQuickCheck() {
   fill("red");
   let infoStuff = "";
 
+  if (allItems.get("Money").amount > 0)
+    infoStuff = infoStuff + "Money - "+allItems.get("Money").amount+"\n";
+
   if (allItems.get("Hp Potion").amount > 0)
     infoStuff = infoStuff + "Hp Potions - "+allItems.get("Hp Potion").amount+"\n";
 
@@ -145,14 +150,13 @@ function inventoryQuickCheck() {
   if (allItems.get("Traps").amount > 0)
     infoStuff = infoStuff + "Traps - "+allItems.get("Traps").amount+"\n";
 
-
   text(infoStuff, width*0.48, height*0.50);
   pop();
 }
 
 function infoBars() {
   push();
-    textFont("BOLD", fontSize.default*0.75);
+    textSize(fontSize.default*0.75);
     let left = -width*0.49;
     let top = -height*0.425;
     let w = width*0.20;
@@ -194,4 +198,19 @@ function backBar(x, y, w, h) {
   fill("gray");
   rect(x-1, y-1, w, h);
   pop();
+}
+
+function recentPickUp() {
+  if (!timerFoo(recentsLastTime, recentsTimer)) {
+    // recently picked up
+    push();
+    fill("red");
+    textAlign(RIGHT, BOTTOM);
+    textSize(fontSize.default);
+    text(recentPickUps, width*0.48, 0);
+    pop();
+  }
+  
+  else
+    recentPickUps = "";
 }

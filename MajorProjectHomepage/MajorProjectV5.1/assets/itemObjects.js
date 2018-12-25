@@ -38,7 +38,7 @@ function equipmentWeapons() {
   img: itemImg.equipment.realWand, stats: stick, cost: 0, equipable: true, equipSlot: "weapon"});
 
   allItems.set("Small Rock", {name:"Small Rock",  amount: 0, description: "A rock you\nfound",
-  img: itemImg.equipment.smallRock, stats: smallRock, cost: 0, equipable: true, equipSlot: "weapon"});
+  img: itemImg.equipment.smallRock, stats: smallRock, cost: 1, equipable: true, equipSlot: "weapon"});
 }
 
 function equipmentHead() {

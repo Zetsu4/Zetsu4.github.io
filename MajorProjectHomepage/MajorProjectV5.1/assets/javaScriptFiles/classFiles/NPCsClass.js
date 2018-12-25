@@ -25,7 +25,7 @@ class NonPlayableCharacters {
       this.headToX = this.x;
       this.headToY = this.y;
       this.speed = (this.width+this.height)/int(random(50, 100));
-      this.timer = 1000 - int(random(100, 3000));
+      this.timer = 7000 - int(random(100, 3000));
       this.headingTo = random(true, false);
       this.findingPoint = true;
       this.resting = millis();

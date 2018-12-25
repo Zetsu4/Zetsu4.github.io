@@ -45,9 +45,15 @@
 
 ## Nov 9, 2018 - Dec 6, 2018
 - rewrote code to make it more organized and more efficient
-- added a new fonts for text
+- added a new font for text
 - fixed problems with inventory
 - improved the AI for enemy's
 - added equipment slots
 - fixed rebinding keys
 - fixed boundaries
+- added equippment
+- created new enviorments
+- made NPC's
+- made a shop
+- shop refreshes
+- added a heal button in the shop
