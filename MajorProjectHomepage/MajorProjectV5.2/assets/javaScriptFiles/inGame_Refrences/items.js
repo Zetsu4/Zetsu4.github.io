@@ -4,6 +4,7 @@ function itemsInWorld() {
     items.playerAttack[i].display();
     if (items.playerAttack[i].move()) {
       if (items.playerAttack[i].trap) {
+        sounds.pickUp.play();
         // pick up placed trap
         if (allItems.get("Traps").amount <= 0)
           // not in inventory
@@ -36,6 +37,7 @@ function itemsInWorld() {
         // add text to recent pick ups
         recentPickUps += itemToAdd[0].name+" - "+itemToAdd[0].amount+"\n";
         recentsLastTime = millis();
+        sounds.pickUp.play();
       }
     }
   }

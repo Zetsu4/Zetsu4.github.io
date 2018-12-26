@@ -3,13 +3,9 @@ function easterEggs() {
     secretBackgroundsFoo();
     easterEgg.backgrounds = false;
   }
-  else if (easterEgg.sounds) {
+  else if (easterEgg.soundsBlip) {
     secretSoundsFoo();
-    easterEgg.sounds = false;
-  }
-  else if (easterEgg.images) {
-    secretImagesFoo();
-    easterEgg.images = false;
+    easterEgg.soundsBlip = false;
   }
   else if (easterEgg.spritesOG) {
     secretSpritesOGFoo();
@@ -22,14 +18,30 @@ function secretBackgroundsFoo() {
 }
 
 function secretSoundsFoo() {
-  // sounds.attack = sounds.secret.blipAttack;
-  // sounds.pickUp = sounds.secret.blipPickUp;
-  // sounds.enemyDeath = sounds.secret.blipEnemyDeath;
-  // sounds.lose = sounds.secret.blipLose;
-}
+  // // background
+  sounds.overWorld = sounds.secret.blipBackground;
 
-function secretImagesFoo() {
+  // attack
+  sounds.swordAttack = sounds.secret.blipAttack;
+  sounds.arrowAttack = sounds.secret.blipAttack;
+  sounds.fireballAttack = sounds.secret.blipAttack;
+  sounds.swordHit = sounds.secret.blipAttack;
+  sounds.arrowHit = sounds.secret.blipAttack;
+  sounds.fireballHit = sounds.secret.blipAttack;
+  sounds.trapHit = sounds.secret.blipAttack;
 
+  // other
+  sounds.pickUp = sounds.secret.blipPickUp;
+  sounds.enemyDeath = sounds.secret.blipEnemyDeath;
+  sounds.gameOver = sounds.secret.blipGameOver;
+
+  // stop any current sounds
+  sounds.startMenu.stop();
+  sounds.overWorld.stop();
+  sounds.itemShop.stop();
+  sounds.caves.stop();
+  sounds.demonGate.stop();
+  setup();
 }
 
 function secretSpritesOGFoo() {

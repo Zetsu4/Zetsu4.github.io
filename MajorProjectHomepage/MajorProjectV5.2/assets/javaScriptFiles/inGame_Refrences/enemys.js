@@ -18,6 +18,7 @@ function enemys() {
         if (dist(items.playerAttack[j].realX, items.playerAttack[j].realY, enemyArr[i].x, enemyArr[i].y) <= (enemyArr[i].width+enemyArr[i].height)/2) {
           let dmg = items.playerAttack[j].damage;
           enemyArr[i].takeDamage(dmg, items.playerAttack[j].trap);
+          items.playerAttack[j].sound.play();
           items.playerAttack.splice(j, 1);
         }
       }
@@ -34,6 +35,7 @@ function enemys() {
         playerExp(expGained);
         lootDrop(enemyArr[i].x, enemyArr[i].y);
         killedEnemys++;
+        sounds.enemyDeath.play();
         enemyArr.splice(i, 1);
       }
     }
@@ -81,6 +83,7 @@ function enemyAttackFoo(enemyIndex) {
     // collision with player
     else if (dist(enemyArr[enemyIndex].allAttacks[i].realX, enemyArr[enemyIndex].allAttacks[i].realY, 0, 0) < collisionDist) {
       playerTakeDamage(enemyArr[enemyIndex].allAttacks[i].damage);
+      enemyArr[enemyIndex].allAttacks[i].sound.play();
       enemyArr[enemyIndex].allAttacks.splice(i, 1);
     }
 
@@ -89,7 +92,9 @@ function enemyAttackFoo(enemyIndex) {
       for (let j=items.playerAttack.length-1; j >= 0; j--) {
         if (!items.playerAttack[j].trap) {
           if (dist(enemyArr[enemyIndex].allAttacks[i].realX, enemyArr[enemyIndex].allAttacks[i].realY, items.playerAttack[j].realX, items.playerAttack[j].realY) < collisionDist) {
+            enemyArr[enemyIndex].allAttacks[i].sound.play();
             enemyArr[enemyIndex].allAttacks.splice(i, 1);
+            items.playerAttack[j].sound.play();
             items.playerAttack.splice(j, 1);
             break;
           }

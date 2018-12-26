@@ -51,11 +51,36 @@ function playingGame() {
 }
 
 function checkState() {
-  if (world.area === "Over World")
+  if (world.area === "Over World") {
     worldEnviorment.overWorld.forEach(onScreen);
 
-  else if (world.area === "Cave")
+    // over world music
+    if (!sounds.overWorld.isPlaying()) {
+      sounds.caves.stop();
+      sounds.overWorld.play();
+    }
+
+    if (sounds.itemShop.isPlaying())
+      sounds.itemShop.stop();
+  }
+
+  else if (world.area === "Cave") {
     worldEnviorment.cave.forEach(onScreen);
+
+    // cave music
+    if (!sounds.caves.isPlaying()) {
+      sounds.overWorld.stop();
+      sounds.caves.play();
+    }
+
+    // demon gate
+    if (world.state.name === "Demon Gate") {
+      if (!sounds.demonGate.isPlaying())
+        sounds.demonGate.play();
+    }
+    else
+      sounds.demonGate.stop();
+  }
 }
 
 function onScreen(value, key, map) {

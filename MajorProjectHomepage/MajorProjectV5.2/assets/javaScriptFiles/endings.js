@@ -12,6 +12,11 @@ function cheaterEnding() {
 }
 
 function gameOver() {
+  sounds.startMenu.stop();
+  sounds.overWorld.stop();
+  sounds.itemShop.stop();
+  sounds.caves.stop();
+  sounds.demonGate.stop();
   // dead or other ways that the player failed
   startingState = -1;
   state = "gameOver";

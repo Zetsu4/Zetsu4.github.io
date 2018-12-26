@@ -1,5 +1,5 @@
 class Trap {
-  constructor(x, y, changeX, changeY, damage, img, wid = spriteSize.width, hei = spriteSize.height, ) {
+  constructor(x, y, changeX, changeY, damage, img, sound, wid = spriteSize.width, hei = spriteSize.height, ) {
     // position
     this.x = x;
     this.y = y;
@@ -18,6 +18,8 @@ class Trap {
     this.img = img;
     this.width = wid;
     this.height = hei;
+
+    this.sound = sound;
   }
 
   move(interact = keyBindings.get("Interact").code) {

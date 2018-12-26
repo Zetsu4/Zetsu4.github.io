@@ -4,6 +4,9 @@ function draw() {
   if (drawingBack)
     image(worldBackgrounds.homePage, 0, 0, width, height);
 
+  if (sounds.startMenu.isPlaying() && startingState === 2)
+    sounds.startMenu.stop();
+
   // start menu
   if (startingState === 0)
     startMenu();

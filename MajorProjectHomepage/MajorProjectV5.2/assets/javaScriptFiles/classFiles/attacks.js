@@ -1,5 +1,5 @@
 class Attack {
-  constructor(x, y, changeX, changeY, dx, dist, damage, img, wid = spriteSize.width, hei = spriteSize.height) {
+  constructor(x, y, changeX, changeY, dx, dist, damage, img, sound, wid = spriteSize.width, hei = spriteSize.height) {
     // position
     this.x = x;
     this.y = y;
@@ -24,6 +24,8 @@ class Attack {
     this.img = img;
     this.width = wid;
     this.height = hei;
+
+    this.sound = sound;
   }
 
   move() {

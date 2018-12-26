@@ -1,5 +1,8 @@
 function shopMenu() {
   background("grey");
+  sounds.overWorld.pause();
+  if (!sounds.itemShop.isPlaying())
+    sounds.itemShop.play();
 
   // shop inventory
   drawShopGrid();

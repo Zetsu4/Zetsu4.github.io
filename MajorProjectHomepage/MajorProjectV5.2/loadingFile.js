@@ -10,6 +10,7 @@
 // - things are not balanced (stats, equippment, money, etc.)
 //
 // CREDITS:
+// sounds from: freesounds.org
 // background images by: Steven Valley
 // sprites by: Travis Ahern
 // other images by: Travis Ahern
@@ -101,11 +102,29 @@ let waiting;
 const WAIT_TIME = 150;
 
 function preload() {
+  soundFormats("mp3", "wav");
+
   // sounds
-  // sounds.attack = loadSound("assets/sound/attack.mp3");
-  // sounds.pickUp = loadSound("assets/sound/pickUp.mp3");
-  // sounds.enemyDeath = loadSound("assets/sound/enemyDeath.mp3");
-  // sounds.lose = loadSound("assets/sound/lose.mp3");
+    // background
+  sounds.startMenu = loadSound("assets/sound/background/startMenu.wav");
+  sounds.overWorld = loadSound("assets/sound/background/overWorld.mp3");
+  sounds.itemShop = loadSound("assets/sound/background/itemShop.mp3");
+  sounds.caves = loadSound("assets/sound/background/caves.mp3");
+  sounds.demonGate = loadSound("assets/sound/background/demonGate.wav");
+
+    // attack
+  sounds.swordAttack = loadSound("assets/sound/attack/slash.wav");
+  sounds.arrowAttack = loadSound("assets/sound/attack/arrowShot.mp3");
+  sounds.fireballAttack = loadSound("assets/sound/attack/fireballCast.mp3");
+  sounds.swordHit = loadSound("assets/sound/attack/slashHit.mp3");
+  sounds.arrowHit = loadSound("assets/sound/attack/arrowHit.mp3");
+  sounds.fireballHit = loadSound("assets/sound/attack/fireballHit.mp3");
+  sounds.trapHit = loadSound("assets/sound/attack/trapHit.wav");
+
+    // other
+  sounds.pickUp = loadSound("assets/sound/pickUp.mp3");
+  sounds.enemyDeath = loadSound("assets/sound/enemyDeath.wav");
+  sounds.gameOver = loadSound("assets/sound/background/gameOver.mp3");
 
   // fonts
   fonts.default = loadFont("assets/fonts/default.TTF");
@@ -206,20 +225,16 @@ function preload() {
     // sounds
   sounds.secret = {};
 
-  // sounds.secret.blipAttack = loadSound("assets/easterEggs/sound/blipAttack.mp3");
-  // sounds.secret.blipPickUp = loadSound("assets/easterEggs/sound/blipPickUp.mp3");
-  // sounds.secret.blipEnemyDeath = loadSound("assets/easterEggs/sound/blipDeath.mp3");
-  // sounds.secret.blipLose = loadSound("assets/easterEggs/sound/blipDeath.mp3");
+  sounds.secret.blipBackground = loadSound("assets/easterEggs/sound/blipBackground.wav");
+  sounds.secret.blipAttack = loadSound("assets/easterEggs/sound/blipAttack.wav");
+  sounds.secret.blipPickUp = loadSound("assets/easterEggs/sound/blipPickUp.wav");
+  sounds.secret.blipEnemyDeath = loadSound("assets/easterEggs/sound/blipEnemyDeath.wav");
+  sounds.secret.blipGameOver = loadSound("assets/easterEggs/sound/blipGameOver.wav");
 
     // backgrounds
   worldBackgrounds.secret = {};
 
   // worldBackgrounds.secret. = loadImage("assets/easterEggs/background/.png");
-
-    // images
-  itemImg.secret = {};
-
-  // itemImg.secret. = loadImage("assets/easterEggs/image/.png");
 
     // sprites
   sprites.secret = {};
@@ -250,12 +265,57 @@ function preload() {
   npcImg.secret = {};
   npcImg.secret.genericNPC = loadImage("assets/img/sprites/NPC.png");
   npcImg.secret.shopKeep = loadImage("assets/img/sprites/shopKeep.png");
+
+  setSounds();
+}
+
+function setSounds() {
+  // background
+  sounds.startMenu.setVolume(1);
+  sounds.overWorld.setVolume(1);
+  sounds.itemShop.setVolume(1);
+  sounds.caves.setVolume(1);
+  sounds.demonGate.setVolume(1);
+
+  // attack
+  sounds.swordAttack.setVolume(3);
+  sounds.arrowAttack.setVolume(1.5);
+  sounds.fireballAttack.setVolume(1);
+  sounds.swordHit.setVolume(0.5);
+  sounds.arrowHit.setVolume(0.95);
+  sounds.fireballHit.setVolume(1);
+  sounds.trapHit.setVolume(0.6);
+
+  // other
+  sounds.pickUp.setVolume(1.2);
+  sounds.enemyDeath.setVolume(2);
+  sounds.gameOver.setVolume(2);
+
+  // easter egg
+  sounds.secret.blipBackground.setVolume(1);
+  sounds.secret.blipAttack.setVolume(1);
+  sounds.secret.blipPickUp.setVolume(1);
+  sounds.secret.blipEnemyDeath.setVolume(1);
+  sounds.secret.blipGameOver.setVolume(1);
 }
 
 function setup() {
   // canvas
   createCanvas(windowWidth, windowHeight);
   noStroke();
+
+  sounds.startMenu.play();
+
+  sounds.startMenu.loop();
+  sounds.overWorld.loop();
+  sounds.itemShop.loop();
+  sounds.caves.loop();
+  sounds.demonGate.loop();
+
+  sounds.overWorld.stop();
+  sounds.itemShop.stop();
+  sounds.caves.stop();
+  sounds.demonGate.stop();
 
   // resetting
   startingState = 0;
@@ -279,21 +339,27 @@ function setup() {
     enemyDist: width*0.10,
     attackDist: width*0.10,
     attackSpeed: width*0.0075,
-    img: itemImg.swordAttack
+    img: itemImg.swordAttack,
+    soundAttack: sounds.swordAttack,
+    soundHit: sounds.swordHit
   };
 
   ranged = {
     enemyDist: width*0.30,
     attackDist: width*0.75,
     attackSpeed: width*0.01,
-    img: itemImg.arrowAttack
+    img: itemImg.arrowAttack,
+    soundAttack: sounds.arrowAttack,
+    soundHit: sounds.arrowHit
   };
 
   spellCaster = {
     enemyDist: width*0.20,
     attackDist: width*0.50,
     attackSpeed: width*0.008,
-    img: itemImg.fireBallAttack
+    img: itemImg.fireBallAttack,
+    soundAttack: sounds.fireballAttack,
+    soundHit: sounds.fireballHit
   };
 
   // alligning
@@ -542,7 +608,7 @@ function setNPCs() {
   for (let i=0; i < numOfNPCs; i++) {
     let xSpawn = random(world.state.zone.x-world.state.zone.wid/2, world.state.zone.x+world.state.zone.wid/2);
     let ySpawn = random(world.state.zone.y-world.state.zone.hei/2, world.state.zone.y+world.state.zone.hei/2);
-    allNPCs.push(new NonPlayableCharacters(xSpawn, ySpawn, npcImg.genericNPC, "Hello, world!"));
+    allNPCs.push(new NonPlayableCharacters(xSpawn, ySpawn, npcImg.genericNPC, randomTalk));
   }
 
   shopKeeps.push(new NonPlayableCharacters(spriteSize.width, 0, npcImg.shopKeep, "Welcome to\nthe shop.", true));
@@ -627,7 +693,6 @@ function make2DGrid(cols, rows) {
 
 function setEasterEgg() {
   easterEgg.backgrounds = false;
-  easterEgg.sounds = false;
-  easterEgg.images = false;
+  easterEgg.soundsBlip = false;
   easterEgg.spritesOG = false;
 }

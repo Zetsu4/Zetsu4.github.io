@@ -32,7 +32,7 @@ function keyPressed() {
 
       // place trap
       if (keyCode === keyBindings.get("Place Trap").code && allItems.get("Traps").amount > 0) {
-        items.playerAttack.push(new Trap(0, 0, 0, 0, player.tDmg, itemImg.trap));
+        items.playerAttack.push(new Trap(0, 0, 0, 0, player.tDmg, itemImg.trap, sounds.trapHit));
         allItems.get("Traps").amount--;
         if (allItems.get("Traps").amount <= 0)
           checkEmpty("Traps");

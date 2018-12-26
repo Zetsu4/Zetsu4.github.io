@@ -1,3 +1,15 @@
+let randomTalk = [
+  "Hello, world!",
+  "If you travel\nfar from town,\nyou might find\na new area.",
+  "What? you\nwant a gun?\n...\nno.",
+  "You can buy\nstuff from the\nshop in the\ncenter of town.",
+  "Beware, the caves.",
+  "Monsters ambush\nanyone who\nenter the caves.",
+  "I heard there\nare demons in\nthe caves.",
+  "Enemys go into\nhiding when\nyou're in town.",
+  "Enemys are\nscared of the\ncaves."
+];
+
 class NonPlayableCharacters {
   constructor(x, y, img, says, shoppable = false, textFont = fonts.default, textSize = fontSize.playersDisplay, wid = spriteSize.width, hei = spriteSize.height) {
     // position
@@ -13,7 +25,8 @@ class NonPlayableCharacters {
     this.height = hei;
 
     // interaction
-    this.says = says;
+    this.phrases = says;
+    this.says = random(this.phrases);
     this.textSize = textSize;
     this.textFont = textFont;
     this.shoppable = shoppable;
@@ -48,6 +61,19 @@ class NonPlayableCharacters {
 
   interact(interactKey) {
     if (keyCode === interactKey) {
+      // shop
+      if (this.shoppable)
+        return true;
+
+      this.interacting = true;
+    }
+
+    else {
+      this.interacting = false;
+      this.says = random(this.phrases);
+    }
+
+    if (this.interacting) {
       this.resting = millis();
       push();
       rectMode(CORNER);
@@ -57,7 +83,7 @@ class NonPlayableCharacters {
       // textbox
       stroke("cyan");
       fill("white");
-      rect(this.x, this.y, this.width*2, this.height/2);
+      rect(this.x, this.y, this.width*2.1, this.textSize*5);
 
       // text
       noStroke();
@@ -65,8 +91,6 @@ class NonPlayableCharacters {
       text(this.says, this.x, this.y);
 
       pop();
-      // shop
-      return this.shoppable;
     }
 
     return false;
