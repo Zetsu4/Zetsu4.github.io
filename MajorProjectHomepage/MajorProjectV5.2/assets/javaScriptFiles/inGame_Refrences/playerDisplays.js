@@ -136,7 +136,10 @@ function inventoryQuickCheck() {
   let infoStuff = "";
 
   if (allItems.get("Money").amount > 0)
-    infoStuff = infoStuff + "Money - "+allItems.get("Money").amount+"\n";
+  infoStuff = infoStuff + "Money - "+allItems.get("Money").amount+"\n";
+
+  if (allItems.get("Town Portal").amount > 0)
+  infoStuff = infoStuff + "Town Portals - "+allItems.get("Town Portal").amount+"\n";
 
   if (allItems.get("Hp Potion").amount > 0)
     infoStuff = infoStuff + "Hp Potions - "+allItems.get("Hp Potion").amount+"\n";

@@ -4,8 +4,6 @@
 //
 // PROBLEMS:
 // - saving and loading games
-// - NPC's only say one thing
-// - going into; caves, dungeons, etc.
 // - no story
 // - things are not balanced (stats, equippment, money, etc.)
 //
@@ -156,6 +154,7 @@ function preload() {
   itemImg.hpPotion = loadImage("assets/img/items/hpPotion.png");
   itemImg.mpPotion = loadImage("assets/img/items/mpPotion.png");
   itemImg.trap = loadImage("assets/img/items/traps.png");
+  itemImg.townPortal = loadImage("assets/img/items/townPortal.png");
   itemImg.money = loadImage("assets/img/items/money.png");
 
   // mouse pointers
@@ -389,6 +388,7 @@ function setup() {
   setItems();
   setPlayer();
   setNPCs();
+  setShops();
 
   setEasterEgg();
 
@@ -489,6 +489,7 @@ function settingKeyBindings() {
   keyBindings.set("Toggle Walk", {code: 16, button: 0}); // Shift
   keyBindings.set("Consume HP Poition", {code: 70, button: 0}); // F
   keyBindings.set("Consume MP Poition", {code: 71, button: 0}); // G
+  keyBindings.set("Use Town Portal", {code: 84, button: 0}); // T
   keyBindings.set("Interact", {code: 32, button: 0}); // Space
 
   keyBindings.forEach(setKeyButtons);
@@ -507,18 +508,18 @@ function settingWorld() {
 
     // over world
   worldEnviorment.overWorld = new Map();
-  worldEnviorment.overWorld.set("Meadows", {img: worldBackgrounds.grass, name: "Meadows", color: color(249, 166, 6), numOfEnemys: 30, enemy: {lvlBonus: 0, race: allRaces, skill: allSkills}, zone: {x: 0, y: 0, wid: world.width, hei: world.height}});
-  worldEnviorment.overWorld.set("Town", {img: worldBackgrounds.grass, name: "Town", color: color(0, 255, 0), numOfEnemys: 0, enemy: {lvlBonus: 0, race: allRaces, skill: allSkills}, zone: {x: 0, y: 0, wid: world.width*0.15, hei: world.height*0.15}});
-  worldEnviorment.overWorld.set("Desert", {img: worldBackgrounds.grass, name: "Desert", color: color(0, 0, 255), numOfEnemys: 40, enemy: {lvlBonus: 0, race: allRaces, skill: allSkills}, zone: {x: -world.width*0.35, y: world.height*0.35, wid: world.width*0.30, hei: world.height*0.30}});
-  worldEnviorment.overWorld.set("Forest", {img: worldBackgrounds.grass, name: "Forest", color: color(135, 96, 66), numOfEnemys: 40, enemy: {lvlBonus: 2, race: allRaces, skill: allSkills}, zone: {x: world.width*0.35, y: -world.height*0.35, wid: world.width*0.30, hei: world.height*0.30}});
-  worldEnviorment.overWorld.set("Mountains", {img: worldBackgrounds.grass, name: "Mountains", color: color(162, 206, 228), numOfEnemys: 45, enemy: {lvlBonus: 4, race: allRaces, skill: allSkills}, zone: {x: -world.width*0.35, y: -world.height*0.35, wid: world.width*0.30, hei: world.height*0.30}});
-  worldEnviorment.overWorld.set("Cave Opening", {img: worldBackgrounds.caveOpening, name: "Cave Opening", color: color(255), numOfEnemys: 0, enemy: {lvlBonus: 0, race: allRaces, skill: allSkills}, zone: {x: world.width*0.35, y: world.height*0.35, wid: world.width*0.05, hei: world.height*0.05}});
+  worldEnviorment.overWorld.set("Meadows", {img: worldBackgrounds.grass, name: "Meadows", color: color(249, 166, 6), numOfEnemys: 30, enemy: {lvlMin: 1, lvlMax: 4, race: allRaces, skill: allSkills}, zone: {x: 0, y: 0, wid: world.width, hei: world.height}});
+  worldEnviorment.overWorld.set("Town", {img: worldBackgrounds.grass, name: "Town", color: color(0, 255, 0), numOfEnemys: 0, enemy: {lvlMin: 0, lvlMax: 0, race: allRaces, skill: allSkills}, zone: {x: 0, y: 0, wid: world.width*0.15, hei: world.height*0.15}});
+  worldEnviorment.overWorld.set("Desert", {img: worldBackgrounds.grass, name: "Desert", color: color(0, 0, 255), numOfEnemys: 40, enemy: {lvlMin: 2, lvlMax: 5, race: allRaces, skill: allSkills}, zone: {x: -world.width*0.35, y: world.height*0.35, wid: world.width*0.30, hei: world.height*0.30}});
+  worldEnviorment.overWorld.set("Forest", {img: worldBackgrounds.grass, name: "Forest", color: color(135, 96, 66), numOfEnemys: 40, enemy: {lvlMin: 4, lvlMax: 8, race: allRaces, skill: allSkills}, zone: {x: world.width*0.35, y: -world.height*0.35, wid: world.width*0.30, hei: world.height*0.30}});
+  worldEnviorment.overWorld.set("Mountains", {img: worldBackgrounds.grass, name: "Mountains", color: color(162, 206, 228), numOfEnemys: 45, enemy: {lvlMin: 5, lvlMax: 10, race: allRaces, skill: allSkills}, zone: {x: -world.width*0.35, y: -world.height*0.35, wid: world.width*0.30, hei: world.height*0.30}});
+  worldEnviorment.overWorld.set("Cave Opening", {img: worldBackgrounds.caveOpening, name: "Cave Opening", color: color(255), numOfEnemys: 0, enemy: {lvlMin: 0, lvlMax: 0, race: allRaces, skill: allSkills}, zone: {x: world.width*0.35, y: world.height*0.35, wid: world.width*0.05, hei: world.height*0.05}});
 
     // caves
   worldEnviorment.cave = new Map();
-  worldEnviorment.cave.set("Cave", {img: worldBackgrounds.grass, name: "Cave", color: color(139, 15, 205), numOfEnemys: 40, enemy: {lvlBonus: 3, race: raceSpecific.cave, skill: skillSpecific.cave}, zone: {x: 0, y: 0, wid: world.width, hei: world.height}});
-  worldEnviorment.cave.set("Demon Gate", {img: worldBackgrounds.grass, name: "Demon Gate", color: color(25, 255, 199), numOfEnemys: 50, enemy: {lvlBonus: 5, race: raceSpecific.demons, skill: skillSpecific.demons}, zone: {x: 0, y: 0, wid: world.width*0.20, hei: world.height*0.20}});
-  worldEnviorment.cave.set("Cave Exit", {img: worldBackgrounds.caveOpening, name: "Cave Exit", color: color(255), numOfEnemys: 3, enemy: {lvlBonus: 3, race: raceSpecific.cave, skill: skillSpecific.cave}, zone: {x: world.width*0.35, y: world.height*0.35, wid: world.width*0.05, hei: world.height*0.05}});
+  worldEnviorment.cave.set("Cave", {img: worldBackgrounds.grass, name: "Cave", color: color(139, 15, 205), numOfEnemys: 40, enemy: {lvlMin: 10, lvlMax: 15, race: raceSpecific.cave, skill: skillSpecific.cave}, zone: {x: 0, y: 0, wid: world.width, hei: world.height}});
+  worldEnviorment.cave.set("Demon Gate", {img: worldBackgrounds.grass, name: "Demon Gate", color: color(25, 255, 199), numOfEnemys: 50, enemy: {lvlMin: 13, lvlMax: 25, race: raceSpecific.demons, skill: skillSpecific.demons}, zone: {x: 0, y: 0, wid: world.width*0.20, hei: world.height*0.20}});
+  worldEnviorment.cave.set("Cave Exit", {img: worldBackgrounds.caveOpening, name: "Cave Exit", color: color(255), numOfEnemys: 3, enemy: {lvlMin: 9, lvlMax: 13, race: raceSpecific.cave, skill: skillSpecific.cave}, zone: {x: world.width*0.35, y: world.height*0.35, wid: world.width*0.05, hei: world.height*0.05}});
 
   world.state = worldEnviorment.overWorld.get("Town");
   world.area = "Over World";
@@ -605,14 +606,15 @@ function setPlayer() {
 }
 
 function setNPCs() {
+  allNPCs = [];
   for (let i=0; i < numOfNPCs; i++) {
     let xSpawn = random(world.state.zone.x-world.state.zone.wid/2, world.state.zone.x+world.state.zone.wid/2);
     let ySpawn = random(world.state.zone.y-world.state.zone.hei/2, world.state.zone.y+world.state.zone.hei/2);
     allNPCs.push(new NonPlayableCharacters(xSpawn, ySpawn, npcImg.genericNPC, randomTalk));
   }
 
+  shopKeeps = [];
   shopKeeps.push(new NonPlayableCharacters(spriteSize.width, 0, npcImg.shopKeep, "Welcome to\nthe shop.", true));
-  setShops();
 }
 
 function setShops() {
@@ -623,6 +625,7 @@ function setShops() {
   shopInventory[0][1] = {name: "Mp Potion", img: itemImg.mpPotion};
   shopInventory[0][2] = {name: "Arrows", img: itemImg.arrowAttack};
   shopInventory[0][3] = {name: "Traps", img: itemImg.trap};
+  shopInventory[0][4] = {name: "Town Portal", img: itemImg.townPortal};
 }
 
 function setInventory() {

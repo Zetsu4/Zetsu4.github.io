@@ -73,7 +73,7 @@ function checkState() {
       sounds.caves.play();
     }
 
-    // demon gate
+    // demon gate music
     if (world.state.name === "Demon Gate") {
       if (!sounds.demonGate.isPlaying())
         sounds.demonGate.play();

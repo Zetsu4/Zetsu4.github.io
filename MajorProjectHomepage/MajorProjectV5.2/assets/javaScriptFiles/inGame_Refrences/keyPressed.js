@@ -44,6 +44,10 @@ function keyPressed() {
 
       if (keyCode === keyBindings.get("Consume MP Poition").code && allItems.get("Mp Potion").amount > 0)  // mana
         consumePotion("Mp Potion", player.mp, player.totMp);
+
+      // use town portal
+      if (keyCode === keyBindings.get("Use Town Portal").code && allItems.get("Town Portal").amount > 0)
+        teleportArea("Over World");
     }
 
     // changing areas

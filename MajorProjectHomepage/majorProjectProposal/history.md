@@ -59,3 +59,4 @@
 - added a heal button in the shop
 - added recent pick up list
 - created new areas such as caves, dungeons, etc.
+- added sounds/music

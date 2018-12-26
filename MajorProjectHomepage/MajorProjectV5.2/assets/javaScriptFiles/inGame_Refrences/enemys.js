@@ -108,16 +108,15 @@ function enemyAttackFoo(enemyIndex) {
 function spawnEnemys() {
   // enemy spawns
     // race/skill
-  let raceArr = world.state.enemy.race;
-  let skillArr = world.state.enemy.skill;
+  let enemyObject = world.state.enemy;
 
-  let race = int(random(1, raceArr.length));
-  let skill = int(random(1, skillArr.length));
+  let race = int(random(1, enemyObject.race.length));
+  let skill = int(random(1, enemyObject.skill.length));
 
-  if (raceArr[0].name !== "Random")
-    race = int(random(0, raceArr.length));
-  if (skillArr[0].name !== "Random")
-    skill = int(random(0, skillArr.length));
+  if (enemyObject.race[0].name !== "Random")
+    race = int(random(0, enemyObject.race.length));
+  if (enemyObject.skill[0].name !== "Random")
+    skill = int(random(0, enemyObject.skill.length));
 
     // position
   let xSpawn = random(world.state.zone.x-world.state.zone.wid/2+width/2, world.state.zone.x+world.state.zone.wid/2-width/2);
@@ -129,12 +128,8 @@ function spawnEnemys() {
     ySpawn = xy[1];
   }
 
-    // level
-  let minLvl = constrain(player.lvl-2, 0, 90) + world.state.enemy.lvlBonus;
-  let maxLvl = constrain(player.lvl+(player.exp/player.nextLvl*10*killedEnemys*0.05), 4, 100) + world.state.enemy.lvlBonus;
-
   // spawn
-  enemyArr.push(new Enemy(xSpawn, ySpawn, raceArr[race], skillArr[skill], minLvl, maxLvl, player.x, player.y));
+  enemyArr.push(new Enemy(xSpawn, ySpawn, enemyObject.race[race], enemyObject.skill[skill], enemyObject.lvlMin, enemyObject.lvlMax, player.x, player.y));
 }
 
 function rerstrainEnemySpawn(xSpawn, ySpawn) {

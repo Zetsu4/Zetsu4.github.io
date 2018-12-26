@@ -31,3 +31,13 @@ It will play similarly to an MMO, but single player so MSO (Massively Single-pla
   - party members
   - party members AI
   - title for game
+  - story
+
+## Working on
+  - improving enemy AI
+  - pretty pictures
+  - guilds
+  - party members
+  - party member AI
+  - game title
+  - story

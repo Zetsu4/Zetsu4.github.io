@@ -36,6 +36,9 @@ function itemDropChance(x, y) {
     else if (randomItem <= 20) // mp potions
       items.onGround.push(new ItemOnGround(x+changeX, y+changeY, allItems.get("Mp Potion"), world.area));
 
+    else if (randomItem <= 30) // town portals
+      items.onGround.push(new ItemOnGround(x+changeX, y+changeY, allItems.get("Town Portal"), world.area));
+
     else // equipment
       items.onGround.push(new ItemOnGround(x+changeX, y+changeY, allItems.get(equipmentLootDrops()), world.area));
   }

@@ -119,3 +119,17 @@ function playerTakeDamage(dmg) {
     gameOver();
   }
 }
+
+function teleportArea(newArea) {
+  world.area = newArea;
+  state = 0;
+  player.x = 0;
+  player.y = 0;
+  world.changedX = 0;
+  world.changedY = 0;
+  checkState();
+  setNPCs();
+  allItems.get("Town Portal").amount--;
+  if (allItems.get("Town Portal").amount <= 0)
+    checkEmpty(allItems.get("Town Portal").name);
+}

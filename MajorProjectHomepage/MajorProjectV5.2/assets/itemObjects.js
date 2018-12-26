@@ -1,8 +1,10 @@
 function settingItemMap() {
+  // non equipable items
   allItems.set("Hp Potion", {name:"Hp Potion",  amount: 0, description: "Replenishes HP", img: itemImg.hpPotion, cost: 20, equipable: false});
   allItems.set("Mp Potion", {name:"Mp Potion",  amount: 0, description: "Replenishes MP", img: itemImg.mpPotion, cost: 15, equipable: false});
   allItems.set("Arrows", {name:"Arrows",  amount: 0, description: "Used with bow", img: itemImg.arrowAttack, cost: 2, equipable: false});
   allItems.set("Traps", {name:"Traps",  amount: 0, description: "Traps to slow\nfast enemy's", img: itemImg.trap, cost: 5, equipable: false});
+  allItems.set("Town Portal", {name:"Town Portal",  amount: 0, description: "Teleport to\ntown instantly", img: itemImg.townPortal, cost: 30, equipable: false});
   allItems.set("Money", {name:"Money",  amount: 0, description: "The currency\nof equestria", img: itemImg.money, cost: 0, equipable: false});
 
   // equipment
