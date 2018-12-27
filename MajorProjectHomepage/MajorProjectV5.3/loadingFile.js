@@ -54,6 +54,8 @@ let skillSpecific = {};
 let numOfNPCs = 50;
 let allNPCs = [];
 let shopKeeps = [];
+let shopInventory;
+let guildKeepers = [];
 let refreshTimer;
 let lastRefresh;
 
@@ -79,6 +81,7 @@ let recentsLastTime;
 
 // player
 let player = {};
+let guildMembers = [];
 
 // inventory
 let inventory = {};
@@ -139,6 +142,10 @@ function preload() {
   // NPC's
   npcImg.genericNPC = loadImage("assets/img/sprites/NPC.png");
   npcImg.shopKeep = loadImage("assets/img/sprites/shopKeep.png");
+  npcImg.guildKeeper = loadImage("assets/img/sprites/guildKeeper.png");
+
+  guildTicket = loadImage("assets/img/guildTicket.png");
+  guildTicketBack = loadImage("assets/img/guildTicketBack.png");
 
   // inventory delete button
   itemImg.garbageClosed = loadImage("assets/img/inventory/garbageClosed.png");
@@ -319,9 +326,9 @@ function setup() {
   // resetting
   startingState = 0;
   state = 0;
+  recentPickUps = "";
   enemyArr = [];
-  allNPCs = [];
-  shopKeeps = [];
+  guildMembers = [];
   drawingBack = true;
   refreshTimer = 30*1000;
   lastRefresh = millis();
@@ -421,6 +428,12 @@ function settingSprites() {
     {name: "Uruk-Hai", img: sprites.race.urukHai, stats: urukHai}
   ];
 
+  raceSpecific.guild = [
+    {name: "Human", img: sprites.race.human, stats: human}, {name: "Half-Elf", img: sprites.race.halfElf, stats: halfElf},
+    {name: "Elf", img: sprites.race.elf, stats: elf}, {name: "Dwarf", img: sprites.race.dwarf, stats: dwarf},
+    {name: "Halfling", img: sprites.race.halfling, stats: halfling}
+  ];
+
   raceSpecific.cave = [
     {name: "Goblin", img: sprites.race.goblin, stats: goblin}, {name: "Orc", img: sprites.race.orc, stats: orc},
     {name: "Uruk-Hai", img: sprites.race.urukHai, stats: urukHai}
@@ -438,6 +451,11 @@ function settingSprites() {
     {name: "Samurai", img: sprites.skill.samurai, stats: samurai}, {name: "Mage", img: sprites.skill.mage, stats: mage},
     {name: "Cleric", img: sprites.skill.cleric, stats: cleric}, {name: "Rogue", img: sprites.skill.rogue, stats: rogue},
     {name: "Trapper", img: sprites.skill.trapper, stats: trapper}
+  ];
+
+  skillSpecific.guild = [
+    {name: "Archer", img: sprites.skill.archer, stats: archer}, {name: "Mage", img: sprites.skill.mage, stats: mage},
+    {name: "Ranger", img: sprites.skill.ranger, stats: ranger}
   ];
 
   skillSpecific.cave = [
@@ -552,6 +570,7 @@ function setItems() {
 function setPlayer() {
   // character
   player.name = "MOI";
+  player.inGuild = false;
 
   player.raceIndex = 0
   player.race = allRaces[player.raceIndex];
@@ -614,7 +633,10 @@ function setNPCs() {
   }
 
   shopKeeps = [];
-  shopKeeps.push(new NonPlayableCharacters(spriteSize.width, 0, npcImg.shopKeep, "Welcome to\nthe shop.", true));
+  shopKeeps.push(new NonPlayableCharacters(width*0.25, 0, npcImg.shopKeep, "Welcome to\nthe shop.", "Shop"));
+
+  guildKeepers = [];
+  guildKeepers.push(new NonPlayableCharacters(-width*0.25, 0, npcImg.guildKeeper, "Welcome to\nthe Guild.", "Guild"));
 }
 
 function setShops() {
@@ -626,6 +648,13 @@ function setShops() {
   shopInventory[0][2] = {name: "Arrows", img: itemImg.arrowAttack};
   shopInventory[0][3] = {name: "Traps", img: itemImg.trap};
   shopInventory[0][4] = {name: "Town Portal", img: itemImg.townPortal};
+
+  guildInventory = make2DGrid(inventory.shop.width, inventory.shop.height);
+
+  // player not in guild
+  if (!player.inGuild)
+    guildInventory[0][0] = {name: "Guild Ticket", description: "BUY NOW!!", race: {img: guildTicketBack}, skill: {img: guildTicket}, stats: {}, cost: 100};
+
 }
 
 function setInventory() {

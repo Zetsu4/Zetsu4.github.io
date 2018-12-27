@@ -6,6 +6,9 @@ function playingGame() {
     // draw enviorments
     checkState();
 
+    // guild
+    guildMemberFoo();
+
     // player
     playerMovement();
     playerCoolDown();
@@ -22,7 +25,7 @@ function playingGame() {
     if (world.state.name === "Town")
       if (timerFoo(lastRefresh, refreshTimer))
         // refresh items in the shop
-        refreshShops();
+        refreshMerchandise();
   }
 
   else if (state === "Settings") // settings
@@ -46,8 +49,12 @@ function playingGame() {
   else if (state === "Main Menu") // main menu
     setup();
 
+  // other menu's
   else if (state === "Shop")
     shopMenu();
+
+  else if (state === "Guild")
+    guildMenu();
 }
 
 function checkState() {
@@ -111,4 +118,12 @@ function onScreen(value, key, map) {
   if (player.x >= xMin && player.x <= xMax
    && player.y >= yMin && player.y <= yMax)
      world.state = map.get(key);
+}
+
+function refreshMerchandise() {
+  // resetting items
+  lastRefresh = millis();
+  setShops();
+  changeShopItems();
+  changeGuildOptions();
 }

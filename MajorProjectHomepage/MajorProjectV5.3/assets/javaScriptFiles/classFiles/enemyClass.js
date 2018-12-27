@@ -62,17 +62,16 @@ class Enemy {
     this.attackTimer = 2000 - (this.vit+this.agi)*10;
     this.attackTimer = constrain(this.attackTimer, 500, 5000);
     this.attackPoint = 0;
+    this.theta = atan(this.y/this.x);
+
 
     // movement
     this.havePersued = false;
-    this.speed = width*0.002 + width*this.agi*pow(10, -4);
+    this.speed = constrain((width*0.002 + width*this.agi*pow(10, -4)), width*0.0001, width*0.10);
     this.stun = false;
     this.stunTimer = 0;
-    this.timer = 3000 - (this.vit+this.agi)*10;
+    this.timer = 1000 - (this.vit+this.agi)*10;
     this.timer = constrain(this.timer, 250, 5000);
-
-    this.theta = atan(this.y/this.x);
-    this.thetaAdder = this.speed/this.attackPattern.enemyDist*this.attackPattern.enemyDist;
 
     // path finding
     this.dist = (width+height)*(this.agi/50);
@@ -93,7 +92,7 @@ class Enemy {
     if (trapped) {
       // reducing speed
       this.speed *= 0.75;
-      this.thetaAdder = this.speed/this.attackPattern.enemyDist*this.attackPattern.enemyDist;
+      this.speed = constrain(this.speed, width*0.0001, width*0.10);
     }
   }
 
@@ -145,13 +144,17 @@ class Enemy {
     pop();
   }
 
+  onScreen() {
+    return this.x > -width*0.75 && this.x < width*0.75 && this.y > -height*0.75 && this.y < height*0.75;
+  }
+
   // AI
   movement(worldW, worldH, playerX, playerY) {
     // not stuned
     if (!this.stun) {
       // attack player
-      if (this.x > -width*0.75 && this.x < width*0.75 && this.y > -height*0.75 && this.y < height*0.75) {
-        this.persuePlayer(worldW, worldH, playerX, playerY);
+      if (this.onScreen()) {
+        this.persuePlayer(playerX, playerY);
         this.display();
       }
 
@@ -238,8 +241,8 @@ class Enemy {
     return moved;
   }
 
-  persuePlayer(worldW, worldH, playerX, playerY) {
-    if (dist(0, 0, this.x, this.y) > this.attackPattern.enemyDist+this.speed) {
+  persuePlayer(playerX, playerY) {
+    if (dist(0, 0, this.x, this.y) > this.attackPattern.enemyDist+this.speed*2) {
       // go to player
       this.goToPoint(0, 0);
       this.attackPoint = int(random(10)*10);
@@ -253,12 +256,12 @@ class Enemy {
       if (this.headingTo) {
         // moving around in circlular ways
         if (this.attackPoint > 0) {
-          this.theta -= this.thetaAdder/dist(this.x, this.y, 0, 0);
+          this.theta -= this.speed/dist(this.x, this.y, 0, 0);
           this.attackPoint--;
         }
 
         else if (this.attackPoint < 0) {
-          this.theta += this.thetaAdder/dist(this.x, this.y, 0, 0);
+          this.theta += this.speed/dist(this.x, this.y, 0, 0);
           this.attackPoint++;
         }
 

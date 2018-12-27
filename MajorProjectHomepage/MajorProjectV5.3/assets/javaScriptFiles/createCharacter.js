@@ -234,7 +234,7 @@ function calculateStats() {
   player.mp = constrain(player.mp, 0, player.totMp);
 
   // attack
-  player.coolDownTime = constrain((2000 - (player.vit+runningStats.vit + player.agi+runningStats.agi)*15), 150, 1000);
+  player.coolDownTime = constrain((4000 - (player.vit+runningStats.vit + player.agi+runningStats.agi)*15), 150, 1000);
   player.mDmg = constrain(int((player.str+runningStats.str)*(0.75 + (player.skill.stats.melee+runningStats.melee))), 0, Infinity); // melee damage
   player.rDmg = constrain(int((player.dex+runningStats.dex)*(0.75 + (player.skill.stats.ranged+runningStats.ranged))), 0, Infinity); // ranged damage
   player.sDmg = constrain(int((player.int+runningStats.int)*(0.75 + (player.skill.stats.magic+runningStats.magic))), 0, Infinity); // spell damage

@@ -43,7 +43,7 @@
 - improved key rebinding
 - added save and load functions, loading doesn't work
 
-## Nov 9, 2018 - Dec 6, 2018
+## Nov 9, 2018 - Dec 27, 2018
 - rewrote code to make it more organized and more efficient
 - added a new font for text
 - fixed problems with inventory
@@ -55,8 +55,11 @@
 - created new enviorments
 - made NPC's
 - made a shop
+- added money
 - shop refreshes
 - added a heal button in the shop
 - added recent pick up list
 - created new areas such as caves, dungeons, etc.
 - added sounds/music
+- added a guild the player can join
+- added party members and their AI

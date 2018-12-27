@@ -16,6 +16,7 @@ function playerMovement() {
     // moving stuff with player
     if (player.y !== oldY) {
       moveNPCsY(1);
+      moveGuildY(1);
       moveItemsY(1);
       enemysMoveY(1);
     }
@@ -35,6 +36,7 @@ function playerMovement() {
     // moving stuff with player
     if (player.y !== oldY) {
       moveNPCsY(-1);
+      moveGuildY(-1);
       moveItemsY(-1);
       enemysMoveY(-1);
     }
@@ -54,6 +56,7 @@ function playerMovement() {
     // moving stuff with player
     if (player.x !== oldX) {
       moveNPCsX(1);
+      moveGuildX(1);
       moveItemsX(1);
       enemysMoveX(1);
     }
@@ -73,6 +76,7 @@ function playerMovement() {
     // moving stuff with player
     if (player.x !== oldX) {
       moveNPCsX(-1);
+      moveGuildX(-1);
       moveItemsX(-1);
       enemysMoveX(-1);
     }

@@ -2,7 +2,8 @@ let randomTalk = [
   "Hello, world!",
   "If you travel\nfar from town,\nyou might find\na new area.",
   "What? you\nwant a gun?\n...\nno.",
-  "You can buy\nstuff from the\nshop in the\ncenter of town.",
+  "You can buy\nstuff from the\nshop on the right\nside of town.",
+  "The guy on\nthe left side\nof town is\nthe Guild Keeper.",
   "Beware, the caves.",
   "Monsters ambush\nanyone who\nenter the caves.",
   "I heard there\nare demons in\nthe caves.",
@@ -10,8 +11,19 @@ let randomTalk = [
   "Enemys are\nscared of the\ncaves."
 ];
 
+let names = [
+  "Sir, Prize",
+  "Sir, Pent",
+  "Sir, Cumfrence",
+  "Sir, Ten Ly",
+  "Sir, Tified",
+  "Sir, Cul",
+  "Sir, Real",
+  "Sir, Face"
+];
+
 class NonPlayableCharacters {
-  constructor(x, y, img, says, shoppable = false, textFont = fonts.default, textSize = fontSize.playersDisplay, wid = spriteSize.width, hei = spriteSize.height) {
+  constructor(x, y, img, says, stateChange = "empty", textFont = fonts.default, textSize = fontSize.playersDisplay, wid = spriteSize.width, hei = spriteSize.height) {
     // position
     this.x = x;
     this.y = y;
@@ -29,11 +41,11 @@ class NonPlayableCharacters {
     this.says = random(this.phrases);
     this.textSize = textSize;
     this.textFont = textFont;
-    this.shoppable = shoppable;
+    this.stateChange = stateChange;
     this.interacting = false;
     this.interactTimer = 3*1000;
 
-    if (!this.shoppable) {
+    if (this.stateChange === "empty") {
       // movement
       this.headToX = this.x;
       this.headToY = this.y;
@@ -52,7 +64,7 @@ class NonPlayableCharacters {
       image(this.img, this.x, this.y, this.width, this.height);
 
       // move around town
-      if (!this.shoppable && !this.interacting)
+      if (this.stateChange === "empty" && !this.interacting)
         this.move(zone, playerX, playerY);
     }
     this.interacting = !timerFoo(this.resting, this.interactTimer);
@@ -62,8 +74,8 @@ class NonPlayableCharacters {
   interact(interactKey) {
     if (keyCode === interactKey) {
       // shop
-      if (this.shoppable)
-        return true;
+      if (this.stateChange !== "empty")
+        return this.stateChange;
 
       this.interacting = true;
     }
@@ -93,7 +105,7 @@ class NonPlayableCharacters {
       pop();
     }
 
-    return false;
+    return "empty";
   }
 
   move(zone, playerX, playerY) {
@@ -177,7 +189,7 @@ class NonPlayableCharacters {
   mapping(worldW = world.width, worldH = world.height,
     mapX = minimap.x, mapY = minimap.y,
     mapW = minimap.imgWidth, mapH = minimap.imgHeight,
-    dotSize = player.dotSize*2
+    dotSize = player.dotSize
   ) {
     // map position
     let mapMinX = mapX - mapW/2 + dotSize;

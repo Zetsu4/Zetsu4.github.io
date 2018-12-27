@@ -135,19 +135,17 @@ function healButton() {
   }
 }
 
-function refreshShops() {
-  // resetting shop items
-  lastRefresh = millis();
-  setShops();
-
-  // changing items in shop
+function changeShopItems() {
+  // changing items
   let addItem = true;
   let shopInventorySize = inventory.shop.width*inventory.shop.height;
+
   for (let y = 0; y < shopInventory.length; y++) {
     for (let x = 0; x < shopInventory[y].length; x++) {
       // checking if empty
       if (shopInventory[y][x] === "empty" && addItem) {
         let itemSpawnChance = random(shopInventorySize-(y === 0 ? 0:y*x));
+
         if (itemSpawnChance >= shopInventorySize/10) {
           let itemAdding = allItems.get(equipmentLootDrops());
           shopInventory[y][x] = {name: itemAdding.name, img: itemAdding.img};

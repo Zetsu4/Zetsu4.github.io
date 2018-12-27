@@ -159,10 +159,16 @@ function itemDescription(item) {
   // description and stats
   textSize(fontSize.playersDisplay);
   let statText = "";
+
+  // put each stat on new line
   statText += item.description+"\n";
   statText += "cost: "+item.cost+"\n";
+
   for (let theStat in item.stats)
+    // the stats
     statText += theStat+": "+item.stats[theStat]+"\n";
+
+  // display stats
   text(statText, mouseX+width*0.015, mouseY+fontSize.default*0.75);
   pop();
 }

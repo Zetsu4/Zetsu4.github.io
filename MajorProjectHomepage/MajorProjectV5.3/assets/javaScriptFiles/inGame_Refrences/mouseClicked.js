@@ -11,7 +11,7 @@ function mousePressed() {
 
       if (player.attackState === "ranged" && allItems.get("Arrows").amount > 0) {
         allItems.get("Arrows").amount--;
-        items.playerAttack.push(new Attack(0, 0, 0, 0, ranged.attackSpeed, ranged.attackDist, player.rDmg, ranged.img, sounds.arrowHit, spriteSize.width, spriteSize.height/2));
+        items.playerAttack.push(new Attack(0, 0, 0, 0, ranged.attackSpeed, ranged.attackDist, player.rDmg, ranged.img, sounds.arrowHit));
         attacked = true;
         sounds.arrowAttack.play();
         if (allItems.get("Arrows").amount <= 0)

@@ -29,13 +29,14 @@ function enemys() {
 
     // dead enemy
     if (enemyArr[i].hp <= 0) {
+      if (!sounds.enemyDeath.isPlaying())
+        sounds.enemyDeath.play();
       enemyArr[i].dead();
       if (enemyArr[i].allAttacks.length <= 0) {
         let expGained = enemyArr[i].expGained;
         playerExp(expGained);
         lootDrop(enemyArr[i].x, enemyArr[i].y);
         killedEnemys++;
-        sounds.enemyDeath.play();
         enemyArr.splice(i, 1);
       }
     }
@@ -87,8 +88,10 @@ function enemyAttackFoo(enemyIndex) {
       enemyArr[enemyIndex].allAttacks.splice(i, 1);
     }
 
-    // collision with player attack
+    // collision with other things
     else {
+      let beenHit = false;
+      // player attacks
       for (let j=items.playerAttack.length-1; j >= 0; j--) {
         if (!items.playerAttack[j].trap) {
           if (dist(enemyArr[enemyIndex].allAttacks[i].realX, enemyArr[enemyIndex].allAttacks[i].realY, items.playerAttack[j].realX, items.playerAttack[j].realY) < collisionDist) {
@@ -96,6 +99,18 @@ function enemyAttackFoo(enemyIndex) {
             enemyArr[enemyIndex].allAttacks.splice(i, 1);
             items.playerAttack[j].sound.play();
             items.playerAttack.splice(j, 1);
+            beenHit = true;
+            break;
+          }
+        }
+      }
+
+      if (!beenHit) {
+        // guild members
+        for (let j=guildMembers.length-1; j >= 0; j--) {
+          if (dist(enemyArr[enemyIndex].allAttacks[i].realX, enemyArr[enemyIndex].allAttacks[i].realY, guildMembers[j].x, guildMembers[j].y) < collisionDist) {
+            guildMembers[j].takeDamage(enemyArr[enemyIndex].allAttacks[i].damage);
+            enemyArr[enemyIndex].allAttacks.splice(i, 1);
             break;
           }
         }

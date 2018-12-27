@@ -1,5 +1,5 @@
 class Attack {
-  constructor(x, y, changeX, changeY, dx, dist, damage, img, sound, wid = spriteSize.width, hei = spriteSize.height) {
+  constructor(x, y, changeX, changeY, dx, dist, damage, img, sound, pointingX = mouseX, pointingY = mouseY, wid = spriteSize.width, hei = spriteSize.height) {
     // position
     this.x = x;
     this.y = y;
@@ -7,7 +7,7 @@ class Attack {
     this.changeX = changeX;
     this.changeY = changeY;
 
-    this.rotation = atan2(mouseY - height/2, mouseX - width/2);
+    this.rotation = atan2(pointingY - height/2, pointingX - width/2);
 
     this.realX = this.changeX+cos(this.rotation)*this.x;
     this.realY = this.changeY+sin(this.rotation)*this.x;

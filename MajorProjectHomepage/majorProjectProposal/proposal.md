@@ -34,10 +34,6 @@ It will play similarly to an MMO, but single player so MSO (Massively Single-pla
   - story
 
 ## Working on
-  - improving enemy AI
   - pretty pictures
-  - guilds
-  - party members
-  - party member AI
   - game title
   - story
