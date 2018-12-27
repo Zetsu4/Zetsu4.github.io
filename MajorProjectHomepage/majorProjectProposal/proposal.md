@@ -32,8 +32,12 @@ It will play similarly to an MMO, but single player so MSO (Massively Single-pla
   - party members AI
   - title for game
   - story
+  - campaign
+  - quests/side quests
 
 ## Working on
   - pretty pictures
   - game title
   - story
+  - campaign
+  - quests/side quests

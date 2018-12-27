@@ -245,7 +245,7 @@ class Enemy {
     if (dist(0, 0, this.x, this.y) > this.attackPattern.enemyDist+this.speed*2) {
       // go to player
       this.goToPoint(0, 0);
-      this.attackPoint = int(random(10)*10);
+      this.attackPoint = int(random(-1, 1)*500);
       this.headingTo = true;
     }
 

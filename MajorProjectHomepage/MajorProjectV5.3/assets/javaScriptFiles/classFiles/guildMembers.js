@@ -170,7 +170,7 @@ class GuildMember {
     if (dist(0, 0, this.x, this.y) > this.dist+this.speed*2) {
       // go to player
       this.goToPoint();
-      this.movePoint = int(random(10)*10);
+      this.movePoint = int(random(-1, 1)*500);
       this.headingTo = true;
     }
 

@@ -15,7 +15,7 @@ let names = [
   "Sir, Prize",
   "Sir, Pent",
   "Sir, Cumfrence",
-  "Sir, Ten Ly",
+  "Sir, Ten Lee",
   "Sir, Tified",
   "Sir, Cul",
   "Sir, Real",

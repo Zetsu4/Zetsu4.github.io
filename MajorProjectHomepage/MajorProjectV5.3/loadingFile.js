@@ -342,9 +342,9 @@ function setup() {
 
   // setting attack types
   melee = {
-    enemyDist: width*0.10,
-    attackDist: width*0.10,
-    attackSpeed: width*0.0075,
+    enemyDist: width*0.13,
+    attackDist: width*0.15,
+    attackSpeed: width*0.008,
     img: itemImg.swordAttack,
     soundAttack: sounds.swordAttack,
     soundHit: sounds.swordHit
@@ -353,7 +353,7 @@ function setup() {
   ranged = {
     enemyDist: width*0.30,
     attackDist: width*0.75,
-    attackSpeed: width*0.01,
+    attackSpeed: width*0.02,
     img: itemImg.arrowAttack,
     soundAttack: sounds.arrowAttack,
     soundHit: sounds.arrowHit
@@ -362,7 +362,7 @@ function setup() {
   spellCaster = {
     enemyDist: width*0.20,
     attackDist: width*0.50,
-    attackSpeed: width*0.008,
+    attackSpeed: width*0.01,
     img: itemImg.fireBallAttack,
     soundAttack: sounds.fireballAttack,
     soundHit: sounds.fireballHit
@@ -440,8 +440,8 @@ function settingSprites() {
   ];
 
   raceSpecific.demons = [
-    {name: "Goblin", img: sprites.race.goblin, stats: goblin}, {name: "Orc", img: sprites.race.orc, stats: orc},
-    {name: "Uruk-Hai", img: sprites.race.urukHai, stats: urukHai}
+    {name: "Fire Imp", img: sprites.race.goblin, stats: fireImp}, {name: "Gate Gaurd 2.0", img: sprites.race.orc, stats: gateGaurd2},
+    {name: "Gate Gaurd", img: sprites.race.urukHai, stats: gateGaurd}
   ];
 
   // skill
@@ -454,8 +454,7 @@ function settingSprites() {
   ];
 
   skillSpecific.guild = [
-    {name: "Archer", img: sprites.skill.archer, stats: archer}, {name: "Mage", img: sprites.skill.mage, stats: mage},
-    {name: "Ranger", img: sprites.skill.ranger, stats: ranger}
+    {name: "Archer", img: sprites.skill.archer, stats: archer}, {name: "Mage", img: sprites.skill.mage, stats: mage}
   ];
 
   skillSpecific.cave = [
@@ -463,7 +462,7 @@ function settingSprites() {
   ];
 
   skillSpecific.demons = [
-    {name: "Samurai", img: sprites.skill.samurai, stats: samurai}, {name: "Mage", img: sprites.skill.mage, stats: mage}
+    {name: "Slitty Slit", img: sprites.skill.samurai, stats: demonMelee}, {name: "Fire Thing", img: sprites.skill.mage, stats: demonMagic}
   ];
 }
 
