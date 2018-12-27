@@ -61,16 +61,18 @@ class Enemy {
     this.lastAttack = 0;
     this.attackTimer = 2000 - (this.vit+this.agi)*10;
     this.attackTimer = constrain(this.attackTimer, 500, 5000);
-
-    this.theta = atan(this.y/this.x);
+    this.attackPoint = 0;
 
     // movement
     this.havePersued = false;
     this.speed = width*0.002 + width*this.agi*pow(10, -4);
     this.stun = false;
     this.stunTimer = 0;
-    this.timer = 1000 - (this.vit+this.agi)*10;
+    this.timer = 3000 - (this.vit+this.agi)*10;
     this.timer = constrain(this.timer, 250, 5000);
+
+    this.theta = atan(this.y/this.x);
+    this.thetaAdder = this.speed/this.attackPattern.enemyDist*this.attackPattern.enemyDist;
 
     // path finding
     this.dist = (width+height)*(this.agi/50);
@@ -88,9 +90,11 @@ class Enemy {
     this.hp -= dmg;
     this.stun = true;
     this.stunTimer = millis();
-    if (trapped)
+    if (trapped) {
       // reducing speed
       this.speed *= 0.75;
+      this.thetaAdder = this.speed/this.attackPattern.enemyDist*this.attackPattern.enemyDist;
+    }
   }
 
   stuned() {
@@ -200,12 +204,12 @@ class Enemy {
     this.findingPoint = false;
   }
 
-  goToPoint() {
+  goToPoint(pointX = this.headToX, pointY = this.headToY) {
     let moved = false;
-    let pointXMin = this.headToX - this.speed*1.5;
-    let pointXMax = this.headToX + this.speed*1.5;
-    let pointYMin = this.headToY - this.speed*1.5;
-    let pointYMax = this.headToY + this.speed*1.5;
+    let pointXMin = pointX - this.speed*1.5;
+    let pointXMax = pointX + this.speed*1.5;
+    let pointYMin = pointY - this.speed*1.5;
+    let pointYMax = pointY + this.speed*1.5;
 
     if (this.x > pointXMax) { // left
       moved = true;
@@ -235,58 +239,60 @@ class Enemy {
   }
 
   persuePlayer(worldW, worldH, playerX, playerY) {
-    if (this.havePersued) {
-      // on persute
-      if (this.headingTo) {
-        // find point to go to
-        if (this.findingPoint)
-          this.findPoint(worldW, worldH, playerX, playerY, false);
+    if (dist(0, 0, this.x, this.y) > this.attackPattern.enemyDist+this.speed) {
+      // go to player
+      this.goToPoint(0, 0);
+      this.attackPoint = int(random(10)*10);
+      this.headingTo = true;
+    }
 
-        // move to point
+    else {
+      // move around player, circularally
+      this.theta = atan(this.y/this.x);
+
+      if (this.headingTo) {
+        // moving around in circlular ways
+        if (this.attackPoint > 0) {
+          this.theta -= this.thetaAdder/dist(this.x, this.y, 0, 0);
+          this.attackPoint--;
+        }
+
+        else if (this.attackPoint < 0) {
+          this.theta += this.thetaAdder/dist(this.x, this.y, 0, 0);
+          this.attackPoint++;
+        }
+
         else {
-          let moved = this.goToPoint();
-          // if didn't moved then rest
-          if (!moved) {
-            this.findingPoint = true;
-            this.headingTo = false;
-            this.resting = millis();
-          }
+          this.headingTo = false;
+          this.resting = millis();
         }
       }
 
-      // resting
-      else
+      else {
+        // resting
         this.restingFoo(true);
-      this.attackPlayer();
+        this.attackPoint = int(random(-1, 1)*500);
+      }
+
+      // settting position
+      if (this.x < 0) {
+        // quad 2 and 3
+        this.x = -cos(this.theta)*dist(this.x, this.y, 0, 0);
+        this.y = -sin(this.theta)*dist(this.x, this.y, 0, 0);
+      }
+      else {
+        // quad 1 and 4
+        this.x = cos(this.theta)*dist(this.x, this.y, 0, 0);
+        this.y = sin(this.theta)*dist(this.x, this.y, 0, 0);
+      }
+
+      // map position
+      this.mapX = this.x+playerX;
+      this.mapY = this.y+playerY;
     }
 
-    // persuing player
-    else if (dist(0, 0, this.x, this.y) >= this.attackPattern.enemyDist) {
-      this.findingPoint = true;
-
-      if (this.x > -this.width/2) {
-        this.x -= this.speed;
-        this.mapX -= this.speed;
-      }
-
-      if (this.x < this.width/2) {
-        this.x += this.speed;
-        this.mapX += this.speed;
-      }
-
-      if (this.y > -this.height/2) {
-        this.y -= this.speed;
-        this.mapY -= this.speed;
-      }
-
-      if (this.y < this.height/2) {
-        this.y += this.speed;
-        this.mapY += this.speed;
-      }
-    }
-
-    else
-      this.havePersued = true;
+    // attack player
+    this.attackPlayer();
   }
 
   attackPlayer() {
