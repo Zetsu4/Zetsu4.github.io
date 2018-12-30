@@ -119,10 +119,8 @@ function playerCoolDown() {
 
 function playerTakeDamage(dmg) {
   player.hp -= dmg;
-  if (player.hp <= 0) {
-    sounds.gameOver.play();
+  if (player.hp <= 0)
     gameOver();
-  }
 }
 
 function teleportArea(newArea) {

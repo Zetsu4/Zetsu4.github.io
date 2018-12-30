@@ -1,6 +1,5 @@
 let randomTalk = [
   "Hello, world!",
-  "If you travel\nfar from town,\nyou might find\na new area.",
   "What? you\nwant a gun?\n...\nno.",
   "You can buy\nstuff from the\nshop on the right\nside of town.",
   "The guy on\nthe left side\nof town is\nthe Guild Keeper.",
@@ -8,18 +7,11 @@ let randomTalk = [
   "Monsters ambush\nanyone who\nenter the caves.",
   "I heard there\nare demons in\nthe caves.",
   "Enemys go into\nhiding when\nyou're in town.",
-  "Enemys are\nscared of the\ncaves."
-];
-
-let names = [
-  "Sir, Prize",
-  "Sir, Pent",
-  "Sir, Cumfrence",
-  "Sir, Ten Lee",
-  "Sir, Tified",
-  "Sir, Cul",
-  "Sir, Real",
-  "Sir, Face"
+  "Enemys are\nscared of the\ncaves.",
+  "Desert enemys\nare stronger\nthan Meadow\nenemys.",
+  "Forest enemys\nare stronger\nthan Desert\nenemys.",
+  "Mountain enemys\nare stronger\nthan Forest\nenemys.",
+  "Meadow, Desert,\nForest, Mountain.\nthat's the enemy\nstrength order."
 ];
 
 class NonPlayableCharacters {

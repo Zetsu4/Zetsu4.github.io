@@ -1,3 +1,14 @@
+let names = [
+  "Sir, Prize",
+  "Sir, Pent",
+  "Sir, Cumfrence",
+  "Sir, Ten Lee",
+  "Sir, Tified",
+  "Sir, Cul",
+  "Sir, Real",
+  "Sir, Face"
+];
+
 class GuildMember {
   constructor(raceIndex, skillIndex, lvl, attackConstructor = Attack, wid = spriteSize.width, hei = spriteSize.height, fontSizeChange = fontSize.playersDisplay, deathImage = sprites.death) {
     // position

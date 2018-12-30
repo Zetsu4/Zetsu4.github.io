@@ -3,7 +3,7 @@ function playerDisplays() {
   displayEnviorment();
 
   // mini-map
-  miniMap();
+  mapPlayer();
 
   // player
   push();
@@ -25,18 +25,6 @@ function displayEnviorment() {
   textAlign(CENTER, TOP);
   text(world.state.name, 0, -height/2);
   pop();
-}
-
-// mini-map
-function miniMap() {
-  // padding
-  fill("gold");
-  rect(minimap.x, minimap.y, minimap.padWidth, minimap.padHeight);
-
-  // background image
-  image(world.state.img, minimap.x, minimap.y, minimap.imgWidth-minimap.screenWidth/2, minimap.imgHeight-minimap.screenHeight/2);
-
-  mapPlayer();
 }
 
 function mapPlayer(

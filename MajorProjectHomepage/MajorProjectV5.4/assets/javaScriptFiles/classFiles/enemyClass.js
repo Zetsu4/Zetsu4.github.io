@@ -245,9 +245,10 @@ class Enemy {
   }
 
   persuePlayer(worldW, worldH, playerX, playerY, playerLvl) {
+    let speed = 0;
     if (dist(0, 0, this.x, this.y) > this.attackPattern.enemyDist+this.speed*2)
       // go to player
-      this.goToPoint(0, 0);
+      speed = this.speed/7.5;
 
     // move around player, circularally
     this.theta = atan(this.y/this.x);
@@ -273,19 +274,19 @@ class Enemy {
     else {
       // resting
       this.restingFoo(true);
-      this.attackPoint = int(random(-1, 1)*500);
+      this.attackPoint = int(random(-1, 1)*200);
     }
 
     // settting position
     if (this.x < 0) {
       // quad 2 and 3
-      this.x = -cos(this.theta)*(dist(this.x, this.y, 0, 0));
-      this.y = -sin(this.theta)*(dist(this.x, this.y, 0, 0));
+      this.x = -cos(this.theta)*(dist(this.x, this.y, 0, 0)-(speed*this.speed));
+      this.y = -sin(this.theta)*(dist(this.x, this.y, 0, 0)-(speed*this.speed));
     }
     else {
       // quad 1 and 4
-      this.x = cos(this.theta)*(dist(this.x, this.y, 0, 0));
-      this.y = sin(this.theta)*(dist(this.x, this.y, 0, 0));
+      this.x = cos(this.theta)*(dist(this.x, this.y, 0, 0)-(speed*this.speed));
+      this.y = sin(this.theta)*(dist(this.x, this.y, 0, 0)-(speed*this.speed));
     }
 
     this.x = constrain(this.x, -worldW/2-playerX+width*0.51, worldW/2-playerX-width*0.51);

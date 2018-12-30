@@ -44,6 +44,7 @@ function createChar() {
       clickWait();
       selectRandom();
       setPlayerStats();
+      sounds.startMenu.stop();
 
       // spawn initial enemys
       for (let i=0; i < world.state.numOfEnemys; i++)

@@ -51,11 +51,31 @@ function keyPressed() {
     }
 
     // changing areas
-    if (world.state.name === "Cave Opening" && keyCode === keyBindings.get("Interact").code)
-      changeArea("Cave");
+    if (keyCode === keyBindings.get("Enter Area").code) {
+      if (world.state.name === "Cave Exit")
+        changeArea("Over World");
 
-    else if (world.state.name === "Cave Exit" && keyCode === keyBindings.get("Interact").code)
-      changeArea("Over World");
+      else if (world.state.name === "Cave Opening")
+        changeArea("Cave");
+
+      else if (world.state.name === "Demon Gate Enter")
+        changeArea("Demon Realm");
+
+      else if (world.state.name === "Demon Gate Exit")
+        changeArea("Cave");
+
+      else if (world.state.name === "Castle Gate")
+        changeArea("Castle");
+
+      else if (world.state.name === "Castle Exit")
+        changeArea("Over World");
+
+      else if (world.state.name === "Dungeon Entrance")
+        changeArea("Dungeon");
+
+      else if (world.state.name === "Dungeon Exit")
+        changeArea("Castle");
+    }
   }
 }
 
