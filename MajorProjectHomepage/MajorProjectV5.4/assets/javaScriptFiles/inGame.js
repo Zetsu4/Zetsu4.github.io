@@ -46,19 +46,8 @@ function playingGame() {
   else if (state === "Load")  // load game
     loadGame();
 
-  else if (state === "Main Menu") { // main menu
-    let choice = prompt("Any unsaved progress will be lost. y/n: ", "n");
-    if (choice !== "" && choice !== null) {
-      choice = choice.toLowerCase();
-      if (choice === "y" || choice === "yes")
-        setup();
-      else
-        state === "Settings";
-    }
-
-    else
-      state === "Settings";
-  }
+  else if (state === "Main Menu") // main menu
+    confirmationScreen();
 
   // other menu's
   else if (state === "Shop")

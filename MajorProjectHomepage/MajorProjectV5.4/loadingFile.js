@@ -419,9 +419,9 @@ function setup() {
   buttons.lightBrown = color(179, 89, 0);
 
   // buttons
-  buttons.back = new Button(-width*0.475, -height*0.475, width*0.05, height*0.05, buttons.red, buttons.green, "Back", fontSize.playersDisplay);
-  buttons.continue = new Button(0, -height*0.4625, width*0.20, height*0.075, buttons.red, buttons.green, "Continue", fontSize.default);
-  buttons.reName = new Button(0, -height*0.15, width*0.15, height*0.075, buttons.red, buttons.green, "MOI", fontSize.default);
+  buttons.back = new Button(-width*0.475, -height*0.475, width*0.05, height*0.05, buttons.red, buttons.green, "Back", "BOLD", fontSize.playersDisplay);
+  buttons.continue = new Button(0, -height*0.4625, width*0.20, height*0.075, buttons.red, buttons.green, "Continue");
+  buttons.reName = new Button(0, -height*0.15, width*0.15, height*0.075, buttons.red, buttons.green, "MOI");
 
   // assinging variables
   settingSprites();
@@ -437,14 +437,14 @@ function setup() {
 
   // heal button
   let shorterLine /*great variable name*/ = (inventory.width+1)*inventory.boxSize-width/2+inventory.boxSize;
-  buttons.heal = new Button(shorterLine, -height*0.45, inventory.boxSize, inventory.boxSize, buttons.brown, buttons.lightBrown, "Heal", fontSize.default);
+  buttons.heal = new Button(shorterLine, -height*0.45, inventory.boxSize, inventory.boxSize, buttons.brown, buttons.lightBrown, "Heal", "BOLD");
 
   // level up buttons
   buttons.lvlUp = [];
   for (let i=0; i<5; i++) {
     let x = inventory.width*inventory.boxSize + inventory.boxSize*1.75;
     let y = (inventory.boxSize+fontSize.playersDisplay*1.8*10) + (fontSize.playersDisplay/3+height*0.025)*i - height/2;
-    buttons.lvlUp.push(new Button(x-width/2, y, width*0.02, height*0.025, buttons.brown, buttons.lightBrown, "+", fontSize.playersDisplay));
+    buttons.lvlUp.push(new Button(x-width/2, y, width*0.02, height*0.025, buttons.brown, buttons.lightBrown, "+", "BOLD", fontSize.playersDisplay));
   }
 }
 
@@ -523,7 +523,24 @@ function setSettingsMenu() {
       buttonAtributes.width, buttonAtributes.settings.height,
       buttons.orange, buttons.lightOrange, settings.options[i].name
     ));
-  }
+
+  // main menu confirmation buttons
+  settings.mainMenu = {};
+
+    // YES
+  settings.mainMenu.yes = new Button(
+    buttonAtributes.race.x, 0,
+    buttonAtributes.width, buttonAtributes.settings.height,
+    buttons.orange, buttons.lightOrange, "Yes"
+  );
+
+    // NO
+  settings.mainMenu.no = new Button(
+    buttonAtributes.skill.x, 0,
+    buttonAtributes.width, buttonAtributes.settings.height,
+    buttons.orange, buttons.lightOrange, "No"
+  );
+}
 
 function settingKeyBindings() {
   // key bindings

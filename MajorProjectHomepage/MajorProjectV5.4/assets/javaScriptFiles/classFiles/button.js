@@ -1,5 +1,5 @@
 class Button {
-  constructor(x, y, w, h, rest, hover, text, size = fontSize.default) {
+  constructor(x, y, w, h, rest, hover, text, thisFont = fonts.default, size = fontSize.default) {
     // position
     this.x = x;
     this.y = y;
@@ -14,6 +14,7 @@ class Button {
 
     // buttons words
     this.text = text;
+    this.font = thisFont
     this.fontSize = size;
   }
 
@@ -35,7 +36,7 @@ class Button {
     // text
     fill("black");
     push();
-    textSize(this.fontSize);
+    textFont(this.font, this.fontSize);
     text(this.text, this.x, this.y);
     pop();
     return pressed;

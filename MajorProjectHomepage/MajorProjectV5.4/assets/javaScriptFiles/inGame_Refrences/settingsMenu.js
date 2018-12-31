@@ -119,8 +119,7 @@ function worldMap() {
   buttonClick(buttons.back, 2, "Settings");
 }
 
-
-
+// using cookies
 var docCookies = {
   getItem: function (sKey) {
     if (!sKey) { return null; }
@@ -308,4 +307,17 @@ function loadGame() {
     startingState = 2;
     state = 0;
   }
+}
+
+// main menu
+function confirmationScreen() {
+  push();
+  fill("red");
+  textFont(fonts.default, fontSize.default*2);
+  text("Are you sure?\nAny unsved progress will be lost.", 0, -height*0.25);
+  pop();
+  if (settings.mainMenu.yes.clicked())
+    setup();
+  else if (settings.mainMenu.no.clicked() || buttons.back.clicked())
+    state = "Settings";
 }
