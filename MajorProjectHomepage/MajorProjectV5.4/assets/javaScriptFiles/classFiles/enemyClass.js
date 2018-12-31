@@ -48,12 +48,20 @@ class Enemy {
 
     this.mainDmg = max(this.mDmg, this.rDmg, this.sDmg);
     this.attackPattern;
-    if (this.mainDmg === this.mDmg)
+    if (this.mainDmg === this.mDmg) {
       this.attackPattern = melee;
-    else if (this.mainDmg === this.rDmg)
+      this.attackDist = this.attackPattern.attackDist*2;
+    }
+    
+    else if (this.mainDmg === this.rDmg) {
       this.attackPattern = ranged;
-    else if (this.mainDmg === this.sDmg)
+      this.attackDist = this.attackPattern.attackDist;
+    }
+    
+    else if (this.mainDmg === this.sDmg) {
       this.attackPattern = spellCaster;
+      this.attackDist = this.attackPattern.attackDist;
+    }
 
     this.allAttacks = [];
     this.attackType = attack;
@@ -154,11 +162,11 @@ class Enemy {
     if (!this.stun) {
       // attack player
       if (this.onScreen()) {
-        if (playerLvl > this.lvl+5)
-          this.speed = -abs(this.speed);
-        this.persuePlayer(worldW, worldH, playerX, playerY);
+        // if (playerLvl > this.lvl+5)
+        //   this.speed = -abs(this.speed);
+        this.persuePlayer(worldW, worldH, playerX, playerY, playerLvl);
         this.display();
-        this.speed = abs(this.speed);
+        // this.speed = abs(this.speed);
       }
 
       // monkeying about - RvB refrence
@@ -250,32 +258,25 @@ class Enemy {
       // go to player
       speed = this.speed/7.5;
 
+    if (playerLvl > this.lvl+5)
+      // run away if player is too strong
+      speed = -this.speed/10;
+
     // move around player, circularally
     this.theta = atan(this.y/this.x);
 
-    if (this.headingTo) {
-      // moving around in circlular ways
-      if (this.attackPoint > 0) {
-        this.theta -= this.speed/dist(this.x, this.y, 0, 0);
-        this.attackPoint--;
-      }
-
-      else if (this.attackPoint < 0) {
-        this.theta += this.speed/dist(this.x, this.y, 0, 0);
-        this.attackPoint++;
-      }
-
-      else {
-        this.headingTo = false;
-        this.resting = millis();
-      }
+    if (this.attackPoint > 1) {
+      this.theta -= this.speed/dist(this.x, this.y, 0, 0);
+      this.attackPoint--;
     }
 
-    else {
-      // resting
-      this.restingFoo(true);
-      this.attackPoint = int(random(-1, 1)*200);
+    else if (this.attackPoint < -1) {
+      this.theta += this.speed/dist(this.x, this.y, 0, 0);
+      this.attackPoint++;
     }
+
+    else
+      this.attackPoint = int(random(-1, 1)*100);
 
     // settting position
     if (this.x < 0) {
@@ -283,6 +284,7 @@ class Enemy {
       this.x = -cos(this.theta)*(dist(this.x, this.y, 0, 0)-(speed*this.speed));
       this.y = -sin(this.theta)*(dist(this.x, this.y, 0, 0)-(speed*this.speed));
     }
+
     else {
       // quad 1 and 4
       this.x = cos(this.theta)*(dist(this.x, this.y, 0, 0)-(speed*this.speed));
@@ -303,7 +305,7 @@ class Enemy {
   attackPlayer() {
     if (this.attackState === 1) {
       this.attackPattern.soundAttack.play();
-      this.allAttacks.push(new this.attackType(0, 0, this.x, this.y, this.attackPattern.attackSpeed, this.attackPattern.attackDist, this.mainDmg, this.attackPattern.img, this.attackPattern.soundHit));
+      this.allAttacks.push(new this.attackType(0, 0, this.x, this.y, this.attackPattern.attackSpeed, this.attackDist, this.mainDmg, this.attackPattern.img, this.attackPattern.soundHit));
       this.attackState = 0;
       this.lastAttack = millis();
     }

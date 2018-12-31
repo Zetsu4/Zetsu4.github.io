@@ -180,53 +180,42 @@ class GuildMember {
   }
 
   persuePlayer() {
-    if (dist(0, 0, this.x, this.y) > this.dist+this.speed*2) {
+    let speed = 0;
+    if (dist(0, 0, this.x, this.y) > this.attackPattern.enemyDist+this.speed*2)
       // go to player
-      this.goToPoint();
-      this.movePoint = int(random(-1, 1)*500);
-      this.headingTo = true;
+      speed = this.speed/7.5;
+
+    // move around player, circularally
+    this.theta = atan(this.y/this.x);
+
+    if (this.attackPoint > 1) {
+      this.theta -= this.speed/dist(this.x, this.y, 0, 0);
+      this.attackPoint--;
+    }
+
+    else if (this.attackPoint < -1) {
+      this.theta += this.speed/dist(this.x, this.y, 0, 0);
+      this.attackPoint++;
+    }
+
+    else
+      this.attackPoint = int(random(-1, 1)*100);
+
+    // settting position
+    if (this.x < 0) {
+      // quad 2 and 3
+      this.x = -cos(this.theta)*(dist(this.x, this.y, 0, 0)-(speed*this.speed));
+      this.y = -sin(this.theta)*(dist(this.x, this.y, 0, 0)-(speed*this.speed));
     }
 
     else {
-      // move around player, circularally
-      this.theta = atan(this.y/this.x);
-
-      if (this.headingTo) {
-        // moving around in circlular ways
-        if (this.movePoint > 0) {
-          this.theta -= this.speed/dist(this.x, this.y, 0, 0);
-          this.movePoint--;
-        }
-
-        else if (this.movePoint < 0) {
-          this.theta += this.speed/dist(this.x, this.y, 0, 0);
-          this.movePoint++;
-        }
-
-        else {
-          this.headingTo = false;
-          this.resting = millis();
-        }
-      }
-
-      else {
-        // resting
-        this.restingFoo(true);
-        this.movePoint = int(random(-1, 1)*500);
-      }
-
-      // settting position
-      if (this.x < 0) {
-        // quad 2 and 3
-        this.x = -cos(this.theta)*dist(this.x, this.y, 0, 0);
-        this.y = -sin(this.theta)*dist(this.x, this.y, 0, 0);
-      }
-      else {
-        // quad 1 and 4
-        this.x = cos(this.theta)*dist(this.x, this.y, 0, 0);
-        this.y = sin(this.theta)*dist(this.x, this.y, 0, 0);
-      }
+      // quad 1 and 4
+      this.x = cos(this.theta)*(dist(this.x, this.y, 0, 0)-(speed*this.speed));
+      this.y = sin(this.theta)*(dist(this.x, this.y, 0, 0)-(speed*this.speed));
     }
+
+    this.x = constrain(this.x, -worldW/2-playerX+width*0.51, worldW/2-playerX-width*0.51);
+    this.y = constrain(this.y, -worldH/2-playerY+height*0.51, worldH/2-playerY-height*0.51);
   }
 
   // attacking enemys

@@ -21,16 +21,19 @@ class EquipBox {
   display() {
     push();
     stroke(204, 102, 0);
-    if (this.hovering())
+    if (this.hovering()) {
       fill(this.hoverCol);
+      if (this.equipped !== "empty")
+        itemDescription(this.equipped);
+    }
+
     else
       fill(this.restCol);
 
     rect(this.x, this.y, this.width, this.height);
 
-    if (this.equipped !== "empty") {
+    if (this.equipped !== "empty")
       image(this.img, this.x, this.y, this.width, this.height);
-    }
     pop();
   }
 

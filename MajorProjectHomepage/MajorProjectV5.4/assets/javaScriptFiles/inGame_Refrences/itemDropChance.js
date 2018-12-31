@@ -1,25 +1,25 @@
-function itemDropChance(x, y) {
+function itemDropChance(x, y, enemy) {
   let dropped = false;
   let changeX = random(-spriteSize.width, spriteSize.width);
   let changeY = random(-spriteSize.height, spriteSize.height);
   let randomItem = random(100);
 
   // money
-  let amountOfMoney = int(random(-player.lvl, (player.lvl+killedEnemys)/2));
+  let amountOfMoney = int(random(-enemy.lvl, enemy.lvl+killedEnemys));
   let changeX2 = random(-spriteSize.width, spriteSize.width);
   let changeY2 = random(-spriteSize.height, spriteSize.height);
   if (amountOfMoney > 0)
     items.onGround.push(new ItemOnGround(x+changeX2, y+changeY2, allItems.get("Money"), world.area, amountOfMoney));
 
   // random items
-  if (randomItem <= 60) { // arrows
-    let randomAmount = int(random(1, 6));
+  if (randomItem <= 30) { // arrows
+    let randomAmount = int(random(1, enemy.lvl+5));
     items.onGround.push(new ItemOnGround(x+changeX, y+changeY, allItems.get("Arrows"), world.area, randomAmount, spriteSize.width, spriteSize.height/2));
     dropped = true;
   }
 
-  else if (randomItem <= 80) { // traps
-    let randomAmount = int(random(1, 4));
+  else if (randomItem <= 60) { // traps
+    let randomAmount = int(random(1, enemy.lvl+2));
     items.onGround.push(new ItemOnGround(x+changeX, y+changeY, allItems.get("Traps"), world.area, randomAmount));
     dropped = true;
   }

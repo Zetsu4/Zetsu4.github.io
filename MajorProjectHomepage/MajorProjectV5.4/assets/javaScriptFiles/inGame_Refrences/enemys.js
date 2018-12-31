@@ -35,7 +35,7 @@ function enemys() {
       if (enemyArr[i].allAttacks.length <= 0) {
         let expGained = enemyArr[i].expGained;
         playerExp(expGained);
-        lootDrop(enemyArr[i].x, enemyArr[i].y);
+        lootDrop(enemyArr[i].x, enemyArr[i].y, enemyArr[i]);
         killedEnemys++;
         enemyArr.splice(i, 1);
       }

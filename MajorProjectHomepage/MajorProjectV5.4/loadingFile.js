@@ -380,7 +380,7 @@ function setup() {
   melee = {
     enemyDist: width*0.05,
     attackDist: width*0.075,
-    attackSpeed: width*0.008,
+    attackSpeed: width*0.01,
     img: itemImg.swordAttack,
     soundAttack: sounds.swordAttack,
     soundHit: sounds.swordHit
@@ -716,7 +716,7 @@ function setInventory() {
   // inventory atributes
   inventory.boxSize = (width+height)*0.04;
   inventory.width = 4;
-  inventory.height = 8;
+  inventory.height = 4;
 
   // shop inventory
   inventory.shop = {};

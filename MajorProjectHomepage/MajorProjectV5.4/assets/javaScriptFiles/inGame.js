@@ -46,8 +46,19 @@ function playingGame() {
   else if (state === "Load")  // load game
     loadGame();
 
-  else if (state === "Main Menu") // main menu
-    setup();
+  else if (state === "Main Menu") { // main menu
+    let choice = prompt("Any unsaved progress will be lost. y/n: ", "n");
+    if (choice !== "" && choice !== null) {
+      choice = choice.toLowerCase();
+      if (choice === "y" || choice === "yes")
+        setup();
+      else
+        state === "Settings";
+    }
+
+    else
+      state === "Settings";
+  }
 
   // other menu's
   else if (state === "Shop")
@@ -61,7 +72,7 @@ function checkState() {
   // checking world state
 
   // demon gate music
-  if (world.state.name === "Demon Gate Enter") 
+  if (world.state.name === "Demon Gate Enter")
     if (!sounds.demonGate.isPlaying())
       sounds.demonGate.play();
   else

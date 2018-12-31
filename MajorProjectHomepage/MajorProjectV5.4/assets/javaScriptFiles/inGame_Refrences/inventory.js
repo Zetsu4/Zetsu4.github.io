@@ -104,15 +104,15 @@ function drawGrid(xPos, yPos) {
 }
 
 function drawItemInInventory(img, number, x, y) {
-    // draw image
-    image(img, x, y, inventory.boxSize, inventory.boxSize);
-    push();
-    textAlign(RIGHT, BOTTOM);
-    textSize(fontSize.playersDisplay);
-    noStroke();
-    fill("white");
-    text(number, x+inventory.boxSize, y+inventory.boxSize);
-    pop();
+  // draw image
+  image(img, x, y, inventory.boxSize, inventory.boxSize);
+  push();
+  textAlign(RIGHT, BOTTOM);
+  textSize(fontSize.playersDisplay);
+  noStroke();
+  fill("white");
+  text(number, x+inventory.boxSize, y+inventory.boxSize);
+  pop();
 }
 
 function hoverOverTile() {
