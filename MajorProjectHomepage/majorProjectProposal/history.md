@@ -63,3 +63,4 @@
 - added sounds/music
 - added a guild the player can join
 - added party members and their AI
+- confirmation for leaving game

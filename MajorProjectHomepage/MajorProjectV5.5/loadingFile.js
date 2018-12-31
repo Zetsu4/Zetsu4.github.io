@@ -82,6 +82,8 @@ let items = {};
 let recentPickUps = "";
 let recentsTimer;
 let recentsLastTime;
+let itemDropEnemy;
+let shopItemRefreshName = "";
 
 // player
 let player = {};
@@ -731,12 +733,12 @@ function setInventory() {
   // inventory atributes
   inventory.boxSize = (width+height)*0.04;
   inventory.width = 4;
-  inventory.height = 4;
+  inventory.height = 6;
 
   // shop inventory
   inventory.shop = {};
   inventory.shop.width = 6;
-  inventory.shop.height = 8;
+  inventory.shop.height = 6;
   inventory.shop.offsetX = 7;
 
   // equip slots

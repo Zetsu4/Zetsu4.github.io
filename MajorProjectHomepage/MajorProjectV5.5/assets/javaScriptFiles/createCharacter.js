@@ -180,7 +180,7 @@ function setPlayerStats() {
   player.dex = player.race.stats.dex;
   player.vit = player.race.stats.vit;
 
-  setPlayerInventory();
+  setPlayerStartEquipment();
   calculateStats();
 
   //set current health and mana
@@ -188,7 +188,7 @@ function setPlayerStats() {
   player.mp = player.totMp;
 }
 
-function setPlayerInventory() {
+function setPlayerStartEquipment() {
   // set starting equipment
   if (player.skill.stats.startingTraps > 0) // starting Traps
     items.onGround.push(new ItemOnGround(0, 0, allItems.get("Traps"), world.area, player.skill.stats.startingTraps));
@@ -244,7 +244,6 @@ function calculateStats() {
   player.tDmg = constrain(int((player.agi+runningStats.agi)*(1+runningStats.trap)), 0, Infinity);
 
   // movement
-  player.totSpeed = constrain((width*0.003 + width*(player.agi+runningStats.agi)*pow(10, -4)), width*0.0001, width*0.10);
+  player.totSpeed = constrain((width*0.003 + width*(player.agi+runningStats.agi)*pow(10, -4)), width*0.0001, width*0.05);
   player.speedMultiplier = 0.50;
-  player.speed = player.totSpeed;
 }

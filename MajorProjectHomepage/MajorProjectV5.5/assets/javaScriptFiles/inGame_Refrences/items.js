@@ -43,12 +43,12 @@ function itemsInWorld() {
   }
 }
 
-function lootDrop(x, y, enemy) {
+function lootDrop(enemy) {
   // loot drop
   let numOfItems = int(random(enemy.lvl));
 
   for (let i = 0; i < numOfItems; i++)
-    itemDropChance(x, y, enemy);
+    itemDropChance(enemy);
 }
 
 // move with player

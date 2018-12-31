@@ -32,7 +32,7 @@ class GuildMember {
 
     let extraPoints = (this.lvl-1)*5;
     this.int = this.race.stats.int + floor(extraPoints/3);
-    this.agi = this.race.stats.agi + floor(extraPoints/3);
+    this.agi = constrain(this.race.stats.agi + floor(extraPoints/3), 1, 100);
     this.str = this.race.stats.str + floor(extraPoints/3);
     this.dex = this.race.stats.dex + floor(extraPoints/3);
     this.vit = this.race.stats.vit + floor(extraPoints/3);

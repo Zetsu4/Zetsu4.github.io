@@ -144,16 +144,36 @@ function changeShopItems() {
     for (let x = 0; x < shopInventory[y].length; x++) {
       // checking if empty
       if (shopInventory[y][x] === "empty" && addItem) {
-        let itemSpawnChance = random(shopInventorySize-(y === 0 ? 0:y*x));
+        let itemSpawnChance = random(shopInventorySize-(y === 0 ? 0:y*x)/2);
 
         if (itemSpawnChance >= shopInventorySize/10) {
-          let itemAdding = allItems.get(equipmentLootDrops());
+          allItems.forEach(chooseRandomItem);
+          let itemAdding = shopItemRefreshName;
+
+          // if nothing is spawned in shop, it's a rock
+          if (itemAdding === "")
+            itemAdding = "Small Rock";
+
+
+          // add item to shop
+          itemAdding = allItems.get(itemAdding);
           shopInventory[y][x] = {name: itemAdding.name, img: itemAdding.img};
+
+          // set this back to nothing
+          shopItemRefreshName = "";
         }
 
-        else
+        else // no gaps in the shop
           addItem = false;
       }
     }
+  }
+}
+
+function chooseRandomItem(value, key, map) {
+  if (value.equipable && shopItemRefreshName === "") {
+    let dropChance = random(500);
+    if (dropChance <= value.dropChance) // choose an item to put in shop
+      shopItemRefreshName = value.name;
   }
 }

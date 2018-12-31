@@ -145,9 +145,13 @@ function hoverOverTile() {
 }
 
 function itemDescription(item) {
-  rect(mouseX+width*0.01, mouseY, width*0.10, height*0.05+(fontSize.default+fontSize.playersDisplay*13));
-  // description of item
   push();
+
+  // text box
+  rectMode(CORNER);
+  rect(mouseX+width*0.01, mouseY, width*0.10, height*0.05+(fontSize.default+fontSize.playersDisplay*13));
+
+  // description of item
   noStroke();
   fill("black");
   textAlign(LEFT, TOP);
@@ -210,7 +214,7 @@ Lvl- "+player.lvl+"\n\
 exp- "+player.exp.toFixed(0)+"/"+player.nextLvl.toFixed(0)+" = "+lvlPercent.toFixed(2)+"%\n\
 hp- "+player.hp+"/"+player.totHp+"\n\
 mp- "+player.mp+"/"+player.totMp+"\n\
-Speed- "+player.speed.toFixed(2)+"\n\
+Speed- "+player.totSpeed.toFixed(2)+"\n\
 Melee- "+player.mDmg+"\n\
 Ranged- "+player.rDmg+"\n\
 Magic- "+player.sDmg+"\n\
@@ -236,7 +240,6 @@ function checkForPoints() {
     for (let i = 0; i < buttons.lvlUp.length; i++) {
       if (buttons.lvlUp[i].clicked()) {
         clickWait();
-        player.points--;
         levelingUp(i);
         calculateStats();
       }
@@ -247,14 +250,28 @@ function checkForPoints() {
 
 function levelingUp(i) {
   // spending points
-  if (i === 0)
+  if (i === 0) {
     player.int++;
-  else if (i === 1)
+    player.points--;
+  }
+
+  else if (i === 1 && player.agi < 100) {
     player.agi++;
-  else if (i === 2)
+    player.points--;
+  }
+
+  else if (i === 2) {
     player.str++;
-  else if (i === 3)
+    player.points--;
+  }
+
+  else if (i === 3) {
     player.dex++;
-  else if (i === 4)
+    player.points--;
+  }
+
+  else if (i === 4) {
     player.vit++;
+    player.points--;
+  }
 }

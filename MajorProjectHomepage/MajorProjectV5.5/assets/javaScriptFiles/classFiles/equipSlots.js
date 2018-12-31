@@ -21,12 +21,8 @@ class EquipBox {
   display() {
     push();
     stroke(204, 102, 0);
-    if (this.hovering()) {
+    if (this.hovering())
       fill(this.hoverCol);
-      if (this.equipped !== "empty")
-        itemDescription(this.equipped);
-    }
-
     else
       fill(this.restCol);
 

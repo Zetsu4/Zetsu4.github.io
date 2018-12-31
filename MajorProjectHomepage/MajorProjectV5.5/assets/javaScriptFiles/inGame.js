@@ -176,24 +176,24 @@ function onScreen(value, key, theMap) {
   let backY = value.zone.y+world.changedY;
 
   if (player.x-width/2 >= xMin && player.x-width/2 <= xMax
-   && player.y-height/2 >= yMin && player.y-height/2 <= yMax) {
+   && player.y-height/2 >= yMin && player.y-height/2 <= yMax)
     image(value.img, backX, backY, value.zone.wid, value.zone.hei);
-  }
 
   else if (player.x+width/2 >= xMin && player.x+width/2 <= xMax
-   && player.y-height/2 >= yMin && player.y-height/2 <= yMax) {
+   && player.y-height/2 >= yMin && player.y-height/2 <= yMax)
     image(value.img, backX, backY, value.zone.wid, value.zone.hei);
-  }
 
   else if (player.x+width/2 >= xMin && player.x+width/2 <= xMax
-   && player.y+height/2 >= yMin && player.y+height/2 <= yMax) {
+   && player.y+height/2 >= yMin && player.y+height/2 <= yMax)
     image(value.img, backX, backY, value.zone.wid, value.zone.hei);
-  }
 
   else if (player.x-width/2 >= xMin && player.x-width/2 <= xMax
-   && player.y+height/2 >= yMin && player.y+height/2 <= yMax) {
+   && player.y+height/2 >= yMin && player.y+height/2 <= yMax)
     image(value.img, backX, backY, value.zone.wid, value.zone.hei);
-  }
+
+  else if (value.zone.x > -width/2 && value.zone.x < width/2
+   && value.zone.y > -height/2 && value.zone.y < height/2)
+    image(value.img, backX, backY, value.zone.wid, value.zone.hei);
 
   if (player.x >= xMin && player.x <= xMax
    && player.y >= yMin && player.y <= yMax)
@@ -218,8 +218,4 @@ function refreshMerchandise() {
     changeShopItems();
     changeGuildOptions();
   }
-}
-
-function boundaryFoo(x, y, wid, hei, x2, y2, wid2, hei2) {
-
 }

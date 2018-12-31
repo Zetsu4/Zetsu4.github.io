@@ -30,7 +30,7 @@ class Enemy {
 
     let extraPoints = (this.lvl-1)*5;
     this.int = this.race.stats.int + ceil(extraPoints/3);
-    this.agi = this.race.stats.agi + ceil(extraPoints/3);
+    this.agi = constrain(this.race.stats.agi + ceil(extraPoints/3), 1, 90);
     this.str = this.race.stats.str + ceil(extraPoints/3);
     this.dex = this.race.stats.dex + ceil(extraPoints/3);
     this.vit = this.race.stats.vit + ceil(extraPoints/3);
@@ -52,12 +52,12 @@ class Enemy {
       this.attackPattern = melee;
       this.attackDist = this.attackPattern.attackDist*2;
     }
-    
+
     else if (this.mainDmg === this.rDmg) {
       this.attackPattern = ranged;
       this.attackDist = this.attackPattern.attackDist;
     }
-    
+
     else if (this.mainDmg === this.sDmg) {
       this.attackPattern = spellCaster;
       this.attackDist = this.attackPattern.attackDist;

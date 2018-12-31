@@ -97,7 +97,12 @@ function changeGuildOptions() {
           let itemSpawnChance = random(guildInventorySize-(y === 0 ? 0:y*x));
 
           if (itemSpawnChance >= guildInventorySize/10) {
-            guildInventory[y][x] = {name: random(names), description: "A party member\nwho fights with you.", raceIndex: random(raceSpecific.guild.length-1), race: 0, skillIndex: random(skillSpecific.guild.length-1), skill: 0, stats: {lvl: constrain(int(random(player.lvl-5, player.lvl+3)), 0, Infinity)}, cost: 0};
+            // guild member
+            guildInventory[y][x] = {name: random(names), description: "A party member\nwho fights with you.",
+            raceIndex: random(raceSpecific.guild.length-1), race: 0, skillIndex: random(skillSpecific.guild.length-1), skill: 0,
+            stats: {lvl: constrain(int(random(player.lvl-5, player.lvl+3)), 0, Infinity)}, cost: 0};
+
+            // set race, skill, and cost
             guildInventory[y][x].race = raceSpecific.guild[guildInventory[y][x].raceIndex];
             guildInventory[y][x].skill = skillSpecific.guild[guildInventory[y][x].skillIndex];
             guildInventory[y][x].cost = (guildInventory[y][x].stats.lvl+10)*15;
