@@ -75,7 +75,7 @@ class Enemy {
 
     // movement
     this.havePersued = false;
-    this.speed = constrain((width*0.003 + width*this.agi*pow(10, -4)), width*0.0001, width*0.10);
+    this.speed = constrain((width*0.003 + width*this.agi*pow(10, -4)), width*0.0001, width*0.05);
     this.stun = false;
     this.stunTimer = 0;
     this.timer = 1000 - (this.vit+this.agi)*10;

@@ -34,6 +34,7 @@ It will play similarly to an MMO, but single player so MSO (Massively Single-pla
   - story
   - campaign
   - quests/side quests
+  - multiple magic attacks
 
 ## Working on
   - pretty pictures

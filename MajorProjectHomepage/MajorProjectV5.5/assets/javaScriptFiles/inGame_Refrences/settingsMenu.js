@@ -11,21 +11,24 @@ function settingsMenu() {
 
 // controls
 function openControls() {
-  textFont(fonts.default);
+  push();
 
   // rectangle of controls
   fill("orange");
   rect(0, 0, width*0.60, height);
 
+  // controls
   fill("black");
+  textFont(fonts.default, fontSize.default*0.75);
   keyBindings.forEach(displayControls);
 
   buttonClick(buttons.back, 2, "Settings");
+  pop();
 }
 
 function displayControls(value, key, map) {
   let i = static(map.size);
-  let yPos = -height*0.48+(i*fontSize.default*1.4);
+  let yPos = -height*0.48+(i*fontSize.default*1.2);
   let charValue = String.fromCharCode(value.code);
   if (value.code === 27) // Escape
     charValue = "Escape";
@@ -105,15 +108,6 @@ function worldMap() {
       0, 0,
       width, height,
       dotSizes*0.70
-    );
-
-  // shops
-  for (let shopKeep of shopKeeps)
-    shopKeep.mapping(
-      world.width, world.height,
-      0, 0,
-      width, height,
-      dotSizes*2
     );
 
   buttonClick(buttons.back, 2, "Settings");
@@ -231,7 +225,7 @@ function saveGame() {
   arrayCopy(guildMembers, savingGame.guildMembers);
 
   state = "Settings";
-  docCookies.setItem("saved cookie", JSON.stringify(savingGame), 31536e3);
+  docCookies.setItem("saved cookie", JSON.stringify(savingGame));
 }
 
 // loading

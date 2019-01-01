@@ -66,7 +66,7 @@ function shopHoverTile() {
       if (mouseCarring !== "empty") {
         // selling an item
         clickWait();
-        let amountGained = floor(mouseCarring.amount*mouseCarring.cost/2);
+        let amountGained = floor(mouseCarring.amount*mouseCarring.stats.cost/2);
 
         if (allItems.get("Money").amount <= 0 && amountGained > 0)
           // selling for a penny
@@ -82,8 +82,8 @@ function shopHoverTile() {
         // buying an item
         clickWait();
         for (let i=0; i < itemsBuying; i++) {
-          if (allItems.get("Money").amount >= allItems.get(shopInventory[y][xIndex].name).cost) {
-            allItems.get("Money").amount -= allItems.get(shopInventory[y][xIndex].name).cost;
+          if (allItems.get("Money").amount >= allItems.get(shopInventory[y][xIndex].name).stats.cost) {
+            allItems.get("Money").amount -= allItems.get(shopInventory[y][xIndex].name).stats.cost;
 
             let itemToAdd = shopInventory[y][xIndex];
             if (allItems.get(itemToAdd.name).amount <= 0)
@@ -173,7 +173,7 @@ function changeShopItems() {
 function chooseRandomItem(value, key, map) {
   if (value.equipable && shopItemRefreshName === "") {
     let dropChance = random(500);
-    if (dropChance <= value.dropChance) // choose an item to put in shop
+    if (dropChance <= value.stats.dropChance) // choose an item to put in shop
       shopItemRefreshName = value.name;
   }
 }

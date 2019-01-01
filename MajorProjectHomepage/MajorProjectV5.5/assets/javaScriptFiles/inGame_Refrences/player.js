@@ -88,7 +88,7 @@ function playerMovement() {
 
 function consumePotion(name, points, totPoints) {
   sounds.consumePotion.play();
-  points += (player.lvl+player.vit)/2*(name === "Hp Potion" ? player.str : player.int);
+  points += (player.lvl+(name === "Hp Potion" ? player.vit : player.int))*5;
   points = constrain(ceil(points), 1, totPoints);
   allItems.get(name).amount--;
   if (allItems.get(name).amount <= 0)
@@ -99,11 +99,11 @@ function consumePotion(name, points, totPoints) {
 
 function playerExp(amount) {
   // gaining exp
-  player.exp += amount*(1+player.expBonus/1000);
+  player.exp += amount*(constrain((1+player.expBonus/100), 0.50, Infinity));
   while (player.exp >= player.nextLvl) {
     // level up
     player.exp -= player.nextLvl;
-    player.nextLvl += player.nextLvl + player.lvl*10;
+    player.nextLvl = int(player.nextLvl*(1.20+(player.lvl/100)));
     player.lvl++;
     player.points += 5;
     calculateStats();
@@ -134,5 +134,5 @@ function teleportArea(newArea) {
   setNPCs();
   allItems.get("Town Portal").amount--;
   if (allItems.get("Town Portal").amount <= 0)
-    checkEmpty(allItems.get("Town Portal").name);
+    checkEmpty("Town Portal");
 }

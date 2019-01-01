@@ -1,5 +1,6 @@
 // weapons
 let pitchFork = {
+  cost: 20,
   int: -1,
   agi: -2,
   str: +2,
@@ -10,10 +11,11 @@ let pitchFork = {
   magic: 0,
   trap: 0,
   expBonus: 0,
-  dropChance: 30
+  dropChance: 100
 };
 
 let shiftySword = {
+  cost: 30,
   int: -3,
   agi: +3,
   str: +1,
@@ -24,10 +26,11 @@ let shiftySword = {
   magic: 0,
   trap: 0,
   expBonus: +2,
-  dropChance: 20
+  dropChance: 80
 };
 
 let crossBow = {
+  cost: 20,
   int: -3,
   agi: +3,
   str: -2,
@@ -38,10 +41,11 @@ let crossBow = {
   magic: 0,
   trap: +0.01,
   expBonus: +1,
-  dropChance: 30
+  dropChance: 100
 };
 
 let crossBoe = {
+  cost: 25,
   int: -5,
   agi: +5,
   str: -3,
@@ -52,10 +56,11 @@ let crossBoe = {
   magic: 0,
   trap: 0,
   expBonus: +3,
-  dropChance: 20
+  dropChance: 90
 };
 
 let realWand = {
+  cost: 15,
   int: +3,
   agi: -1,
   str: -1,
@@ -66,10 +71,11 @@ let realWand = {
   magic: +0.05,
   trap: +0.01,
   expBonus: 0,
-  dropChance: 30
+  dropChance: 100
 };
 
 let realStaff = {
+  cost: 20,
   int: +5,
   agi: -2,
   str: -2,
@@ -80,10 +86,11 @@ let realStaff = {
   magic: +0.07,
   trap: 0,
   expBonus: +2,
-  dropChance: 20
+  dropChance: 90
 };
 
 let stick = {
+  cost: 100,
   int: +20,
   agi: +20,
   str: +20,
@@ -94,10 +101,11 @@ let stick = {
   magic: +1.5,
   trap: +1.5,
   expBonus: +50,
-  dropChance: 1
+  dropChance: 10
 };
 
 let smallRock = {
+  cost: 1,
   int: +1,
   agi: +1,
   str: +1,
@@ -113,6 +121,7 @@ let smallRock = {
 
 // head
 let flatRock = {
+  cost: 10,
   int: -5,
   agi: -2,
   str: +5,
@@ -123,10 +132,11 @@ let flatRock = {
   magic: -0.03,
   trap: +0.01,
   expBonus: +7,
-  dropChance: 30
+  dropChance: 90
 };
 
 let paperBag = {
+  cost: 15,
   int: +2,
   agi: +3,
   str: +5,
@@ -137,11 +147,12 @@ let paperBag = {
   magic: 0,
   trap: +0.05,
   expBonus: -2,
-  dropChance: 30
+  dropChance: 90
 };
 
 // chest
 let brownShirt = {
+  cost: 20,
   int: 0,
   agi: -2,
   str: +1,
@@ -152,10 +163,11 @@ let brownShirt = {
   magic: 0,
   trap: 0,
   expBonus: +1,
-  dropChance: 25
+  dropChance: 100
 };
 
 let greyShirt = {
+  cost: 30,
   int: +2,
   agi: +2,
   str: +2,
@@ -166,11 +178,12 @@ let greyShirt = {
   magic: +0.01,
   trap: +0.01,
   expBonus: -5,
-  dropChance: 20
+  dropChance: 80
 };
 
 // feet
 let grass = {
+  cost: 5,
   int: -3,
   agi: -3,
   str: -3,
@@ -181,10 +194,11 @@ let grass = {
   magic: -0.03,
   trap: -0.02,
   expBonus: +10,
-  dropChance: 45
+  dropChance: 125
 };
 
 let grassShoes = {
+  cost: 15,
   int: +2,
   agi: +2,
   str: +2,
@@ -195,11 +209,12 @@ let grassShoes = {
   magic: +0.02,
   trap: +0.02,
   expBonus: -15,
-  dropChance: 30
+  dropChance: 100
 };
 
 // shoulders
 let roundRocks = {
+  cost: 10,
   int: -3,
   agi: -2,
   str: +4,
@@ -210,10 +225,11 @@ let roundRocks = {
   magic: -0.02,
   trap: +0.02,
   expBonus: +2,
-  dropChance: 35
+  dropChance: 110
 };
 
 let weakPlates = {
+  cost: 20,
   int: +1,
   agi: +1,
   str: +1,
@@ -224,11 +240,12 @@ let weakPlates = {
   magic: +0.01,
   trap: +0.01,
   expBonus: -5,
-  dropChance: 25
+  dropChance: 100
 };
 
 // legs
 let bluePants = {
+  cost: 20,
   int: +5,
   agi: +2,
   str: -2,
@@ -239,10 +256,11 @@ let bluePants = {
   magic: +0.07,
   trap: -0.02,
   expBonus: +2,
-  dropChance: 20
+  dropChance: 80
 };
 
 let grassPants = {
+  cost: 20,
   int: -5,
   agi: -5,
   str: -5,
@@ -253,11 +271,12 @@ let grassPants = {
   magic: -0.10,
   trap: -0.10,
   expBonus: +30,
-  dropChance: 35
+  dropChance: 100
 };
 
 // hands
 let leatherGloves = {
+  cost: 30,
   int: +1,
   agi: +3,
   str: +5,
@@ -268,10 +287,11 @@ let leatherGloves = {
   magic: -0.10,
   trap: +0.08,
   expBonus: -8,
-  dropChance: 20
+  dropChance: 110
 };
 
 let rockGloves = {
+  cost: 35,
   int: -5,
   agi: -2,
   str: +5,
@@ -282,5 +302,5 @@ let rockGloves = {
   magic: -0.02,
   trap: +0.04,
   expBonus: +7,
-  dropChance: 35
+  dropChance: 90
 };

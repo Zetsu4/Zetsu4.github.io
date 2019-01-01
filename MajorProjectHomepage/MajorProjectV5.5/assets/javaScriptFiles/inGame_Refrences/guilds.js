@@ -62,7 +62,7 @@ function guildHoverTile() {
 
     if (mouseIsPressed) {
       if (guildInventory[y][xIndex] !== "empty") {
-        if (allItems.get("Money").amount >= guildInventory[y][xIndex].cost) {
+        if (allItems.get("Money").amount >= guildInventory[y][xIndex].stats.cost) {
           // hiring a party member
           clickWait();
           if (guildInventory[y][xIndex].name === "Guild Ticket") {
@@ -73,7 +73,7 @@ function guildHoverTile() {
           else
             guildMembers.push(new GuildMember(guildInventory[y][xIndex].raceIndex, guildInventory[y][xIndex].skillIndex, guildInventory[y][xIndex].stats.lvl));
 
-          allItems.get("Money").amount -= guildInventory[y][xIndex].cost;
+          allItems.get("Money").amount -= guildInventory[y][xIndex].stats.cost;
           guildInventory[y][xIndex] = "empty";
           // ran out of money
           if (allItems.get("Money").amount <= 0)
@@ -100,12 +100,12 @@ function changeGuildOptions() {
             // guild member
             guildInventory[y][x] = {name: random(names), description: "A party member\nwho fights with you.",
             raceIndex: random(raceSpecific.guild.length-1), race: 0, skillIndex: random(skillSpecific.guild.length-1), skill: 0,
-            stats: {lvl: constrain(int(random(player.lvl-5, player.lvl+3)), 0, Infinity)}, cost: 0};
+            stats: {lvl: constrain(int(random(player.lvl-5, player.lvl+3)), 0, Infinity), cost: 0}};
 
             // set race, skill, and cost
             guildInventory[y][x].race = raceSpecific.guild[guildInventory[y][x].raceIndex];
             guildInventory[y][x].skill = skillSpecific.guild[guildInventory[y][x].skillIndex];
-            guildInventory[y][x].cost = (guildInventory[y][x].stats.lvl+10)*15;
+            guildInventory[y][x].stats.cost = (guildInventory[y][x].stats.lvl+10)*15;
           }
 
           else
@@ -116,7 +116,7 @@ function changeGuildOptions() {
   }
 
   else
-    guildInventory[0][0] = {name: "Guild Ticket", description: "BUY NOW!!", race: {img: guildTicketBack}, skill: {img: guildTicket}, stats: {}, cost: 100};
+    guildInventory[0][0] = {name: "Guild Ticket", description: "BUY NOW!!", race: {img: guildTicketBack}, skill: {img: guildTicket}, stats: {cost: 100}};
 }
 
 // guild members

@@ -166,7 +166,7 @@ function itemDescription(item) {
 
   // put each stat on new line
   statText += item.description+"\n";
-  statText += "cost: "+item.cost+"\n";
+  // statText += "cost: "+item.cost+"\n";
 
   for (let theStat in item.stats)
     if (item.stats[theStat] !== item.stats.dropChance && item.stats[theStat] !== item.stats.dropAmountMin && item.stats[theStat] !== item.stats.dropAmountMax)

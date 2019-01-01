@@ -144,7 +144,7 @@ function preload() {
   worldBackgrounds.homePage = loadImage("assets/img/backgrounds/lovelyHomepage.png");
 
     // over world
-  worldBackgrounds.grass = loadImage("assets/img/backgrounds/grass.png");
+  worldBackgrounds.grass = loadImage("assets/img/backgrounds/grass2.png");
   worldBackgrounds.town = loadImage("assets/img/backgrounds/town.png");
   worldBackgrounds.desert = loadImage("assets/img/backgrounds/desert.png");
   worldBackgrounds.forest = loadImage("assets/img/backgrounds/forest.png");
@@ -749,7 +749,7 @@ function setShops() {
 
   // player not in guild
   if (!player.inGuild)
-    guildInventory[0][0] = {name: "Guild Ticket", description: "BUY NOW!!", race: {img: guildTicketBack}, skill: {img: guildTicket}, stats: {}, cost: 100};
+    guildInventory[0][0] = {name: "Guild Ticket", description: "BUY NOW!!", race: {img: guildTicketBack}, skill: {img: guildTicket}, stats: {cost: 100}};
 
 }
 
@@ -803,8 +803,8 @@ function setButtonAtributes() {
 function setKeyButtons(value, key, map) {
   // buttons to rebind keys
   let i = static(map.size);
-  let yPos = -height*0.48+(i*fontSize.default*1.4);
-  map.get(key).button = new Button(fontSize.default*4.5, yPos, width*0.10, fontSize.default*1.4, buttons.orange, buttons.lightOrange, "");
+  let yPos = -height*0.48+(i*fontSize.default*1.2);
+  map.get(key).button = new Button(fontSize.default*4.5, yPos, width*0.10, fontSize.default*1.1, buttons.orange, buttons.lightOrange, "");
 }
 
 function make2DGrid(cols, rows) {
