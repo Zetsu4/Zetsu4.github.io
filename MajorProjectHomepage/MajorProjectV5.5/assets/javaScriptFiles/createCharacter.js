@@ -218,14 +218,11 @@ function calculateStats() {
   };
 
   // calculating equipment bonuses
-  for (let i=0; i < inventory.equipSlots.length; i++) {
-    for (let theStat in inventory.equipSlots[i].equipped.stats) {
-      for (let runningStat in runningStats) {
+  for (let i=0; i < inventory.equipSlots.length; i++) 
+    for (let theStat in inventory.equipSlots[i].equipped.stats) 
+      for (let runningStat in runningStats) 
         if (runningStat === theStat)
           runningStats[runningStat] += inventory.equipSlots[i].equipped.stats[theStat];
-      }
-    }
-  }
 
   player.expBonus = runningStats.expBonus;
 

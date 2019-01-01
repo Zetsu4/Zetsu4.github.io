@@ -70,11 +70,7 @@ function checkState() {
   // over world
   if (world.area === "Over World") {
     worldEnviorment.overWorld.forEach(onScreen);
-
-    // mini-map padding
-    fill("gold");
-    rect(minimap.x, minimap.y, minimap.padWidth, minimap.padHeight);
-    worldEnviorment.overWorld.forEach(minimapImg);
+    minimapBackground(worldEnviorment.overWorld);
 
     // over world music
     if (!sounds.overWorld.isPlaying()) {
@@ -92,11 +88,7 @@ function checkState() {
   // cave
   else if (world.area === "Cave") {
     worldEnviorment.cave.forEach(onScreen);
-
-    // mini-map padding
-    fill("gold");
-    rect(minimap.x, minimap.y, minimap.padWidth, minimap.padHeight);
-    worldEnviorment.cave.forEach(minimapImg);
+    minimapBackground(worldEnviorment.cave);
 
     // cave music
     if (!sounds.caves.isPlaying()) {
@@ -111,11 +103,7 @@ function checkState() {
   // demon realm
   else if (world.area === "Demon Realm") {
     worldEnviorment.demonRealm.forEach(onScreen);
-
-    // mini-map padding
-    fill("gold");
-    rect(minimap.x, minimap.y, minimap.padWidth, minimap.padHeight);
-    worldEnviorment.demonRealm.forEach(minimapImg);
+    minimapBackground(worldEnviorment.demonRealm);
 
     // demon realm music
     if (!sounds.demonRealm.isPlaying()) {
@@ -130,11 +118,7 @@ function checkState() {
   // castle
   else if (world.area === "Castle") {
     worldEnviorment.castle.forEach(onScreen);
-
-    // mini-map padding
-    fill("gold");
-    rect(minimap.x, minimap.y, minimap.padWidth, minimap.padHeight);
-    worldEnviorment.castle.forEach(minimapImg);
+    minimapBackground(worldEnviorment.castle);
 
     // castle music
     if (!sounds.castle.isPlaying()) {
@@ -146,15 +130,8 @@ function checkState() {
     }
   }
 
-  // dungeon
-  else if (world.area === "Dungeon") {
-    worldEnviorment.dungeon.forEach(onScreen);
-
-    // mini-map padding
-    fill("gold");
-    rect(minimap.x, minimap.y, minimap.padWidth, minimap.padHeight);
-    worldEnviorment.dungeon.forEach(minimapImg);
-
+  // dungeons
+  else {
     // dungeon music
     if (!sounds.dungeon.isPlaying()) {
       sounds.overWorld.stop();
@@ -163,10 +140,44 @@ function checkState() {
       sounds.castle.stop();
       sounds.dungeon.play();
     }
+
+    if (world.area === "Dungeon 1") {
+      worldEnviorment.dungeon1.forEach(onScreen);
+      minimapBackground(worldEnviorment.dungeon1);
+    }
+
+    else if (world.area === "Dungeon 2") {
+      worldEnviorment.dungeon2.forEach(onScreen);
+      minimapBackground(worldEnviorment.dungeon2);
+    }
+
+    else if (world.area === "Dungeon 3") {
+      worldEnviorment.dungeon3.forEach(onScreen);
+      minimapBackground(worldEnviorment.dungeon3);
+    }
+
+    else if (world.area === "Dungeon 4") {
+      worldEnviorment.dungeon4.forEach(onScreen);
+      minimapBackground(worldEnviorment.dungeon4);
+    }
+
+    else if (world.area === "Dungeon 5") {
+      worldEnviorment.dungeon5.forEach(onScreen);
+      minimapBackground(worldEnviorment.dungeon5);
+    }
   }
 }
 
+function minimapBackground(theMap) {
+  fill("gold");
+  rect(minimap.x, minimap.y, minimap.padWidth, minimap.padHeight);
+  theMap.forEach(minimapImg);
+}
+
 function onScreen(value, key, theMap) {
+  let x = width/2+value.zone.wid/2;
+  let y = height/2+value.zone.hei/2;
+
   let xMin = value.zone.x-value.zone.wid/2;
   let xMax = value.zone.x+value.zone.wid/2;
   let yMin = value.zone.y-value.zone.hei/2;
@@ -175,29 +186,11 @@ function onScreen(value, key, theMap) {
   let backX = value.zone.x+world.changedX;
   let backY = value.zone.y+world.changedY;
 
-  if (player.x-width/2 >= xMin && player.x-width/2 <= xMax
-   && player.y-height/2 >= yMin && player.y-height/2 <= yMax)
+  if (backX > -x && backX < x && backY > -y && backY < y)
     image(value.img, backX, backY, value.zone.wid, value.zone.hei);
 
-  else if (player.x+width/2 >= xMin && player.x+width/2 <= xMax
-   && player.y-height/2 >= yMin && player.y-height/2 <= yMax)
-    image(value.img, backX, backY, value.zone.wid, value.zone.hei);
-
-  else if (player.x+width/2 >= xMin && player.x+width/2 <= xMax
-   && player.y+height/2 >= yMin && player.y+height/2 <= yMax)
-    image(value.img, backX, backY, value.zone.wid, value.zone.hei);
-
-  else if (player.x-width/2 >= xMin && player.x-width/2 <= xMax
-   && player.y+height/2 >= yMin && player.y+height/2 <= yMax)
-    image(value.img, backX, backY, value.zone.wid, value.zone.hei);
-
-  else if (value.zone.x > -width/2 && value.zone.x < width/2
-   && value.zone.y > -height/2 && value.zone.y < height/2)
-    image(value.img, backX, backY, value.zone.wid, value.zone.hei);
-
-  if (player.x >= xMin && player.x <= xMax
-   && player.y >= yMin && player.y <= yMax)
-     world.state = theMap.get(key);
+  if (player.x >= xMin && player.x <= xMax && player.y >= yMin && player.y <= yMax)
+    world.state = theMap.get(key);
 }
 
 function minimapImg(value, key, theMap) {

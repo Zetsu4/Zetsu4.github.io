@@ -9,7 +9,8 @@ let pitchFork = {
   ranged: 0,
   magic: 0,
   trap: 0,
-  expBonus: 0
+  expBonus: 0,
+  dropChance: 30
 };
 
 let shiftySword = {
@@ -22,7 +23,8 @@ let shiftySword = {
   ranged: 0,
   magic: 0,
   trap: 0,
-  expBonus: +2
+  expBonus: +2,
+  dropChance: 20
 };
 
 let crossBow = {
@@ -35,7 +37,8 @@ let crossBow = {
   ranged: +0.03,
   magic: 0,
   trap: +0.01,
-  expBonus: +1
+  expBonus: +1,
+  dropChance: 30
 };
 
 let crossBoe = {
@@ -48,7 +51,8 @@ let crossBoe = {
   ranged: +0.01,
   magic: 0,
   trap: 0,
-  expBonus: +3
+  expBonus: +3,
+  dropChance: 20
 };
 
 let realWand = {
@@ -61,7 +65,8 @@ let realWand = {
   ranged: +0.01,
   magic: +0.05,
   trap: +0.01,
-  expBonus: 0
+  expBonus: 0,
+  dropChance: 30
 };
 
 let realStaff = {
@@ -74,7 +79,8 @@ let realStaff = {
   ranged: 0,
   magic: +0.07,
   trap: 0,
-  expBonus: +2
+  expBonus: +2,
+  dropChance: 20
 };
 
 let stick = {
@@ -87,7 +93,8 @@ let stick = {
   ranged: +1.5,
   magic: +1.5,
   trap: +1.5,
-  expBonus: +50
+  expBonus: +50,
+  dropChance: 1
 };
 
 let smallRock = {
@@ -100,7 +107,8 @@ let smallRock = {
   ranged: +0.01,
   magic: +0.01,
   trap: +0.01,
-  expBonus: -2
+  expBonus: -2,
+  dropChance: 50
 };
 
 // head
@@ -114,7 +122,8 @@ let flatRock = {
   ranged: -0.03,
   magic: -0.03,
   trap: +0.01,
-  expBonus: +7
+  expBonus: +7,
+  dropChance: 30
 };
 
 let paperBag = {
@@ -127,7 +136,8 @@ let paperBag = {
   ranged: 0,
   magic: 0,
   trap: +0.05,
-  expBonus: -2
+  expBonus: -2,
+  dropChance: 30
 };
 
 // chest
@@ -141,7 +151,8 @@ let brownShirt = {
   ranged: -0.02,
   magic: 0,
   trap: 0,
-  expBonus: +1
+  expBonus: +1,
+  dropChance: 25
 };
 
 let greyShirt = {
@@ -154,7 +165,8 @@ let greyShirt = {
   ranged: +0.01,
   magic: +0.01,
   trap: +0.01,
-  expBonus: -5
+  expBonus: -5,
+  dropChance: 20
 };
 
 // feet
@@ -168,7 +180,8 @@ let grass = {
   ranged: -0.03,
   magic: -0.03,
   trap: -0.02,
-  expBonus: +10
+  expBonus: +10,
+  dropChance: 45
 };
 
 let grassShoes = {
@@ -181,7 +194,8 @@ let grassShoes = {
   ranged: +0.02,
   magic: +0.02,
   trap: +0.02,
-  expBonus: -15
+  expBonus: -15,
+  dropChance: 30
 };
 
 // shoulders
@@ -195,7 +209,8 @@ let roundRocks = {
   ranged: -004,
   magic: -0.02,
   trap: +0.02,
-  expBonus: +2
+  expBonus: +2,
+  dropChance: 35
 };
 
 let weakPlates = {
@@ -208,7 +223,8 @@ let weakPlates = {
   ranged: +0.01,
   magic: +0.01,
   trap: +0.01,
-  expBonus: -5
+  expBonus: -5,
+  dropChance: 25
 };
 
 // legs
@@ -222,7 +238,8 @@ let bluePants = {
   ranged: +0.04,
   magic: +0.07,
   trap: -0.02,
-  expBonus: +2
+  expBonus: +2,
+  dropChance: 20
 };
 
 let grassPants = {
@@ -235,7 +252,8 @@ let grassPants = {
   ranged: -0.10,
   magic: -0.10,
   trap: -0.10,
-  expBonus: +30
+  expBonus: +30,
+  dropChance: 35
 };
 
 // hands
@@ -249,7 +267,8 @@ let leatherGloves = {
   ranged: +0.10,
   magic: -0.10,
   trap: +0.08,
-  expBonus: -8
+  expBonus: -8,
+  dropChance: 20
 };
 
 let rockGloves = {
@@ -262,5 +281,6 @@ let rockGloves = {
   ranged: -0.10,
   magic: -0.02,
   trap: +0.04,
-  expBonus: +7
+  expBonus: +7,
+  dropChance: 35
 };

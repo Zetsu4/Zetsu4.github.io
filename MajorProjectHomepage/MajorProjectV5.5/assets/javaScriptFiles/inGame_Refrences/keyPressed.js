@@ -55,6 +55,9 @@ function keyPressed() {
       if (world.state.name === "Cave Exit")
         changeArea("Over World");
 
+      else if (world.state.name === "Castle Cave Exit")
+        changeArea("Castle");
+
       else if (world.state.name === "Cave Opening")
         changeArea("Cave");
 
@@ -70,11 +73,39 @@ function keyPressed() {
       else if (world.state.name === "Castle Exit")
         changeArea("Over World");
 
-      else if (world.state.name === "Dungeon Entrance")
-        changeArea("Dungeon");
+      else if (world.state.name === "Cave Entrance")
+        changeArea("Cave");
 
+      else if (world.state.name === "Dungeon Entrance")
+        changeArea("Dungeon 1");
+
+        // dungeons
       else if (world.state.name === "Dungeon Exit")
         changeArea("Castle");
+
+      else if (world.state.name === "Up 1")
+        changeArea("Dungeon 1");
+
+      else if (world.state.name === "Up 2")
+        changeArea("Dungeon 2");
+
+      else if (world.state.name === "Up 3")
+        changeArea("Dungeon 3");
+
+      else if (world.state.name === "Up 4")
+        changeArea("Dungeon 4");
+
+      else if (world.state.name === "Down 2")
+        changeArea("Dungeon 2");
+
+      else if (world.state.name === "Down 3")
+        changeArea("Dungeon 3");
+
+      else if (world.state.name === "Down 4")
+        changeArea("Dungeon 4");
+
+      else if (world.state.name === "Down 5")
+        changeArea("Dungeon 5");
     }
   }
 }

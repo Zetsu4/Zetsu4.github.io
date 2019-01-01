@@ -592,6 +592,7 @@ function settingWorld() {
   worldEnviorment.cave.set("Cave", {img: worldBackgrounds.cave, name: "Cave", color: color(139, 15, 205), numOfEnemys: 40, enemy: {lvlMin: 10, lvlMax: 15, race: raceSpecific.cave, skill: skillSpecific.cave}, zone: {x: 0, y: 0, wid: world.width, hei: world.height}});
   worldEnviorment.cave.set("Demon Gate", {img: worldBackgrounds.demonGate, name: "Demon Gate Enter", color: color(25, 255, 199), numOfEnemys: 50, enemy: {lvlMin: 13, lvlMax: 25, race: raceSpecific.demons, skill: skillSpecific.demons}, zone: {x: 0, y: 0, wid: world.width*0.20, hei: world.height*0.20}});
   worldEnviorment.cave.set("Cave Exit", {img: worldBackgrounds.caveExit, name: "Cave Exit", color: color(200), numOfEnemys: 3, enemy: {lvlMin: 9, lvlMax: 13, race: raceSpecific.cave, skill: skillSpecific.cave}, zone: {x: world.width*0.35, y: world.height*0.35, wid: world.width*0.05, hei: world.height*0.05}});
+  worldEnviorment.cave.set("Castle Cave Exit", {img: worldBackgrounds.stairs, name: "Castle Cave Exit", color: color(200), numOfEnemys: 0, enemy: {lvlMin: 0, lvlMax: 0, race: allRaces, skill: allSkills}, zone: {x: -world.width*0.20, y: world.height*0.45, wid: width*0.25, hei: height*0.25}});
 
     // demon realm
   worldEnviorment.demonRealm = new Map();
@@ -602,12 +603,37 @@ function settingWorld() {
   worldEnviorment.castle = new Map();
   worldEnviorment.castle.set("Castle", {img: worldBackgrounds.castle, name: "Castle", color: color(212, 0, 57), numOfEnemys: 40, enemy: {lvlMin: 10, lvlMax: 20, race: raceSpecific.cave, skill: skillSpecific.cave}, zone: {x: 0, y: 0, wid: world.width, hei: world.height}});
   worldEnviorment.castle.set("Castle Exit", {img: worldBackgrounds.door, name: "Castle Exit", color: color(212, 0, 57), numOfEnemys: 0, enemy: {lvlMin: 0, lvlMax: 0, race: allRaces, skill: allSkills}, zone: {x: 0, y: -world.height*0.45, wid: width*0.50, hei: height*0.25}});
-  worldEnviorment.castle.set("Dungeon Entrance", {img: worldBackgrounds.stairs, name: "Dungeon Entrance", color: color(212, 0, 57), numOfEnemys: 40, enemy: {lvlMin: 10, lvlMax: 20, race: raceSpecific.cave, skill: skillSpecific.cave}, zone: {x: -world.width*0.20, y: world.height*0.48, wid: width*0.10, hei: height*0.10}});
+  worldEnviorment.castle.set("Cave Entrance", {img: worldBackgrounds.stairs, name: "Cave Entrance", color: color(212, 0, 57), numOfEnemys: 0, enemy: {lvlMin: 0, lvlMax: 0, race: allRaces, skill: allSkills}, zone: {x: -world.width*0.20, y: world.height*0.45, wid: width*0.25, hei: height*0.25}});
+  worldEnviorment.castle.set("Dungeon Entrance", {img: worldBackgrounds.stairs, name: "Dungeon Entrance", color: color(212, 0, 57), numOfEnemys: 0, enemy: {lvlMin: 0, lvlMax: 0, race: allRaces, skill: allSkills}, zone: {x: world.width*0.20, y: world.height*0.45, wid: width*0.25, hei: height*0.25}});
 
-    // dungeon
-  worldEnviorment.dungeon = new Map();
-  worldEnviorment.dungeon.set("Dungeon", {img: worldBackgrounds.dungeon, name: "Dungeon", color: color(212, 0, 57), numOfEnemys: 45, enemy: {lvlMin: 30, lvlMax: 50, race: raceSpecific.cave, skill: skillSpecific.cave}, zone: {x: 0, y: 0, wid: world.width, hei: world.height}});
-  worldEnviorment.dungeon.set("Dungeon Exit", {img: worldBackgrounds.stairs, name: "Dungeon Exit", color: color(212, 0, 57), numOfEnemys: 40, enemy: {lvlMin: 20, lvlMax: 30, race: raceSpecific.cave, skill: skillSpecific.cave}, zone: {x: -world.width*0.20, y: world.height*0.48, wid: width*0.10, hei: height*0.10}});
+    // dungeon 1
+  worldEnviorment.dungeon1 = new Map();
+  worldEnviorment.dungeon1.set("Dungeon 1", {img: worldBackgrounds.dungeon, name: "Dungeon 1", color: color(212, 0, 57), numOfEnemys: 45, enemy: {lvlMin: 30, lvlMax: 50, race: raceSpecific.cave, skill: skillSpecific.cave}, zone: {x: 0, y: 0, wid: world.width, hei: world.height}});
+  worldEnviorment.dungeon1.set("Dungeon Exit", {img: worldBackgrounds.stairs, name: "Dungeon Exit", color: color(212, 0, 57), numOfEnemys: 0, enemy: {lvlMin: 0, lvlMax: 0, race: allRaces, skill: allSkills}, zone: {x: world.width*0.20, y: world.height*0.45, wid: width*0.25, hei: height*0.25}});
+  worldEnviorment.dungeon1.set("Down 2", {img: worldBackgrounds.stairs, name: "Down 2", color: color(212, 0, 57), numOfEnemys: 0, enemy: {lvlMin: 0, lvlMax: 0, race: allRaces, skill: allSkills}, zone: {x: -world.width*0.45, y: -world.height*0.45, wid: width*0.25, hei: height*0.25}});
+
+    // dungeon 2
+  worldEnviorment.dungeon2 = new Map();
+  worldEnviorment.dungeon2.set("Dungeon 2", {img: worldBackgrounds.dungeon, name: "Dungeon 2", color: color(212, 0, 57), numOfEnemys: 45, enemy: {lvlMin: 30, lvlMax: 50, race: raceSpecific.cave, skill: skillSpecific.cave}, zone: {x: 0, y: 0, wid: world.width, hei: world.height}});
+  worldEnviorment.dungeon2.set("Up 1", {img: worldBackgrounds.stairs, name: "Up 1", color: color(212, 0, 57), numOfEnemys: 0, enemy: {lvlMin: 0, lvlMax: 0, race: allRaces, skill: allSkills}, zone: {x: -world.width*0.45, y: -world.height*0.45, wid: width*0.25, hei: height*0.25}});
+  worldEnviorment.dungeon2.set("Down 3", {img: worldBackgrounds.stairs, name: "Down 3", color: color(212, 0, 57), numOfEnemys: 0, enemy: {lvlMin: 0, lvlMax: 0, race: allRaces, skill: allSkills}, zone: {x: world.width*0.45, y: world.height*0.45, wid: width*0.25, hei: height*0.25}});
+
+    // dungeon 3
+  worldEnviorment.dungeon3 = new Map();
+  worldEnviorment.dungeon3.set("Dungeon 3", {img: worldBackgrounds.dungeon, name: "Dungeon 3", color: color(212, 0, 57), numOfEnemys: 45, enemy: {lvlMin: 30, lvlMax: 50, race: raceSpecific.cave, skill: skillSpecific.cave}, zone: {x: 0, y: 0, wid: world.width, hei: world.height}});
+  worldEnviorment.dungeon3.set("Up 2", {img: worldBackgrounds.stairs, name: "Up 2", color: color(212, 0, 57), numOfEnemys: 0, enemy: {lvlMin: 0, lvlMax: 0, race: allRaces, skill: allSkills}, zone: {x: world.width*0.45, y: world.height*0.45, wid: width*0.25, hei: height*0.25}});
+  worldEnviorment.dungeon3.set("Down 4", {img: worldBackgrounds.stairs, name: "Down 4", color: color(212, 0, 57), numOfEnemys: 0, enemy: {lvlMin: 0, lvlMax: 0, race: allRaces, skill: allSkills}, zone: {x: -world.width*0.45, y: -world.height*0.45, wid: width*0.25, hei: height*0.25}});
+
+    // dungeon 4
+  worldEnviorment.dungeon4 = new Map();
+  worldEnviorment.dungeon4.set("Dungeon 4", {img: worldBackgrounds.dungeon, name: "Dungeon 4", color: color(212, 0, 57), numOfEnemys: 45, enemy: {lvlMin: 30, lvlMax: 50, race: raceSpecific.cave, skill: skillSpecific.cave}, zone: {x: 0, y: 0, wid: world.width, hei: world.height}});
+  worldEnviorment.dungeon4.set("Up 3", {img: worldBackgrounds.stairs, name: "Up 3", color: color(212, 0, 57), numOfEnemys: 0, enemy: {lvlMin: 0, lvlMax: 0, race: allRaces, skill: allSkills}, zone: {x: -world.width*0.45, y: -world.height*0.45, wid: width*0.25, hei: height*0.25}});
+  worldEnviorment.dungeon4.set("Down 5", {img: worldBackgrounds.stairs, name: "Down 5", color: color(212, 0, 57), numOfEnemys: 0, enemy: {lvlMin: 0, lvlMax: 0, race: allRaces, skill: allSkills}, zone: {x: world.width*0.45, y: world.height*0.45, wid: width*0.25, hei: height*0.25}});
+
+    // dungeon 5
+  worldEnviorment.dungeon5 = new Map();
+  worldEnviorment.dungeon5.set("Dungeon 5", {img: worldBackgrounds.dungeon, name: "Dungeon 5", color: color(212, 0, 57), numOfEnemys: 45, enemy: {lvlMin: 30, lvlMax: 50, race: raceSpecific.cave, skill: skillSpecific.cave}, zone: {x: 0, y: 0, wid: world.width, hei: world.height}});
+  worldEnviorment.dungeon5.set("Up 4", {img: worldBackgrounds.stairs, name: "Up 4", color: color(212, 0, 57), numOfEnemys: 0, enemy: {lvlMin: 0, lvlMax: 0, race: allRaces, skill: allSkills}, zone: {x: world.width*0.45, y: world.height*0.45, wid: width*0.25, hei: height*0.25}});
 
   world.state = worldEnviorment.overWorld.get("Town");
   world.area = "Over World";

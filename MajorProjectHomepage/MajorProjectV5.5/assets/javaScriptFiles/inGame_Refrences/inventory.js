@@ -169,8 +169,8 @@ function itemDescription(item) {
   statText += "cost: "+item.cost+"\n";
 
   for (let theStat in item.stats)
-    // the stats
-    statText += theStat+": "+item.stats[theStat]+"\n";
+    if (item.stats[theStat] !== item.stats.dropChance && item.stats[theStat] !== item.stats.dropAmountMin && item.stats[theStat] !== item.stats.dropAmountMax)
+      statText += theStat+": "+item.stats[theStat]+"\n"; // the stats
 
   // display stats
   text(statText, mouseX+width*0.015, mouseY+fontSize.default*0.75);
