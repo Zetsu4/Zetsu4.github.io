@@ -222,7 +222,7 @@ function calculateStats() {
     for (let theStat in inventory.equipSlots[i].equipped.stats)
       for (let runningStat in runningStats)
         if (runningStat === theStat)
-          runningStats[runningStat] += inventory.equipSlots[i].equipped.stats[theStat]*(constrain(inventory.equipSlots[i].equipped.amount/2), 1, Infinity);
+          runningStats[runningStat] += inventory.equipSlots[i].equipped.stats[theStat]*constrain((inventory.equipSlots[i].equipped.amount/2), 1, Infinity);
 
   player.expBonus = runningStats.expBonus;
 
@@ -235,10 +235,10 @@ function calculateStats() {
 
   // attack
   player.coolDownTime = constrain((4000 - (player.vit+runningStats.vit + player.agi+runningStats.agi)*15), 150, 1000);
-  player.mDmg = constrain(int((player.str+runningStats.str)*(0.75 + (player.skill.stats.melee+runningStats.melee))), 0, Infinity); // melee damage
-  player.rDmg = constrain(int((player.dex+runningStats.dex)*(0.75 + (player.skill.stats.ranged+runningStats.ranged))), 0, Infinity); // ranged damage
-  player.sDmg = constrain(int((player.int+runningStats.int)*(0.75 + (player.skill.stats.magic+runningStats.magic))), 0, Infinity); // spell damage
-  player.tDmg = constrain(int((player.agi+runningStats.agi)*(1+runningStats.trap)), 0, Infinity);
+  player.mDmg = constrain(int((player.str+runningStats.str)*(0.75 + (player.skill.stats.melee+runningStats.melee))), 1, Infinity); // melee damage
+  player.rDmg = constrain(int((player.dex+runningStats.dex)*(0.75 + (player.skill.stats.ranged+runningStats.ranged))), 1, Infinity); // ranged damage
+  player.sDmg = constrain(int((player.int+runningStats.int)*(0.75 + (player.skill.stats.magic+runningStats.magic))), 1, Infinity); // spell damage
+  player.tDmg = constrain(int((player.agi+runningStats.agi)*(1+runningStats.trap)), 1, Infinity);
 
   // movement
   player.totSpeed = constrain((width*0.003 + width*(player.agi+runningStats.agi)*pow(10, -4)), width*0.0001, width*0.05);

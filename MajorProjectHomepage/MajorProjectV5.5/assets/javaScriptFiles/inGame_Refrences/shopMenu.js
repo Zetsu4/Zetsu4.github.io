@@ -171,7 +171,7 @@ function changeShopItems() {
 }
 
 function chooseRandomItem(value, key, map) {
-  if (value.equipable && shopItemRefreshName === "") {
+  if (value.equipable) {
     let dropChance = random(500);
     if (dropChance <= value.stats.dropChance) // choose an item to put in shop
       shopItemRefreshName = value.name;

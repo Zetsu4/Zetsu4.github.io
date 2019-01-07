@@ -30,7 +30,7 @@ class Enemy {
 
     let extraPoints = (this.lvl-1)*5;
     this.int = this.race.stats.int + ceil(extraPoints/3);
-    this.agi = constrain(this.race.stats.agi + ceil(extraPoints/3), 1, 90);
+    this.agi = constrain((this.race.stats.agi + ceil(extraPoints/5)), 1, 75);
     this.str = this.race.stats.str + ceil(extraPoints/3);
     this.dex = this.race.stats.dex + ceil(extraPoints/3);
     this.vit = this.race.stats.vit + ceil(extraPoints/3);
