@@ -1,22 +1,22 @@
 function settingItemMap() {
   // non equipable items
   allItems.set("Hp Potion", {name:"Hp Potion", description: "Replenishes HP", img: itemImg.hpPotion,
-  equipable: false, stats: {dropChance: 50, dropAmountMin: 1, dropAmountMax: 2, cost: 20}, amount: 0});
+  equipable: false, stats: {dropChance: 25, dropAmountMin: 1, dropAmountMax: 2, cost: 20}, amount: 0});
 
   allItems.set("Mp Potion", {name:"Mp Potion", description: "Replenishes MP", img: itemImg.mpPotion,
-  equipable: false, stats: {dropChance: 75, dropAmountMin: 1, dropAmountMax: 3, cost: 15}, amount: 0});
+  equipable: false, stats: {dropChance: 30, dropAmountMin: 1, dropAmountMax: 3, cost: 15}, amount: 0});
 
   allItems.set("Arrows", {name:"Arrows", description: "Used with bow", img: itemImg.arrowAttack,
-  equipable: false, stats: {dropChance: 100, dropAmountMin: 1, dropAmountMax: 10, cost: 2}, amount: 0});
+  equipable: false, stats: {dropChance: 50, dropAmountMin: 1, dropAmountMax: 10, cost: 2}, amount: 0});
 
   allItems.set("Traps", {name:"Traps", description: "Traps to slow\nfast enemy's", img: itemImg.trap,
-  equipable: false, stats: {dropChance: 90, dropAmountMin: 1, dropAmountMax: 5, cost: 10}, amount: 0});
+  equipable: false, stats: {dropChance: 40, dropAmountMin: 1, dropAmountMax: 5, cost: 10}, amount: 0});
 
   allItems.set("Town Portal", {name:"Town Portal", description: "Teleport to\ntown instantly", img: itemImg.townPortal,
-  equipable: false, stats: {dropChance: 80, dropAmountMin: 1, dropAmountMax: 2, cost: 5}, amount: 0});
+  equipable: false, stats: {dropChance: 30, dropAmountMin: 1, dropAmountMax: 2, cost: 5}, amount: 0});
 
   allItems.set("Money", {name:"Money", description: "The currency\nof equestria", img: itemImg.money,
-  equipable: false, stats: {dropChance: 70, dropAmountMin: 5, dropAmountMax: 15, cost: 0}, amount: 0});
+  equipable: false, stats: {dropChance: 75, dropAmountMin: 5, dropAmountMax: 15, cost: 0}, amount: 0});
 
 
   // equipment
