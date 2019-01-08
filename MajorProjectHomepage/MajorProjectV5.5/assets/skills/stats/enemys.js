@@ -1,5 +1,5 @@
 // dungeon
-let chomper = {
+let undeadKnight = {
   melee: 0.5,
   ranged: 0.0,
   magic: 0.0,
