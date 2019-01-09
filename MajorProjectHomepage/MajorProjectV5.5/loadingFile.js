@@ -24,7 +24,7 @@ let buttonAtributes = {
   skill: {},
   settings: {}
 };
-let easterEgg = {};
+let soundEasterEgg = false;
 
 // sound
 let sounds = {}
@@ -278,41 +278,6 @@ function preload() {
   sounds.secret.blipEnemyDeath = loadSound("assets/easterEggs/sound/blipEnemyDeath.wav");
   sounds.secret.blipGameOver = loadSound("assets/easterEggs/sound/blipGameOver.wav");
 
-    // backgrounds
-  worldBackgrounds.secret = {};
-
-  // worldBackgrounds.secret. = loadImage("assets/easterEggs/background/.png");
-
-    // sprites
-  sprites.secret = {};
-  sprites.secret.race = {};
-  sprites.secret.skill = {};
-
-  sprites.secret.death = loadImage("assets/img/sprites/enemyDeath.png");
-  sprites.secret.random = loadImage("assets/img/sprites/random.png");
-
-  sprites.secret.race.dwarf = loadImage("assets/races/img/dwarf.png");
-  sprites.secret.race.elf = loadImage("assets/races/img/elf.png");
-  sprites.secret.race.goblin = loadImage("assets/races/img/goblin.png");
-  sprites.secret.race.halfElf = loadImage("assets/races/img/half-elf.png");
-  sprites.secret.race.halfling = loadImage("assets/races/img/halfling.png");
-  sprites.secret.race.human = loadImage("assets/races/img/human.png");
-  sprites.secret.race.orc = loadImage("assets/races/img/orc.png");
-  sprites.secret.race.urukHai = loadImage("assets/races/img/uruk-hai.png");
-
-  sprites.secret.skill.archer = loadImage("assets/skills/img/archer.png");
-  sprites.secret.skill.cleric = loadImage("assets/skills/img/cleric.png");
-  sprites.secret.skill.fighter = loadImage("assets/skills/img/fighter.png");
-  sprites.secret.skill.mage = loadImage("assets/skills/img/mage.png");
-  sprites.secret.skill.ranger = loadImage("assets/skills/img/ranger.png");
-  sprites.secret.skill.rogue = loadImage("assets/skills/img/rogue.png");
-  sprites.secret.skill.samurai = loadImage("assets/skills/img/samurai.png");
-  sprites.secret.skill.trapper = loadImage("assets/skills/img/trapper.png");
-
-  npcImg.secret = {};
-  npcImg.secret.genericNPC = loadImage("assets/img/sprites/NPC.png");
-  npcImg.secret.shopKeep = loadImage("assets/img/sprites/shopKeep.png");
-
   setSounds();
 }
 
@@ -441,8 +406,6 @@ function setup() {
   setPlayer();
   setNPCs();
   setShops();
-
-  setEasterEgg();
 
   // heal button
   let shorterLine /*great variable name*/ = (inventory.width+1)*inventory.boxSize-width/2+inventory.boxSize;
@@ -864,10 +827,4 @@ function make2DGrid(cols, rows) {
     }
   }
   return newArray;
-}
-
-function setEasterEgg() {
-  easterEgg.backgrounds = false;
-  easterEgg.soundsBlip = false;
-  easterEgg.spritesOG = false;
 }

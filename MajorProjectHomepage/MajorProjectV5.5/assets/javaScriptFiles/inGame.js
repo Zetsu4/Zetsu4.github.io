@@ -2,6 +2,10 @@ function playingGame() {
   textFont("BOLD");
   drawingBack = (state !== 0);
 
+  // dungeon 5 easter egg unlock
+  if (!soundEasterEgg && world.state.name === "Dungeon 5")
+    secretSoundsFoo();
+
   if (state === 0) {
     // draw enviorments
       // mini-map padding

@@ -1,5 +1,4 @@
 function draw() {
-  easterEggs();
   translate(width/2, height/2);
   if (drawingBack)
     image(worldBackgrounds.homePage, 0, 0, width, height);

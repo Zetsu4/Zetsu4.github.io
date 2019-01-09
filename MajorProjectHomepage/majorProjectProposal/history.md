@@ -43,7 +43,7 @@
 - improved key rebinding
 - added save and load functions, loading doesn't work
 
-## Nov 9, 2018 - Dec 27, 2018
+## Nov 9, 2018 - Jan 8, 2019
 - rewrote code to make it more organized and more efficient
 - added a new font for text
 - fixed problems with inventory
@@ -65,3 +65,6 @@
 - added party members and their AI
 - confirmation for leaving game
 - added more items
+
+## Jan 9, 2019 - Jan --, 2019
+- started play testing

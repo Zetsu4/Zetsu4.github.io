@@ -1,0 +1,277 @@
+function inventoryMenu() {
+  background(179, 119, 0);
+  let xPos = inventory.width*inventory.boxSize + inventory.boxSize/2;
+  let yPos = inventory.boxSize/2;
+
+  // equipment
+  equipLayout();
+
+  // stats
+  displayStats(xPos, yPos);
+
+  // grid
+  drawGrid(xPos, yPos);
+}
+
+// putting items in inventory
+function putInInventory(theItem, theAmount = 1) {
+  let added = false;
+  for (let y = 0; y < player.inventory.length; y++) {
+    for (let x = 0; x < player.inventory[y].length; x++) {
+      if (player.inventory[y][x] === "empty" && !added) {
+        player.inventory[y][x] = allItems.get(theItem.name);
+        player.inventory[y][x].amount += theAmount;
+        added = true;
+      }
+    }
+  }
+}
+
+// equipment
+function equipLayout() {
+  let x = width*0.25;
+  let y = -height*0.10;
+  let wid = inventory.boxSize*5;
+  let hei = inventory.boxSize*5;
+  // layout
+  image(itemImg.inventoryLayout, x, y, wid, hei);
+
+  // equip slots
+  for (let i=0; i < inventory.equipSlots.length; i++) {
+    inventory.equipSlots[i].display();
+
+    // clicking slot
+    if (inventory.equipSlots[i].hovering() && mouseIsPressed) {
+      if (inventory.equipSlots[i].equipped !== "empty") {
+        // if equip slot has an item,
+        // put that item in inventory
+        putInInventory(inventory.equipSlots[i].equipped, 0);
+        inventory.equipSlots[i].equipped = "empty";
+
+        // calculating removed equipment
+        calculateStats();
+      }
+
+      // if mouse is holding an item
+      if (mouseCarring !== "empty") {
+        // and that item is equipment
+        if (mouseCarring.equipable) {
+          // AND that item is equipping to the correct spot
+          if (mouseCarring.equipSlot === inventory.equipSlots[i].bodyPosition) {
+            clickWait();
+            // then equip it
+            inventory.equipSlots[i].equipped = mouseCarring;
+            inventory.equipSlots[i].requip();
+            mouseCarring = "empty";
+
+            // calculating newly equipped gear
+            calculateStats();
+          }
+        }
+      }
+    }
+  }
+}
+
+// grid
+function drawGrid(xPos, yPos) {
+  push();
+  // show inventory grid
+  stroke(204, 102, 0);
+  fill(buttons.brown);
+  rectMode(CORNER);
+  imageMode(CORNER);
+  translate(-width/2, -height/2);
+
+  // garbage
+  garbageCan(xPos, yPos);
+
+  // inventory
+  for (let y = 0; y < player.inventory.length; y++) {
+    for (let x = 0; x < player.inventory[y].length; x++) {
+      let xPos2 = x*inventory.boxSize;
+      let yPos2 = y*inventory.boxSize;
+
+      // inventory grid
+      rect(xPos2, yPos2, inventory.boxSize, inventory.boxSize);
+      if (player.inventory[y][x] !== "empty")
+        drawItemInInventory(player.inventory[y][x].img, player.inventory[y][x].amount, xPos2, yPos2);
+    }
+  }
+  hoverOverTile();
+  mouseHolding();
+  pop();
+}
+
+function drawItemInInventory(img, number, x, y) {
+  // draw image
+  image(img, x, y, inventory.boxSize, inventory.boxSize);
+  push();
+  textAlign(RIGHT, BOTTOM);
+  textSize(fontSize.playersDisplay);
+  noStroke();
+  fill("white");
+  text(number, x+inventory.boxSize, y+inventory.boxSize);
+  pop();
+}
+
+function hoverOverTile() {
+  // highlighting inventory
+  let x = floor(mouseX/inventory.boxSize);
+  let y = floor(mouseY/inventory.boxSize);
+
+  if (x < inventory.width && x >= 0 && y < inventory.height && y >= 0) {
+    let xPos2 = x*inventory.boxSize;
+    let yPos2 = y*inventory.boxSize;
+
+    // highlight box
+    fill(buttons.lightBrown);
+    rect(xPos2, yPos2, inventory.boxSize, inventory.boxSize);
+    if (player.inventory[y][x] !== "empty") {
+      drawItemInInventory(player.inventory[y][x].img, player.inventory[y][x].amount, xPos2, yPos2);
+      itemDescription(player.inventory[y][x]);
+    }
+
+    // mouse clicking in inventory
+    if (mouseIsPressed) {
+      clickWait();
+      let newMouseCarring = player.inventory[y][x];
+      let newPlayerInventory = mouseCarring;
+
+      mouseCarring = newMouseCarring;
+      player.inventory[y][x] = newPlayerInventory;
+    }
+  }
+}
+
+function itemDescription(item) {
+  push();
+
+  // text box
+  rectMode(CORNER);
+  rect(mouseX+width*0.01, mouseY, width*0.10, height*0.05+(fontSize.default+fontSize.playersDisplay*13));
+
+  // description of item
+  noStroke();
+  fill("black");
+  textAlign(LEFT, TOP);
+
+  // item name
+  textSize(fontSize.default*0.75);
+  text(item.name, mouseX+width*0.015, mouseY);
+
+  // description and stats
+  textSize(fontSize.playersDisplay);
+  let statText = "";
+
+  // put each stat on new line
+  statText += item.description+"\n";
+  // statText += "cost: "+item.cost+"\n";
+
+  for (let theStat in item.stats)
+    if (item.stats[theStat] !== item.stats.dropChance && item.stats[theStat] !== item.stats.dropAmountMin && item.stats[theStat] !== item.stats.dropAmountMax)
+      statText += theStat+": "+item.stats[theStat]+"\n"; // the stats
+
+  // display stats
+  text(statText, mouseX+width*0.015, mouseY+fontSize.default*0.75);
+  pop();
+}
+
+function garbageCan(x, y) {
+  let newX = x - inventory.boxSize/2;
+  let newY = y - inventory.boxSize/2;
+  if (mouseX >= newX && mouseX <= x + inventory.boxSize/2
+   && mouseY >= newY && mouseY <= y + inventory.boxSize/2) {
+    image(itemImg.garbageOpened, newX, newY, inventory.boxSize, inventory.boxSize);
+    if (mouseIsPressed) {
+      if (mouseCarring !== "empty") {
+        mouseCarring.amount = 0;
+        mouseCarring = "empty";
+      }
+    }
+  }
+
+  else
+    image(itemImg.garbageClosed, newX, newY, inventory.boxSize, inventory.boxSize);
+}
+
+function mouseHolding() {
+  if (mouseCarring !== "empty")
+    drawItemInInventory(mouseCarring.img, mouseCarring.amount, mouseX-inventory.boxSize/2, mouseY-inventory.boxSize/2);
+}
+
+// stats
+function displayStats(x, y) {
+  // text
+  push();
+  fill("white");
+  textFont(fonts.default, fontSize.playersDisplay*1.25);
+  textAlign(LEFT, TOP);
+
+  let lvlPercent = (player.exp/player.nextLvl)*100;
+  text("Money - "+allItems.get("Money").amount+"\n\
+Lvl- "+player.lvl+"\n\
+exp- "+player.exp.toFixed(0)+"/"+player.nextLvl.toFixed(0)+" = "+lvlPercent.toFixed(2)+"%\n\
+hp- "+player.hp+"/"+player.totHp+"\n\
+mp- "+player.mp+"/"+player.totMp+"\n\
+Speed- "+player.totSpeed.toFixed(2)+"\n\
+Melee- "+player.mDmg+"\n\
+Ranged- "+player.rDmg+"\n\
+Magic- "+player.sDmg+"\n\
+Trap- "+player.tDmg+"\n\
+points- "+player.points+"\n\
+int- "+player.int+"\n\
+agi- "+player.agi+"\n\
+str- "+player.str+"\n\
+dex- "+player.dex+"\n\
+vit- "+player.vit
+  , x-width*0.515, -height*0.50+inventory.boxSize);
+  pop();
+
+  // points to spend
+  checkForPoints();
+}
+
+function checkForPoints() {
+  // spending point boxes
+  if (player.points > 0) {
+    push();
+    stroke(204, 102, 0);
+    for (let i = 0; i < buttons.lvlUp.length; i++) {
+      if (buttons.lvlUp[i].clicked()) {
+        clickWait();
+        levelingUp(i);
+        calculateStats();
+      }
+    }
+    pop();
+  }
+}
+
+function levelingUp(i) {
+  // spending points
+  if (i === 0) {
+    player.int++;
+    player.points--;
+  }
+
+  else if (i === 1 && player.agi < 100) {
+    player.agi++;
+    player.points--;
+  }
+
+  else if (i === 2) {
+    player.str++;
+    player.points--;
+  }
+
+  else if (i === 3) {
+    player.dex++;
+    player.points--;
+  }
+
+  else if (i === 4) {
+    player.vit++;
+    player.points--;
+  }
+}
