@@ -66,10 +66,10 @@ let legs2 = {
   str: -9,
   dex: -8,
   vit: +17,
-  melee: +2.07,
+  melee: +0.07,
   ranged: -1.68,
   magic: -1.03,
-  trap: +2.30,
+  trap: +0.30,
   expBonus: -2,
   dropChance: 25
 };
@@ -81,10 +81,10 @@ let legs3 = {
   str: +7,
   dex: +7,
   vit: +8,
-  melee: +3.73,
-  ranged: +3.33,
-  magic: +3.71,
-  trap: -2.85,
+  melee: +0.73,
+  ranged: +0.33,
+  magic: +0.71,
+  trap: -1.85,
   expBonus: +6,
   dropChance: 10
 };
@@ -97,7 +97,7 @@ let legs4 = {
   dex: +25,
   vit: -2,
   melee: +1.60,
-  ranged: +2.59,
+  ranged: +1.59,
   magic: +0.96,
   trap: -1.18,
   expBonus: -5,
@@ -112,9 +112,9 @@ let legs5 = {
   dex: +6,
   vit: -5,
   melee: +0.58,
-  ranged: -2.72,
-  magic: -2.78,
-  trap: +3.06,
+  ranged: -1.72,
+  magic: -1.78,
+  trap: +1.06,
   expBonus: +6,
   dropChance: 15
 };

@@ -21,9 +21,9 @@ let paperBag = {
   str: +5,
   dex: +2,
   vit: -2,
-  melee: 0,
-  ranged: 0,
-  magic: 0,
+  melee: +0.00,
+  ranged: +0.00,
+  magic: +0.00,
   trap: +0.05,
   expBonus: -2,
   dropChance: 15

@@ -141,10 +141,10 @@ let weapon2 = {
   str: +50,
   dex: +50,
   vit: +50,
-  melee: +2,
-  ranged: +2,
-  magic: +2,
-  trap: +2,
+  melee: +1.7,
+  ranged: +1.7,
+  magic: +1.7,
+  trap: +1.7,
   expBonus: +75,
   dropChance: 0.05
 };
@@ -158,8 +158,8 @@ let weapon3 = {
   vit: +35,
   melee: -1.5,
   ranged: +0.5,
-  magic: +4,
-  trap: +2,
+  magic: +2,
+  trap: +1,
   expBonus: +25,
   dropChance: 2
 };
@@ -171,10 +171,10 @@ let weapon4 = {
   str: +25,
   dex: -20,
   vit: -10,
-  melee: +5,
-  ranged: -5,
-  magic: -5,
-  trap: -5,
+  melee: +1,
+  ranged: -1,
+  magic: -1,
+  trap: -1,
   expBonus: +50,
   dropChance: 5
 };
@@ -186,10 +186,10 @@ let weapon5 = {
   str: +200,
   dex: +200,
   vit: +200,
-  melee: +2.5,
-  ranged: +2.5,
-  magic: +2.5,
-  trap: +2.5,
+  melee: +1.5,
+  ranged: +1.5,
+  magic: +1.5,
+  trap: +1.5,
   expBonus: +50,
   dropChance: 0.01
 };

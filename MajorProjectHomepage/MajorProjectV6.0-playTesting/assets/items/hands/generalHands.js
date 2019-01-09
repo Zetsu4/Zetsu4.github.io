@@ -51,8 +51,8 @@ let hands1 = {
   str: -3,
   dex: -6,
   vit: -7,
-  melee: -3.79,
-  ranged: +3.68,
+  melee: -0.79,
+  ranged: +0.68,
   magic: -1.99,
   trap: +1.63,
   expBonus: +58,
@@ -67,9 +67,9 @@ let hands2 = {
   dex: -2,
   vit: +9,
   melee: +0.08,
-  ranged: -3.63,
-  magic: +3.36,
-  trap: -2.30,
+  ranged: -1.63,
+  magic: +1.36,
+  trap: -0.30,
   expBonus: +56,
   dropChance: 15
 };
@@ -81,10 +81,10 @@ let hands3 = {
   str: -3,
   dex: -16,
   vit: +10,
-  melee: -2.79,
-  ranged: -2.91,
+  melee: -0.79,
+  ranged: -0.91,
   magic: +1.54,
-  trap: +3.76,
+  trap: +1.76,
   expBonus: -9,
   dropChance: 15
 };
@@ -97,9 +97,9 @@ let hands4 = {
   dex: -11,
   vit: +9,
   melee: -1.40,
-  ranged: -2.34,
-  magic: +3.35,
-  trap: -3.72,
+  ranged: -0.34,
+  magic: +1.35,
+  trap: -1.72,
   expBonus: +19,
   dropChance: 20
 };
@@ -112,9 +112,9 @@ let hands5 = {
   dex: +1,
   vit: -6,
   melee: +0.22,
-  ranged: +3.34,
-  magic: -3.90,
-  trap: +3.50,
+  ranged: +0.34,
+  magic: -0.90,
+  trap: +0.50,
   expBonus: -16,
   dropChance: 30
 };

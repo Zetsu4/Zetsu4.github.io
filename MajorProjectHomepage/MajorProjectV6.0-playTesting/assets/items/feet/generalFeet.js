@@ -76,16 +76,16 @@ let feet2 = {
 
 let feet3 = {
   cost: 50,
-  int: +56,
-  agi: -52,
+  int: +6,
+  agi: -2,
   str: -32,
-  dex: -51,
+  dex: -1,
   vit: -22,
   melee: -0.30,
   ranged: -1.04,
-  magic: +2.14,
+  magic: +1.14,
   trap: +1.04,
-  expBonus: +27,
+  expBonus: +7,
   dropChance: 40
 };
 

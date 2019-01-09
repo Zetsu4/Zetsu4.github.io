@@ -181,7 +181,7 @@ class GuildMember {
 
   persuePlayer() {
     let speed = 0;
-    if (dist(0, 0, this.x, this.y) > this.attackPattern.enemyDist+this.speed*2)
+    if (dist(0, 0, this.x, this.y) > this.attackingType.enemyDist+this.speed*2)
       // go to player
       speed = this.speed/7.5;
 
