@@ -15,7 +15,7 @@ function settingItemMap() {
   allItems.set("Town Portal", {name:"Town Portal", description: "Teleport to\ntown instantly", img: itemImg.townPortal,
   equipable: false, stats: {dropChance: 30, dropAmountMin: 1, dropAmountMax: 2, cost: 5}, amount: 0});
 
-  allItems.set("Money", {name:"Money", description: "The currency\nof equestria", img: itemImg.money,
+  allItems.set("Money", {name:"Money", description: "The currency\nof this game", img: itemImg.money,
   equipable: false, stats: {dropChance: 75, dropAmountMin: 5, dropAmountMax: 15, cost: 0}, amount: 0});
 
 

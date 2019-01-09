@@ -162,11 +162,8 @@ class Enemy {
     if (!this.stun) {
       // attack player
       if (this.onScreen()) {
-        // if (playerLvl > this.lvl+5)
-        //   this.speed = -abs(this.speed);
         this.persuePlayer(worldW, worldH, playerX, playerY, playerLvl);
         this.display();
-        // this.speed = abs(this.speed);
       }
 
       // monkeying about - RvB refrence
@@ -258,7 +255,7 @@ class Enemy {
       // go to player
       speed = this.speed/7.5;
 
-    if (playerLvl > this.lvl+5)
+    if (playerLvl > this.lvl+8)
       // run away if player is too strong
       speed = -this.speed/10;
 
