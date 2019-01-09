@@ -7,10 +7,10 @@ let pitchFork = {
   dex: +1,
   vit: +3,
   melee: +0.02,
-  ranged: 0,
-  magic: 0,
-  trap: 0,
-  expBonus: 0,
+  ranged: +0.00,
+  magic: +0.00,
+  trap: +0.00,
+  expBonus: +0,
   dropChance: 20
 };
 
@@ -22,9 +22,9 @@ let shiftySword = {
   dex: +2,
   vit: +1,
   melee: +0.03,
-  ranged: 0,
-  magic: 0,
-  trap: 0,
+  ranged: +0.00,
+  magic: +0.00,
+  trap: +0.00,
   expBonus: +2,
   dropChance: 15
 };
@@ -36,9 +36,9 @@ let crossBow = {
   str: -2,
   dex: +2,
   vit: +1,
-  melee: 0,
+  melee: +0.00,
   ranged: +0.03,
-  magic: 0,
+  magic: +0.00,
   trap: +0.01,
   expBonus: +1,
   dropChance: 20
@@ -53,8 +53,8 @@ let crossBoe = {
   vit: +5,
   melee: -0.02,
   ranged: +0.01,
-  magic: 0,
-  trap: 0,
+  magic: +0.00,
+  trap: +0.00,
   expBonus: +3,
   dropChance: 15
 };
@@ -70,7 +70,7 @@ let realWand = {
   ranged: +0.01,
   magic: +0.05,
   trap: +0.01,
-  expBonus: 0,
+  expBonus: +0,
   dropChance: 20
 };
 
@@ -82,15 +82,15 @@ let realStaff = {
   dex: -1,
   vit: +1,
   melee: -0.04,
-  ranged: 0,
+  ranged: +0.00,
   magic: +0.07,
-  trap: 0,
+  trap: +0.00,
   expBonus: +2,
   dropChance: 15
 };
 
 let stick = {
-  cost: 100,
+  cost: 500,
   int: +20,
   agi: +20,
   str: +20,
@@ -105,22 +105,22 @@ let stick = {
 };
 
 let weapon0 = {
-  cost: 75,
+  cost: 200,
   int: +20,
   agi: +10,
-  str: 0,
-  dex: 0,
+  str: +0,
+  dex: +0,
   vit: +15,
-  melee: 0,
-  ranged: 0,
-  magic: +1.5,
-  trap: +0.5,
+  melee: +0.00,
+  ranged: +0.00,
+  magic: +1.50,
+  trap: +0.50,
   expBonus: +10,
-  dropChance: 10
+  dropChance: 5
 };
 
 let weapon1 = {
-  cost: 80,
+  cost: 300,
   int: +10,
   agi: +10,
   str: +10,
@@ -135,7 +135,7 @@ let weapon1 = {
 };
 
 let weapon2 = {
-  cost: 200,
+  cost: 750,
   int: +50,
   agi: +50,
   str: +50,
@@ -146,12 +146,12 @@ let weapon2 = {
   magic: +2,
   trap: +2,
   expBonus: +75,
-  dropChance: 2
+  dropChance: 0.05
 };
 
 let weapon3 = {
-  cost: 500,
-  int: +100,
+  cost: 800,
+  int: +10,
   agi: +20,
   str: -30,
   dex: +10,
@@ -165,10 +165,10 @@ let weapon3 = {
 };
 
 let weapon4 = {
-  cost: 250,
+  cost: 200,
   int: -20,
   agi: +20,
-  str: +250,
+  str: +25,
   dex: -20,
   vit: -10,
   melee: +5,
@@ -180,7 +180,7 @@ let weapon4 = {
 };
 
 let weapon5 = {
-  cost: 1000,
+  cost: 3000,
   int: +200,
   agi: +200,
   str: +200,
@@ -191,7 +191,7 @@ let weapon5 = {
   magic: +2.5,
   trap: +2.5,
   expBonus: +50,
-  dropChance: 1
+  dropChance: 0.01
 };
 
 let smallRock = {

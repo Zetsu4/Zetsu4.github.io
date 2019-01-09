@@ -100,7 +100,7 @@ function changeGuildOptions() {
             // guild member
             guildInventory[y][x] = {name: random(names), description: "A party member\nwho fights with you.",
             raceIndex: int(random(raceSpecific.guild.length-1)), race: 0, skillIndex: int(random(skillSpecific.guild.length-1)), skill: 0,
-            stats: {lvl: constrain(int(random(player.lvl-5, player.lvl+3)), 0, Infinity), cost: 0}};
+            stats: {lvl: constrain(int(random(player.lvl-3, player.lvl+7)), 0, Infinity), cost: 0}};
 
             // set race, skill, and cost
             guildInventory[y][x].race = raceSpecific.guild[guildInventory[y][x].raceIndex];

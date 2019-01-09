@@ -14,7 +14,7 @@ function dropItem(value, key, map) {
     if (value.equipable) // equipment drops one
       randomAmount = 1;
     else
-      randomAmount = int(random(value.stats.dropAmountMin*itemDropEnemy.lvl*0.25, value.stats.dropAmountMax*itemDropEnemy.lvl*0.25));
+      randomAmount = int(random((value.stats.dropAmountMin*itemDropEnemy.lvl)*0.25, (value.stats.dropAmountMax*itemDropEnemy.lvl)*0.25));
 
 
     if (randomAmount > 0 && dropChance <= value.stats.dropChance) { // drop if item drops

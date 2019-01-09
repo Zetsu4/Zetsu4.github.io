@@ -30,42 +30,42 @@ let rockGloves = {
 };
 
 let hands0 = {
-  cost: 70,
-  int: +48,
-  agi: +69,
+  cost: 85,
+  int: +8,
+  agi: +9,
   str: -14,
-  dex: -59,
-  vit: -73,
-  melee: +1.38,
+  dex: -1,
+  vit: -9,
+  melee: -1.38,
   ranged: +1.61,
-  magic: -1.45,
+  magic: +1.45,
   trap: +1.62,
   expBonus: +26,
-  dropChance: 10
+  dropChance: 7
 };
 
 let hands1 = {
-  cost: 25,
-  int: -71,
+  cost: 35,
+  int: -7,
   agi: -5,
-  str: -30,
-  dex: -62,
-  vit: -73,
+  str: -3,
+  dex: -6,
+  vit: -7,
   melee: -3.79,
   ranged: +3.68,
   magic: -1.99,
   trap: +1.63,
   expBonus: +58,
-  dropChance: 30
+  dropChance: 20
 };
 
 let hands2 = {
-  cost: 55,
-  int: +73,
-  agi: +64,
-  str: -22,
-  dex: -24,
-  vit: +19,
+  cost: 75,
+  int: +7,
+  agi: +6,
+  str: -2,
+  dex: -2,
+  vit: +9,
   melee: +0.08,
   ranged: -3.63,
   magic: +3.36,
@@ -76,26 +76,26 @@ let hands2 = {
 
 let hands3 = {
   cost: 30,
-  int: +71,
-  agi: -67,
-  str: -13,
-  dex: -66,
-  vit: +50,
+  int: +21,
+  agi: -17,
+  str: -3,
+  dex: -16,
+  vit: +10,
   melee: -2.79,
-  ranged: +2.91,
-  magic: -1.54,
+  ranged: -2.91,
+  magic: +1.54,
   trap: +3.76,
-  expBonus: -49,
+  expBonus: -9,
   dropChance: 15
 };
 
 let hands4 = {
-  cost: 20,
+  cost: 40,
   int: +11,
   agi: +12,
   str: -1,
   dex: -11,
-  vit: +49,
+  vit: +9,
   melee: -1.40,
   ranged: -2.34,
   magic: +3.35,
@@ -106,15 +106,15 @@ let hands4 = {
 
 let hands5 = {
   cost: 20,
-  int: -74,
-  agi: +23,
-  str: +63,
+  int: -4,
+  agi: +3,
+  str: +26,
   dex: +1,
-  vit: -68,
+  vit: -6,
   melee: +0.22,
   ranged: +3.34,
   magic: -3.90,
   trap: +3.50,
-  expBonus: -46,
+  expBonus: -16,
   dropChance: 30
 };
