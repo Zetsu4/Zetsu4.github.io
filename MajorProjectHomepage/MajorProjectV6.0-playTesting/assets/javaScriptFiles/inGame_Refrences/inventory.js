@@ -149,7 +149,7 @@ function itemDescription(item) {
 
   // text box
   rectMode(CORNER);
-  rect(mouseX+width*0.01, mouseY, width*0.10, height*0.05+(fontSize.default+fontSize.playersDisplay*13));
+  rect(mouseX+width*0.01, mouseY, width*0.10, height*0.05+(fontSize.default+fontSize.playersDisplay*14));
 
   // description of item
   noStroke();
@@ -169,8 +169,7 @@ function itemDescription(item) {
   // statText += "cost: "+item.cost+"\n";
 
   for (let theStat in item.stats)
-    if (item.stats[theStat] !== item.stats.dropChance && item.stats[theStat] !== item.stats.dropAmountMin && item.stats[theStat] !== item.stats.dropAmountMax)
-      statText += theStat+": "+item.stats[theStat]+"\n"; // the stats
+    statText += theStat+": "+item.stats[theStat]+"\n"; // the stats
 
   // display stats
   text(statText, mouseX+width*0.015, mouseY+fontSize.default*0.75);

@@ -1,3 +1,4 @@
+// guild shop
 function guildMenu() {
   background("purple");
   sounds.overWorld.pause();
@@ -133,9 +134,13 @@ function guildMemberFoo() {
     }
 
     // if alive
-    if (guildMembers[i].hp > 0)
+    if (guildMembers[i].hp > 0) {
       // follow player
-      guildMembers[i].movement();
+      guildMembers[i].movement(world.width, world.height, player.x, player.y);
+      if (world.state.name === "Town") {
+        guildMembers[i].hp = guildMembers[i].totHp;
+      }
+    }
 
     // otherwise
     else {

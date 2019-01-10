@@ -136,9 +136,9 @@ class GuildMember {
   }
 
   // AI
-  movement() {
+  movement(worldW, worldH, playerX, playerY) {
     if (!this.stun)
-      this.persuePlayer();
+      this.persuePlayer(worldW, worldH, playerX, playerY);
 
     // stuned
     else
@@ -179,9 +179,9 @@ class GuildMember {
     return moved;
   }
 
-  persuePlayer() {
+  persuePlayer(worldW, worldH, playerX, playerY) {
     let speed = 0;
-    if (dist(0, 0, this.x, this.y) > this.attackingType.enemyDist+this.speed*2)
+    if (dist(0, 0, this.x, this.y) > this.attackingType.enemyDist*0.75+this.speed*2)
       // go to player
       speed = this.speed/7.5;
 
