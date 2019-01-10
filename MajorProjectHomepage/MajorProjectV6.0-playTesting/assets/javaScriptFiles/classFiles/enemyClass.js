@@ -67,8 +67,7 @@ class Enemy {
     this.attackType = attack;
     this.attackState = 0;
     this.lastAttack = 0;
-    this.attackTimer = 2000 - (this.vit+this.agi)*10;
-    this.attackTimer = constrain(this.attackTimer, 500, 5000);
+    this.attackTimer = constrain((3000 - (this.vit+this.agi)*10), 500, 5000);
     this.attackPoint = int(random(-1, 1)*500);
     this.theta = atan(this.y/this.x);
 

@@ -146,7 +146,7 @@ function preload() {
     // over world
   worldBackgrounds.grass = loadImage("assets/img/backgrounds/grass2.png");
   worldBackgrounds.town = loadImage("assets/img/backgrounds/town.png");
-  worldBackgrounds.desert = loadImage("assets/img/backgrounds/desert.png");
+  worldBackgrounds.desert = loadImage("assets/img/backgrounds/sand.png");
   worldBackgrounds.forest = loadImage("assets/img/backgrounds/forest.png");
   worldBackgrounds.mountain = loadImage("assets/img/backgrounds/mountain.png");
 

@@ -148,7 +148,9 @@ function saveGame() {
   savingGame.player.skillIndex = player.skillIndex;
 
     // stats
+  savingGame.player.totHp = player.totHp;
   savingGame.player.hp = player.hp;
+  savingGame.player.totMp = player.totMp;
   savingGame.player.mp = player.mp;
 
   savingGame.player.int = player.int;
@@ -218,7 +220,9 @@ function loadGame() {
 
 
       // stats
+    player.totHp = loadingGame.player.totHp;
     player.hp = loadingGame.player.hp;
+    player.totMp = loadingGame.player.totMp;
     player.mp = loadingGame.player.mp;
 
     player.int = loadingGame.player.int;

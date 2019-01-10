@@ -181,6 +181,8 @@ function setPlayerStats() {
   player.vit = player.race.stats.vit;
 
   setPlayerStartEquipment();
+  player.totHp = constrain((10*(player.vit+1)+pow(player.lvl, 2)), 10, Infinity);
+  player.totMp = constrain((10*(player.int+1)+pow(player.lvl, 2)), 1, Infinity);
   calculateStats();
 
   //set current health and mana
@@ -227,20 +229,22 @@ function calculateStats() {
   player.expBonus = runningStats.expBonus;
 
   // total health and mana
+  let percentHp = player.hp/player.totHp;
   player.totHp = constrain((10*(player.vit+1+runningStats.vit)+pow(player.lvl, 2)), 10, Infinity);
-  player.hp = constrain(player.hp, 0, player.totHp);
+  player.hp = int(player.totHp*percentHp);
 
-  player.totMp = constrain((10*(player.int+1+runningStats.int)+pow(player.lvl, 2)), 0, Infinity);
-  player.mp = constrain(player.mp, 0, player.totMp);
+  let percentMp = player.mp/player.totMp;
+  player.totMp = constrain((10*(player.int+1+runningStats.int)+pow(player.lvl, 2)), 1, Infinity);
+  player.mp = int(player.totMp*percentMp);
 
   // attack
-  player.coolDownTime = constrain((4000 - (player.vit+runningStats.vit + player.agi+runningStats.agi)*15), 150, 1000);
+  player.coolDownTime = constrain((2500 - (player.vit+runningStats.vit + player.agi+runningStats.agi)*15), 150, 3500);
   player.mDmg = constrain(int((player.str+runningStats.str)*(0.75 + (player.skill.stats.melee+runningStats.melee))), 1, Infinity); // melee damage
   player.rDmg = constrain(int((player.dex+runningStats.dex)*(0.75 + (player.skill.stats.ranged+runningStats.ranged))), 1, Infinity); // ranged damage
   player.sDmg = constrain(int((player.int+runningStats.int)*(0.75 + (player.skill.stats.magic+runningStats.magic))), 1, Infinity); // spell damage
   player.tDmg = constrain(int((player.agi+runningStats.agi)*(1+runningStats.trap)), 1, Infinity);
 
   // movement
-  player.totSpeed = constrain((width*0.003 + width*(player.agi+runningStats.agi)*pow(10, -4)), width*0.0001, width*0.05);
-  player.speedMultiplier = 0.50;
+  player.totSpeed = constrain((width*0.003 + width*(player.agi+runningStats.agi)*pow(10, -4)), width*0.0001, width*0.10);
+  player.speedMultiplier = 0.60;
 }
