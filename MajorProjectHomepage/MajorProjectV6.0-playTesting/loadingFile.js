@@ -69,10 +69,6 @@ let minimap = {};
 let raceButtons = [];
 let skillButtons = [];
 
-let randomChoice = {
-  description: "Random",
-};
-
 // attacks
 let melee = {};
 let ranged = {};
@@ -329,28 +325,29 @@ function setup() {
   textFont(fonts.default, fontSize.default);
 
   // setting attack types
+  let widHei = (width+height)/2;
   melee = {
-    enemyDist: width*0.05,
-    attackDist: width*0.075,
-    attackSpeed: width*0.01,
+    enemyDist: widHei*0.075,
+    attackDist: widHei*0.10,
+    attackSpeed: 2,
     img: itemImg.swordAttack,
     soundAttack: sounds.swordAttack,
     soundHit: sounds.swordHit
   };
 
   ranged = {
-    enemyDist: width*0.30,
-    attackDist: width*0.75,
-    attackSpeed: width*0.02,
+    enemyDist: widHei*0.50,
+    attackDist: widHei*0.70,
+    attackSpeed: 3,
     img: itemImg.arrowAttack,
     soundAttack: sounds.arrowAttack,
     soundHit: sounds.arrowHit
   };
 
   spellCaster = {
-    enemyDist: width*0.125,
-    attackDist: width*0.50,
-    attackSpeed: width*0.015,
+    enemyDist: widHei*0.40,
+    attackDist: widHei*0.60,
+    attackSpeed: 2.5,
     img: itemImg.fireBallAttack,
     soundAttack: sounds.fireballAttack,
     soundHit: sounds.fireballHit
@@ -407,7 +404,7 @@ function settingSprites() {
 
   // race
   allRaces = [
-    {name: "Random", img: sprites.random, stats: randomChoice}, {name: "Human", img: sprites.race.human, stats: human},
+    {name: "Random", img: sprites.random, stats: secretRace}, {name: "Human", img: sprites.race.human, stats: human},
     {name: "Half-Elf", img: sprites.race.halfElf, stats: halfElf}, {name: "Elf", img: sprites.race.elf, stats: elf},
     {name: "Dwarf", img: sprites.race.dwarf, stats: dwarf}, {name: "Halfling", img: sprites.race.halfling, stats: halfling},
     {name: "Goblin", img: sprites.race.goblin, stats: goblin}, {name: "Orc", img: sprites.race.orc, stats: orc},
@@ -457,7 +454,7 @@ function settingSprites() {
 
   // skill
   allSkills = [
-    {name: "Random", img: sprites.random, stats: randomChoice}, {name: "Archer", img: sprites.skill.archer, stats: archer},
+    {name: "Random", img: sprites.random, stats: secretSkill}, {name: "Archer", img: sprites.skill.archer, stats: archer},
     {name: "Ranger", img: sprites.skill.ranger, stats: ranger}, {name: "Fighter", img: sprites.skill.fighter, stats: fighter},
     {name: "Samurai", img: sprites.skill.samurai, stats: samurai}, {name: "Mage", img: sprites.skill.mage, stats: mage},
     {name: "Cleric", img: sprites.skill.cleric, stats: cleric}, {name: "Rogue", img: sprites.skill.rogue, stats: rogue},

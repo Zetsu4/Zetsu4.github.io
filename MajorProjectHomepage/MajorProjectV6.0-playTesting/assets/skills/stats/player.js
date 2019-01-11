@@ -1,3 +1,15 @@
+// Hidden
+let secretSkill = {
+  melee: 1,
+  ranged: 1,
+  magic: 1,
+  startingHpPotions: 20,
+  startingMpPotions: 20,
+  startingArrows: 200,
+  startingTraps: 100,
+  expGained: 1,
+};
+
 // Archer
 let archer = {
   melee: 0.05,

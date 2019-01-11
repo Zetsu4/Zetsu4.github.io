@@ -130,6 +130,7 @@ function teleportArea(newArea) {
   player.y = 0;
   world.changedX = 0;
   world.changedY = 0;
+  enemyArr = [];
   checkState();
   setNPCs();
   allItems.get("Town Portal").amount--;

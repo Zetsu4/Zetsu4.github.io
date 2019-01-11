@@ -1,3 +1,13 @@
+// Hidden
+let secretRace = {
+  int: 100,
+  agi: 100,
+  str: 100,
+  dex: 100,
+  vit: 100,
+  expGained: 1
+};
+
 // Human
 let human = {
   int: 10,

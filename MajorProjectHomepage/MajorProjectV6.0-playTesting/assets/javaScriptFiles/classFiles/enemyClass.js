@@ -301,7 +301,7 @@ class Enemy {
   attackPlayer() {
     if (this.attackState === 1) {
       this.attackPattern.soundAttack.play();
-      this.allAttacks.push(new this.attackType(0, 0, this.x, this.y, this.attackPattern.attackSpeed, this.attackDist, this.mainDmg, this.attackPattern.img, this.attackPattern.soundHit));
+      this.allAttacks.push(new this.attackType(0, 0, this.x, this.y, this.speed*this.attackPattern.attackSpeed, this.attackDist, this.mainDmg, this.attackPattern.img, this.attackPattern.soundHit));
       this.attackState = 0;
       this.lastAttack = millis();
     }

@@ -225,7 +225,7 @@ class GuildMember {
         this.attackingType.soundAttack.play();
         this.attackState = 0;
         this.lastAttack = millis();
-        return (new this.attackConstructor(0, 0, this.x, this.y, this.attackingType.attackSpeed, this.attackingType.attackDist, this.mainDmg, this.attackingType.img, this.attackingType.soundHit, enemyX+width/2-this.x, enemyY+height/2-this.y));
+        return (new this.attackConstructor(0, 0, this.x, this.y, this.speed*this.attackingType.attackSpeed, this.attackingType.attackDist, this.mainDmg, this.attackingType.img, this.attackingType.soundHit, enemyX+width/2-this.x, enemyY+height/2-this.y));
       }
 
       else
