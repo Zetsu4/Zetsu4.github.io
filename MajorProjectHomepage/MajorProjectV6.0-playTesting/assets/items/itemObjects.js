@@ -115,37 +115,37 @@ function equipmentChest() {
   allItems.set("Grey Shirt", {name:"Grey Shirt", description: "I thought it\nwas steel", img: itemImg.chest,
   equipable: true, equipSlot: "chest", stats: greyShirt, amount: 0});
 
-  allItems.set("Chest 0", {name:"Chest 0", description: "Chest peice", img: itemImg.chest,
-  equipable: true, equipSlot: "chest", stats: chest0, amount: 0});
+  allItems.set("Tattered Robe", {name:"Tattered Robe", description: "A tattered robe", img: itemImg.chest,
+  equipable: true, equipSlot: "chest", stats: tatteredRobe, amount: 0});
 
-  allItems.set("Chest 1", {name:"Chest 1", description: "Chest peice", img: itemImg.chest,
-  equipable: true, equipSlot: "chest", stats: chest1, amount: 0});
+  allItems.set("Leather Armor", {name:"Leather Armor", description: "Armor, made from\nleather", img: itemImg.chest,
+  equipable: true, equipSlot: "chest", stats: leatherArmor, amount: 0});
 
-  allItems.set("Chest 2", {name:"Chest 2", description: "Chest peice", img: itemImg.chest,
-  equipable: true, equipSlot: "chest", stats: chest2, amount: 0});
+  allItems.set("Chain Mail", {name:"Chain Mail", description: "Rings all,\na round", img: itemImg.chest,
+  equipable: true, equipSlot: "chest", stats: chainMail, amount: 0});
 
-  allItems.set("Chest 3", {name:"Chest 3", description: "Chest peice", img: itemImg.chest,
-  equipable: true, equipSlot: "chest", stats: chest3, amount: 0});
+  allItems.set("New Robe", {name:"New Robe", description: "Brand new\nrobe", img: itemImg.chest,
+  equipable: true, equipSlot: "chest", stats: newRobe, amount: 0});
 
-  allItems.set("Chest 4", {name:"Chest 4", description: "Chest peice", img: itemImg.chest,
-  equipable: true, equipSlot: "chest", stats: chest4, amount: 0});
+  allItems.set("Hard Leather", {name:"Hard Leather", description: "Hardened leather", img: itemImg.chest,
+  equipable: true, equipSlot: "chest", stats: hardLeather, amount: 0});
 
   allItems.set("Chest 5", {name:"Chest 5", description: "Chest peice", img: itemImg.chest,
   equipable: true, equipSlot: "chest", stats: chest5, amount: 0});
 }
 
 function equipmentFeet() {
-  allItems.set("Grass", {name:"Grass", description: "It's grass", img: itemImg.feet,
-  equipable: true, equipSlot: "feet", stats: grass, amount: 0});
+  allItems.set("Old Shoes", {name:"Old Shoes", description: "Worn down shoes", img: itemImg.feet,
+  equipable: true, equipSlot: "feet", stats: oldShoes, amount: 0});
 
-  allItems.set("Grass Shoes", {name:"Grass Shoes", description: "I thought it\nwas steel", img: itemImg.feet,
-  equipable: true, equipSlot: "feet", stats: grassShoes, amount: 0});
+  allItems.set("Shoes", {name:"Shoes", description: "Plain shoes", img: itemImg.feet,
+  equipable: true, equipSlot: "feet", stats: shoes, amount: 0});
 
-  allItems.set("Feet 0", {name:"Feet 0", description: "Foot peice", img: itemImg.feet,
-  equipable: true, equipSlot: "feet", stats: feet0, amount: 0});
+  allItems.set("Boots", {name:"Boots", description: "Boots on\nthe ground", img: itemImg.feet,
+  equipable: true, equipSlot: "feet", stats: boots, amount: 0});
 
-  allItems.set("Feet 1", {name:"Feet 1", description: "Foot peice", img: itemImg.feet,
-  equipable: true, equipSlot: "feet", stats: feet1, amount: 0});
+  allItems.set("Eather Nano Shoes", {name:"Eather Nano Shoes", description: "Their eathernal", img: itemImg.feet,
+  equipable: true, equipSlot: "feet", stats: eatherNanoShoes, amount: 0});
 
   allItems.set("Feet 2", {name:"Feet 2", description: "Foot peice", img: itemImg.feet,
   equipable: true, equipSlot: "feet", stats: feet2, amount: 0});
