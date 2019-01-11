@@ -61,6 +61,7 @@ function loadOP() {
   calculateStats();
   player.hp = player.totHp;
   player.mp = player.totMp;
+  setPlayerStartEquipment();
   startingState = 2;
   state = 0;
 }

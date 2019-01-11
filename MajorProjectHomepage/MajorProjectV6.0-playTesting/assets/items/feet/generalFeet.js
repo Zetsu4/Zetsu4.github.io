@@ -1,57 +1,57 @@
 // feet
-let grass = {
+let oldShoes = {
   cost: 5,
-  int: -3,
-  agi: -3,
-  str: -3,
-  dex: -3,
-  vit: +5,
-  melee: -0.03,
-  ranged: -0.03,
-  magic: -0.03,
-  trap: -0.02,
-  expBonus: +10,
-  dropChance: 25
+  int: +0,
+  agi: +1,
+  str: +0,
+  dex: +0,
+  vit: +1,
+  melee: +0,
+  ranged: +0,
+  magic: +0,
+  trap: +0,
+  expBonus: +1,
+  dropChance: 300
 };
 
-let grassShoes = {
+let shoes = {
   cost: 15,
-  int: +2,
+  int: +0,
   agi: +2,
-  str: +2,
-  dex: +2,
-  vit: +7,
+  str: +0,
+  dex: +1,
+  vit: +2,
   melee: +0.02,
-  ranged: +0.02,
-  magic: +0.02,
-  trap: +0.02,
-  expBonus: -15,
-  dropChance: 20
+  ranged: +0,
+  magic: +0,
+  trap: +0,
+  expBonus: -1,
+  dropChance: 290
 };
 
-let feet0 = {
-  cost: 15,
-  int: +8,
-  agi: -6,
-  str: -3,
-  dex: -6,
-  vit: -7,
-  melee: -0.96,
-  ranged: -0.79,
-  magic: +1.77,
-  trap: +1.09,
-  expBonus: +20,
-  dropChance: 25
-};
-
-let feet1 = {
-  cost: 35,
-  int: +4,
-  agi: -5,
+let boots = {
+  cost: 25,
+  int: +0,
+  agi: +3,
   str: -2,
-  dex: +7,
-  vit: +3,
-  melee: +0.27,
+  dex: +3,
+  vit: +1,
+  melee: -0.05,
+  ranged: +0.08,
+  magic: -0.00,
+  trap: +0.05,
+  expBonus: -2,
+  dropChance: 250
+};
+
+let eatherNanoShoes = {
+  cost: 25,
+  int: +3,
+  agi: +2,
+  str: -1,
+  dex: +0,
+  vit: +1,
+  melee: -0.07, // HERE
   ranged: +1.29,
   magic: +1.08,
   trap: -0.99,

@@ -1,9 +1,9 @@
 // chest
 let brownShirt = {
-  cost: 20,
+  cost: 10,
   int: +0,
-  agi: -2,
-  str: +1,
+  agi: +0,
+  str: +0,
   dex: -1,
   vit: +5,
   melee: +0.02,
@@ -11,110 +11,110 @@ let brownShirt = {
   magic: +0.00,
   trap: +0.00,
   expBonus: +1,
-  dropChance: 20
+  dropChance: 200
 };
 
 let greyShirt = {
-  cost: 30,
-  int: +2,
+  cost: 20,
+  int: +1,
   agi: +2,
-  str: +2,
-  dex: +2,
+  str: +1,
+  dex: -2,
   vit: +5,
   melee: +0.01,
   ranged: +0.01,
   magic: +0.01,
   trap: +0.01,
-  expBonus: -5,
-  dropChance: 15
+  expBonus: -4,
+  dropChance: 150
 };
 
-let chest0 = {
-  cost: 50,
+let tatteredRobe = {
+  cost: 30,
   int: +8,
   agi: -4,
-  str: -14,
-  dex: +8,
-  vit: +14,
-  melee: -1.83,
-  ranged: +1.73,
-  magic: +1.21,
-  trap: +1.24,
-  expBonus: -14,
-  dropChance: 25
+  str: -2,
+  dex: -1,
+  vit: +4,
+  melee: -0.03,
+  ranged: +0.03,
+  magic: +0.10,
+  trap: +0.01,
+  expBonus: -4,
+  dropChance: 150
 };
 
-let chest1 = {
+let leatherArmor = {
   cost: 30,
-  int: -10,
+  int: -5,
   agi: +6,
-  str: -5,
-  dex: -8,
-  vit: -13,
-  melee: -1.16,
-  ranged: +1.50,
-  magic: -1.24,
-  trap: -1.86,
-  expBonus: -12,
-  dropChance: 30
+  str: -3,
+  dex: +3,
+  vit: +5,
+  melee: -0.05,
+  ranged: +0.10,
+  magic: -0.05,
+  trap: +0.05,
+  expBonus: -5,
+  dropChance: 150
 };
 
-let chest2 = {
-  cost: 50,
+let chainMail = {
+  cost: 30,
   int: -7,
-  agi: -11,
-  str: -5,
-  dex: +9,
-  vit: +9,
-  melee: -0.52,
-  ranged: -0.76,
-  magic: -1.68,
-  trap: +1.37,
-  expBonus: +16,
-  dropChance: 20
+  agi: -3,
+  str: +3,
+  dex: -1,
+  vit: +4,
+  melee: +0.10,
+  ranged: -0.05,
+  magic: -0.05,
+  trap: -0.05,
+  expBonus: +2,
+  dropChance: 150
 };
 
-let chest3 = {
+let newRobe = {
   cost: 90,
-  int: +9,
-  agi: +7,
-  str: +4,
-  dex: +6,
-  vit: +9,
-  melee: -1.02,
-  ranged: -0.04,
-  magic: +1.70,
-  trap: -0.68,
-  expBonus: -20,
-  dropChance: 15
+  int: +20,
+  agi: -2,
+  str: -12,
+  dex: -6,
+  vit: +4,
+  melee: -0.15,
+  ranged: -0.15,
+  magic: +0.20,
+  trap: +0.05,
+  expBonus: -3,
+  dropChance: 100
 };
 
-let chest4 = {
-  cost: 100,
-  int: +19,
-  agi: +30,
+let hardLeather = {
+  cost: 90,
+  int: -10,
+  agi: +5,
   str: -6,
-  dex: +70,
-  vit: +3,
-  melee: -1.30,
-  ranged: +1.81,
-  magic: +0.46,
-  trap: +0.74,
-  expBonus: -20,
-  dropChance: 10
+  dex: +15,
+  vit: +6,
+  melee: -0.15,
+  ranged: +0.15,
+  magic: -0.15,
+  trap: +0.20,
+  expBonus: -3,
+  dropChance: 100
 };
 
-let chest5 = {
-  cost: 150,
-  int: -15,
-  agi: +16,
+let ironPlate = {
+  cost: 90,
+  int: -10,
+  agi: -12,
   str: +15,
-  dex: -18,
-  vit: +7,
-  melee: +0.86,
-  ranged: -1.47,
-  magic: -0.93,
-  trap: +1.86,
-  expBonus: +15,
-  dropChance: 5
+  dex: -8,
+  vit: +10,
+  melee: +0.35,
+  ranged: -0.15,
+  magic: -0.15,
+  trap: -0.15,
+  expBonus: -3,
+  dropChance: 100
 };
