@@ -12,19 +12,25 @@ function cheaterEnding() {
 }
 
 function gameOver() {
+  if (state !== "gameOver") {
+    if (soundEasterEgg) {
+      // secret music stop
+      sounds.secret.blipGameOver.play();
+      sounds.secret.blipBackground.stop();
+    }
+    else if (!sounds.gameOver.isPlaying()) {
+      // background music stop
+      sounds.startMenu.stop();
+      sounds.overWorld.stop();
+      sounds.itemShop.stop();
+      sounds.caves.stop();
+      sounds.demonGate.stop();
+      sounds.demonRealm.stop();
+      sounds.castle.stop();
+      sounds.dungeon.stop();
 
-  if (!sounds.gameOver.isPlaying()) {
-    // background music stop
-    sounds.startMenu.stop();
-    sounds.overWorld.stop();
-    sounds.itemShop.stop();
-    sounds.caves.stop();
-    sounds.demonGate.stop();
-    sounds.demonRealm.stop();
-    sounds.castle.stop();
-    sounds.dungeon.stop();
-
-    sounds.gameOver.play();
+      sounds.gameOver.play();
+    }
   }
 
   // dead or other ways that the player failed

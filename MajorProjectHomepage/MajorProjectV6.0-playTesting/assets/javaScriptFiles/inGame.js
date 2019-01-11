@@ -66,8 +66,8 @@ function checkState() {
 
   // demon gate music
   if (world.state.name === "Demon Gate Enter")
-    if (!sounds.demonGate.isPlaying())
-      sounds.demonGate.play();
+    if (!(soundEasterEgg ? sounds.secret.blipBackground : sounds.demonGate).isPlaying())
+      (soundEasterEgg ? sounds.secret.blipBackground : sounds.demonGate).play();
   else
     sounds.demonGate.stop();
 
@@ -77,15 +77,15 @@ function checkState() {
     minimapBackground(worldEnviorment.overWorld);
 
     // over world music
-    if (!sounds.overWorld.isPlaying()) {
-      sounds.overWorld.play();
+    if (!(soundEasterEgg ? sounds.secret.blipBackground : sounds.overWorld).isPlaying()) {
+      (soundEasterEgg ? sounds.secret.blipBackground : sounds.overWorld).play();
       sounds.caves.stop();
       sounds.demonRealm.stop();
       sounds.castle.stop();
       sounds.dungeon.stop();
     }
 
-    if (sounds.itemShop.isPlaying())
+    if (!(soundEasterEgg ? sounds.secret.blipBackground : sounds.itemShop).isPlaying())
       sounds.itemShop.stop();
   }
 
@@ -95,9 +95,9 @@ function checkState() {
     minimapBackground(worldEnviorment.cave);
 
     // cave music
-    if (!sounds.caves.isPlaying()) {
+    if (!(soundEasterEgg ? sounds.secret.blipBackground : sounds.caves).isPlaying()) {
       sounds.overWorld.stop();
-      sounds.caves.play();
+      (soundEasterEgg ? sounds.secret.blipBackground : sounds.caves).play();
       sounds.demonRealm.stop();
       sounds.castle.stop();
       sounds.dungeon.stop();
@@ -110,10 +110,10 @@ function checkState() {
     minimapBackground(worldEnviorment.demonRealm);
 
     // demon realm music
-    if (!sounds.demonRealm.isPlaying()) {
+    if (!(soundEasterEgg ? sounds.secret.blipBackground : sounds.demonRealm).isPlaying()) {
       sounds.overWorld.stop();
       sounds.caves.stop();
-      sounds.demonRealm.play();
+      (soundEasterEgg ? sounds.secret.blipBackground : sounds.demonRealm).play();
       sounds.castle.stop();
       sounds.dungeon.stop();
     }
@@ -125,11 +125,11 @@ function checkState() {
     minimapBackground(worldEnviorment.castle);
 
     // castle music
-    if (!sounds.castle.isPlaying()) {
+    if (!(soundEasterEgg ? sounds.secret.blipBackground : sounds.castle).isPlaying()) {
       sounds.overWorld.stop();
       sounds.caves.stop();
       sounds.demonRealm.stop();
-      sounds.castle.play();
+      (soundEasterEgg ? sounds.secret.blipBackground : sounds.castle).play();
       sounds.dungeon.stop();
     }
   }
@@ -137,12 +137,12 @@ function checkState() {
   // dungeons
   else {
     // dungeon music
-    if (!sounds.dungeon.isPlaying()) {
+    if (!(soundEasterEgg ? sounds.secret.blipBackground : sounds.dungeon).isPlaying()) {
       sounds.overWorld.stop();
       sounds.caves.stop();
       sounds.demonRealm.stop();
       sounds.castle.stop();
-      sounds.dungeon.play();
+      (soundEasterEgg ? sounds.secret.blipBackground : sounds.dungeon).play();
     }
 
     if (world.area === "Dungeon 1") {
@@ -168,6 +168,11 @@ function checkState() {
     else if (world.area === "Dungeon 5") {
       worldEnviorment.dungeon5.forEach(onScreen);
       minimapBackground(worldEnviorment.dungeon5);
+    }
+
+    else if (world.area === "Bottom") {
+      worldEnviorment.dungeonBottom.forEach(onScreen);
+      minimapBackground(worldEnviorment.dungeonBottom);
     }
   }
 }

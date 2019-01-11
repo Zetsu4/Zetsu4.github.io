@@ -5,6 +5,8 @@
 // PROBLEMS:
 // - no story
 // - things are not balanced (stats, drop chance, money, etc.)
+// - sometimes start menu music plays multiple times
+// - if you don't click on the screen while it's loading, it doesn't play start menu music
 //
 // CREDITS:
 // sounds from: freesounds.org and openGameArt.org
@@ -78,6 +80,7 @@ let spellCaster = {};
 
 // items
 let allItems;
+let numOfItems;
 let items = {};
 let recentPickUps = "";
 let recentsTimer;
@@ -203,44 +206,18 @@ function preload() {
   itemImg.magicIcon = loadImage("assets/img/items/equippedIcons/magicIcon.png");
 
   // equipment
-  itemImg.equipment = {};
-
-    // weapons
-  itemImg.equipment.pitchFork = loadImage("assets/img/items/equipment/weapons/pitchFork.png");
-  itemImg.equipment.shiftySword = loadImage("assets/img/items/equipment/weapons/shiftySword.png");
-  itemImg.equipment.crossBow = loadImage("assets/img/items/equipment/weapons/crossBow.png");
-  itemImg.equipment.crossBoe = loadImage("assets/img/items/equipment/weapons/crossBoe.png");
-  itemImg.equipment.realWand = loadImage("assets/img/items/equipment/weapons/realWand.png");
-  itemImg.equipment.realStaff = loadImage("assets/img/items/equipment/weapons/realStaff.png");
-  itemImg.equipment.smallRock = loadImage("assets/img/items/equipment/weapons/smallRock.png");
-
-    // head
-  itemImg.equipment.paperBag = loadImage("assets/img/items/equipment/head/paperBag.png");
-  itemImg.equipment.flatRock = loadImage("assets/img/items/equipment/head/flatRock.png");
-
-    // chest
-  itemImg.equipment.brownShirt = loadImage("assets/img/items/equipment/chest/brownShirt.png");
-  itemImg.equipment.greyShirt = loadImage("assets/img/items/equipment/chest/greyShirt.png");
-
-    // feet
-  itemImg.equipment.grass = loadImage("assets/img/items/equipment/feet/grass.png");
-  itemImg.equipment.grassShoes = loadImage("assets/img/items/equipment/feet/grassShoes.png");
-
-    // shoulders
-  itemImg.equipment.weakPlates = loadImage("assets/img/items/equipment/shoulders/weakPlates.png");
-  itemImg.equipment.roundRocks = loadImage("assets/img/items/equipment/shoulders/roundRocks.png");
-
-    // legs
-  itemImg.equipment.bluePants = loadImage("assets/img/items/equipment/legs/bluePants.png");
-  itemImg.equipment.grassPants = loadImage("assets/img/items/equipment/legs/grassPants.png");
-
-    // hands
-  itemImg.equipment.leatherGloves = loadImage("assets/img/items/equipment/hands/leatherGloves.png");
-  itemImg.equipment.rockGloves = loadImage("assets/img/items/equipment/hands/rockGloves.png");
+  itemImg.weapon = loadImage("assets/img/items/equipment/weapon.png");
+  itemImg.head = loadImage("assets/img/items/equipment/head.png");
+  itemImg.chest = loadImage("assets/img/items/equipment/chest.png");
+  itemImg.feet = loadImage("assets/img/items/equipment/feet.png");
+  itemImg.shoulders = loadImage("assets/img/items/equipment/shoulders.png");
+  itemImg.legs = loadImage("assets/img/items/equipment/legs.png");
+  itemImg.hands = loadImage("assets/img/items/equipment/hands.png");
 
   // sprites
   sprites.death = loadImage("assets/img/sprites/enemyDeath.png");
   sprites.enemy = loadImage("assets/img/sprites/enemy.png");
+  sprites.boss = loadImage("assets/races/img/uruk-hai.png");
   sprites.random = loadImage("assets/img/sprites/random.png");
 
   sprites.race.dwarf = loadImage("assets/races/img/dwarf.png");
@@ -267,6 +244,7 @@ function preload() {
   sprites.skill.spiritMage = loadImage("assets/skills/img/spiritMage.png");
   sprites.skill.demonMelee = loadImage("assets/skills/img/demonMelee.png");
   sprites.skill.demonMagic = loadImage("assets/skills/img/demonMagic.png");
+  sprites.skill.boss = loadImage("assets/skills/img/boss.png");
 
   // easter eggs
     // sounds
@@ -458,6 +436,10 @@ function settingSprites() {
     {name: "Possesed", img: sprites.enemy, stats: possesed}, {name: "Skeleton", img: sprites.enemy, stats: skeleton}
   ];
 
+  raceSpecific.boss = [
+    {name: "Boss", img: sprites.boss, stats: bossRace}
+  ];
+
   raceSpecific.cave = [
     {name: "Goblin", img: sprites.enemy, stats: goblin}, {name: "Orc", img: sprites.enemy, stats: orc},
     {name: "Uruk-Hai", img: sprites.enemy, stats: urukHai}
@@ -501,6 +483,10 @@ function settingSprites() {
   skillSpecific.dungeon = [
     {name: "Archer", img: sprites.skill.archer, stats: archer}, {name: "Chomper", img: sprites.skill.undeadKnight, stats: undeadKnight},
     {name: "Spirit Mage", img: sprites.skill.spiritMage, stats: spiritMage}
+  ];
+
+  skillSpecific.boss = [
+    {name: "Boss", img: sprites.skill.boss, stats: bossSkill}
   ];
 
   skillSpecific.cave = [
@@ -589,10 +575,10 @@ function settingWorld() {
 
     // over world
   worldEnviorment.overWorld = new Map();
-  worldEnviorment.overWorld.set("Meadows", {img: worldBackgrounds.grass, name: "Meadows", color: color(249, 166, 6), numOfEnemys: 30, enemy: {lvlMin: 1, lvlMax: 4, race: raceSpecific.overWorld, skill: skillSpecific.overWorld}, zone: {x: 0, y: 0, wid: world.width, hei: world.height}, enter: false});
+  worldEnviorment.overWorld.set("Meadows", {img: worldBackgrounds.grass, name: "Meadows", color: color(249, 166, 6), numOfEnemys: 30, enemy: {lvlMin: 0, lvlMax: 2, race: raceSpecific.overWorld, skill: skillSpecific.overWorld}, zone: {x: 0, y: 0, wid: world.width, hei: world.height}, enter: false});
   worldEnviorment.overWorld.set("Town", {img: worldBackgrounds.town, name: "Town", color: color(0, 255, 0), numOfEnemys: 0, zone: {x: 0, y: 0, wid: world.width*0.15, hei: world.height*0.15}, enter: false});
-  worldEnviorment.overWorld.set("Desert", {img: worldBackgrounds.desert, name: "Desert", color: color(0, 0, 255), numOfEnemys: 40, enemy: {lvlMin: 2, lvlMax: 5, race: raceSpecific.overWorld, skill: skillSpecific.overWorld}, zone: {x: -world.width*0.2125, y: world.height*0.30, wid: world.width*0.575, hei: world.height*0.40}, enter: false});
-  worldEnviorment.overWorld.set("Forest", {img: worldBackgrounds.forest, name: "Forest", color: color(135, 96, 66), numOfEnemys: 40, enemy: {lvlMin: 4, lvlMax: 8, race: raceSpecific.overWorld, skill: skillSpecific.overWorld}, zone: {x: world.width*0.30, y: -world.height*0.325, wid: world.width*0.40, hei: world.height*0.35}, enter: false});
+  worldEnviorment.overWorld.set("Desert", {img: worldBackgrounds.desert, name: "Desert", color: color(0, 0, 255), numOfEnemys: 40, enemy: {lvlMin: 1, lvlMax: 4, race: raceSpecific.overWorld, skill: skillSpecific.overWorld}, zone: {x: -world.width*0.2125, y: world.height*0.30, wid: world.width*0.575, hei: world.height*0.40}, enter: false});
+  worldEnviorment.overWorld.set("Forest", {img: worldBackgrounds.forest, name: "Forest", color: color(135, 96, 66), numOfEnemys: 40, enemy: {lvlMin: 3, lvlMax: 6, race: raceSpecific.overWorld, skill: skillSpecific.overWorld}, zone: {x: world.width*0.30, y: -world.height*0.325, wid: world.width*0.40, hei: world.height*0.35}, enter: false});
   worldEnviorment.overWorld.set("Mountains", {img: worldBackgrounds.mountain, name: "Mountains", color: color(162, 206, 228), numOfEnemys: 45, enemy: {lvlMin: 5, lvlMax: 10, race: raceSpecific.overWorld, skill: skillSpecific.overWorld}, zone: {x: -world.width*0.40, y: -world.height*0.275, wid: world.width*0.20, hei: world.height*0.45}, enter: false});
   worldEnviorment.overWorld.set("Cave Opening", {img: worldBackgrounds.caveOpening, name: "Cave Opening", color: color(255), numOfEnemys: 0, zone: {x: world.width*0.35, y: world.height*0.35, wid: world.width*0.05, hei: world.height*0.05}, enter: true, newArea: "Cave"});
   worldEnviorment.overWorld.set("Castle Gate", {img: worldBackgrounds.castleEntrance, name: "Castle Gate", color: color(255), numOfEnemys: 0, zone: {x: 0, y: -world.height*0.40, wid: world.width*0.05, hei: world.height*0.05}, enter: true, newArea: "Castle"});
@@ -606,12 +592,12 @@ function settingWorld() {
 
     // demon realm
   worldEnviorment.demonRealm = new Map();
-  worldEnviorment.demonRealm.set("Demon Realm", {img: worldBackgrounds.demonRealm, name: "Demon Realm", color: color(212, 0, 57), numOfEnemys: 50, enemy: {lvlMin: 20, lvlMax: 27, race: raceSpecific.demons, skill: skillSpecific.demons}, zone: {x: 0, y: 0, wid: world.width, hei: world.height}, enter: false});
-  worldEnviorment.demonRealm.set("Demon Gate", {img: worldBackgrounds.demonGate, name: "Demon Gate Exit", color: color(212, 0, 57), numOfEnemys: 20, enemy: {lvlMin: 15, lvlMax: 24, race: raceSpecific.demons, skill: skillSpecific.demons}, zone: {x: 0, y: 0, wid: world.width*0.10, hei: world.height*0.10}, enter: true, newArea: "Cave"});
+  worldEnviorment.demonRealm.set("Demon Realm", {img: worldBackgrounds.demonRealm, name: "Demon Realm", color: color(212, 0, 57), numOfEnemys: 50, enemy: {lvlMin: 20, lvlMax: 30, race: raceSpecific.demons, skill: skillSpecific.demons}, zone: {x: 0, y: 0, wid: world.width, hei: world.height}, enter: false});
+  worldEnviorment.demonRealm.set("Demon Gate", {img: worldBackgrounds.demonGate, name: "Demon Gate Exit", color: color(212, 0, 57), numOfEnemys: 20, enemy: {lvlMin: 17, lvlMax: 27, race: raceSpecific.demons, skill: skillSpecific.demons}, zone: {x: 0, y: 0, wid: world.width*0.10, hei: world.height*0.10}, enter: true, newArea: "Cave"});
 
     // castle
   worldEnviorment.castle = new Map();
-  worldEnviorment.castle.set("Castle", {img: worldBackgrounds.castle, name: "Castle", color: color(212, 0, 57), numOfEnemys: 40, enemy: {lvlMin: 10, lvlMax: 25, race: raceSpecific.castle, skill: skillSpecific.castle}, zone: {x: 0, y: 0, wid: world.width, hei: world.height}, enter: false});
+  worldEnviorment.castle.set("Castle", {img: worldBackgrounds.castle, name: "Castle", color: color(212, 0, 57), numOfEnemys: 40, enemy: {lvlMin: 15, lvlMax: 25, race: raceSpecific.castle, skill: skillSpecific.castle}, zone: {x: 0, y: 0, wid: world.width, hei: world.height}, enter: false});
   worldEnviorment.castle.set("Castle Exit", {img: worldBackgrounds.door, name: "Castle Exit", color: color(212, 0, 57), numOfEnemys: 0, zone: {x: 0, y: -world.height*0.45, wid: width*0.50, hei: height*0.25}, enter: true, newArea: "Over World"});
   worldEnviorment.castle.set("Cave Entrance", {img: worldBackgrounds.stairs, name: "Cave Entrance", color: color(212, 0, 57), numOfEnemys: 0, zone: {x: -world.width*0.20, y: world.height*0.45, wid: width*0.25, hei: height*0.25}, enter: true, newArea: "Cave"});
   worldEnviorment.castle.set("Dungeon Entrance", {img: worldBackgrounds.stairs, name: "Dungeon Entrance", color: color(212, 0, 57), numOfEnemys: 0, zone: {x: world.width*0.20, y: world.height*0.45, wid: width*0.25, hei: height*0.25}, enter: true, newArea: "Dungeon 1"});
@@ -636,14 +622,20 @@ function settingWorld() {
 
     // dungeon 4
   worldEnviorment.dungeon4 = new Map();
-  worldEnviorment.dungeon4.set("Dungeon 4", {img: worldBackgrounds.dungeon, name: "Dungeon 4", color: color(212, 0, 57), numOfEnemys: 45, enemy: {lvlMin: 60, lvlMax: 80, race: raceSpecific.dungeon, skill: skillSpecific.dungeon}, zone: {x: 0, y: 0, wid: world.width, hei: world.height}, enter: false});
+  worldEnviorment.dungeon4.set("Dungeon 4", {img: worldBackgrounds.dungeon, name: "Dungeon 4", color: color(212, 0, 57), numOfEnemys: 45, enemy: {lvlMin: 75, lvlMax: 95, race: raceSpecific.dungeon, skill: skillSpecific.dungeon}, zone: {x: 0, y: 0, wid: world.width, hei: world.height}, enter: false});
   worldEnviorment.dungeon4.set("Up 3", {img: worldBackgrounds.stairs, name: "Up 3", color: color(212, 0, 57), numOfEnemys: 0, zone: {x: -world.width*0.45, y: -world.height*0.45, wid: width*0.25, hei: height*0.25}, enter: true, newArea: "Dungeon 3"});
   worldEnviorment.dungeon4.set("Down 5", {img: worldBackgrounds.stairs, name: "Down 5", color: color(212, 0, 57), numOfEnemys: 0, zone: {x: world.width*0.45, y: world.height*0.45, wid: width*0.25, hei: height*0.25}, enter: true, newArea: "Dungeon 5"});
 
     // dungeon 5
   worldEnviorment.dungeon5 = new Map();
-  worldEnviorment.dungeon5.set("Dungeon 5", {img: worldBackgrounds.dungeon, name: "Dungeon 5", color: color(212, 0, 57), numOfEnemys: 50, enemy: {lvlMin: 75, lvlMax: 100, race: raceSpecific.dungeon, skill: skillSpecific.dungeon}, zone: {x: 0, y: 0, wid: world.width, hei: world.height}, enter: false});
+  worldEnviorment.dungeon5.set("Dungeon 5", {img: worldBackgrounds.dungeon, name: "Dungeon 5", color: color(212, 0, 57), numOfEnemys: 50, enemy: {lvlMin: 90, lvlMax: 100, race: raceSpecific.dungeon, skill: skillSpecific.dungeon}, zone: {x: 0, y: 0, wid: world.width, hei: world.height}, enter: false});
   worldEnviorment.dungeon5.set("Up 4", {img: worldBackgrounds.stairs, name: "Up 4", color: color(212, 0, 57), numOfEnemys: 0, zone: {x: world.width*0.45, y: world.height*0.45, wid: width*0.25, hei: height*0.25}, enter: true, newArea: "Dungeon 4"});
+  worldEnviorment.dungeon5.set("Down Bottom", {img: worldBackgrounds.stairs, name: "Down Bottom", color: color(212, 0, 57), numOfEnemys: 0, zone: {x: 0, y: 0, wid: width*0.25, hei: height*0.25}, enter: true, newArea: "Bottom"});
+
+    // dungeon bottom
+  worldEnviorment.dungeonBottom = new Map();
+  worldEnviorment.dungeonBottom.set("Bottom", {img: worldBackgrounds.dungeon, name: "Bottom", color: color(212, 0, 57), numOfEnemys: 10, enemy: {lvlMin: 100, lvlMax: 200, race: raceSpecific.boss, skill: skillSpecific.boss}, zone: {x: 0, y: 0, wid: world.width, hei: world.height}, enter: false});
+  worldEnviorment.dungeonBottom.set("Up 5", {img: worldBackgrounds.stairs, name: "Up 5", color: color(212, 0, 57), numOfEnemys: 0, zone: {x: 0, y: 0, wid: width*0.25, hei: height*0.25}, enter: true, newArea: "Dungeon 5"});
 
   world.state = worldEnviorment.overWorld.get("Town");
   world.area = "Over World";

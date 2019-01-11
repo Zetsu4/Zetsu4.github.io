@@ -1,3 +1,13 @@
+// boss
+let bossRace = {
+  int: 100,
+  agi: 100,
+  str: 100,
+  dex: 100,
+  vit: 100,
+  expGained: 100
+};
+
 // dungeons
 let rats = {
   int: 0,
