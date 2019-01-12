@@ -4,19 +4,19 @@ function settingItemMap() {
   equipable: false, stats: {dropChance: 30, dropAmountMin: 1, dropAmountMax: 2, cost: 20}, amount: 0});
 
   allItems.set("Mp Potion", {name:"Mp Potion", description: "Replenishes MP", img: itemImg.mpPotion,
-  equipable: false, stats: {dropChance: 35, dropAmountMin: 1, dropAmountMax: 3, cost: 15}, amount: 0});
+  equipable: false, stats: {dropChance: 350, dropAmountMin: 1, dropAmountMax: 3, cost: 15}, amount: 0});
 
   allItems.set("Arrows", {name:"Arrows", description: "Used with bow", img: itemImg.arrowAttack,
-  equipable: false, stats: {dropChance: 50, dropAmountMin: 1, dropAmountMax: 10, cost: 2}, amount: 0});
+  equipable: false, stats: {dropChance: 500, dropAmountMin: 1, dropAmountMax: 10, cost: 2}, amount: 0});
 
   allItems.set("Traps", {name:"Traps", description: "Traps to slow\nfast enemy's", img: itemImg.trap,
-  equipable: false, stats: {dropChance: 40, dropAmountMin: 1, dropAmountMax: 5, cost: 10}, amount: 0});
+  equipable: false, stats: {dropChance: 400, dropAmountMin: 1, dropAmountMax: 5, cost: 10}, amount: 0});
 
   allItems.set("Town Portal", {name:"Town Portal", description: "Teleport to\ntown instantly", img: itemImg.townPortal,
-  equipable: false, stats: {dropChance: 40, dropAmountMin: 1, dropAmountMax: 2, cost: 5}, amount: 0});
+  equipable: false, stats: {dropChance: 400, dropAmountMin: 1, dropAmountMax: 2, cost: 5}, amount: 0});
 
   allItems.set("Money", {name:"Money", description: "The currency\nof this game", img: itemImg.money,
-  equipable: false, stats: {dropChance: 90, dropAmountMin: 5, dropAmountMax: 15, cost: 0}, amount: 0});
+  equipable: false, stats: {dropChance: 900, dropAmountMin: 5, dropAmountMax: 15, cost: 0}, amount: 0});
 
 
   // equipment
@@ -36,6 +36,7 @@ function settingItemMap() {
     return size;
   };
   numOfItems = allItems.size;
+  console.log(numOfItems);
 }
 
 function equipmentWeapons() {
@@ -130,8 +131,8 @@ function equipmentChest() {
   allItems.set("Hard Leather", {name:"Hard Leather", description: "Hardened leather", img: itemImg.chest,
   equipable: true, equipSlot: "chest", stats: hardLeather, amount: 0});
 
-  allItems.set("Chest 5", {name:"Chest 5", description: "Chest peice", img: itemImg.chest,
-  equipable: true, equipSlot: "chest", stats: chest5, amount: 0});
+  allItems.set("Iron Plate", {name:"Iron Plate", description: "Hard as iron", img: itemImg.chest,
+  equipable: true, equipSlot: "chest", stats: ironPlate, amount: 0});
 }
 
 function equipmentFeet() {
@@ -141,23 +142,23 @@ function equipmentFeet() {
   allItems.set("Shoes", {name:"Shoes", description: "Plain shoes", img: itemImg.feet,
   equipable: true, equipSlot: "feet", stats: shoes, amount: 0});
 
-  allItems.set("Boots", {name:"Boots", description: "Boots on\nthe ground", img: itemImg.feet,
-  equipable: true, equipSlot: "feet", stats: boots, amount: 0});
+  allItems.set("Leather Boots", {name:"Leather Boots", description: "We need boots\non the ground", img: itemImg.feet,
+  equipable: true, equipSlot: "feet", stats: leatherBoots, amount: 0});
 
-  allItems.set("Eather Nano Shoes", {name:"Eather Nano Shoes", description: "Their eathernal", img: itemImg.feet,
+  allItems.set("Eather Nano Shoes", {name:"Eather Nano Shoes", description: "They're eathernal", img: itemImg.feet,
   equipable: true, equipSlot: "feet", stats: eatherNanoShoes, amount: 0});
 
-  allItems.set("Feet 2", {name:"Feet 2", description: "Foot peice", img: itemImg.feet,
-  equipable: true, equipSlot: "feet", stats: feet2, amount: 0});
+  allItems.set("Rock Boots", {name:"Rock Boots", description: "Rock on", img: itemImg.feet,
+  equipable: true, equipSlot: "feet", stats: rockBoots, amount: 0});
 
-  allItems.set("Feet 3", {name:"Feet 3", description: "Foot peice", img: itemImg.feet,
-  equipable: true, equipSlot: "feet", stats: feet3, amount: 0});
+  allItems.set("Camo Boots", {name:"Camo Boots", description: "They'll never\nspot you", img: itemImg.feet,
+  equipable: true, equipSlot: "feet", stats: camoBoots, amount: 0});
 
-  allItems.set("Feet 4", {name:"Feet 4", description: "Foot peice", img: itemImg.feet,
-  equipable: true, equipSlot: "feet", stats: feet4, amount: 0});
+  allItems.set("Ethereal Shoes", {name:"Ethereal Shoes", description: "Magic shoes", img: itemImg.feet,
+  equipable: true, equipSlot: "feet", stats: etherealShoes, amount: 0});
 
-  allItems.set("Feet 5", {name:"Feet 5", description: "Foot peice", img: itemImg.feet,
-  equipable: true, equipSlot: "feet", stats: feet5, amount: 0});
+  allItems.set("Steel Boots", {name:"Steel Boots", description: "We need boots\non the ground", img: itemImg.feet,
+  equipable: true, equipSlot: "feet", stats: steelBoots, amount: 0});
 }
 
 function equipmentShoulders() {
