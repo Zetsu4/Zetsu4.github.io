@@ -42,7 +42,7 @@ function displayControls(value, key, map) {
   // rebinding
   if (value.button.clicked()) {
     clickWait();
-    let newValue = prompt("Input a key or type 'Escape', 'Shift', or 'Space'.", charValue);
+    let newValue = prompt("Input an alphanumeric character or\ntype 'Escape', 'Shift', or 'Space'.", charValue);
 
     if (newValue === "" || newValue === null)
       map.get(key).code = map.get(key).code;
