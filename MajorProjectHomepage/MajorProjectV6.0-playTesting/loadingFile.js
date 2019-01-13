@@ -383,7 +383,7 @@ function setup() {
   setShops();
 
   // heal button
-  let shorterLine /*great variable name*/ = (inventory.width+1)*inventory.boxSize-width/2+inventory.boxSize;
+  let shorterLine /*great variable name*/ = (inventory.width+1)*inventory.boxSize-width/2+inventory.boxSize; // makes the next line shorter
   buttons.heal = new Button(shorterLine, -height*0.45, inventory.boxSize, inventory.boxSize, buttons.brown, buttons.lightBrown, "Heal", "BOLD");
 
   // level up buttons
@@ -701,6 +701,9 @@ function setPlayer() {
   player.totSpeed = 0;
   player.speedMultiplier = 0;
   player.speed = 0;
+  player.stuned = false;
+  player.lastStun = millis();
+  player.stunTimer = 0;
 
   // level
   player.lvl = 0;

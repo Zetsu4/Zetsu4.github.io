@@ -5,13 +5,13 @@ let brownShirt = {
   agi: +0,
   str: +0,
   dex: -1,
-  vit: +5,
+  vit: +3,
   melee: +0.02,
   ranged: -0.02,
   magic: +0.00,
   trap: +0.00,
   expBonus: +1,
-  dropChance: 200
+  dropChance: 40
 };
 
 let greyShirt = {
@@ -20,13 +20,13 @@ let greyShirt = {
   agi: +2,
   str: +1,
   dex: -2,
-  vit: +5,
+  vit: +4,
   melee: +0.01,
   ranged: +0.01,
   magic: +0.01,
   trap: +0.01,
   expBonus: -4,
-  dropChance: 150
+  dropChance: 30
 };
 
 let tatteredRobe = {
@@ -38,10 +38,10 @@ let tatteredRobe = {
   vit: +4,
   melee: -0.03,
   ranged: +0.03,
-  magic: +0.10,
+  magic: +0.05,
   trap: +0.01,
   expBonus: -4,
-  dropChance: 150
+  dropChance: 28
 };
 
 let leatherArmor = {
@@ -52,11 +52,11 @@ let leatherArmor = {
   dex: +3,
   vit: +5,
   melee: -0.05,
-  ranged: +0.10,
+  ranged: +0.07,
   magic: -0.05,
   trap: +0.05,
   expBonus: -5,
-  dropChance: 150
+  dropChance: 28
 };
 
 let chainMail = {
@@ -65,13 +65,13 @@ let chainMail = {
   agi: -3,
   str: +3,
   dex: -1,
-  vit: +4,
+  vit: +6,
   melee: +0.10,
   ranged: -0.05,
   magic: -0.05,
   trap: -0.05,
   expBonus: +2,
-  dropChance: 150
+  dropChance: 28
 };
 
 let newRobe = {
@@ -80,13 +80,13 @@ let newRobe = {
   agi: -2,
   str: -12,
   dex: -6,
-  vit: +4,
-  melee: -0.15,
-  ranged: -0.15,
-  magic: +0.20,
+  vit: +5,
+  melee: -0.07,
+  ranged: -0.07,
+  magic: +0.10,
   trap: +0.05,
   expBonus: -3,
-  dropChance: 100
+  dropChance: 24
 };
 
 let hardLeather = {
@@ -95,13 +95,13 @@ let hardLeather = {
   agi: +5,
   str: -6,
   dex: +15,
-  vit: +6,
-  melee: -0.15,
-  ranged: +0.15,
-  magic: -0.15,
-  trap: +0.20,
+  vit: +8,
+  melee: -0.07,
+  ranged: +0.07,
+  magic: -0.07,
+  trap: +0.10,
   expBonus: -3,
-  dropChance: 100
+  dropChance: 24
 };
 
 let ironPlate = {
@@ -110,11 +110,11 @@ let ironPlate = {
   agi: -12,
   str: +15,
   dex: -8,
-  vit: +10,
-  melee: +0.35,
-  ranged: -0.15,
-  magic: -0.15,
-  trap: -0.15,
+  vit: +11,
+  melee: +0.12,
+  ranged: -0.07,
+  magic: -0.07,
+  trap: -0.07,
   expBonus: -3,
-  dropChance: 100
+  dropChance: 24
 };

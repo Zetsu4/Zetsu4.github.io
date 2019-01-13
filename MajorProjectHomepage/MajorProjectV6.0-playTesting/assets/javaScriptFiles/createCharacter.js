@@ -245,6 +245,7 @@ function calculateStats() {
   player.tDmg = constrain(int((player.agi+runningStats.agi)*(1+runningStats.trap)), 1, Infinity);
 
   // movement
+  player.stunTimer = constrain((1000 - (player.vit+player.agi)), 100, 1000);
   player.totSpeed = constrain((width*0.003 + width*(player.agi+runningStats.agi)*pow(10, -4)), width*0.0001, width*0.10);
   player.speedMultiplier = 0.60;
 }

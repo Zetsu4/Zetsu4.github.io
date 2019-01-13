@@ -1,120 +1,120 @@
 // hands
 let leatherGloves = {
-  cost: 30,
-  int: +1,
-  agi: +3,
-  str: +5,
+  cost: 10,
+  int: -1,
+  agi: +0,
+  str: +3,
   dex: +1,
-  vit: +6,
-  melee: +0.08,
-  ranged: +0.10,
-  magic: -0.10,
-  trap: +0.08,
-  expBonus: -8,
-  dropChance: 10
+  vit: +1,
+  melee: +0.02,
+  ranged: +0.01,
+  magic: -0.02,
+  trap: +0.03,
+  expBonus: -2,
+  dropChance: 50
 };
 
 let rockGloves = {
-  cost: 35,
-  int: -5,
-  agi: -2,
+  cost: 5,
+  int: -3,
+  agi: -3,
+  str: +5,
+  dex: -3,
+  vit: -1,
+  melee: +0.05,
+  ranged: -0.02,
+  magic: -0.02,
+  trap: -0.02,
+  expBonus: -3,
+  dropChance: 50
+};
+
+let clothGloves = {
+  cost: 15,
+  int: +2,
+  agi: +0,
+  str: -1,
+  dex: +1,
+  vit: +1,
+  melee: -0.01,
+  ranged: +0.01,
+  magic: +0.02,
+  trap: +0.00,
+  expBonus: +2,
+  dropChance: 38
+};
+
+let toughGloves = {
+  cost: 15,
+  int: -2,
+  agi: +0,
+  str: +2,
+  dex: +0,
+  vit: +1,
+  melee: +0.02,
+  ranged: +0.00,
+  magic: -0.01,
+  trap: -0.01,
+  expBonus: +2,
+  dropChance: 38
+};
+
+let gloves = {
+  cost: 15,
+  int: +0,
+  agi: +2,
+  str: -2,
+  dex: +3,
+  vit: +0,
+  melee: -0.01,
+  ranged: +0.02,
+  magic: +0.02,
+  trap: +0.02,
+  expBonus: -1,
+  dropChance: 38
+};
+
+let cottonGloves = {
+  cost: 40,
+  int: +4,
+  agi: +0,
+  str: -4,
+  dex: +0,
+  vit: +2,
+  melee: -0.03,
+  ranged: +0.00,
+  magic: +0.08,
+  trap: +0.00,
+  expBonus: +2,
+  dropChance: 32
+};
+
+let strongGloves = {
+  cost: 40,
+  int: -4,
+  agi: +1,
   str: +5,
   dex: -2,
-  vit: +10,
-  melee: +0.10,
-  ranged: -0.10,
-  magic: -0.02,
-  trap: +0.04,
-  expBonus: +7,
-  dropChance: 20
-};
-
-let hands0 = {
-  cost: 85,
-  int: +8,
-  agi: +9,
-  str: -14,
-  dex: -1,
-  vit: -9,
-  melee: -1.38,
-  ranged: +1.61,
-  magic: +1.45,
-  trap: +1.62,
-  expBonus: +26,
-  dropChance: 7
-};
-
-let hands1 = {
-  cost: 35,
-  int: -7,
-  agi: -5,
-  str: -3,
-  dex: -6,
-  vit: -7,
-  melee: -0.79,
-  ranged: +0.68,
-  magic: -1.99,
-  trap: +1.63,
-  expBonus: +58,
-  dropChance: 20
-};
-
-let hands2 = {
-  cost: 75,
-  int: +7,
-  agi: +6,
-  str: -2,
-  dex: -2,
-  vit: +9,
+  vit: +2,
   melee: +0.08,
-  ranged: -1.63,
-  magic: +1.36,
-  trap: -0.30,
-  expBonus: +56,
-  dropChance: 15
+  ranged: -0.04,
+  magic: -0.04,
+  trap: +0.01,
+  expBonus: +1,
+  dropChance: 32
 };
 
-let hands3 = {
-  cost: 30,
-  int: +21,
-  agi: -17,
-  str: -3,
-  dex: -16,
-  vit: +10,
-  melee: -0.79,
-  ranged: -0.91,
-  magic: +1.54,
-  trap: +1.76,
-  expBonus: -9,
-  dropChance: 15
-};
-
-let hands4 = {
+let paddedGloves = {
   cost: 40,
-  int: +11,
-  agi: +12,
-  str: -1,
-  dex: -11,
-  vit: +9,
-  melee: -1.40,
-  ranged: -0.34,
-  magic: +1.35,
-  trap: -1.72,
-  expBonus: +19,
-  dropChance: 20
-};
-
-let hands5 = {
-  cost: 20,
-  int: -4,
-  agi: +3,
-  str: +26,
+  int: -1,
+  agi: +1,
+  str: +2,
   dex: +1,
-  vit: -6,
-  melee: +0.22,
-  ranged: +0.34,
-  magic: -0.90,
-  trap: +0.50,
-  expBonus: -16,
+  vit: +4,
+  melee: +0.02,
+  ranged: +0.03,
+  magic: +0.02,
+  trap: +0.02,
+  expBonus: -2,
   dropChance: 30
 };

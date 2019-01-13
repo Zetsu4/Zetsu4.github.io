@@ -11,7 +11,7 @@ let oldShoes = {
   magic: +0,
   trap: +0,
   expBonus: +1,
-  dropChance: 300
+  dropChance: 50
 };
 
 let shoes = {
@@ -26,7 +26,7 @@ let shoes = {
   magic: +0,
   trap: +0,
   expBonus: -1,
-  dropChance: 290
+  dropChance: 40
 };
 
 let leatherBoots = {
@@ -41,7 +41,7 @@ let leatherBoots = {
   magic: -0.00,
   trap: +0.05,
   expBonus: -2,
-  dropChance: 250
+  dropChance: 30
 };
 
 let eatherNanoShoes = {
@@ -56,7 +56,7 @@ let eatherNanoShoes = {
   magic: +0.08,
   trap: +0.00,
   expBonus: -1,
-  dropChance: 250
+  dropChance: 30
 };
 
 let rockBoots = {
@@ -71,7 +71,7 @@ let rockBoots = {
   magic: -0.05,
   trap: +0.02,
   expBonus: +1,
-  dropChance: 250
+  dropChance: 30
 };
 
 let camoBoots = {
@@ -86,7 +86,7 @@ let camoBoots = {
   magic: +0.02,
   trap: +0.05,
   expBonus: -3,
-  dropChance: 175
+  dropChance: 35
 };
 
 let etherealShoes = {
@@ -101,7 +101,7 @@ let etherealShoes = {
   magic: +0.15,
   trap: +0.01,
   expBonus: -2,
-  dropChance: 175
+  dropChance: 35
 };
 
 let steelBoots = {
@@ -116,5 +116,5 @@ let steelBoots = {
   magic: -0.07,
   trap: -0.02,
   expBonus: +2,
-  dropChance: 175
+  dropChance: 35
 };

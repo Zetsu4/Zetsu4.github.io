@@ -62,8 +62,11 @@ function playingGame() {
 }
 
 function checkState() {
-  // checking world state
+  // stop shop music if its playing
+  if (sounds.itemShop.isPlaying())
+    sounds.itemShop.stop();
 
+  // checking world state
   // demon gate music
   if (world.state.name === "Demon Gate Enter")
     if (!(soundEasterEgg ? sounds.secret.blipBackground : sounds.demonGate).isPlaying())

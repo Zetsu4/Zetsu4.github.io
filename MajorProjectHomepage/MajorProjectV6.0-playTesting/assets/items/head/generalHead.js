@@ -11,11 +11,11 @@ let flatRock = {
   magic: -0.03,
   trap: +0.01,
   expBonus: +7,
-  dropChance: 20
+  dropChance: 50
 };
 
 let paperBag = {
-  cost: 15,
+  cost: 20,
   int: +2,
   agi: +3,
   str: +5,
@@ -26,95 +26,95 @@ let paperBag = {
   magic: +0.00,
   trap: +0.05,
   expBonus: -2,
-  dropChance: 15
-};
-
-let head0 = {
-  cost: 200,
-  int: -18,
-  agi: +7,
-  str: +9,
-  dex: +13,
-  vit: +16,
-  melee: +1.84,
-  ranged: +0.89,
-  magic: -1.09,
-  trap: +1.14,
-  expBonus: +27,
-  dropChance: 8
-};
-
-let head1 = {
-  cost: 100,
-  int: +15,
-  agi: +24,
-  str: -24,
-  dex: +12,
-  vit: -19,
-  melee: +0.00,
-  ranged: +0.67,
-  magic: +1.97,
-  trap: +1.20,
-  expBonus: -10,
-  dropChance: 15
-};
-
-let head2 = {
-  cost: 30,
-  int: -1,
-  agi: +28,
-  str: -2,
-  dex: +25,
-  vit: +18,
-  melee: -0.69,
-  ranged: +1.88,
-  magic: -0.7,
-  trap: +0.74,
-  expBonus: -20,
-  dropChance: 25
-};
-
-let head3 = {
-  cost: 100,
-  int: +4,
-  agi: +9,
-  str: +2,
-  dex: -3,
-  vit: -4,
-  melee: +0.30,
-  ranged: -1.62,
-  magic: +0.73,
-  trap: +1.46,
-  expBonus: -8,
-  dropChance: 15
-};
-
-let head4 = {
-  cost: 85,
-  int: +9,
-  agi: +7,
-  str: -7,
-  dex: -6,
-  vit: -4,
-  melee: +0.31,
-  ranged: +1.45,
-  magic: -1.65,
-  trap: +0.33,
-  expBonus: +8,
-  dropChance: 10
-};
-
-let head5 = {
-  cost: 25,
-  int: -7,
-  agi: +6,
-  str: -8,
-  dex: -8,
-  vit: -5,
-  melee: -1.91,
-  ranged: +1.95,
-  magic: -0.8,
-  trap: +1.2,
-  expBonus: +15,
   dropChance: 30
+};
+
+let helm = {
+  cost: 25,
+  int: -1,
+  agi: +0,
+  str: +2,
+  dex: +0,
+  vit: +4,
+  melee: +0.04,
+  ranged: +0.00,
+  magic: -0.02,
+  trap: +0.00,
+  expBonus: +2,
+  dropChance: 40
+};
+
+let cap = {
+  cost: 25,
+  int: +1,
+  agi: +2,
+  str: -4,
+  dex: +3,
+  vit: +3,
+  melee: -0.03,
+  ranged: +0.02,
+  magic: +0.02,
+  trap: +0.04,
+  expBonus: +1,
+  dropChance: 40
+};
+
+let clothCap = {
+  cost: 20,
+  int: +2,
+  agi: +2,
+  str: -4,
+  dex: +1,
+  vit: +3,
+  melee: -0.05,
+  ranged: +0.02,
+  magic: +0.03,
+  trap: +0.02,
+  expBonus: +2,
+  dropChance: 45
+};
+
+let helmet = {
+  cost: 35,
+  int: -3,
+  agi: +2,
+  str: +4,
+  dex: -1,
+  vit: +7,
+  melee: +0.05,
+  ranged: +0.00,
+  magic: -0.03,
+  trap: +0.01,
+  expBonus: +4,
+  dropChance: 40
+};
+
+let leatherCap = {
+  cost: 35,
+  int: +2,
+  agi: +4,
+  str: -3,
+  dex: +6,
+  vit: +5,
+  melee: -0.02,
+  ranged: +0.06,
+  magic: +0.02,
+  trap: +0.03,
+  expBonus: +4,
+  dropChance: 40
+};
+
+let hat = {
+  cost: 35,
+  int: +1,
+  agi: +5,
+  str: +1,
+  dex: +1,
+  vit: +5,
+  melee: +0.01,
+  ranged: +0.01,
+  magic: +0.01,
+  trap: +0.03,
+  expBonus: +2,
+  dropChance: 38
 };

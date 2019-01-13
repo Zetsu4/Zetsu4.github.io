@@ -1,22 +1,22 @@
 function settingItemMap() {
   // non equipable items
   allItems.set("Hp Potion", {name:"Hp Potion", description: "Replenishes HP", img: itemImg.hpPotion,
-  equipable: false, stats: {dropChance: 30, dropAmountMin: 1, dropAmountMax: 2, cost: 20}, amount: 0});
+  equipable: false, stats: {dropChance: 40, dropAmountMin: 1, dropAmountMax: 2, cost: 20}, amount: 0});
 
   allItems.set("Mp Potion", {name:"Mp Potion", description: "Replenishes MP", img: itemImg.mpPotion,
-  equipable: false, stats: {dropChance: 350, dropAmountMin: 1, dropAmountMax: 3, cost: 15}, amount: 0});
+  equipable: false, stats: {dropChance: 50, dropAmountMin: 1, dropAmountMax: 3, cost: 15}, amount: 0});
 
   allItems.set("Arrows", {name:"Arrows", description: "Used with bow", img: itemImg.arrowAttack,
-  equipable: false, stats: {dropChance: 500, dropAmountMin: 1, dropAmountMax: 10, cost: 2}, amount: 0});
+  equipable: false, stats: {dropChance: 75, dropAmountMin: 1, dropAmountMax: 10, cost: 2}, amount: 0});
 
   allItems.set("Traps", {name:"Traps", description: "Traps to slow\nfast enemy's", img: itemImg.trap,
-  equipable: false, stats: {dropChance: 400, dropAmountMin: 1, dropAmountMax: 5, cost: 10}, amount: 0});
+  equipable: false, stats: {dropChance: 60, dropAmountMin: 1, dropAmountMax: 5, cost: 10}, amount: 0});
 
   allItems.set("Town Portal", {name:"Town Portal", description: "Teleport to\ntown instantly", img: itemImg.townPortal,
-  equipable: false, stats: {dropChance: 400, dropAmountMin: 1, dropAmountMax: 2, cost: 5}, amount: 0});
+  equipable: false, stats: {dropChance: 70, dropAmountMin: 1, dropAmountMax: 2, cost: 5}, amount: 0});
 
   allItems.set("Money", {name:"Money", description: "The currency\nof this game", img: itemImg.money,
-  equipable: false, stats: {dropChance: 900, dropAmountMin: 5, dropAmountMax: 15, cost: 0}, amount: 0});
+  equipable: false, stats: {dropChance: 100, dropAmountMin: 5, dropAmountMax: 15, cost: 0}, amount: 0});
 
 
   // equipment
@@ -36,51 +36,37 @@ function settingItemMap() {
     return size;
   };
   numOfItems = allItems.size;
-  console.log(numOfItems);
 }
 
 function equipmentWeapons() {
+  // melee
   allItems.set("Pitch Fork", {name:"Pitch Fork", description: "A pitch fork\nthat mobs carry", img: itemImg.weapon,
   equipable: true, equipSlot: "weapon", stats: pitchFork, amount: 0});
 
   allItems.set("Shifty Sword", {name:"Shifty Sword", description: "careful, it's shifty", img: itemImg.weapon,
   equipable: true, equipSlot: "weapon", stats: shiftySword, amount: 0});
 
+  // ranged
+  allItems.set("Normal Bow", {name:"Normal Bow", description: "It's a normal bow", img: itemImg.weapon,
+  equipable: true, equipSlot: "weapon", stats: normalBow, amount: 0});
+
   allItems.set("Cross Bow", {name:"Cross Bow", description: "It's a cross bow", img: itemImg.weapon,
   equipable: true, equipSlot: "weapon", stats: crossBow, amount: 0});
 
-  allItems.set("Cross Boe", {name:"Cross Boe", description: "It's crossed boe's", img: itemImg.weapon,
-  equipable: true, equipSlot: "weapon", stats: crossBoe, amount: 0});
-
-  allItems.set("Real Wand", {name:"Real Wand", description: "Totally a real wand\n(not a stick)", img: itemImg.weapon,
+  // magic
+  allItems.set("Real Wand", {name:"Real Wand", description: "Totally a real\nwand", img: itemImg.weapon,
   equipable: true, equipSlot: "weapon", stats: realWand, amount: 0});
 
-  allItems.set("Real Staff", {name:"Real Staff", description: "Surely it's different\nfrom a stick", img: itemImg.weapon,
+  allItems.set("Real Staff", {name:"Real Staff", description: "Totally a real\staff", img: itemImg.weapon,
   equipable: true, equipSlot: "weapon", stats: realStaff, amount: 0});
 
-  allItems.set("Stick", {name:"Stick", description: "He didn't even\nchange the picture", img: itemImg.weapon,
-  equipable: true, equipSlot: "weapon", stats: stick, amount: 0});
-
-  allItems.set("Small Rock", {name:"Small Rock", description: "A rock you\nfound", img: itemImg.weapon,
+  // other
+  allItems.set("Small Rock", {name:"Small Rock", description: "A small rock", img: itemImg.weapon,
   equipable: true, equipSlot: "weapon", stats: smallRock, amount: 0});
 
-  allItems.set("Weapon 0", {name:"Weapon 0", description: "Weapon", img: itemImg.weapon,
-  equipable: true, equipSlot: "weapon", stats: weapon0, amount: 0});
-
-  allItems.set("Weapon 1", {name:"Weapon 1", description: "Weapon", img: itemImg.weapon,
-  equipable: true, equipSlot: "weapon", stats: weapon1, amount: 0});
-
-  allItems.set("Weapon 2", {name:"Weapon 2", description: "Weapon", img: itemImg.weapon,
-  equipable: true, equipSlot: "weapon", stats: weapon2, amount: 0});
-
-  allItems.set("Weapon 3", {name:"Weapon 3", description: "Weapon", img: itemImg.weapon,
-  equipable: true, equipSlot: "weapon", stats: weapon3, amount: 0});
-
-  allItems.set("Weapon 4", {name:"Weapon 4", description: "Weapon", img: itemImg.weapon,
-  equipable: true, equipSlot: "weapon", stats: weapon4, amount: 0});
-
-  allItems.set("Weapon 5", {name:"Weapon 5", description: "Weapon", img: itemImg.weapon,
-  equipable: true, equipSlot: "weapon", stats: weapon5, amount: 0});
+    // rare
+  allItems.set("Stick", {name:"Stick", description: "It's super weak", img: itemImg.weapon,
+  equipable: true, equipSlot: "weapon", stats: stick, amount: 0});
 }
 
 function equipmentHead() {
@@ -90,23 +76,23 @@ function equipmentHead() {
   allItems.set("Paper Bag", {name:"Paper Bag", description: "To cover your\nugly mug", img: itemImg.head,
   equipable: true, equipSlot: "head", stats: paperBag, amount: 0});
 
-  allItems.set("Head 0", {name:"Head 0", description: "Head peice", img: itemImg.head,
-  equipable: true, equipSlot: "head", stats: head0, amount: 0});
+  allItems.set("Helm", {name:"Helm", description: "Helm", img: itemImg.head,
+  equipable: true, equipSlot: "head", stats: helm, amount: 0});
 
-  allItems.set("Head 1", {name:"Head 1", description: "Head peice", img: itemImg.head,
-  equipable: true, equipSlot: "head", stats: head1, amount: 0});
+  allItems.set("Cap", {name:"Cap", description: "Head cap", img: itemImg.head,
+  equipable: true, equipSlot: "head", stats: cap, amount: 0});
 
-  allItems.set("Head 2", {name:"Head 2", description: "Head peice", img: itemImg.head,
-  equipable: true, equipSlot: "head", stats: head2, amount: 0});
+  allItems.set("Cloth Cap", {name:"Cloth Cap", description: "Cap made from\ncoth", img: itemImg.head,
+  equipable: true, equipSlot: "head", stats: clothCap, amount: 0});
 
-  allItems.set("Head 3", {name:"Head 3", description: "Head peice", img: itemImg.head,
-  equipable: true, equipSlot: "head", stats: head3, amount: 0});
+  allItems.set("Helmet", {name:"Helmet", description: "Helmet for your\nhead", img: itemImg.head,
+  equipable: true, equipSlot: "head", stats: helmet, amount: 0});
 
-  allItems.set("Head 4", {name:"Head 4", description: "Head peice", img: itemImg.head,
-  equipable: true, equipSlot: "head", stats: head4, amount: 0});
+  allItems.set("Leather Cap", {name:"Leather Cap", description: "Cap made from\nleather", img: itemImg.head,
+  equipable: true, equipSlot: "head", stats: leatherCap, amount: 0});
 
-  allItems.set("Head 5", {name:"Head 5", description: "Head peice", img: itemImg.head,
-  equipable: true, equipSlot: "head", stats: head5, amount: 0});
+  allItems.set("Hat", {name:"Hat", description: "Plain hat", img: itemImg.head,
+  equipable: true, equipSlot: "head", stats: hat, amount: 0});
 }
 
 function equipmentChest() {
@@ -165,52 +151,52 @@ function equipmentShoulders() {
   allItems.set("Round Rocks", {name:"Round Rocks", description: "Round rocks for\nyour shoulders", img: itemImg.shoulders,
   equipable: true, equipSlot: "shoulders", stats: roundRocks, amount: 0});
 
+  allItems.set("Padded Shoulders", {name:"Padded Shoulders", description: "Padded shoulder\npeice", img: itemImg.shoulders,
+  equipable: true, equipSlot: "shoulders", stats: paddedShoulders, amount: 0});
+
   allItems.set("Weak Plates", {name:"Weak Plates", description: "Shoulder plates that\nare weak", img: itemImg.shoulders,
   equipable: true, equipSlot: "shoulders", stats: weakPlates, amount: 0});
 
-  allItems.set("Shoulders 0", {name:"Shoulders 0", description: "Shoulder peice", img: itemImg.shoulders,
-  equipable: true, equipSlot: "shoulders", stats: shoulders0, amount: 0});
+  allItems.set("Ragged Shoulders", {name:"Ragged Shoulders", description: "Ragged shoulder\npeice", img: itemImg.shoulders,
+  equipable: true, equipSlot: "shoulders", stats: raggedShoulders, amount: 0});
 
-  allItems.set("Shoulders 1", {name:"Shoulders 1", description: "Shoulder peice", img: itemImg.shoulders,
-  equipable: true, equipSlot: "shoulders", stats: shoulders1, amount: 0});
+  allItems.set("Cloth Shoulders", {name:"Cloth Shoulders", description: "Cloth shoulder\npeice", img: itemImg.shoulders,
+  equipable: true, equipSlot: "shoulders", stats: clothShoulders, amount: 0});
 
-  allItems.set("Shoulders 2", {name:"Shoulders 2", description: "Shoulder peice", img: itemImg.shoulders,
-  equipable: true, equipSlot: "shoulders", stats: shoulders2, amount: 0});
+  allItems.set("Padded Plates", {name:"Padded Plates", description: "Padded shoulder\nplates", img: itemImg.shoulders,
+  equipable: true, equipSlot: "shoulders", stats: paddedPlates, amount: 0});
 
-  allItems.set("Shoulders 3", {name:"Shoulders 3", description: "Shoulder peice", img: itemImg.shoulders,
-  equipable: true, equipSlot: "shoulders", stats: shoulders3, amount: 0});
+  allItems.set("Eathernal Shoulders", {name:"Eathernal Shoulders", description: "Eathernal shoulder\npeice", img: itemImg.shoulders,
+  equipable: true, equipSlot: "shoulders", stats: eathernalShoulders, amount: 0});
 
-  allItems.set("Shoulders 4", {name:"Shoulders 4", description: "Shoulder peice", img: itemImg.shoulders,
-  equipable: true, equipSlot: "shoulders", stats: shoulders4, amount: 0});
-
-  allItems.set("Shoulders 5", {name:"Shoulders 5", description: "Shoulder peice", img: itemImg.shoulders,
-  equipable: true, equipSlot: "shoulders", stats: shoulders5, amount: 0});
+  allItems.set("Leather Shoulders", {name:"Leather Shoulders", description: "Leather shoulder\npeice", img: itemImg.shoulders,
+  equipable: true, equipSlot: "shoulders", stats: leatherShoulders, amount: 0});
 }
 
 function equipmentLegs() {
-  allItems.set("Blue Pants", {name:"Blue Pants", description: "Blue Pants", img: itemImg.legs,
-  equipable: true, equipSlot: "legs", stats: bluePants, amount: 0});
-
   allItems.set("Grass Pants", {name:"Grass Pants", description: "Pants made from\ngrass", img: itemImg.legs,
   equipable: true, equipSlot: "legs", stats: grassPants, amount: 0});
 
-  allItems.set("Legs 0", {name:"Legs 0", description: "Leg peice", img: itemImg.legs,
-  equipable: true, equipSlot: "legs", stats: legs0, amount: 0});
+  allItems.set("Pants", {name:"Pants", description: "Generic pants", img: itemImg.legs,
+  equipable: true, equipSlot: "legs", stats: pants, amount: 0});
 
-  allItems.set("Legs 1", {name:"Legs 1", description: "Leg peice", img: itemImg.legs,
-  equipable: true, equipSlot: "legs", stats: legs1, amount: 0});
+  allItems.set("Blue Pants", {name:"Blue Pants", description: "Blue Pants", img: itemImg.legs,
+  equipable: true, equipSlot: "legs", stats: bluePants, amount: 0});
 
-  allItems.set("Legs 2", {name:"Legs 2", description: "Leg peice", img: itemImg.legs,
-  equipable: true, equipSlot: "legs", stats: legs2, amount: 0});
+  allItems.set("Cargo Shorts", {name:"Cargo Shorts", description: "Can hold lots\nof stuff", img: itemImg.legs,
+  equipable: true, equipSlot: "legs", stats: cargoShorts, amount: 0});
 
-  allItems.set("Legs 3", {name:"Legs 3", description: "Leg peice", img: itemImg.legs,
-  equipable: true, equipSlot: "legs", stats: legs3, amount: 0});
+  allItems.set("Camo Pants", {name:"Camo Pants", description: "You won't be\nspotted", img: itemImg.legs,
+  equipable: true, equipSlot: "legs", stats: camoPants, amount: 0});
 
-  allItems.set("Legs 4", {name:"Legs 4", description: "Leg peice", img: itemImg.legs,
-  equipable: true, equipSlot: "legs", stats: legs4, amount: 0});
+  allItems.set("Metal Pants", {name:"Metal Pants", description: "The stuff\nsquires wear", img: itemImg.legs,
+  equipable: true, equipSlot: "legs", stats: metalPants, amount: 0});
 
-  allItems.set("Legs 5", {name:"Legs 5", description: "Leg peice", img: itemImg.legs,
-  equipable: true, equipSlot: "legs", stats: legs5, amount: 0});
+  allItems.set("Fire Pants", {name:"Fire Pants", description: "Liar", img: itemImg.legs,
+  equipable: true, equipSlot: "legs", stats: firePants, amount: 0});
+
+  allItems.set("Soft Pants", {name:"Soft Pants", description: "Oh, so soft", img: itemImg.legs,
+  equipable: true, equipSlot: "legs", stats: softPants, amount: 0});
 }
 
 function equipmentHands() {
@@ -220,21 +206,21 @@ function equipmentHands() {
   allItems.set("Rock Gloves", {name:"Rock Gloves", description: "Rough rocks for\nyour hands", img: itemImg.hands,
   equipable: true, equipSlot: "hands", stats: rockGloves, amount: 0});
 
-  allItems.set("Hands 0", {name:"Hands 0", description: "Hand peice", img: itemImg.hands,
-  equipable: true, equipSlot: "hands", stats: hands0, amount: 0});
+  allItems.set("Cloth Gloves", {name:"Cloth Gloves", description: "Gloves made out\nof cloth", img: itemImg.hands,
+  equipable: true, equipSlot: "hands", stats: clothGloves, amount: 0});
 
-  allItems.set("Hands 1", {name:"Hands 1", description: "Hand peice", img: itemImg.hands,
-  equipable: true, equipSlot: "hands", stats: hands1, amount: 0});
+  allItems.set("Tough Gloves", {name:"Tough Gloves", description: "Tough gloves", img: itemImg.hands,
+  equipable: true, equipSlot: "hands", stats: toughGloves, amount: 0});
 
-  allItems.set("Hands 2", {name:"Hands 2", description: "Hand peice", img: itemImg.hands,
-  equipable: true, equipSlot: "hands", stats: hands2, amount: 0});
+  allItems.set("Gloves", {name:"Gloves", description: "Plain gloves", img: itemImg.hands,
+  equipable: true, equipSlot: "hands", stats: gloves, amount: 0});
 
-  allItems.set("Hands 3", {name:"Hands 3", description: "Hand peice", img: itemImg.hands,
-  equipable: true, equipSlot: "hands", stats: hands3, amount: 0});
+  allItems.set("Cotton Gloves", {name:"Cotton Gloves", description: "Gloves made out\nof cotton", img: itemImg.hands,
+  equipable: true, equipSlot: "hands", stats: cottonGloves, amount: 0});
 
-  allItems.set("Hands 4", {name:"Hands 4", description: "Hand peice", img: itemImg.hands,
-  equipable: true, equipSlot: "hands", stats: hands4, amount: 0});
+  allItems.set("Strong Gloves", {name:"Strong Gloves", description: "Strong Gloves", img: itemImg.hands,
+  equipable: true, equipSlot: "hands", stats: strongGloves, amount: 0});
 
-  allItems.set("Hands 5", {name:"Hands 5", description: "Hand peice", img: itemImg.hands,
-  equipable: true, equipSlot: "hands", stats: hands5, amount: 0});
+  allItems.set("Padded Gloves", {name:"Padded Gloves", description: "GLoves with more\nprotection", img: itemImg.hands,
+  equipable: true, equipSlot: "hands", stats: paddedGloves, amount: 0});
 }

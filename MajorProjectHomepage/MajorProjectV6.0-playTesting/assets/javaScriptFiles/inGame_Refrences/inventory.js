@@ -149,7 +149,7 @@ function itemDescription(item) {
 
   // text box
   rectMode(CORNER);
-  rect(mouseX+width*0.01, mouseY, width*0.10, height*0.05+(fontSize.default+fontSize.playersDisplay*14));
+  rect(mouseX+width*0.01, mouseY, width*0.12, height*0.05+(fontSize.default+fontSize.playersDisplay*14.5));
 
   // description of item
   noStroke();

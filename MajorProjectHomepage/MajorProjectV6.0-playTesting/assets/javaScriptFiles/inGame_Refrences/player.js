@@ -3,7 +3,12 @@ function playerMovement() {
   let oldX = player.x;
   let oldY = player.y;
 
-  player.speed = (player.toggleSpeed ? player.totSpeed*player.speedMultiplier : player.totSpeed);
+  if (player.stuned) {
+    player.stuned = !timerFoo(player.lastStun, player.stunTimer);
+    player.speed = player.totSpeed*0.25;
+  }
+  else
+    player.speed = (player.toggleSpeed ? player.totSpeed*player.speedMultiplier : player.totSpeed);
 
   if (keyIsDown(keyBindings.get("Move Up").code)) {
     player.y -= player.speed;
@@ -120,7 +125,14 @@ function playerCoolDown() {
 function playerTakeDamage(dmg) {
   player.hp -= dmg;
   if (player.hp <= 0)
+    // dead player
     gameOver();
+
+  else {
+    // stun player
+    player.stuned = true;
+    player.lastStun = millis();
+  }
 }
 
 function teleportArea(newArea) {

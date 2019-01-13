@@ -105,7 +105,7 @@ function shopHoverTile() {
 }
 
 function healButton() {
-  let healCost = player.lvl*10;
+  let healCost = (player.totHp-player.hp)*2;
 
   if (buttons.heal.clicked() && allItems.get("Money").amount >= healCost) {
     // money issues
@@ -126,7 +126,7 @@ function healButton() {
 
     stroke(buttons.lightBrown);
     fill(buttons.brown);
-    rect(mouseX, mouseY, inventory.boxSize+fontSize.default, fontSize.default);
+    rect(mouseX, mouseY, (inventory.boxSize+fontSize.default)*1.10, fontSize.default);
 
     noStroke();
     fill("black");
