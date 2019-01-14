@@ -45,12 +45,10 @@ function itemsInWorld() {
 
 function lootDrop(enemy) {
   // loot drop
-  if (enemy.lvl > 0) {
-    let numOfItems = floor(random(constrain(enemy.lvl/2, 1, 50)));
+  let numOfItems = floor(random(constrain(enemy.lvl, 1, 50)));
 
-    for (let i = 0; i < numOfItems; i++)
-      itemDropChance(enemy);
-  }
+  for (let i = 0; i < numOfItems; i++)
+    itemDropChance(enemy);
 }
 
 // move with player

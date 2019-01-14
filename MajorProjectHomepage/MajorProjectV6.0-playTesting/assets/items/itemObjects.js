@@ -7,7 +7,7 @@ function settingItemMap() {
   equipable: false, stats: {dropChance: 50, dropAmountMin: 1, dropAmountMax: 3, cost: 15}, amount: 0});
 
   allItems.set("Arrows", {name:"Arrows", description: "Used with bow", img: itemImg.arrowAttack,
-  equipable: false, stats: {dropChance: 75, dropAmountMin: 1, dropAmountMax: 10, cost: 2}, amount: 0});
+  equipable: false, stats: {dropChance: 75, dropAmountMin: 2, dropAmountMax: 10, cost: 2}, amount: 0});
 
   allItems.set("Traps", {name:"Traps", description: "Traps to slow\nfast enemy's", img: itemImg.trap,
   equipable: false, stats: {dropChance: 60, dropAmountMin: 1, dropAmountMax: 5, cost: 10}, amount: 0});
@@ -46,6 +46,12 @@ function equipmentWeapons() {
   allItems.set("Shifty Sword", {name:"Shifty Sword", description: "careful, it's shifty", img: itemImg.weapon,
   equipable: true, equipSlot: "weapon", stats: shiftySword, amount: 0});
 
+  allItems.set("Ice Pick", {name:"Ice Pick", description: "Pick for ice", img: itemImg.weapon,
+  equipable: true, equipSlot: "weapon", stats: icePick, amount: 0});
+
+  allItems.set("Halberd", {name:"Halberd", description: "Halberd thing", img: itemImg.weapon,
+  equipable: true, equipSlot: "weapon", stats: halberd, amount: 0});
+
   // ranged
   allItems.set("Normal Bow", {name:"Normal Bow", description: "It's a normal bow", img: itemImg.weapon,
   equipable: true, equipSlot: "weapon", stats: normalBow, amount: 0});
@@ -63,6 +69,12 @@ function equipmentWeapons() {
   // other
   allItems.set("Small Rock", {name:"Small Rock", description: "A small rock", img: itemImg.weapon,
   equipable: true, equipSlot: "weapon", stats: smallRock, amount: 0});
+
+  allItems.set("Whip", {name:"Whip", description: "Whoochu\n(whip sounds)", img: itemImg.weapon,
+  equipable: true, equipSlot: "weapon", stats: whip, amount: 0});
+
+  allItems.set("Hand Fan", {name:"Hand Fan", description: "For a hot\nday", img: itemImg.weapon,
+  equipable: true, equipSlot: "weapon", stats: handFan, amount: 0});
 
     // rare
   allItems.set("Stick", {name:"Stick", description: "It's super weak", img: itemImg.weapon,
@@ -221,6 +233,9 @@ function equipmentHands() {
   allItems.set("Strong Gloves", {name:"Strong Gloves", description: "Strong Gloves", img: itemImg.hands,
   equipable: true, equipSlot: "hands", stats: strongGloves, amount: 0});
 
-  allItems.set("Padded Gloves", {name:"Padded Gloves", description: "GLoves with more\nprotection", img: itemImg.hands,
+  allItems.set("Padded Gloves", {name:"Padded Gloves", description: "Gloves with more\nprotection", img: itemImg.hands,
   equipable: true, equipSlot: "hands", stats: paddedGloves, amount: 0});
+
+  allItems.set("Rubber Gloves", {name:"Rubber Gloves", description: "Gloves made out\nof rubber", img: itemImg.hands,
+  equipable: true, equipSlot: "hands", stats: rubberGloves, amount: 0});
 }

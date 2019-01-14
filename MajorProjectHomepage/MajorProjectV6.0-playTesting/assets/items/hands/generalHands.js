@@ -118,3 +118,18 @@ let paddedGloves = {
   expBonus: -2,
   dropChance: 30
 };
+
+let rubberGloves = {
+  cost: 20,
+  int: +3,
+  agi: +1,
+  str: -4,
+  dex: +1,
+  vit: +1,
+  melee: -0.02,
+  ranged: +0.01,
+  magic: +0.03,
+  trap: -0.02,
+  expBonus: +2,
+  dropChance: 40
+};
