@@ -143,7 +143,7 @@ function skillDescription() {
   strokeWeight(5);
   stroke(51, 249, 255);
   fill("white");
-  rect(x, buttonAtributes.listStart, buttonAtributes.width, buttonAtributes.skill.height+fontSize.playersDisplay*4);
+  rect(x, buttonAtributes.listStart, buttonAtributes.width, buttonAtributes.skill.height+fontSize.playersDisplay*5.15);
   noStroke();
   fill("black");
   let runningText = "";
@@ -242,7 +242,7 @@ function calculateStats() {
   player.mDmg = constrain(int((player.str+runningStats.str)*(0.75 + (player.skill.stats.melee+runningStats.melee))), 1, Infinity); // melee damage
   player.rDmg = constrain(int((player.dex+runningStats.dex)*(0.75 + (player.skill.stats.ranged+runningStats.ranged))), 1, Infinity); // ranged damage
   player.sDmg = constrain(int((player.int+runningStats.int)*(0.75 + (player.skill.stats.magic+runningStats.magic))), 1, Infinity); // spell damage
-  player.tDmg = constrain(int((player.agi+runningStats.agi)*(1+runningStats.trap)), 1, Infinity);
+  player.tDmg = constrain(int((player.agi+runningStats.agi)*(1.00 + (player.skill.stats.trap+runningStats.trap))), 1, Infinity);
 
   // movement
   player.stunTimer = constrain((1000 - (player.vit+player.agi)), 100, 1000);

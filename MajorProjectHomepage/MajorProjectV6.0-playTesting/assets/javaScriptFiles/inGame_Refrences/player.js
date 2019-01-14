@@ -93,7 +93,7 @@ function playerMovement() {
 
 function consumePotion(name, points, totPoints) {
   sounds.consumePotion.play();
-  points += (player.lvl+(name === "Hp Potion" ? player.vit : player.int))*5;
+  points += (player.lvl+(name === "Hp Potion" ? player.vit : player.int)/5)*5;
   points = constrain(ceil(points), 1, totPoints);
   allItems.get(name).amount--;
   if (allItems.get(name).amount <= 0)
@@ -108,7 +108,7 @@ function playerExp(amount) {
   while (player.exp >= player.nextLvl) {
     // level up
     player.exp -= player.nextLvl;
-    player.nextLvl = int(player.nextLvl*(1.20+(player.lvl/100)));
+    player.nextLvl = int(player.nextLvl*(1.20+(player.lvl/50)));
     player.lvl++;
     player.points += 5;
     calculateStats();
