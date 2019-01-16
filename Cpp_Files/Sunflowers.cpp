@@ -10,9 +10,10 @@ int rotate90clock(anArr, arrSqr) {
     // rotate array 90 degrees clockwise
     int newArr[arrSqr*arrSqr];
 
-    for (int i = 0; i < arrSqr*arrSqr; i++)
+        // LINE 1
+    for (int i = 0; i < arrSqr; i++)
     {
-        newArr[i] = anArr[];
+        newArr[i] = anArr[i+arrSqr*(arrSqr-1)];
     }
 
     return newArr;
