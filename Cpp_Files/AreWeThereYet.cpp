@@ -8,25 +8,30 @@ using namespace std;
 
 int main()
 {
-    int n1, n2, n3, n4;
-    cin >> n1;
-    cin >> n2;
-    cin >> n3;
-    cin >> n4;
+    int numbers[3];
+    cin >> numbers[0];
+    cin >> numbers[1];
+    cin >> numbers[2];
+    cin >> numbers[3];
 
-    int numbers[4] = {n1, n2, n3, n4};
 
-    for (int i=0; i < 5; i++)
+    // five lines
+    for (int k=0; k < 5; k++)
     {
-        string dists = "";
-
-        for (int j = 0; j < 4; j++)
+        // one line
+        for (int i=0; i < 5; i++)
         {
-            
-            dists +=  + " "
-        }
+            int runningTotal = 0;
 
-        cout << 
+            for (int j=0; j < i; j++)
+            {
+                // adding distances
+                runningTotal = runningTotal + numbers[j];
+            }
+
+            cout << runningTotal << " ";
+        }
+        cout << endl;
     }
 
     return 0;
