@@ -7,59 +7,55 @@
 using namespace std;
 
 int rotate90clock(anArr, arrSqr) {
-    // rotate array 90 degrees clockwise
-    int newArr[arrSqr*arrSqr];
+  // rotate array 90 degrees clockwise
+  int newArr[arrSqr * arrSqr];
 
-        // LINE 1
-    for (int i = 0; i < arrSqr; i++)
-    {
-        newArr[i] = anArr[i+arrSqr*(arrSqr-1)];
-    }
+  for (int i = 0; i < arrSqr; i++)
+  {
+    newArr[i] = {};
+    for (int j = 0; j < arrSqr; j++)
+      newArr[i][j] = anArr[j][i];
+  }
 
-    return newArr;
+  return newArr;
 }
 
-int arrMin(anArr, arrLen) {
-    // find smallest value in array
-    int smallestValue = anArr[0];
-    for (int i = 0; i < arrLen; i++)
-    {
-        if (anArr[i] < smallestValue)
-        {
-            smallestValue = anArr[i]
-        }
-    }
+int arrMin(anArr, arrSqr) {
+  // find smallest value in array
+  int smallestValue = anArr[0][0];
+  for (int i = 0; i < arrSqr; i++)
+    for (int j = 0; j < arrSqr; j++)
+      if (anArr[i][j] < smallestValue)
+        smallestValue = anArr[i][j];
 
-    return smallestValue;
+  return smallestValue;
 }
 
 int main()
 {
-    int numOfSunflowers;
-    cin >> numOfSunflowers;
+  int numOfSunflowers;
+  cin >> numOfSunflowers;
 
-    // create numArray
-    int numArray[numOfSunflowers * numOfSunflowers];
-    for (int i = 0; i < numOfSunflowers * numOfSunflowers; i++)
-    {
-        cin >> numArray[i];
-    }
+  // create numArray
+  int numArray[numOfSunflowers * numOfSunflowers];
+  for (int i = 0; i < numOfSunflowers; i++)
+  {
+    numArray[i] = {};
+    for (int j = 0; j < numOfSunflowers; i++)
+      cin >> numArray[i][j];
+  }
 
-    // rotate array
-    int arrayMin = arrMin(numArray, numOfSunflowers * numOfSunflowers);
-    while (numArray[i] != arrayMin)
-    {
-        numArray = rotate90clock(numArray, numOfSunflowers);
-    }
+  // rotate array
+  int arrayMin = arrMin(numArray, numOfSunflowers);
+  while (numArray[i] != arrayMin) {
+    numArray = rotate90clock(numArray, numOfSunflowers);
 
-    // output numArray
-    for (int i = 0; i < numOfSunflowers * numOfSunflowers; i++)
-    {
-        if (i % numOfSunflowers) 
-        {
-            cout << endl;
-        }
+  // output numArray
+  for (int i = 0; i < numOfSunflowers; i++)
+  {
+    for (int j = 0; j < numArray[i]; j++)
+      cout << numArray[i][j] + ' ';
 
-        cout << numArray[i] + ' ';
-    }
+    cout << endl;
+  }
 }
