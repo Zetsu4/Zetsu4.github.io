@@ -6,21 +6,18 @@
 
 using namespace std;
 
-int rotate90clock(anArr, arrSqr) {
+int rotate90clock(int anArr, int arrSqr) {
   // rotate array 90 degrees clockwise
-  int newArr[arrSqr * arrSqr];
+  int newArr[arrSqr][arrSqr];
 
   for (int i = 0; i < arrSqr; i++)
-  {
-    newArr[i] = {};
     for (int j = 0; j < arrSqr; j++)
       newArr[i][j] = anArr[j][i];
-  }
 
-  return newArr;
+  return **newArr;
 }
 
-int arrMin(anArr, arrSqr) {
+int arrMin(int anArr, int arrSqr) {
   // find smallest value in array
   int smallestValue = anArr[0][0];
   for (int i = 0; i < arrSqr; i++)
@@ -37,23 +34,20 @@ int main()
   cin >> numOfSunflowers;
 
   // create numArray
-  int numArray[numOfSunflowers * numOfSunflowers];
+  int numArray[numOfSunflowers][numOfSunflowers];
   for (int i = 0; i < numOfSunflowers; i++)
-  {
-    numArray[i] = {};
     for (int j = 0; j < numOfSunflowers; i++)
       cin >> numArray[i][j];
-  }
 
   // rotate array
-  int arrayMin = arrMin(numArray, numOfSunflowers);
-  while (numArray[i] != arrayMin) {
-    numArray = rotate90clock(numArray, numOfSunflowers);
+  int arrayMin = arrMin(**numArray, numOfSunflowers);
+  while (numArray[0][0] != arrayMin)
+    numArray = rotate90clock(**numArray, numOfSunflowers);
 
   // output numArray
-  for (int i = 0; i < numOfSunflowers; i++)
+  for (int i = 0; i < numArray.length(); i++)
   {
-    for (int j = 0; j < numArray[i]; j++)
+    for (int j = 0; j < numArray[i].length(); j++)
       cout << numArray[i][j] + ' ';
 
     cout << endl;
