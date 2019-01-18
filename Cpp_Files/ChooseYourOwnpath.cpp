@@ -26,7 +26,7 @@ int main()
   char pagesAccessible = 'Y';
   for (int i = 0; i < pages; i++) 
   {
-    if (i )
+    if ()
     {
       pagesAccessible = 'N';
       break;
