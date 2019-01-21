@@ -66,5 +66,9 @@
 - confirmation for leaving game
 - added more items
 
-## Jan 9, 2019 - Jan --, 2019
+## Jan 9, 2019 - Jan 21, 2019
 - started play testing
+### from beta testing
+- stats adjusted
+- effecienccy improved
+- bugs fixed
