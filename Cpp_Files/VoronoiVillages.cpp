@@ -6,7 +6,7 @@
 
 using namespace std;
 
-int sortInt(int arr, int length)
+int* sortInt(int arr[], int length)
 {
   // sort an array
 
@@ -28,7 +28,7 @@ int sortInt(int arr, int length)
   return arr;
 }
 
-float sortFloat(float arr, int length)
+float* sortFloat(float arr[], int length)
 {
   // sorts an array
 
@@ -50,17 +50,17 @@ float sortFloat(float arr, int length)
   return arr;
 }
 
-int findSizes(int arr1, int length1, float arr2, int length2)
+int* findSizes(int arr1[], int length1, float arr2[], int length2)
 {
   for (int i = 1; i < length1 - 1; i++)
   {
-    float dist1 = (float(arr1[i + 1]) - float(arr[i])) / 2.0;
-    float dist2 = (float(arr1[i]) - float(arr[i - 1])) / 2.0;
+    float dist1 = (float(arr1[i + 1]) - float(arr1[i])) / 2.0;
+    float dist2 = (float(arr1[i]) - float(arr1[i - 1])) / 2.0;
     arr2[i] = dist1 + dist2;
   }
 
-  arr2[0] = infinity;
-  arr2[length2] = infinity;
+  arr2[0] = infinity();
+  arr2[length2] = infinity();
 
   return arr2;
 }
