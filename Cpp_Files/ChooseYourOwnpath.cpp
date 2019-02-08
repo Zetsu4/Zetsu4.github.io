@@ -8,17 +8,17 @@ using namespace std;
 
 int **allChoices;
 
-bool isEnding(item)
+bool isEnding(int page)
 {
-  return item == 0;
+  return allChoices[page][0] == 0;
 }
 
-int goThroughChoices(int pos, int iteration)
+int findShortestPath(int pos, int iteration)
 {
   if (allChoices[pos][0] == 0)
     return iteration;
   else
-    return goThroughChoices(allChoices[pos][1], iteration++);
+    return findShortestPath(allChoices[pos][1], iteration++);
 }
 
 int findShortestPath(int **arr, int length)
@@ -51,11 +51,11 @@ int main()
     allChoices[i][0] = num;
 
     for (int j = 0; j < allChoices[i][0]; j++)
-      cin >> allChoices[i][j];
+      cin >> allChoices[i][j+1];
   }
 
   // find shortest path
-  int path = goThroughChoices(0, 0);
+  int path = findShortestPath(0, 0);
   cout << path << endl;
 
   // output
