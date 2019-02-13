@@ -7,51 +7,51 @@
 
 using namespace std;
 
-int *sortInt(int arr[], int length)
+long int *sortInt(long int arr[], long int length)
 {
-  // sorts an array of ints
+  // sorts an array of long ints
 
-  for (int i = 0; i < length; i++)
+  for (long int i = 0; i < length; i++)
   // sorting
   {
-    int smallPos = i;
+    long int smallPos = i;
 
-    for (int j = i; j < length; j++)
+    for (long int j = i; j < length; j++)
       // one pass
       if (arr[j] < arr[smallPos])
         smallPos = j;
 
     // swap elements
-    int newThing = arr[i];
+    long int newThing = arr[i];
     arr[i] = arr[smallPos];
     arr[smallPos] = newThing;
   }
   return arr;
 }
 
-float *sortFloat(float arr[], int length)
+double *sortdouble(double arr[], long int length)
 {
-  // sorts an array of floats
+  // sorts an array of doubles
 
-  for (int i = 0; i < length; i++)
+  for (long int i = 0; i < length; i++)
   // sorting
   {
-    int smallPos = i;
+    long int smallPos = i;
 
-    for (int j = i; j < length; j++)
+    for (long int j = i; j < length; j++)
       // one pass
       if (arr[j] < arr[smallPos])
         smallPos = j;
 
     // swap elements
-    float newThing = arr[i];
+    double newThing = arr[i];
     arr[i] = arr[smallPos];
     arr[smallPos] = newThing;
   }
   return arr;
 }
 
-float abs(float num)
+double abs(double num)
 {
   if (num < 0)
     return num * -1;
@@ -59,13 +59,13 @@ float abs(float num)
   return num;
 }
 
-float *findSizes(int *arr1, int length1, float arr2[], int length2)
+double *findSizes(long int *arr1, long int length1, double arr2[], long int length2)
 {
-  for (int i = 1; i < length1 - 1; i++)
+  for (long int i = 1; i < length1 - 1; i++)
   {
-    float dist1 = abs((float(arr1[i + 1]) - float(arr1[i])) / 2.0);
-    float dist2 = abs((float(arr1[i]) - float(arr1[i - 1])) / 2.0);
-    arr2[i] = float(dist1 + dist2);
+    double dist1 = abs((double(arr1[i + 1]) - double(arr1[i])) / 2.0);
+    double dist2 = abs((double(arr1[i]) - double(arr1[i - 1])) / 2.0);
+    arr2[i] = double(dist1 + dist2);
   }
 
   arr2[0] = -1.0;
@@ -74,29 +74,32 @@ float *findSizes(int *arr1, int length1, float arr2[], int length2)
   return arr2;
 }
 
-int main()
+long int main()
 {
+  // setting number of decimal places
+  cout << fixed << setprecision(1);
+
   // setting variables
-  int numOfVillages;
+  long int numOfVillages;
 
   cin >> numOfVillages;
 
   // get positions
-  int *villagePos = new int[numOfVillages];
-  for (int i = 0; i < numOfVillages; i++)
+  long int *villagePos = new long int[numOfVillages];
+  for (long int i = 0; i < numOfVillages; i++)
     cin >> villagePos[i];
 
-  float *villageSizes = new float[numOfVillages];
+  double *villageSizes = new double[numOfVillages];
 
   // organize positions
-  villagePos = sortInt(villagePos, numOfVillages);
+  villagePos = sortlong Int(villagePos, numOfVillages);
 
   // determine distances between positions
   villageSizes = findSizes(villagePos, numOfVillages, villageSizes, numOfVillages);
 
-  villageSizes = sortFloat(villageSizes, numOfVillages);
+  villageSizes = sortdouble(villageSizes, numOfVillages);
 
-  cout << setprecision(2) << villageSizes[2] << endl;
+  cout << villageSizes[2] << endl;
 
   return 0;
 }
