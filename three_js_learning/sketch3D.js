@@ -2,6 +2,7 @@
 // Travis Ahern
 // April 27, 2019
 
+// // drawing a cube
 // // creating scene, camera, and renderer
 // var scene = new THREE.Scene();
 // var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -12,7 +13,7 @@
 
 // // creating cube
 // var geometry = new THREE.BoxGeometry(1, 1, 1);
-// var material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+// var material = new THREE.MeshNormalMaterial({ color: 0x00ff00 });
 // var cube = new THREE.Mesh(geometry, material);
 // scene.add(cube);
 
@@ -27,38 +28,50 @@
 // }
 // animate();
 
-var camera, scene, renderer;
-var geometry, material, mesh;
 
-init();
-animate();
+// drawing a line
+// scene, camera, renderer
+var renderer = new THREE.WebGLRenderer();
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
 
-function init() {
+var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 500);
+camera.position.set(0, 0, 100);
+camera.lookAt(0, 0, 0);
 
-    camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.01, 10);
-    camera.position.z = 1;
+var scene = new THREE.Scene();
 
-    scene = new THREE.Scene();
+// create a blue LineBasicMaterial
+var material = new THREE.LineBasicMaterial({ color: 0x0000ff });
 
-    geometry = new THREE.BoxGeometry(0.2, 0.2, 0.2);
-    material = new THREE.MeshNormalMaterial();
+// geometry stuff
+var geometry = new THREE.Geometry();
+geometry.vertices.push(new THREE.Vector3(-10, 0, 0));
+geometry.vertices.push(new THREE.Vector3(0, 10, 0));
+geometry.vertices.push(new THREE.Vector3(10, 0, 0));
+geometry.vertices.push(new THREE.Vector3(0, 0, 10));
+geometry.vertices.push(new THREE.Vector3(-10, 0, 0));
+geometry.vertices.push(new THREE.Vector3(0, 0, -10));
+geometry.vertices.push(new THREE.Vector3(0, 10, 0));
+geometry.vertices.push(new THREE.Vector3(10, 0, 0));
+geometry.vertices.push(new THREE.Vector3(0, 0, -10));
 
-    mesh = new THREE.Mesh(geometry, material);
-    scene.add(mesh);
+// the line
+var line = new THREE.Line(geometry, material);
 
-    renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    document.body.appendChild(renderer.domElement);
+function shiftLeft() {
+    requestAnimationFrame(shiftLeft);
+    // geometry.vertices[0].x += 10;
+    // geometry.vertices[1].x += 10;
+    // geometry.vertices[2].x += 10;
+    // console.log(geometry.vertices[0]);
 
-}
+    line.rotation.x += 0.01;
+    line.rotation.y += 0.01;
 
-function animate() {
-
-    requestAnimationFrame(animate);
-
-    mesh.rotation.x += 0.01;
-    mesh.rotation.y += 0.02;
-
+    // render
     renderer.render(scene, camera);
-
 }
+
+scene.add(line);
+shiftLeft();
