@@ -29,49 +29,62 @@
 // animate();
 
 
-// drawing a line
-// scene, camera, renderer
-var renderer = new THREE.WebGLRenderer();
+// // drawing a line
+// // scene, camera, renderer
+// var renderer = new THREE.WebGLRenderer();
+// renderer.setSize(window.innerWidth, window.innerHeight);
+// document.body.appendChild(renderer.domElement);
+
+// var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 500);
+// camera.position.set(0, 0, 100);
+// camera.lookAt(0, 0, 0);
+
+// var scene = new THREE.Scene();
+
+// // create a blue LineBasicMaterial
+// var material = new THREE.LineBasicMaterial({ color: 0x0000ff });
+
+// // geometry stuff
+// var geometry = new THREE.Geometry();
+// geometry.vertices.push(new THREE.Vector3(-10, 0, 0));
+// geometry.vertices.push(new THREE.Vector3(0, 10, 0));
+// geometry.vertices.push(new THREE.Vector3(10, 0, 0));
+// geometry.vertices.push(new THREE.Vector3(0, 0, 10));
+// geometry.vertices.push(new THREE.Vector3(-10, 0, 0));
+// geometry.vertices.push(new THREE.Vector3(0, 0, -10));
+// geometry.vertices.push(new THREE.Vector3(0, 10, 0));
+// geometry.vertices.push(new THREE.Vector3(10, 0, 0));
+// geometry.vertices.push(new THREE.Vector3(0, 0, -10));
+
+// // the line
+// var line = new THREE.Line(geometry, material);
+
+// function shiftLeft() {
+//     requestAnimationFrame(shiftLeft);
+//     // geometry.vertices[0].x += 10;
+//     // geometry.vertices[1].x += 10;
+//     // geometry.vertices[2].x += 10;
+//     // console.log(geometry.vertices[0]);
+
+//     line.rotation.x += 0.01;
+//     line.rotation.y += 0.01;
+
+//     // render
+//     renderer.render(scene, camera);
+// }
+
+// scene.add(line);
+// shiftLeft();
+
+
+
+// drawing a sphere
+// scene, camera, renderer vars
+let scene = new THREE.Scene();
+let camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+
+let renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
-document.body.appendChild(renderer.domElement);
+document.body.appendChild(renderere.domElement);
 
-var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 500);
-camera.position.set(0, 0, 100);
-camera.lookAt(0, 0, 0);
-
-var scene = new THREE.Scene();
-
-// create a blue LineBasicMaterial
-var material = new THREE.LineBasicMaterial({ color: 0x0000ff });
-
-// geometry stuff
-var geometry = new THREE.Geometry();
-geometry.vertices.push(new THREE.Vector3(-10, 0, 0));
-geometry.vertices.push(new THREE.Vector3(0, 10, 0));
-geometry.vertices.push(new THREE.Vector3(10, 0, 0));
-geometry.vertices.push(new THREE.Vector3(0, 0, 10));
-geometry.vertices.push(new THREE.Vector3(-10, 0, 0));
-geometry.vertices.push(new THREE.Vector3(0, 0, -10));
-geometry.vertices.push(new THREE.Vector3(0, 10, 0));
-geometry.vertices.push(new THREE.Vector3(10, 0, 0));
-geometry.vertices.push(new THREE.Vector3(0, 0, -10));
-
-// the line
-var line = new THREE.Line(geometry, material);
-
-function shiftLeft() {
-    requestAnimationFrame(shiftLeft);
-    // geometry.vertices[0].x += 10;
-    // geometry.vertices[1].x += 10;
-    // geometry.vertices[2].x += 10;
-    // console.log(geometry.vertices[0]);
-
-    line.rotation.x += 0.01;
-    line.rotation.y += 0.01;
-
-    // render
-    renderer.render(scene, camera);
-}
-
-scene.add(line);
-shiftLeft();
