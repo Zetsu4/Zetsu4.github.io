@@ -1,20 +1,19 @@
-// V6.0
-// Travis Ahern
-// Jan. 8, 2019
-//
-// PROBLEMS:
-// - no story
-// - things are not balanced (stats, drop chance, money, etc.)
-// - sometimes start menu music plays multiple times
-// - if you don't click on the screen while it's loading, it doesn't play start menu music
-//
-// CREDITS:
-// sounds from: freesounds.org and openGameArt.org
-// background images by: Steven Valley
-// sprites by: Travis Ahern
-// other images by: Travis Ahern
-// made using javascript, in the Atom text editor.
-// -Asir added, as Travis- I am the best, no one can defeat me, not even Mr. Schellenberg!! -Asir has ended, because of Travis-
+/*
+Travis Ahern
+
+PROBLEMS:
+- no story
+- things are not balanced (stats, drop chance, money, etc.)
+- sometimes start menu music plays multiple times
+- if you don't click on the screen while it's loading the first time, it doesn't play start menu music
+
+CREDITS:
+sounds from: freesounds.org and openGameArt.org
+sprites by: Travis Ahern
+images by: Travis Ahern
+made using javascript, in the Atom and Visual Code text editors.
+-Asir added, as Travis- I am the best, no one can defeat me, not even Mr. Schellenberg!! -Asir has ended, because of Travis-
+*/
 
 // general
 let startingState = 0;
@@ -775,13 +774,13 @@ function setInventory() {
   let wid = inventory.boxSize*5;
   let hei = inventory.boxSize*5;
   inventory.equipSlots = [];
-  inventory.equipSlots.push(new EquipBox(x-wid/2, y      , inventory.boxSize, inventory.boxSize, buttons.brown, buttons.lightBrown, "weapon")); // weapon
-  inventory.equipSlots.push(new EquipBox(x      , y-hei/2, inventory.boxSize, inventory.boxSize, buttons.brown, buttons.lightBrown, "head")); // head
-  inventory.equipSlots.push(new EquipBox(x      , y      , inventory.boxSize, inventory.boxSize, buttons.brown, buttons.lightBrown, "chest")); // chest
-  inventory.equipSlots.push(new EquipBox(x      , y+hei/2, inventory.boxSize, inventory.boxSize, buttons.brown, buttons.lightBrown, "feet")); // feet
-  inventory.equipSlots.push(new EquipBox(x+wid/4, y-hei/3, inventory.boxSize, inventory.boxSize, buttons.brown, buttons.lightBrown, "shoulders")); // shoulders
-  inventory.equipSlots.push(new EquipBox(x+wid/4, y+hei/3, inventory.boxSize, inventory.boxSize, buttons.brown, buttons.lightBrown, "legs")); // legs
-  inventory.equipSlots.push(new EquipBox(x+wid/2, y      , inventory.boxSize, inventory.boxSize, buttons.brown, buttons.lightBrown, "hands")); // hands
+  inventory.equipSlots.push(new EquipBox(x-wid/2, y      , inventory.boxSize, inventory.boxSize, buttons.brown, buttons.lightBrown, "weapon"));     // weapon
+  inventory.equipSlots.push(new EquipBox(x      , y-hei/2, inventory.boxSize, inventory.boxSize, buttons.brown, buttons.lightBrown, "head"));       // head
+  inventory.equipSlots.push(new EquipBox(x      , y      , inventory.boxSize, inventory.boxSize, buttons.brown, buttons.lightBrown, "chest"));      // chest
+  inventory.equipSlots.push(new EquipBox(x      , y+hei/2, inventory.boxSize, inventory.boxSize, buttons.brown, buttons.lightBrown, "feet"));       // feet
+  inventory.equipSlots.push(new EquipBox(x+wid/4, y-hei/3, inventory.boxSize, inventory.boxSize, buttons.brown, buttons.lightBrown, "shoulders"));  // shoulders
+  inventory.equipSlots.push(new EquipBox(x+wid/4, y+hei/3, inventory.boxSize, inventory.boxSize, buttons.brown, buttons.lightBrown, "legs"));       // legs
+  inventory.equipSlots.push(new EquipBox(x+wid/2, y      , inventory.boxSize, inventory.boxSize, buttons.brown, buttons.lightBrown, "hands"));      // hands
 }
 
 function setButtonAtributes() {

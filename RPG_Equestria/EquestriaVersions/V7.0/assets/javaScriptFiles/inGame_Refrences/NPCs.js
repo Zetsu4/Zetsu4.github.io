@@ -28,8 +28,6 @@ function nonPlayableCharacters() {
 
 // move with player
 function moveNPCsX(dir) {
-  let speed = player.speed*dir;
-
   for (let i=allNPCs.length-1; i >= 0; i--)
     allNPCs[i].moveNPCX(player.speed, dir);
 
@@ -41,8 +39,6 @@ function moveNPCsX(dir) {
 }
 
 function moveNPCsY(dir) {
-  let speed = player.speed*dir;
-
   for (let i=allNPCs.length-1; i >= 0; i--)
     allNPCs[i].moveNPCY(player.speed, dir);
 
