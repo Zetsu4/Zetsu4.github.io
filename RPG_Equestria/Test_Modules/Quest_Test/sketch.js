@@ -15,7 +15,7 @@ let items;
 class Quest {
     constructor(quest) {
         this.title = quest.title;
-        this.keyWord = quest.keyWord;
+        this.keyWord = (typeof quest.keyWord === "string" ? quest.keyWord : quest.keyWord());
         this.required = quest.required;
         this.progress = 0;
         this.reward = quest.reward;
@@ -25,42 +25,6 @@ class Quest {
         text(this.title + "\n" + this.progress + "/" + this.required, x, y);
     }
 }
-
-// class Quest_KillEnemys {
-//     constructor() {
-//         this.keyWord = "Kill";
-//         this.required = int(random(5, 10)); // amount needed to complete
-//         this.progress = 0;                  // running total
-//         this.reward = {                     // reward for completion
-//             money: this.required*100,
-//             exp: this.required*150,
-//             items: int(random(0, this.required/2.5))
-//         };
-//         this.title = "Kill Enemys"
-//     }
-
-//     display(x, y) {
-//         text(this.title + "\n" + this.progress + "/" + this.required, x, y);
-//     }
-// }
-
-// class Quest_GoToArea {
-//     constructor(areas) {
-//         this.keyWord = random(areas/* .name //final vesion*/); // area needed to journey too
-//         this.required = 1;                                     // making things easy
-//         this.progress = 0;                                     // tracking progress
-//         this.reward = /* will be based on lvl */{
-//             money: 100, 
-//             exp: 100,
-//             items: 2
-//         };
-//         this.title = "Explore " + this.keyWord;
-//     }
-
-//     display(x, y) {
-//         text(this.title + "\n" + this.progress + "/" + this.required, x, y);
-//     }
-// }
 
 function setup() {
     createCanvas(windowWidth, windowHeight);
@@ -79,11 +43,6 @@ function setup() {
 
     for (let i = 7; i > 0; i--)
         questList.push(new Quest(allQuests.get(random(QuestEntries))));
-
-    
-    // questList.push(new Quest_GoToArea(listOfAreas));
-    // questList.push(new Quest_KillEnemys());
-    // questList.push(new Quest_KillEnemys());
 }
 
 function establishQuests() {
@@ -96,7 +55,7 @@ function establishQuests() {
 
     allQuests.set("Kill Quest", { title: "Kill Enemys", keyWord: "Kill", reward: { money: 100, exp: 100, items: 3 }, required: 10 });
     allQuests.set("Big Kill Quest", { title: "Kill Monsters", keyWord: "Kill100", reward: { money: 100, exp: 100, items: 3 }, required: 10 });
-    allQuests.set("Explore Quest", { title: "Explore Area", keyWord: (function chooseArea() { random(listOfAreas) }), reward: { money: 100, exp: 100, items: 4 }, required: 1 });
+    allQuests.set("Explore Quest", { title: "Explore Area", keyWord: function chooseArea() { return random(listOfAreas) }, reward: { money: 100, exp: 100, items: 4 }, required: 1 });
 }
 
 function draw() {

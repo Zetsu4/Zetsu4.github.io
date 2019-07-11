@@ -29,7 +29,7 @@
 - player pick up items
 - added traps to trap enemy's
 
-##  Nov 1, 2018 - Nov 9, 2018
+## Nov 1, 2018 - Nov 9, 2018
 - reorganized code to make it more efficient
 - made the game look a little nicer
 - added a quick check for inventory
@@ -72,3 +72,6 @@
 - stats adjusted
 - effecienccy improved
 - bugs fixed
+
+## Jul 10, 2019 - Jul .., 2019
+- added quests

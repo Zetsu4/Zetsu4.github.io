@@ -59,6 +59,12 @@ let guildKeepers = [];
 let refreshTimer;
 let lastRefresh;
 
+// quests
+let questList = [];
+let questLocaions = [];
+let questEntries = [];
+let questDetails;
+
 // world
 let drawingBack;
 let world = {};
@@ -379,6 +385,7 @@ function setup() {
   setItems();
   setPlayer();
   setNPCs();
+  setQuests();
   setShops();
 
   // heal button
@@ -736,6 +743,33 @@ function setNPCs() {
   guildKeepers.push(new NonPlayableCharacters(-width*0.25, 0, npcImg.guildKeeper, "Welcome to\nthe Guild.", "Guild"));
 }
 
+function setQuests() {
+  questLocaions = [
+    "Mountains",
+    "Cave",
+    "Demon Gate",
+    "Demon Realm",
+    "Castle",
+    "Dungeon 1",
+    "Dungeon 2",
+    "Dungeon 3",
+    "Dungeon 4",
+    "Dungeon 5",
+    "Bottom",
+  ];
+
+  questEntries = [
+    "Kill Quest",
+    "Big Kill Quest",
+    "Explore Quest",
+  ];
+  questDetails = new Map();
+
+  questDetails.set("Kill Quest", { title: "Kill Enemys", keyWord: "Kill", reward: { money: 100, exp: 100, items: 3 }, required: 10 });
+  questDetails.set("Big Kill Quest", { title: "Kill Monsters", keyWord: "Kill100", reward: { money: 100, exp: 100, items: 3 }, required: 10 });
+  questDetails.set("Explore Quest", { title: "Explore Area", keyWord: (function chooseRandomArea() { random(questLocaions) }), reward: { money: 100, exp: 100, items: 4 }, required: 1 });
+}
+
 function setShops() {
   shopInventory = make2DGrid(inventory.shop.width, inventory.shop.height);
 
@@ -806,6 +840,10 @@ function setKeyButtons(value, key, map) {
   let i = static(map.size);
   let yPos = -height*0.48+(i*fontSize.default*1.2);
   map.get(key).button = new Button(fontSize.default*4.5, yPos, width*0.10, fontSize.default*1.1, buttons.orange, buttons.lightOrange, "");
+}
+
+function rewardQuantity() {
+  return (player.lvl * 5) + int(random(0, 10) * 10);
 }
 
 function make2DGrid(cols, rows) {
