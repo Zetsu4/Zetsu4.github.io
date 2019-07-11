@@ -17,10 +17,16 @@ function dropItem(value, key, map) {
       if (value.equipable) // equipment drops one
         randomAmount = 1;
       else
-        randomAmount = constrain(int(random(value.stats.dropAmountMin+itemDropEnemy.lvl*(value.stats.dropAmountMin/100), value.stats.dropAmountMax+itemDropEnemy.lvl*(value.stats.dropAmountMax/100))), 1, Infinity);
+        randomAmount = constrain(int(random(value.stats.dropAmountMin + itemDropEnemy.lvl * (value.stats.dropAmountMin / 100), value.stats.dropAmountMax + itemDropEnemy.lvl * (value.stats.dropAmountMax / 100))), 1, Infinity);
 
-      items.onGround.push(new ItemOnGround(itemDropEnemy.x+changeX, itemDropEnemy.y+changeY, value, world.area, randomAmount));
-      hasDropped = true;
+      if (itemDropEnemy.name !== "") { // drop on player
+        items.onGround.push(new ItemOnGround(changeX, changeY, value, world.area, randomAmount));
+        hasDropped = true;
+      }
+      else { // drop on enemy corpse
+        items.onGround.push(new ItemOnGround(itemDropEnemy.x + changeX, itemDropEnemy.y + changeY, value, world.area, randomAmount));
+        hasDropped = true;
+      }
     }
   }
 }

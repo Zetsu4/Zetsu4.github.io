@@ -3,8 +3,14 @@ function nonPlayableCharacters() {
     let stateChange = "empty";
     for (let i=0; i < allNPCs.length; i++) {
       allNPCs[i].display(worldEnviorment.overWorld.get("Town").zone, player.x, player.y);
-      if (dist(0, 0, allNPCs[i].x, allNPCs[i].y) <= spriteSize.height)
-        allNPCs[i].interact(keyBindings.get("Interact").code);
+      if (dist(0, 0, allNPCs[i].x, allNPCs[i].y) <= spriteSize.height) {
+        // interacting with NPC's
+        let questChance = allNPCs[i].interact(keyBindings.get("Interact").code)
+        if (typeof questChance === "number") {
+          // recieving a quest
+          if (questChance <= 10) questAqquire();
+        }
+      }
     }
 
     for (let i=0; i < shopKeeps.length; i++) {

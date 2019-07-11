@@ -62,18 +62,13 @@ function playingGame() {
 }
 
 function checkState() {
+  // quest update
+  updateQuests(world.state.name);
+
   // stop shop music if its playing
   if (sounds.itemShop.isPlaying())
     sounds.itemShop.stop();
-
-  // checking world state
-  // demon gate music
-  if (world.state.name === "Demon Gate Enter")
-    if (!(soundEasterEgg ? sounds.secret.blipBackground : sounds.demonGate).isPlaying())
-      (soundEasterEgg ? sounds.secret.blipBackground : sounds.demonGate).play();
-  else
-    sounds.demonGate.stop();
-
+    
   // over world
   if (world.area === "Over World") {
     worldEnviorment.overWorld.forEach(onScreen);
@@ -97,8 +92,15 @@ function checkState() {
     worldEnviorment.cave.forEach(onScreen);
     minimapBackground(worldEnviorment.cave);
 
+
+    // demon gate music
+    if (world.state.name === "Demon Gate Enter") {
+      if (!(soundEasterEgg ? sounds.secret.blipBackground : sounds.demonGate).isPlaying())
+        (soundEasterEgg ? sounds.secret.blipBackground : sounds.demonGate).play();
+    }
+
     // cave music
-    if (!(soundEasterEgg ? sounds.secret.blipBackground : sounds.caves).isPlaying()) {
+    else if (!(soundEasterEgg ? sounds.secret.blipBackground : sounds.caves).isPlaying()) {
       sounds.overWorld.stop();
       (soundEasterEgg ? sounds.secret.blipBackground : sounds.caves).play();
       sounds.demonRealm.stop();

@@ -7,19 +7,19 @@ let bossSkill = {
 };
 
 // dungeon
-let undeadKnight = {
-  melee: 0.5,
-  ranged: 0.0,
-  magic: 0.0,
-  expGained: 30
-};
-
 let spiritMage = {
   melee: 0.0,
   ranged: 0.0,
   magic: 1.0,
   expGained: 40
 };
+
+let knight = {
+  melee: 0.75,
+  ranged: 0.0,
+  magic: 0.0,
+  expGained: 35
+}
 
 // demons
 let demonMelee = {

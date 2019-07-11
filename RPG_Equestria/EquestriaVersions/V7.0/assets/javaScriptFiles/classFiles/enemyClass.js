@@ -1,5 +1,8 @@
 class Enemy {
   constructor(x, y, race, skill, minLvl, maxLvl, offSetX = 0, offSetY = 0, attack = EnemyAttack, wid = spriteSize.width, hei = spriteSize.height, fontSizeChange = fontSize.playersDisplay, deathImage = sprites.death) {
+    // differentiat from player
+    this.name = "";
+
     // position
     this.x = x-offSetX;
     this.y = y-offSetY;

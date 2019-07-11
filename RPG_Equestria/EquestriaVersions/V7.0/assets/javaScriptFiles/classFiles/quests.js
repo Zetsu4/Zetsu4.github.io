@@ -1,13 +1,16 @@
 class Quest {
-    constructor(quest) {
+    constructor(quest, progress = 0) {
         this.title = quest.title;
-        this.keyWord = quest.keyWord;
+        this.keyWord = ((typeof quest.keyWord === "string") ? quest.keyWord : quest.keyWord());
         this.required = quest.required;
-        this.progress = 0;
+        this.progress = progress;
         this.reward = quest.reward;
     }
 
     display(x, y) {
-        text(this.title + "\n" + this.progress + "/" + this.required, x, y);
+        if (this.title === "Explore Area")
+            text("Explore " + this.keyWord + "\n" + this.progress + "/" + this.required, x, y);
+        else
+            text(this.title + "\n" + this.progress + "/" + this.required, x, y);
     }
 }

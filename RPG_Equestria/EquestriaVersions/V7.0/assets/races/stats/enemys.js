@@ -9,7 +9,16 @@ let bossRace = {
 };
 
 // dungeons
-let rats = {
+let undeadKnight = {
+  int: 0,
+  agi: 3,
+  str: 25,
+  dex: 5,
+  vit: 20,
+  expGained: 30
+};
+
+let rat = {
   int: 0,
   agi: 20,
   str: 5,
@@ -18,7 +27,7 @@ let rats = {
   expGained: 20
 };
 
-let possesed = {
+let ghost = {
   int: 0,
   agi: 15,
   str: 30,

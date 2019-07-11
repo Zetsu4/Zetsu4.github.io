@@ -111,7 +111,7 @@ function playerExp(amount) {
     player.nextLvl = int(player.nextLvl*(1.20+(player.lvl/50)));
     player.lvl++;
     player.points += 5;
-    calculateStats();
+    calculateStats(floor(player.lvl/4));
     player.hp = player.totHp;
     player.mp = player.totMp;
   }

@@ -172,6 +172,10 @@ function saveGame() {
   for (let theItem of inventory.equipSlots)
     savingGame.equipSlots.push(theItem.equipped);
 
+  // quests
+  savingGame.questList = [];
+  arrayCopy(questList, savingGame.questList);
+
   // party members
   savingGame.guildMembers = [];
   arrayCopy(guildMembers, savingGame.guildMembers);
@@ -247,11 +251,15 @@ function loadGame() {
       }
     }
 
+    // quests
+    for (let i = 0; i < loadingGame.questList.length; i++)
+      questList.push(new Quest(questDetails.get(loadingGame.questList[i].title), loadingGame.questList[i].progress));
+
     // party members
     for (let i=0; i < loadingGame.guildMembers.length; i++)
       guildMembers.push(new GuildMember(loadingGame.guildMembers[i].raceIndex, guildInventory[i].skillIndex, guildInventory[i].lvl));
 
-    calculateStats();
+    calculateStats(0);
     startingState = 2;
     state = 0;
   }

@@ -13,6 +13,7 @@ function playerDisplays() {
   playerAttackIcon();
   inventoryQuickCheck();
   infoBars();
+  questProgress();
   recentPickUp();
   pop();
 }
@@ -157,28 +158,28 @@ function infoBars() {
 
     // health
     push();
-    backBar(left, top, w, h);
-    let changeOfHP = player.totHp - player.hp;
-    let mappedHP = map(changeOfHP, 0, player.totHp, 0, w);
-    fill("red");
-    rect(left, top, w-mappedHP, h);
-    // numbers
-    fill("white");
-    text(player.hp + "/" + player.totHp, textX, top+h/2);
+      backBar(left, top, w, h);
+      let changeOfHP = player.totHp - player.hp;
+      let mappedHP = map(changeOfHP, 0, player.totHp, 0, w);
+      fill("red");
+      rect(left, top, w-mappedHP, h);
+      // numbers
+      fill("white");
+      text(player.hp + "/" + player.totHp, textX, top+h/2);
     pop();
 
     // mana
     push();
-    let top2 = top + h*1.25;
-    backBar(left, top2, w, h);
+      let top2 = top + h*1.25;
+      backBar(left, top2, w, h);
 
-    let changeOfMP = player.totMp - player.mp;
-    let mappedMP = map(changeOfMP, 0, player.totMp, 0, w);
-    fill("blue");
-    rect(left, top2, w-mappedMP, h);
-    // numbers
-    fill("white");
-    text(player.mp + "/" + player.totMp, textX, top2+h/2);
+      let changeOfMP = player.totMp - player.mp;
+      let mappedMP = map(changeOfMP, 0, player.totMp, 0, w);
+      fill("blue");
+      rect(left, top2, w-mappedMP, h);
+      // numbers
+      fill("white");
+      text(player.mp + "/" + player.totMp, textX, top2+h/2);
     pop();
   pop();
 }
@@ -188,6 +189,19 @@ function backBar(x, y, w, h) {
   stroke("silver");
   fill("gray");
   rect(x-1, y-1, w, h);
+  pop();
+}
+
+function questProgress() {
+  // track quest progress on screen
+  push();
+    textAlign(LEFT, TOP);
+    for (let i = questList.length-1; i >= 0; i--) {
+      let x = -width * 0.49;
+      let y = -height * 0.325 + fontSize.playersDisplay * i * 2.5;
+
+      questList[i].display(x, y);
+    }
   pop();
 }
 

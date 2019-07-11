@@ -60,6 +60,7 @@ let refreshTimer;
 let lastRefresh;
 
 // quests
+let maxNumQuest;
 let questList = [];
 let questLocaions = [];
 let questEntries = [];
@@ -216,11 +217,8 @@ function preload() {
   itemImg.hands = loadImage("assets/img/items/equipment/hands.png");
 
   // sprites
-  sprites.death = loadImage("assets/img/sprites/enemyDeath.png");
-  sprites.enemy = loadImage("assets/img/sprites/enemy.png");
-  sprites.boss = loadImage("assets/races/img/uruk-hai.png");
   sprites.random = loadImage("assets/img/sprites/random.png");
-
+  
   sprites.race.dwarf = loadImage("assets/races/img/dwarf.png");
   sprites.race.elf = loadImage("assets/races/img/elf.png");
   sprites.race.goblin = loadImage("assets/races/img/goblin.png");
@@ -230,7 +228,22 @@ function preload() {
   sprites.race.orc = loadImage("assets/races/img/orc.png");
   sprites.race.urukHai = loadImage("assets/races/img/uruk-hai.png");
 
-    // player skills
+  // enemy sprites
+  sprites.death = loadImage("assets/img/sprites/enemyDeath.png");
+  sprites.boss = loadImage("assets/races/img/boss.png");
+
+  sprites.race.rat = loadImage("assets/races/img/rat.png");
+  sprites.race.ghost = loadImage("assets/races/img/ghost.png");
+  sprites.race.skeleton = loadImage("assets/races/img/skeleton.png");
+  sprites.race.undeadKnight = loadImage("assets/races/img/undeadKnight.png");
+  sprites.race.gateGaurd = loadImage("assets/races/img/gateGaurd.png");
+  sprites.race.gateGaurd2 = loadImage("assets/races/img/gateGaurd2.png");
+  sprites.race.fireImp = loadImage("assets/races/img/fireImp.png");
+  sprites.race.demonBig = loadImage("assets/races/img/demonBig.png");
+  sprites.race.demonSmall = loadImage("assets/races/img/demonSmall.png");
+  sprites.race.demon1 = loadImage("assets/races/img/demon1.png");
+  
+  // player skills
   sprites.skill.archer = loadImage("assets/skills/img/archer.png");
   sprites.skill.cleric = loadImage("assets/skills/img/cleric.png");
   sprites.skill.fighter = loadImage("assets/skills/img/fighter.png");
@@ -240,8 +253,8 @@ function preload() {
   sprites.skill.samurai = loadImage("assets/skills/img/samurai.png");
   sprites.skill.trapper = loadImage("assets/skills/img/trapper.png");
 
-    // enemy skills
-  sprites.skill.undeadKnight = loadImage("assets/skills/img/undeadKnight.png");
+  // enemy skills
+  sprites.skill.knight = loadImage("assets/skills/img/knight.png");
   sprites.skill.spiritMage = loadImage("assets/skills/img/spiritMage.png");
   sprites.skill.demonMelee = loadImage("assets/skills/img/demonMelee.png");
   sprites.skill.demonMagic = loadImage("assets/skills/img/demonMagic.png");
@@ -424,38 +437,39 @@ function settingSprites() {
   ];
 
   raceSpecific.overWorld = [
-    {name: "Human", img: sprites.enemy, stats: human}, {name: "Half-Elf", img: sprites.enemy, stats: halfElf},
-    {name: "Elf", img: sprites.enemy, stats: elf}, {name: "Dwarf", img: sprites.enemy, stats: dwarf},
-    {name: "Halfling", img: sprites.enemy, stats: halfling}, {name: "Goblin", img: sprites.enemy, stats: goblin},
-    {name: "Orc", img: sprites.enemy, stats: orc}, {name: "Uruk-Hai", img: sprites.enemy, stats: urukHai}
+    { name: "Human", img: sprites.race.human, stats: human }, { name: "Half-Elf", img: sprites.race.halfElf, stats: halfElf},
+    { name: "Elf", img: sprites.race.elf, stats: elf }, { name: "Dwarf", img: sprites.race.dwarf, stats: dwarf},
+    { name: "Halfling", img: sprites.race.halfling, stats: halfling }, { name: "Goblin", img: sprites.race.goblin, stats: goblin},
+    { name: "Orc", img: sprites.race.orc, stats: orc }, { name: "Uruk-Hai", img: sprites.race.urukHai, stats: urukHai}
   ];
 
   raceSpecific.castle = [
-    {name: "Human", img: sprites.enemy, stats: human}, {name: "Half-Elf", img: sprites.enemy, stats: halfElf}
+    { name: "Human", img: sprites.race.human, stats: human }, { name: "Half-Elf", img: sprites.race.halfElf, stats: halfElf}
   ];
 
   raceSpecific.dungeon = [
-    {name: "Goblin", img: sprites.enemy, stats: goblin}, {name: "Rat", img: sprites.enemy, stats: rats},
-    {name: "Possesed", img: sprites.enemy, stats: possesed}, {name: "Skeleton", img: sprites.enemy, stats: skeleton}
+    { name: "Goblin", img: sprites.race.goblin, stats: goblin }, { name: "Rat", img: sprites.race.rat, stats: rat},
+    { name: "Ghost", img: sprites.race.ghost, stats: ghost }, { name: "Skeleton", img: sprites.race.skeleton, stats: skeleton},
+    {name: "Undead Knight", img: sprites.race.undeadKnight, stats: undeadKnight}
   ];
 
   raceSpecific.boss = [
-    {name: "Boss", img: sprites.boss, stats: bossRace}
+    { name: "Boss", img: sprites.boss, stats: bossRace}
   ];
 
   raceSpecific.cave = [
-    {name: "Goblin", img: sprites.enemy, stats: goblin}, {name: "Orc", img: sprites.enemy, stats: orc},
-    {name: "Uruk-Hai", img: sprites.enemy, stats: urukHai}
+    { name: "Goblin", img: sprites.race.goblin, stats: goblin }, { name: "Orc", img: sprites.race.orc, stats: orc},
+    { name: "Uruk-Hai", img: sprites.race.urukHai, stats: urukHai}
   ];
 
   raceSpecific.demonsGate = [
-    {name: "Fire Imp", img: sprites.enemy, stats: fireImp}, {name: "Gate Gaurd", img: sprites.enemy, stats: gateGaurd},
-    {name: "Gate Gaurd 2.0", img: sprites.enemy, stats: gateGaurd2}
+    { name: "Fire Imp", img: sprites.race.fireImp, stats: fireImp }, { name: "Gate Gaurd", img: sprites.race.gateGaurd, stats: gateGaurd},
+    { name: "Gate Gaurd 2.0", img: sprites.race.gateGaurd2, stats: gateGaurd2}
   ];
 
   raceSpecific.demons = [
-    {name: "Fire Imp", img: sprites.enemy, stats: fireImp}, {name: "Demon Big", img: sprites.enemy, stats: demonBig},
-    {name: "Demon Small", img: sprites.enemy, stats: demonSmall}, {name: "Demon 1", img: sprites.enemy, stats: demon1}
+    { name: "Fire Imp", img: sprites.race.fireImp, stats: fireImp }, { name: "Demon Big", img: sprites.race.demonBig, stats: demonBig},
+    { name: "Demon Small", img: sprites.race.demonSmall, stats: demonSmall }, { name: "Demon 1", img: sprites.race.demon1, stats: demon1}
   ];
 
   // skill
@@ -484,7 +498,7 @@ function settingSprites() {
   ];
 
   skillSpecific.dungeon = [
-    {name: "Archer", img: sprites.skill.archer, stats: archer}, {name: "Chomper", img: sprites.skill.undeadKnight, stats: undeadKnight},
+    {name: "Archer", img: sprites.skill.archer, stats: archer}, {name: "Knight", img: sprites.skill.knight, stats: knight},
     {name: "Spirit Mage", img: sprites.skill.spiritMage, stats: spiritMage}
   ];
 
@@ -588,15 +602,15 @@ function settingWorld() {
 
     // caves
   worldEnviorment.cave = new Map();
-  worldEnviorment.cave.set("Cave", {img: worldBackgrounds.cave, name: "Cave", color: color(139, 15, 205), numOfEnemys: 40, enemy: {lvlMin: 10, lvlMax: 15, race: raceSpecific.cave, skill: skillSpecific.cave}, zone: {x: 0, y: 0, wid: world.width, hei: world.height}, enter: false});
-  worldEnviorment.cave.set("Demon Gate", {img: worldBackgrounds.demonGate, name: "Demon Gate Enter", color: color(25, 255, 199), numOfEnemys: 40, enemy: {lvlMin: 13, lvlMax: 25, race: raceSpecific.demons, skill: skillSpecific.demons}, zone: {x: 0, y: 0, wid: world.width*0.20, hei: world.height*0.20}, enter: true, newArea: "Demon Realm"});
+  worldEnviorment.cave.set("Cave", {img: worldBackgrounds.cave, name: "Cave", color: color(139, 15, 205), numOfEnemys: 30, enemy: {lvlMin: 10, lvlMax: 15, race: raceSpecific.cave, skill: skillSpecific.cave}, zone: {x: 0, y: 0, wid: world.width, hei: world.height}, enter: false});
+  worldEnviorment.cave.set("Demon Gate", {img: worldBackgrounds.demonGate, name: "Demon Gate Entrance", color: color(25, 255, 199), numOfEnemys: 40, enemy: {lvlMin: 13, lvlMax: 25, race: raceSpecific.demonsGate, skill: skillSpecific.demons}, zone: {x: 0, y: 0, wid: world.width*0.20, hei: world.height*0.20}, enter: true, newArea: "Demon Realm"});
   worldEnviorment.cave.set("Cave Exit", {img: worldBackgrounds.caveExit, name: "Cave Exit", color: color(200), numOfEnemys: 3, enemy: {lvlMin: 8, lvlMax: 12, race: raceSpecific.cave, skill: skillSpecific.cave}, zone: {x: world.width*0.35, y: world.height*0.35, wid: world.width*0.05, hei: world.height*0.05}, enter: true, newArea: "Over World"});
   worldEnviorment.cave.set("Castle Cave Exit", {img: worldBackgrounds.stairs, name: "Castle Cave Exit", color: color(200), numOfEnemys: 0, zone: {x: -world.width*0.20, y: world.height*0.45, wid: width*0.25, hei: height*0.25}, enter: true, newArea: "Castle"});
 
     // demon realm
   worldEnviorment.demonRealm = new Map();
   worldEnviorment.demonRealm.set("Demon Realm", {img: worldBackgrounds.demonRealm, name: "Demon Realm", color: color(212, 0, 57), numOfEnemys: 50, enemy: {lvlMin: 20, lvlMax: 30, race: raceSpecific.demons, skill: skillSpecific.demons}, zone: {x: 0, y: 0, wid: world.width, hei: world.height}, enter: false});
-  worldEnviorment.demonRealm.set("Demon Gate", {img: worldBackgrounds.demonGate, name: "Demon Gate Exit", color: color(212, 0, 57), numOfEnemys: 20, enemy: {lvlMin: 17, lvlMax: 27, race: raceSpecific.demons, skill: skillSpecific.demons}, zone: {x: 0, y: 0, wid: world.width*0.10, hei: world.height*0.10}, enter: true, newArea: "Cave"});
+  worldEnviorment.demonRealm.set("Demon Gate", {img: worldBackgrounds.demonGate, name: "Demon Gate Exit", color: color(212, 0, 57), numOfEnemys: 20, enemy: {lvlMin: 17, lvlMax: 27, race: raceSpecific.demonsGate, skill: skillSpecific.demons}, zone: {x: 0, y: 0, wid: world.width*0.10, hei: world.height*0.10}, enter: true, newArea: "Cave"});
 
     // castle
   worldEnviorment.castle = new Map();
@@ -673,7 +687,7 @@ function setPlayer() {
   player.name = "MOI";
   player.inGuild = false;
 
-  player.raceIndex = 0
+  player.raceIndex = 0;
   player.race = allRaces[player.raceIndex];
 
   player.skillIndex = 0;
@@ -744,10 +758,13 @@ function setNPCs() {
 }
 
 function setQuests() {
+  maxNumQuest = 5;
+  questList = [];
+
   questLocaions = [
     "Mountains",
     "Cave",
-    "Demon Gate",
+    "Demon Gate Entrance",
     "Demon Realm",
     "Castle",
     "Dungeon 1",
@@ -759,15 +776,16 @@ function setQuests() {
   ];
 
   questEntries = [
-    "Kill Quest",
-    "Big Kill Quest",
-    "Explore Quest",
+    "Kill Enemys",
+    "Kill Monsters",
+    "Explore Area",
   ];
+
   questDetails = new Map();
 
-  questDetails.set("Kill Quest", { title: "Kill Enemys", keyWord: "Kill", reward: { money: 100, exp: 100, items: 3 }, required: 10 });
-  questDetails.set("Big Kill Quest", { title: "Kill Monsters", keyWord: "Kill100", reward: { money: 100, exp: 100, items: 3 }, required: 10 });
-  questDetails.set("Explore Quest", { title: "Explore Area", keyWord: (function chooseRandomArea() { random(questLocaions) }), reward: { money: 100, exp: 100, items: 4 }, required: 1 });
+  questDetails.set("Kill Enemys", { title: "Kill Enemys", keyWord: "Kill", reward: { money: function funName() { return rewardQuantity() }, exp: function funName() { return rewardQuantity() }, items: function funName() { return int(random(0, 5)) } }, required: 15 });
+  questDetails.set("Kill Monsters", { title: "Kill Monsters", keyWord: "Kill100", reward: { money: function funName() { return (rewardQuantity()*5) }, exp: function funName() { return (rewardQuantity()*5) }, items: function funName() { return int(random(2, 8)) } }, required: 10 });
+  questDetails.set("Explore Area", { title: "Explore Area", keyWord: (function chooseRandomArea() { return random(questLocaions) }), reward: { money: function funName() { return (rewardQuantity()*2) }, exp: function funName() { return (rewardQuantity()*2) }, items: function funName() { return int(random(1,3)) } }, required: 1 });
 }
 
 function setShops() {

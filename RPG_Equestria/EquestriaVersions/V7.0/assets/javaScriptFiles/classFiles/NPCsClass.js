@@ -29,6 +29,8 @@ class NonPlayableCharacters {
     this.height = hei;
 
     // interaction
+    this.hasGivenQuest = false;
+    this.giveQuestChance = 0;
     this.phrases = says;
     this.says = random(this.phrases);
     this.textSize = textSize;
@@ -69,31 +71,38 @@ class NonPlayableCharacters {
       if (this.stateChange !== "empty")
         return this.stateChange;
 
+      if (this.hasGivenQuest === false) {
+        // NPC giving a quest
+        this.hasGivenQuest = true;
+        return this.giveQuestChance;
+      }
+
       this.interacting = true;
     }
 
     else {
       this.interacting = false;
+      this.hasGivenQuest = false;
+      this.giveQuestChance = random(0, 100);
       this.says = random(this.phrases);
     }
 
     if (this.interacting) {
       this.resting = millis();
       push();
-      rectMode(CORNER);
-      textAlign(LEFT, TOP);
-      textFont(this.textFont, this.textSize);
+        rectMode(CORNER);
+        textAlign(LEFT, TOP);
+        textFont(this.textFont, this.textSize);
 
-      // textbox
-      stroke("cyan");
-      fill("white");
-      rect(this.x, this.y, this.width*2.1, this.textSize*5);
+        // textbox
+        stroke("cyan");
+        fill("white");
+        rect(this.x, this.y, this.width*2.1, this.textSize*5);
 
-      // text
-      noStroke();
-      fill("black");
-      text(this.says, this.x, this.y);
-
+        // text
+        noStroke();
+        fill("black");
+        text(this.says, this.x, this.y);
       pop();
     }
 

@@ -36,6 +36,9 @@ function enemys() {
         let expGained = enemyArr[i].expGained;
         playerExp(expGained);
         lootDrop(enemyArr[i]);
+        updateQuests(questDetails.get("Kill Enemys").keyWord);
+        if (world.area !== "Over World" && world.area !== "Castle")
+          updateQuests(questDetails.get("Kill Monsters").keyWord);
         killedEnemys++;
         enemyArr.splice(i, 1);
       }
