@@ -1,15 +1,4 @@
-// Major Project (progressive)
 // Travis Ahern
-// Sept. 26/2018
-
-// COMPLETED:
-// choose class and race
-// minimap function
-
-// TO DO:
-// RPG similar to LOTRO and Tale of Toast, but 2D
-// lvl based
-// guild that you can recruit for a party
 
 // stats:
 // Intellegence - magic and attack rating with magic
@@ -27,7 +16,6 @@
 // Goblins - a lot more agillity and dexterity, a little more strength and a lot less vitality, no intellegence
 // Orcs - a lot more agillity and dexterity a little more strength but a lot less intelligence and vitality
 // Urak-Hai - a lot more strength, dexterity, vitality, but little agility and no intellegence,
-
 
 // charClasses:
 // Archer

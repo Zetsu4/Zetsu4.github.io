@@ -26,7 +26,7 @@ It will play similarly to an MMO, but single player so MSO (Massively Single-pla
   - equipping items
   - pretty pictures
   - interacting with inventory
-  - items
+  - items (consumables)
   - guilds
   - party members
   - party members AI
@@ -34,11 +34,11 @@ It will play similarly to an MMO, but single player so MSO (Massively Single-pla
   - story
   - campaign
   - quests/side quests
-  - multiple magic attacks
+  - skill tree
 
 ## Working on
   - pretty pictures
   - game title
   - story
   - campaign
-  - quests/side quests
+  - skill tree

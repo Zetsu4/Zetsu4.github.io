@@ -72,3 +72,6 @@
 - stats adjusted
 - effecienccy improved
 - bugs fixed
+
+## Jul 10, 2019 - Jul 11, 2019
+- added quests
