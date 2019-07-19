@@ -3,6 +3,7 @@
 // Jul. 17, 2019
 
 // vars
+let shopImgs = {};
 
 function preload() {
 
