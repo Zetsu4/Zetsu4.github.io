@@ -19,7 +19,7 @@ function dropItem(value, key, map) {
       else
         randomAmount = constrain(int(random(value.stats.dropAmountMin + itemDropEnemy.lvl * (value.stats.dropAmountMin / 100), value.stats.dropAmountMax + itemDropEnemy.lvl * (value.stats.dropAmountMax / 100))), 1, Infinity);
 
-      if (itemDropEnemy.name !== "") { // drop on player
+      if (itemDropEnemy.name !== "") { // drop on player - quest drop
         items.onGround.push(new ItemOnGround(changeX, changeY, value, world.area, randomAmount));
         hasDropped = true;
       }

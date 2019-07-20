@@ -58,7 +58,7 @@ function loadOP() {
 
   player.totHp = constrain((10*(player.vit+1)+pow(player.lvl, 2)), 10, Infinity);
   player.totMp = constrain((10*(player.int+1)+pow(player.lvl, 2)), 1, Infinity);
-  calculateStats();
+  calculateStats(0);
   player.hp = player.totHp;
   player.mp = player.totMp;
   setPlayerStartEquipment();

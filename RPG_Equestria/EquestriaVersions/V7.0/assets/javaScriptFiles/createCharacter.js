@@ -207,15 +207,15 @@ function setPlayerStartEquipment() {
 
 function calculateStats(lvlBonus) {
   let runningStats = {
-    int: (0 + lvlBonus),
-    agi: (0 + lvlBonus),
-    str: (0 + lvlBonus),
-    dex: (0 + lvlBonus),
-    vit: (0 + lvlBonus),
-    melee: (0 + lvlBonus/2),
-    ranged: (0 + lvlBonus/2),
-    magic: (0 + lvlBonus/2),
-    trap: (0 + lvlBonus/2),
+    int: lvlBonus,
+    agi: lvlBonus,
+    str: lvlBonus,
+    dex: lvlBonus,
+    vit: lvlBonus,
+    melee: lvlBonus/2,
+    ranged: lvlBonus/2,
+    magic: lvlBonus/2,
+    trap: lvlBonus/2,
     expBonus: 0
   };
 
