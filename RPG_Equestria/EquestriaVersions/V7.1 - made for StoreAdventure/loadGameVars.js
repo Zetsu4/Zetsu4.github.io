@@ -1,6 +1,7 @@
 // By: Travis Ahern
 
 function preloadAdvt() {
+    /*
     // sounds
         // background
     advtVars.sounds.overWorld = loadSound("assets/sounds_music/music/overWorld.mp3");
@@ -27,6 +28,7 @@ function preloadAdvt() {
     advtVars.sounds.enemyDeath = loadSound("assets/sounds_music/soundsenemyDeath.wav");
 
     setSoundVolumeAdvt();
+    */
 
     // backgrounds
     advtVars.worldImgs = {};
@@ -153,6 +155,7 @@ function setSoundVolumeAdvt() {
 }
 
 function setupAdvt() {
+    /*
     advtVars.sounds.overWorld.loop();
     advtVars.sounds.itemShop.loop();
     advtVars.sounds.caves.loop();
@@ -162,6 +165,7 @@ function setupAdvt() {
     advtVars.sounds.itemShop.stop();
     advtVars.sounds.caves.stop();
     advtVars.sounds.demonGate.stop();
+    */
 
     // enter adventure mode
     advtVars.startingState = 0;

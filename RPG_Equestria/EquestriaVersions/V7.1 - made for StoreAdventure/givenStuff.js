@@ -33,7 +33,8 @@ function preload() {
     soundFormats("mp3", "wav");
 
     // fonts
-    fonts.default = loadFont("assets/fonts/default.TTF");
+    fonts.default = loadFont("assets/Bold.ttf");
+    fonts.titleDisplay = loadFont("assets/fonts/LOTR.TTF");
 
     // NPC's
     npcImgs = {};
@@ -52,13 +53,13 @@ function preload() {
     
     // equipment
     otherImgs.equipment = {};
-    otherImgs.equipment.weapon = loadImage("assets/images/items/equipment/weapon.png");
-    otherImgs.equipment.head = loadImage("assets/images/items/equipment/head.png");
-    otherImgs.equipment.chest = loadImage("assets/images/items/equipment/chest.png");
-    otherImgs.equipment.feet = loadImage("assets/images/items/equipment/feet.png");
-    otherImgs.equipment.shoulders = loadImage("assets/images/items/equipment/shoulders.png");
-    otherImgs.equipment.legs = loadImage("assets/images/items/equipment/legs.png");
-    otherImgs.equipment.hands = loadImage("assets/images/items/equipment/hands.png");
+    otherImgs.equipment.weapon = loadImage("assets/images/items/weapon.png");
+    otherImgs.equipment.head = loadImage("assets/images/items/head.png");
+    otherImgs.equipment.chest = loadImage("assets/images/items/chest.png");
+    otherImgs.equipment.feet = loadImage("assets/images/items/feet.png");
+    otherImgs.equipment.shoulders = loadImage("assets/images/items/shoulders.png");
+    otherImgs.equipment.legs = loadImage("assets/images/items/legs.png");
+    otherImgs.equipment.hands = loadImage("assets/images/items/hands.png");
 
     preloadAdvt();
 }
@@ -72,10 +73,20 @@ function setup() {
     rectMode(CENTER);
     ellipseMode(CENTER);
 
+    fontSize.default = (width + height) * 0.01;
+    textFont(fonts.default, fontSize.default);
+
     setupAdvt();
 
-    fontSize.default = (width + height) * 0.015;
-    textSize(fontSize.default);
 
     gameState = "Adventure";
+
+    fill("green");
+}
+
+function draw(){
+    translate(width/2, height/2);
+    background("black");
+    text("Text looks like this.!?", 0, 0);
+    //if (gameState = "Adventure") playAdvt();
 }
