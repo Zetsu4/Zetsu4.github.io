@@ -178,4 +178,35 @@ function setupAdvt() {
     advtVars.lastRefresh = millis();
     advtVars.recentsTimer = 5000;
     advtVars.recentsLastTime = millis();
+
+    // setting enemy/guild attack types
+    let widHei = (width + height) / 2;
+    advtVars.melee = {
+        enemyDist: widHei * 0.075,
+        attackDist: widHei * 0.10,
+        attackSpeed: 2,
+        img: itemImg.swordAttack,
+        soundAttack: sounds.swordAttack,
+        soundHit: sounds.swordHit
+    };
+
+    advtVars.ranged = {
+        enemyDist: widHei * 0.50,
+        attackDist: widHei * 0.70,
+        attackSpeed: 3,
+        img: itemImg.arrowAttack,
+        soundAttack: sounds.arrowAttack,
+        soundHit: sounds.arrowHit
+    };
+
+    advtVars.spellCaster = {
+        enemyDist: widHei * 0.40,
+        attackDist: widHei * 0.60,
+        attackSpeed: 2.5,
+        img: itemImg.fireBallAttack,
+        soundAttack: sounds.fireballAttack,
+        soundHit: sounds.fireballHit
+    };
+
+    
 }

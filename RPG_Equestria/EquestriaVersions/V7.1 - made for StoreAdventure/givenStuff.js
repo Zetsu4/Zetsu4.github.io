@@ -12,6 +12,10 @@ let otherImgs = {};
 let fontSize = {};
 let fonts = {};
 
+// buttons
+let buttons;
+let buttonCol = {};
+
 // quests
 let maxNumQuest;
 let questList = [];
@@ -33,7 +37,7 @@ function preload() {
     soundFormats("mp3", "wav");
 
     // fonts
-    fonts.default = loadFont("assets/Bold.ttf");
+    fonts.default = "BOLD";
     fonts.titleDisplay = loadFont("assets/fonts/LOTR.TTF");
 
     // NPC's
@@ -73,20 +77,21 @@ function setup() {
     rectMode(CENTER);
     ellipseMode(CENTER);
 
+    // text
     fontSize.default = (width + height) * 0.01;
     textFont(fonts.default, fontSize.default);
+    
+    // "buttons" is a Map
+    buttons = new Map();
 
     setupAdvt();
 
 
     gameState = "Adventure";
-
-    fill("green");
 }
 
 function draw(){
     translate(width/2, height/2);
     background("black");
-    text("Text looks like this.!?", 0, 0);
     //if (gameState = "Adventure") playAdvt();
 }
