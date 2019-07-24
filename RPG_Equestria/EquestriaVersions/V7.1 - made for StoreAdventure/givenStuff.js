@@ -65,7 +65,7 @@ function preload() {
     otherImgs.equipment.legs = loadImage("assets/images/items/legs.png");
     otherImgs.equipment.hands = loadImage("assets/images/items/hands.png");
 
-    preloadAdvt();
+    advtPreload();
 }
 
 function setup() {
@@ -85,7 +85,7 @@ function setup() {
     buttons = new Map();
     setButtonCols();
 
-    setupAdvt();
+    advtSetup();
 
 
     gameState = "Adventure";
