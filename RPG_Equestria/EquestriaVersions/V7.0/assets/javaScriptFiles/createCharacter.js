@@ -183,7 +183,7 @@ function setPlayerStats() {
   setPlayerStartEquipment();
   player.totHp = constrain((10*(player.vit+1)+pow(player.lvl, 2)), 10, Infinity);
   player.totMp = constrain((10*(player.int+1)+pow(player.lvl, 2)), 1, Infinity);
-  calculateStats(0);
+  calculateStats();
 
   //set current health and mana
   player.hp = player.totHp;
@@ -205,7 +205,8 @@ function setPlayerStartEquipment() {
     items.onGround.push(new ItemOnGround(0, 0, allItems.get("Hp Potion"), world.area, player.skill.stats.startingHpPotions));
 }
 
-function calculateStats(lvlBonus = 0) {
+function calculateStats() {
+  let lvlBonus = floor(player.lvl * 0.25);
   let runningStats = {
     int: lvlBonus,
     agi: lvlBonus,

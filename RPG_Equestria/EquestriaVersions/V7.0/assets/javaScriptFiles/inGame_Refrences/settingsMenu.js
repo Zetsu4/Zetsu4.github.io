@@ -259,7 +259,7 @@ function loadGame() {
     for (let i=0; i < loadingGame.guildMembers.length; i++)
       guildMembers.push(new GuildMember(loadingGame.guildMembers[i].raceIndex, guildInventory[i].skillIndex, guildInventory[i].lvl));
 
-    calculateStats(0);
+    calculateStats();
     startingState = 2;
     state = 0;
   }
