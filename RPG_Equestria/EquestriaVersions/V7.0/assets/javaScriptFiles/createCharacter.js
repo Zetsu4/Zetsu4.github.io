@@ -205,7 +205,7 @@ function setPlayerStartEquipment() {
     items.onGround.push(new ItemOnGround(0, 0, allItems.get("Hp Potion"), world.area, player.skill.stats.startingHpPotions));
 }
 
-function calculateStats(lvlBonus) {
+function calculateStats(lvlBonus = 0) {
   let runningStats = {
     int: lvlBonus,
     agi: lvlBonus,

@@ -1,11 +1,12 @@
 // By: Travis Ahern
 
 function preloadAdvt() {
-    /*
     // sounds
+    advtVars.sounds = {};
+
         // background
     advtVars.sounds.overWorld = loadSound("assets/sounds_music/music/overWorld.mp3");
-    advtVars.sounds.shopKeep = loadSound("assets/sounds_music/music/itemShop.mp3");
+    advtVars.sounds.advtShop = loadSound("assets/sounds_music/music/advtShop.mp3");
     advtVars.sounds.caves = loadSound("assets/sounds_music/music/caves.mp3");
     advtVars.sounds.demonGate = loadSound("assets/sounds_music/music/demonGate.wav");
     advtVars.sounds.demonRealm = loadSound("assets/sounds_music/music/demonRealm.mp3");
@@ -14,21 +15,20 @@ function preloadAdvt() {
     advtVars.sounds.gameOver = loadSound("assets/sounds_music/music/gameOver.mp3");
 
         // attack
-    advtVars.sounds.swordAttack = loadSound("assets/sounds_music/soundsattack/slash.wav");
-    advtVars.sounds.swordHit = loadSound("assets/sounds_music/soundsattack/slashHit.mp3");
-    advtVars.sounds.arrowAttack = loadSound("assets/sounds_music/soundsattack/arrowShot.mp3");
-    advtVars.sounds.arrowHit = loadSound("assets/sounds_music/soundsattack/arrowHit.mp3");
-    advtVars.sounds.fireballAttack = loadSound("assets/sounds_music/soundsattack/fireballCast.mp3");
-    advtVars.sounds.fireballHit = loadSound("assets/sounds_music/soundsattack/fireballHit.mp3");
-    advtVars.sounds.trapHit = loadSound("assets/sounds_music/soundsattack/trapHit.wav");
+    advtVars.sounds.swordAttack = loadSound("assets/sounds_music/sounds/slash.wav");
+    advtVars.sounds.swordHit = loadSound("assets/sounds_music/sounds/slashHit.mp3");
+    advtVars.sounds.arrowAttack = loadSound("assets/sounds_music/sounds/arrowShot.mp3");
+    advtVars.sounds.arrowHit = loadSound("assets/sounds_music/sounds/arrowHit.mp3");
+    advtVars.sounds.fireballAttack = loadSound("assets/sounds_music/sounds/fireballCast.mp3");
+    advtVars.sounds.fireballHit = loadSound("assets/sounds_music/sounds/fireballHit.mp3");
+    advtVars.sounds.trapHit = loadSound("assets/sounds_music/sounds/trapHit.wav");
 
         // other
-    advtVars.sounds.pickUp = loadSound("assets/sounds_music/soundspickUp.mp3");
-    advtVars.sounds.consumePotion = loadSound("assets/sounds_music/soundsconsumePotion.wav");
-    advtVars.sounds.enemyDeath = loadSound("assets/sounds_music/soundsenemyDeath.wav");
+    advtVars.sounds.pickUp = loadSound("assets/sounds_music/sounds/pickUp.mp3");
+    advtVars.sounds.consumePotion = loadSound("assets/sounds_music/sounds/consumePotion.wav");
+    advtVars.sounds.enemyDeath = loadSound("assets/sounds_music/sounds/enemyDeath.wav");
 
     setSoundVolumeAdvt();
-    */
 
     // backgrounds
     advtVars.worldImgs = {};
@@ -131,7 +131,7 @@ function preloadAdvt() {
 function setSoundVolumeAdvt() {
     // background
     advtVars.sounds.overWorld.setVolume(0.3);
-    advtVars.sounds.itemShop.setVolume(0.3);
+    advtVars.sounds.advtShop.setVolume(0.3);
     advtVars.sounds.caves.setVolume(1);
     advtVars.sounds.demonGate.setVolume(1);
     advtVars.sounds.demonRealm.setVolume(1);
@@ -155,19 +155,61 @@ function setSoundVolumeAdvt() {
 }
 
 function setupAdvt() {
-    /*
+    // loop and stop background music
     advtVars.sounds.overWorld.loop();
-    advtVars.sounds.itemShop.loop();
+    advtVars.sounds.advtShop.loop();
     advtVars.sounds.caves.loop();
     advtVars.sounds.demonGate.loop();
 
     advtVars.sounds.overWorld.stop();
-    advtVars.sounds.itemShop.stop();
+    advtVars.sounds.advtShop.stop();
     advtVars.sounds.caves.stop();
     advtVars.sounds.demonGate.stop();
-    */
 
     // enter adventure mode
+    startupAdvt();
+
+    // setting enemy/guild attack types
+    let widHei = (width + height) / 2;
+    advtVars.meleeAttacker = {
+        npcDist: widHei * 0.075,
+        attackDist: widHei * 0.10,
+        attackSpeed: 2,
+        img: advtVars.attack.swordAttack,
+        soundAttack: advtVars.sounds.swordAttack,
+        soundHit: advtVars.sounds.swordHit
+    };
+
+    advtVars.rangedAttacker = {
+        npcDist: widHei * 0.50,
+        attackDist: widHei * 0.70,
+        attackSpeed: 3,
+        img: advtVars.attack.arrowAttack,
+        soundAttack: advtVars.sounds.arrowAttack,
+        soundHit: advtVars.sounds.arrowHit
+    };
+
+    advtVars.spellCaster = {
+        npcDist: widHei * 0.40,
+        attackDist: widHei * 0.60,
+        attackSpeed: 2.5,
+        img: advtVars.attack.fireBallAttack,
+        soundAttack: advtVars.sounds.fireballAttack,
+        soundHit: advtVars.sounds.fireballHit
+    };
+    
+    advtSetSprites();
+    // advtSetSettingsMenu();
+    // advtSettingKeyBindings();
+    // advtSettingWorld();
+    // advtSetItems();
+    // advtSetPlayer();
+    // advtSetNPCs();
+    // advtSetQuests();
+    // advtSetShops();
+}
+
+function startupAdvt() {
     advtVars.startingState = 0;
     advtVars.state = 0;
     advtVars.recentPickUps = "";
@@ -178,35 +220,19 @@ function setupAdvt() {
     advtVars.lastRefresh = millis();
     advtVars.recentsTimer = 5000;
     advtVars.recentsLastTime = millis();
+}
 
-    // setting enemy/guild attack types
-    let widHei = (width + height) / 2;
-    advtVars.melee = {
-        enemyDist: widHei * 0.075,
-        attackDist: widHei * 0.10,
-        attackSpeed: 2,
-        img: itemImg.swordAttack,
-        soundAttack: sounds.swordAttack,
-        soundHit: sounds.swordHit
-    };
+function advtSetSprites() {
+    // sprite size
+    advtVars.spriteSize = {};
+    advtVars.spriteSize.sampleWidth = width * 0.30;
+    advtVars.spriteSize.sampleHeight = height * 0.50;
+    advtVars.spriteSize.width = width * 0.05;
+    advtVars.spriteSize.height = height * 0.10;
 
-    advtVars.ranged = {
-        enemyDist: widHei * 0.50,
-        attackDist: widHei * 0.70,
-        attackSpeed: 3,
-        img: itemImg.arrowAttack,
-        soundAttack: sounds.arrowAttack,
-        soundHit: sounds.arrowHit
-    };
-
-    advtVars.spellCaster = {
-        enemyDist: widHei * 0.40,
-        attackDist: widHei * 0.60,
-        attackSpeed: 2.5,
-        img: itemImg.fireBallAttack,
-        soundAttack: sounds.fireballAttack,
-        soundHit: sounds.fireballHit
-    };
-
-    
+    // race
+    advtVars.raceGroups = {};
+    advtVars.raceGroups.all = [
+        
+    ]
 }

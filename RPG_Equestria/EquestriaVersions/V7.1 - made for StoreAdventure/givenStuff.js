@@ -83,6 +83,7 @@ function setup() {
     
     // "buttons" is a Map
     buttons = new Map();
+    setButtonCols();
 
     setupAdvt();
 
@@ -90,8 +91,19 @@ function setup() {
     gameState = "Adventure";
 }
 
+function setButtonCols() {
+    buttonCol = new Map();
+
+    buttonCol.set("red", color(255, 0, 0));
+    buttonCol.set("green", color(0, 255, 0));
+    buttonCol.set("orange", color(255, 165, 0));
+    buttonCol.set("light orange", color(255, 220, 0));
+    buttonCol.set("brown", color(153, 77, 0));
+    buttonCol.set("light brown", color(179, 89, 0));
+}
+
 function draw(){
     translate(width/2, height/2);
     background("black");
-    //if (gameState = "Adventure") playAdvt();
+    // if (gameState = "Adventure") playAdvt();
 }
