@@ -1,6 +1,7 @@
 // vars
 // general
 let gameState;
+let settings = {};
 let spriteSize = {};
 let killedEnemys = 0;
 
@@ -37,7 +38,7 @@ function preload() {
     soundFormats("mp3", "wav");
 
     // fonts
-    fonts.default = "BOLD";
+    fonts.default = "NORMAL";
     fonts.titleDisplay = loadFont("assets/fonts/LOTR.TTF");
 
     // NPC's
@@ -65,7 +66,7 @@ function preload() {
     otherImgs.equipment.legs = loadImage("assets/images/items/legs.png");
     otherImgs.equipment.hands = loadImage("assets/images/items/hands.png");
 
-    advtPreload();
+    // advtPreload();
 }
 
 function setup() {
@@ -85,8 +86,13 @@ function setup() {
     buttons = new Map();
     setButtonCols();
 
-    advtSetup();
+    // set sprite sizes
+    spriteSize.sampleWidth = width * 0.30;
+    spriteSize.sampleHeight = height * 0.50;
+    spriteSize.width = width * 0.05;
+    spriteSize.height = height * 0.10;
 
+    // advtSetup();
 
     gameState = "Adventure";
 }
@@ -100,6 +106,13 @@ function setButtonCols() {
     buttonCol.set("light orange", color(255, 220, 0));
     buttonCol.set("brown", color(153, 77, 0));
     buttonCol.set("light brown", color(179, 89, 0));
+}
+
+function setSettingsMenu() {
+    settings.options = [
+        "Play", "Controls", "Map",
+        "Save", "Load", "Main Menu"
+    ];
 }
 
 function draw(){

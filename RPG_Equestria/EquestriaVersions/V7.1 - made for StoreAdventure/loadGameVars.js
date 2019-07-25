@@ -197,10 +197,9 @@ function advtSetup() {
         soundAttack: advtVars.sounds.fireballAttack,
         soundHit: advtVars.sounds.fireballHit
     };
-    
+
+    advtSettingKeyBindings();
     advtSetSprites();
-    // advtSetSettingsMenu();
-    // advtSettingKeyBindings();
     // advtSettingWorld();
     // advtSetItems();
     // advtSetPlayer();
@@ -222,14 +221,11 @@ function startupAdvt() {
     advtVars.recentsLastTime = millis();
 }
 
-function advtSetSprites() {
-    // sprite size
-    advtVars.spriteSize = {};
-    advtVars.spriteSize.sampleWidth = width * 0.30;
-    advtVars.spriteSize.sampleHeight = height * 0.50;
-    advtVars.spriteSize.width = width * 0.05;
-    advtVars.spriteSize.height = height * 0.10;
+function advtSettingKeyBindings() {
 
+}
+
+function advtSetSprites() {
     advtSetCharacterStats();
 
     // races
@@ -586,23 +582,23 @@ function advtGroups() {
     advtVars.npcGroups = {};
     advtVars.npcGroups.player = {
         race: ["Human", "Half-Elf", "Elf", "Dwarf", "Halfling", "Goblin", "Orc", "Uruk-Hai"],
-        skill: ["Archer", "Ranger", "Fighter", "Samurai", "Cleric", "Rogue", "Trapper"]
+        skill: ["Archer", "Ranger", "Fighter", "Samurai", "Mage", "Cleric", "Rogue", "Trapper"]
     };
     advtVars.npcGroups.guild = {
         race: ["Human", "Half-Elf", "Elf", "Dwarf", "Halfling"],
-        skill: []
+        skill: ["Archer", "Fighter", "Mage"]
     };
     advtVars.npcGroups.overWorld = {
         race: ["Human", "Half-Elf", "Elf", "Dwarf", "Halfling", "Goblin", "Orc", "Uruk-Hai"],
-        skill: []
+        skill: ["Archer", "Ranger", "Fighter", "Samurai", "Mage", "Rogue"]
     };
     advtVars.npcGroups.castle = {
-        race: ["Human", "Half-Elf", "Dwarf"],
-        skill: []
+        race: ["Human", "Half-Elf", "Dwarf", "Gate Gaurd"],
+        skill: ["Archer", "Fighter", "Samurai", "Mage", "Knight"]
     };
     advtVars.npcGroups.dungeon = {
         race: ["Goblin", "Undead Knight", "Rat", "Ghost", "Skeleton"],
-        skill: []
+        skill: ["Archer", "Knight", "Spirit Mage"]
     };
     advtVars.npcGroups.boss = {
         race: ["Boss"],
@@ -610,14 +606,14 @@ function advtGroups() {
     };
     advtVars.npcGroups.cave = {
         race: ["Goblin", "Orc", "Uruk-Hai", "Rat"],
-        skill: []
+        skill: ["Archer", "Fighter", "Rogue"]
     };
     advtVars.npcGroups.demonsGate = {
-        race: [],
-        skill: []
+        race: ["Gate Gaurd", "Gate Gaurd2"],
+        skill: ["Knight"]
     };
     advtVars.npcGroups.demons = {
-        race: [],
-        skill: []
+        race: ["Fire Imp", "Demon Big", "Demon Small", "Demon1"],
+        skill: ["Demon Melee", "Demon Magic"]
     };
 }

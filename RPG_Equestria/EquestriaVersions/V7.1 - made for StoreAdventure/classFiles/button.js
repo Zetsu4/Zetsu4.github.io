@@ -38,7 +38,7 @@ class Button {
         // text
         fill("black");
         push();
-        textFont(this.font, this.fontSize);
+        textFont(this.txtFont, this.txtSize);
         text(this.text, this.x, this.y);
         pop();
         return pressed;
@@ -50,7 +50,7 @@ class Button {
         let top = this.y + height / 2 - this.height / 2;
         let bottom = this.y + height / 2 + this.height / 2;
 
-        return mouseX > left && mouseX < right &&
-            mouseY > top && mouseY < bottom;
+        return mouseX > left && mouseX < right
+            && mouseY > top && mouseY < bottom;
     }
 }
