@@ -15,6 +15,7 @@ let fonts = {};
 
 // buttons
 let buttons;
+let buttonVars = {};
 let buttonCol = {};
 
 // quests
@@ -39,7 +40,7 @@ function preload() {
 
     // fonts
     fonts.default = "NORMAL";
-    fonts.titleDisplay = loadFont("assets/fonts/LOTR.TTF");
+    fonts.special = loadFont("assets/fonts/LOTR.TTF");
 
     // NPC's
     npcImgs = {};
@@ -84,7 +85,7 @@ function setup() {
     
     // "buttons" is a Map
     buttons = new Map();
-    setButtonCols();
+    setButtonCharacteristics();
 
     // set sprite sizes
     spriteSize.sampleWidth = width * 0.30;
@@ -97,15 +98,28 @@ function setup() {
     gameState = "Adventure";
 }
 
-function setButtonCols() {
+function setButtonCharacteristics() {
+    // colors
     buttonCol = new Map();
 
-    buttonCol.set("red", color(255, 0, 0));
-    buttonCol.set("green", color(0, 255, 0));
+    buttonCol.set("black", color(0, 0, 0));
+    buttonCol.set("grey", color(135, 135, 135));
+    buttonCol.set("white", color(255, 255, 255));
+    buttonCol.set("red", color(204, 0, 0));
+    buttonCol.set("light red", color(255, 0, 0));
+    buttonCol.set("green", color(0, 204, 102));
+    buttonCol.set("light green", color(0, 255, 0));
     buttonCol.set("orange", color(255, 165, 0));
     buttonCol.set("light orange", color(255, 220, 0));
     buttonCol.set("brown", color(153, 77, 0));
     buttonCol.set("light brown", color(179, 89, 0));
+
+    // locations
+    buttonVars.left = -width*0.35;
+    buttonVars.center = 0;
+    buttonVars.right = width*0.35;
+    buttonVars.top = -height*0.40;
+    buttonVars.width = width*0.15;
 }
 
 function setSettingsMenu() {
@@ -113,6 +127,33 @@ function setSettingsMenu() {
         "Play", "Controls", "Map",
         "Save", "Load", "Main Menu"
     ];
+
+    // button dimensions
+    let butHeight = calcButListHei(settings.options.length);
+
+    // buttons for settings
+    settings.buttons = [];
+    for (let i = 0; i < settings.options.length; i++) {
+        settings.buttons.push(new Button(
+            buttonVars.center, buttonVars.top+(i*butHeight),
+            buttonVars.width, butHeight,
+            buttonCol.get("orange"), buttonCol.get("light orange"),
+            buttonCol.get("light orange"), buttonCol.get("orange"),
+            settings.options[i], fonts.special, fontSize.default))
+    }
+
+    settings.quit = {};
+    settings.quit.yes = new Button(
+        buttonVars.right, buttonVars.center,
+        buttonVars.width, butHeight,
+        buttonCol.get("light red"), buttonCol.get("red"),
+        buttonCol.get("black"), buttonCol.get("grey"),
+        settings.options[i], fonts.special, fontSize.default
+    )
+}
+
+function calcButListHei(length) {
+    return height*0.90/length;
 }
 
 function draw(){

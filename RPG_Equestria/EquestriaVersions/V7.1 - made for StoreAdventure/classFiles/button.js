@@ -23,6 +23,7 @@ class Button {
     clicked() {
         let pressed = false;
 
+        // box
         if (this.hovering()) {
             // hovering
             fill(this.hoverCol);
@@ -32,11 +33,16 @@ class Button {
         else
             fill(this.restCol);
 
-        // box
         rect(this.x, this.y, this.width, this.height);
 
         // text
-        fill("black");
+        if (this.hovering()) {
+            // hovering
+            fill(this.txtColHover);
+        }
+        else
+            fill(this.txtColRest);
+
         push();
         textFont(this.txtFont, this.txtSize);
         text(this.text, this.x, this.y);
