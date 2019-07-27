@@ -50,7 +50,7 @@ function advtPreload() {
 
         // castle
     advtVars.worldImgs.castleEntrance = loadImage("assets/images/backgrounds/castleEntrance.png");
-    advtVars.worldImgs.castle = loadImage("assets/images/backgrounds/castle.png");
+    advtVars.worldImgs.throneRoom = loadImage("assets/images/backgrounds/throneRoom.png");
 
         // dungeon
     advtVars.worldImgs.dungeon = loadImage("assets/images/backgrounds/dungeon.png");
@@ -166,8 +166,8 @@ function advtSetup() {
     advtVars.sounds.caves.stop();
     advtVars.sounds.demonGate.stop();
 
-    // enter adventure mode
-    startupAdvt();
+    // prime adventure mode variables
+    startAdvt();
 
     // setting enemy/guild attack types
     let widHei = (width + height) / 2;
@@ -200,7 +200,7 @@ function advtSetup() {
 
     advtSettingKeyBindings();
     advtSetSprites();
-    // advtSettingWorld();
+    advtSetWorldAreas();
     // advtSetItems();
     // advtSetPlayer();
     // advtSetNPCs();
@@ -208,7 +208,8 @@ function advtSetup() {
     // advtSetShops();
 }
 
-function startupAdvt() {
+function startAdvt() {
+    // called every time adventure mode begins
     advtVars.startingState = 0;
     advtVars.state = 0;
     advtVars.recentPickUps = "";
@@ -221,10 +222,48 @@ function startupAdvt() {
     advtVars.recentsLastTime = millis();
 }
 
+// key bindings----------------------------------
 function advtSettingKeyBindings() {
+    // key bindings
+    keyBindings.advt = new Map();
 
+        // the "button" value is for rebinding respective key
+    keyBindings.advt.set("Settings", { code: 27 /* Escape */, state: "settings", button: 0 });
+    keyBindings.advt.set("Open Map", { code: 77 /* M */, state: "map", button: 0 });
+    keyBindings.advt.set("Inventory", { code: 69 /* E */, state: "inventory", button: 0 });
+    keyBindings.advt.set("Toggle Ranged", { code: 49 /* 1 */, state: "ranged", button: 0 });
+    keyBindings.advt.set("Toggle Magic", { code: 50 /* 2 */, state: "magic", button: 0 });
+    keyBindings.advt.set("Place Trap", { code: 81 /* Q */, button: 0 });
+    keyBindings.advt.set("Move Up", { code: 87 /* W */, button: 0 });
+    keyBindings.advt.set("Move Left", { code: 65 /* A */, button: 0 });
+    keyBindings.advt.set("Move Down", { code: 83 /* S */, button: 0 });
+    keyBindings.advt.set("Move Right", { code: 68 /* D */, button: 0 });
+    keyBindings.advt.set("Toggle Walk", { code: 16 /* Shift */, button: 0 });
+    keyBindings.advt.set("Health Potion", { code: 70 /* F */, button: 0 });
+    keyBindings.advt.set("Mana Potion", { code: 71 /* G */, button: 0 });
+    keyBindings.advt.set("Town Portal", { code: 84 /* T */, button: 0 });
+    keyBindings.advt.set("Interact", { code: 32 /* Space */, button: 0 });
+    keyBindings.advt.set("Enter Area", { code: 67 /* C */, button: 0 });
+
+    keyBindings.advt.forEach(setRebindButtons);
 }
 
+function setRebindButtons(value, key, map) {
+    // buttons to rebind keys
+    let i = static(map.size);
+    let butHeight = calcButListHei(map.size);
+    let yPos = buttonVars.top + (i * butHeight)
+    // let yPos = -height * 0.48 + (i * fontSize.default * 1.2);
+    map.get(key).button = new Button(
+        buttonVars.left, yPos,
+        fontSize.default * 2, butHeight,
+        buttonCol.get("orange"), buttonCol.get("light orange"),
+        buttonCol.get("black"), buttonCol.get("grey"),
+        String.fromCharCode(value.code), fonts.special, fontSize.default
+    );
+}
+//-----------------------------------------------
+// sprites---------------------------------------
 function advtSetSprites() {
     advtSetCharacterStats();
 
@@ -592,18 +631,6 @@ function advtGroups() {
         race: ["Human", "Half-Elf", "Elf", "Dwarf", "Halfling", "Goblin", "Orc", "Uruk-Hai"],
         skill: ["Archer", "Ranger", "Fighter", "Samurai", "Mage", "Rogue"]
     };
-    advtVars.npcGroups.castle = {
-        race: ["Human", "Half-Elf", "Dwarf", "Gate Gaurd"],
-        skill: ["Archer", "Fighter", "Samurai", "Mage", "Knight"]
-    };
-    advtVars.npcGroups.dungeon = {
-        race: ["Goblin", "Undead Knight", "Rat", "Ghost", "Skeleton"],
-        skill: ["Archer", "Knight", "Spirit Mage"]
-    };
-    advtVars.npcGroups.boss = {
-        race: ["Boss"],
-        skill: ["Boss"]
-    };
     advtVars.npcGroups.cave = {
         race: ["Goblin", "Orc", "Uruk-Hai", "Rat"],
         skill: ["Archer", "Fighter", "Rogue"]
@@ -616,4 +643,87 @@ function advtGroups() {
         race: ["Fire Imp", "Demon Big", "Demon Small", "Demon1"],
         skill: ["Demon Melee", "Demon Magic"]
     };
+    advtVars.npcGroups.castle = {
+        race: ["Human", "Half-Elf", "Dwarf", "Gate Gaurd"],
+        skill: ["Archer", "Fighter", "Samurai", "Mage", "Knight"]
+    };
+    advtVars.npcGroups.dungeon = {
+        race: ["Goblin", "Undead Knight", "Rat", "Ghost", "Skeleton"],
+        skill: ["Archer", "Knight", "Spirit Mage"]
+    };
+    advtVars.npcGroups.boss = {
+        race: ["Boss"],
+        skill: ["Boss"]
+    };
 }
+//-----------------------------------------------
+// world areas-----------------------------------
+function advtSetWorldAreas() {
+    // variables of the world
+    advtVars.worldVars = {};
+    advtVars.worldVars.sizeLarge = { wid: width * 20, hei: height * 20 };
+    advtVars.worldVars.sizeMedium = { wid: width * 15, hei: height * 15 };
+    advtVars.worldVars.sizeSmall = { wid: width * 10, hei: height * 10 };
+    advtVars.worldVars.playerX = 0;
+    advtVars.worldVars.playerY = 0;
+
+    // areas and enviroments
+    let areaSize = advtVars.worldVars.sizeLarge;
+    advtVars.area = new Map();
+    advtVars.area.set("Over World", new Map());
+    advtVars.area.get("Over World").set("Meadows", { img: advtVars.worldImgs.grass, enterable: false, color: color(249, 166, 6), numOfEnemys: 30, enemy: { lvlMin: 0, lvlMax: 2, group: advtVars.npcGroups.overWorld }, zone: { x: 0, y: 0, wid: areaSize.wid, hei: areaSize.hei } });
+    advtVars.area.get("Over World").set("Town", { img: advtVars.worldImgs.town, enterable: false, color: color(0, 255, 0), numOfEnemys: 0, zone: { x: 0, y: 0, wid: areaSize.wid * 0.15, hei: areaSize.hei * 0.15 } });
+    advtVars.area.get("Over World").set("Desert", { img: advtVars.worldImgs.desert, enterable: false, color: color(0, 0, 255), numOfEnemys: 40, enemy: { lvlMin: 1, lvlMax: 4, group: advtVars.npcGroups.overWorld }, zone: { x: -areaSize.wid * 0.2125, y: areaSize.hei * 0.30, wid: areaSize.wid * 0.575, hei: areaSize.hie * 0.40 } });
+    advtVars.area.get("Over World").set("Forest", { img: advtVars.worldImgs.forest, enterable: false, color: color(135, 96, 66), numOfEnemys: 40, enemy: { lvlMin: 3, lvlMax: 6, group: advtVars.npcGroups.overWorld }, zone: { x: areaSize.wid * 0.30, y: areaSize.hei * 0.325, wid: areaSize.wid * 0.40, hei: areaSize.hei * 0.35 } });
+    advtVars.area.get("Over World").set("Mountains", { img: advtVars.worldImgs.mountain, enterable: false, color: color(162, 206, 228), numOfEnemys: 45, enemy: { lvlMin: 5, lvlMax: 10, group: advtVars.npcGroups.overWorld }, zone: { x: areaSize.wid * 0.40, y: areaSize.hei * 0.275, wid: areaSize.wid * 0.20, hei: areaSize.hei * 0.45 } });
+    advtVars.area.get("Over World").set("Cave Opening", { img: advtVars.worldImgs.caveOpening, enterable: { area: "Cave", enviorment: "Cave Exit" }, color: color(255, 255, 255), numOfEnemys: 0, zone: { x: areaSize.wid * 0.35, y: areaSize * 0.35, wid: areaSize.wid * 0.05, hei: areaSize * 0.05 } });
+    advtVars.area.get("Over World").set("Castle Gate", { img: advtVars.worldImgs.castleEntrance, enterable: { area: "Castle", enviorment: "Castle Exit" }, color: color(255, 255, 255), numOfEnemys: 0, zone: { x: 0, y: -areaSize * 0.40, wid: areaSize.wid * 0.05, hei: areaSize.hei * 0.05 } });
+
+    areaSize = advtVars.worldVars.sizeMedium;
+    advtVars.area.set("Cave", new Map());
+    advtVars.area.get("Cave").set("Cave", { img: advtVars.worldImgs.cave, enterable: false, color: color(139, 15, 205), numOfEnemys: 30, enemy: { lvlMin: 10, lvlMax: 15, group: advtVars.npcGroups.cave }, zone: { x: 0, y: 0, wid: areaSize, hei: areaSize } });
+    advtVars.area.get("Cave").set("Cave Exit", { img: advtVars.worldImgs.caveExit, enterable: { area: "Over World", enviorment: "Cave Opening" }, color: color(0, 0, 0), numOfEnemys: , enemy: { lvlMin: , lvlMax: , group:  }, zone: { x: , y: , wid: , hei:  } });
+    advtVars.area.get("Cave").set("Castle Cave Exit", { img: advtVars.worldImgs.stairs, enterable: { area: "Castle", enviorment: "Cave Entrance" }, color: color(0, 0, 0), numOfEnemys: , enemy: { lvlMin: , lvlMax: , group:  }, zone: { x: , y: , wid: , hei:  } });
+    advtVars.area.get("Cave").set("Demon Gate", { img: advtVars.worldImgs.demonGate, enterable: { area: "Demon Realm", enviorment: "Demon Gate" }, color: color(0, 0, 0), numOfEnemys: , enemy: { lvlMin: , lvlMax: , group:  }, zone: { x: , y: , wid: , hei:  } });
+
+    advtVars.ares.set("Demon Realm", new Map());
+    advtVars.area.get("Demon Realm").set("Demon Realm", { img: advtVars.worldImgs.demonRealm, enterable: false, color: color(0, 0, 0), numOfEnemys: , enemy: { lvlMin: , lvlMax: , group:  }, zone: { x: , y: , wid: , hei:  } });
+    advtVars.area.get("Demon Realm").set("Demon Gate", { img: advtVars.worldImgs.demonGate, enterable: { area: "Cave", enviorment: "Demon Gate" }, color: color(0, 0, 0), numOfEnemys: , enemy: { lvlMin: , lvlMax: , group:  }, zone: { x: , y: , wid: , hei:  } });
+
+    advtVars.ares.set("Castle", new Map());
+    advtVars.area.get("Castle").set("Throne Room", { img: advtVars.worldImgs.throneRoom, enterable: false, color: color(0, 0, 0), numOfEnemys: , enemy: { lvlMin: , lvlMax: , group:  }, zone: { x: , y: , wid: , hei:  } });
+    advtVars.area.get("Castle").set("Castle Exit", { img: advtVars.worldImgs.door, enterable: { area: "Over World", enviorment: "Castle Gate" }, color: color(0, 0, 0), numOfEnemys: , enemy: { lvlMin: , lvlMax: , group:  }, zone: { x: , y: , wid: , hei:  } });
+    advtVars.area.get("Castle").set("Cave Entrance", { img: advtVars.worldImgs.stairs, enterable: { area: "Cave", enviorment: "Castle Cave Exit" }, color: color(0, 0, 0), numOfEnemys: , enemy: { lvlMin: , lvlMax: , group:  }, zone: { x: , y: , wid: , hei:  } });
+    advtVars.area.get("Castle").set("Dungeon Entrance", { img: advtVars.worldImgs.stairs, enterable: { area: "Dungeon", enviorment: "Exit" }, color: color(0, 0, 0), numOfEnemys: , enemy: { lvlMin: , lvlMax: , group:  }, zone: { x: , y: , wid: , hei:  } });
+
+    advtVars.ares.set("Dungeon", new Map());
+    advtVars.area.get("Dungeon").set("Exit", { img: advtVars.worldImgs.stairs, enterable: { area: "", enviorment: "" }, color: color(0, 0, 0), numOfEnemys: , enemy: { lvlMin: , lvlMax: , group:  }, zone: { x: , y: , wid: , hei:  } });
+    advtVars.area.get("Dungeon").set("Level 1", { img: advtVars.worldImgs.dungeon, enterable: false, color: color(0, 0, 0), numOfEnemys: , enemy: { lvlMin: , lvlMax: , group:  }, zone: { x: , y: , wid: , hei:  } });
+    advtVars.area.get("Dungeon").set("Down 2", { img: advtVars.worldImgs.stairs, enterable: { area: "", enviorment: "" }, color: color(0, 0, 0), numOfEnemys: , enemy: { lvlMin: , lvlMax: , group:  }, zone: { x: , y: , wid: , hei:  } });
+
+    advtVars.area.get("Dungeon").set("Up 1", { img: advtVars.worldImgs.stairs, enterable: { area: "", enviorment: "" }, color: color(0, 0, 0), numOfEnemys: , enemy: { lvlMin: , lvlMax: , group:  }, zone: { x: , y: , wid: , hei:  } });
+    advtVars.area.get("Dungeon").set("Level 2", { img: advtVars.worldImgs.dungeon, enterable: false, color: color(0, 0, 0), numOfEnemys: , enemy: { lvlMin: , lvlMax: , group:  }, zone: { x: , y: , wid: , hei:  } });
+    advtVars.area.get("Dungeon").set("Down 3", { img: advtVars.worldImgs.stairs, enterable: { area: "", enviorment: "" }, color: color(0, 0, 0), numOfEnemys: , enemy: { lvlMin: , lvlMax: , group:  }, zone: { x: , y: , wid: , hei:  } });
+
+    advtVars.area.get("Dungeon").set("Up 2", { img: advtVars.worldImgs.stairs, enterable: { area: "", enviorment: "" }, color: color(0, 0, 0), numOfEnemys: , enemy: { lvlMin: , lvlMax: , group:  }, zone: { x: , y: , wid: , hei:  } });
+    advtVars.area.get("Dungeon").set("Level 3", { img: advtVars.worldImgs.dungeon, enterable: false, color: color(0, 0, 0), numOfEnemys: , enemy: { lvlMin: , lvlMax: , group:  }, zone: { x: , y: , wid: , hei:  } });
+    advtVars.area.get("Dungeon").set("Down 4", { img: advtVars.worldImgs.stairs, enterable: { area: "", enviorment: "" }, color: color(0, 0, 0), numOfEnemys: , enemy: { lvlMin: , lvlMax: , group:  }, zone: { x: , y: , wid: , hei:  } });
+
+    advtVars.area.get("Dungeon").set("Up 3", { img: advtVars.worldImgs.stairs, enterable: { area: "", enviorment: "" }, color: color(0, 0, 0), numOfEnemys: , enemy: { lvlMin: , lvlMax: , group:  }, zone: { x: , y: , wid: , hei:  } });
+    advtVars.area.get("Dungeon").set("Level 4", { img: advtVars.worldImgs.dungeon, enterable: false, color: color(0, 0, 0), numOfEnemys: , enemy: { lvlMin: , lvlMax: , group:  }, zone: { x: , y: , wid: , hei:  } });
+    advtVars.area.get("Dungeon").set("Down 5", { img: advtVars.worldImgs.stairs, enterable: { area: "", enviorment: "" }, color: color(0, 0, 0), numOfEnemys: , enemy: { lvlMin: , lvlMax: , group:  }, zone: { x: , y: , wid: , hei:  } });
+    
+    advtVars.area.get("Dungeon").set("Up 4", { img: advtVars.worldImgs.stairs, enterable: { area: "", enviorment: "" }, color: color(0, 0, 0), numOfEnemys: , enemy: { lvlMin: , lvlMax: , group:  }, zone: { x: , y: , wid: , hei:  } });
+    advtVars.area.get("Dungeon").set("Level 5", { img: advtVars.worldImgs.dungeon, enterable: false, color: color(0, 0, 0), numOfEnemys: , enemy: { lvlMin: , lvlMax: , group:  }, zone: { x: , y: , wid: , hei:  } });
+    advtVars.area.get("Dungeon").set("Bottom", { img: advtVars.worldImgs.stairs, enterable: { area: "", enviorment: "" }, color: color(0, 0, 0), numOfEnemys: , enemy: { lvlMin: , lvlMax: , group:  }, zone: { x: , y: , wid: , hei:  } });
+    
+    advtVars.area.get("Dungeon").set("Up 5", { img: advtVars.worldImgs.stairs, enterable: { area: "", enviorment: "" }, color: color(0, 0, 0), numOfEnemys: , enemy: { lvlMin: , lvlMax: , group:  }, zone: { x: , y: , wid: , hei:  } });
+    advtVars.area.get("Dungeon").set("Boss", { img: advtVars.worldImgs.dungeon, enterable: false, color: color(0, 0, 0), numOfEnemys: , enemy: { lvlMin: , lvlMax: , group:  }, zone: { x: , y: , wid: , hei:  } });
+
+
+}
+
+function advtMinimapVars() {
+
+}
+//-----------------------------------------------

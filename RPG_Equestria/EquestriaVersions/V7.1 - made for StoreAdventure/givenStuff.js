@@ -2,6 +2,7 @@
 // general
 let gameState;
 let settings = {};
+let keyBindings = {};
 let spriteSize = {};
 let killedEnemys = 0;
 
@@ -87,6 +88,9 @@ function setup() {
     buttons = new Map();
     setButtonCharacteristics();
 
+    // set variable fucntions
+    setSettingsMenu();
+
     // set sprite sizes
     spriteSize.sampleWidth = width * 0.30;
     spriteSize.sampleHeight = height * 0.50;
@@ -135,11 +139,12 @@ function setSettingsMenu() {
     settings.buttons = [];
     for (let i = 0; i < settings.options.length; i++) {
         settings.buttons.push(new Button(
-            buttonVars.center, buttonVars.top+(i*butHeight),
+            buttonVars.center, buttonVars.top + (i * butHeight),
             buttonVars.width, butHeight,
             buttonCol.get("orange"), buttonCol.get("light orange"),
             buttonCol.get("light orange"), buttonCol.get("orange"),
-            settings.options[i], fonts.special, fontSize.default))
+            settings.options[i], fonts.special, fontSize.default
+        ));
     }
 
     settings.quit = {};
@@ -148,12 +153,31 @@ function setSettingsMenu() {
         buttonVars.width, butHeight,
         buttonCol.get("light red"), buttonCol.get("red"),
         buttonCol.get("black"), buttonCol.get("grey"),
-        settings.options[i], fonts.special, fontSize.default
-    )
+        "Main Menu", fonts.special, fontSize.default
+    );
+
+    settings.quit.no = new Button(
+        buttonVars.left, buttonVars.center,
+        buttonVars.width, butHeight,
+        buttonCol.get("light green"), buttonCol.get("green"),
+        buttonCol.get("black"), buttonCol.get("grey"),
+        "Back", fonts.special, fontSize.default
+    );
 }
 
 function calcButListHei(length) {
     return height*0.90/length;
+}
+
+function staticVariable(size) {
+    // creates and keeps track of a static variable
+    if (typeof static.counter == "undefined")
+        static.counter = 0;
+
+    if (static.counter >= size)
+        static.counter = 0;
+
+    return static.counter++;
 }
 
 function draw(){

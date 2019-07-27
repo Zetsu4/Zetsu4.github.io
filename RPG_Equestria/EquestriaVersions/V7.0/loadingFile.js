@@ -562,8 +562,8 @@ function settingKeyBindings() {
   keyBindings.set("Settings", {code: 27, state: "settings", button: 0}); // Escape
   keyBindings.set("Open Map", {code: 77, state: "map", button: 0}); // M
   keyBindings.set("Inventory", {code: 69, state: "inventory", button: 0}); // E
-  keyBindings.set("Toggle Ranged", {code: 49, state: "ranged", button: 0}); // R
-  keyBindings.set("Toggle Magic", {code: 50, state: "magic", button: 0}); // T
+  keyBindings.set("Toggle Ranged", {code: 49, state: "ranged", button: 0}); // 1
+  keyBindings.set("Toggle Magic", {code: 50, state: "magic", button: 0}); // 2
   keyBindings.set("Place Trap", {code: 81, button: 0}); // Q
   keyBindings.set("Move Up", {code: 87, button: 0}); // W
   keyBindings.set("Move Left", {code: 65, button: 0}); // A
