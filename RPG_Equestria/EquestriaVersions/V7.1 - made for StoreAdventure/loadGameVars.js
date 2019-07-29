@@ -170,7 +170,7 @@ function advtSetup() {
     startAdvt();
 
     // setting enemy/guild attack types
-    let widHei = (width + height) / 2;
+    let widHei = (width + height) * 0.50;
     advtVars.meleeAttacker = {
         npcDist: widHei * 0.075,
         attackDist: widHei * 0.10,
@@ -201,15 +201,15 @@ function advtSetup() {
     advtSettingKeyBindings();
     advtSetSprites();
     advtSetWorldAreas();
-    // advtSetItems();
-    // advtSetPlayer();
-    // advtSetNPCs();
-    // advtSetQuests();
-    // advtSetShops();
+    advtSetPlayer();
+    advtSetQuests();
+    advtSetNPCs();
+    advtSetShops();
 }
 
 function startAdvt() {
     // called every time adventure mode begins
+    itemsGround = [];
     advtVars.startingState = 0;
     advtVars.state = 0;
     advtVars.recentPickUps = "";
@@ -618,6 +618,7 @@ function advtSetCharacterStats() {
 }
 
 function advtGroups() {
+    // character combanations for spesific areas
     advtVars.npcGroups = {};
     advtVars.npcGroups.player = {
         race: ["Human", "Half-Elf", "Elf", "Dwarf", "Halfling", "Goblin", "Orc", "Uruk-Hai"],
@@ -667,71 +668,97 @@ function advtSetWorldAreas() {
     advtVars.worldVars.playerX = 0;
     advtVars.worldVars.playerY = 0;
 
-    // areas and enviroments
+    // big areas and areas
         // Over World
     let areaSize = advtVars.worldVars.sizeLarge;
-    advtVars.area = new Map();
-    advtVars.area.set("Over World", new Map());
-    advtVars.area.get("Over World").set("Meadows", { img: advtVars.worldImgs.grass, enterable: false, color: color(249, 166, 6), numOfEnemys: 30, enemy: { lvlMin: 0, lvlMax: 2, group: advtVars.npcGroups.overWorld }, zone: { x: 0, y: 0, wid: areaSize.wid, hei: areaSize.hei } });
-    advtVars.area.get("Over World").set("Town", { img: advtVars.worldImgs.town, enterable: false, color: color(0, 255, 0), numOfEnemys: 0, zone: { x: 0, y: 0, wid: areaSize.wid * 0.15, hei: areaSize.hei * 0.15 } });
-    advtVars.area.get("Over World").set("Desert", { img: advtVars.worldImgs.desert, enterable: false, color: color(0, 0, 255), numOfEnemys: 40, enemy: { lvlMin: 1, lvlMax: 4, group: advtVars.npcGroups.overWorld }, zone: { x: -areaSize.wid * 0.2125, y: areaSize.hei * 0.30, wid: areaSize.wid * 0.575, hei: areaSize.hei * 0.40 } });
-    advtVars.area.get("Over World").set("Forest", { img: advtVars.worldImgs.forest, enterable: false, color: color(135, 96, 66), numOfEnemys: 40, enemy: { lvlMin: 3, lvlMax: 6, group: advtVars.npcGroups.overWorld }, zone: { x: areaSize.wid * 0.30, y: areaSize.hei * 0.325, wid: areaSize.wid * 0.40, hei: areaSize.hei * 0.35 } });
-    advtVars.area.get("Over World").set("Mountains", { img: advtVars.worldImgs.mountain, enterable: false, color: color(162, 206, 228), numOfEnemys: 45, enemy: { lvlMin: 5, lvlMax: 10, group: advtVars.npcGroups.overWorld }, zone: { x: areaSize.wid * 0.40, y: areaSize.hei * 0.275, wid: areaSize.wid * 0.20, hei: areaSize.hei * 0.45 } });
-    advtVars.area.get("Over World").set("Cave Opening", { img: advtVars.worldImgs.caveOpening, enterable: { area: "Cave", enviorment: "Cave Exit" }, color: color(255, 255, 255), numOfEnemys: 0, zone: { x: areaSize.wid * 0.35, y: areaSize * 0.35, wid: areaSize.wid * 0.05, hei: areaSize * 0.05 } });
-    advtVars.area.get("Over World").set("Castle Gate", { img: advtVars.worldImgs.castleEntrance, enterable: { area: "Castle", enviorment: "Castle Exit" }, color: color(255, 255, 255), numOfEnemys: 0, zone: { x: 0, y: -areaSize * 0.40, wid: areaSize.wid * 0.05, hei: areaSize.hei * 0.05 } });
+    advtVars.bigArea = new Map();
+    advtVars.bigArea.set("Over World", new Map());
+    advtVars.bigArea.get("Over World").set("Meadows", { img: advtVars.worldImgs.grass, enterable: false, color: color(249, 166, 6), numOfEnemys: 30, enemy: { lvlMin: 0, lvlMax: 2, group: advtVars.npcGroups.overWorld }, zone: { x: 0, y: 0, wid: areaSize.wid, hei: areaSize.hei } });
+    advtVars.bigArea.get("Over World").set("Town", { img: advtVars.worldImgs.town, enterable: false, color: color(0, 255, 0), numOfEnemys: 0, zone: { x: 0, y: 0, wid: areaSize.wid * 0.15, hei: areaSize.hei * 0.15 } });
+    advtVars.bigArea.get("Over World").set("Desert", { img: advtVars.worldImgs.desert, enterable: false, color: color(0, 0, 255), numOfEnemys: 40, enemy: { lvlMin: 1, lvlMax: 4, group: advtVars.npcGroups.overWorld }, zone: { x: -areaSize.wid * 0.2125, y: areaSize.hei * 0.30, wid: areaSize.wid * 0.575, hei: areaSize.hei * 0.40 } });
+    advtVars.bigArea.get("Over World").set("Forest", { img: advtVars.worldImgs.forest, enterable: false, color: color(135, 96, 66), numOfEnemys: 40, enemy: { lvlMin: 3, lvlMax: 6, group: advtVars.npcGroups.overWorld }, zone: { x: areaSize.wid * 0.30, y: areaSize.hei * 0.325, wid: areaSize.wid * 0.40, hei: areaSize.hei * 0.35 } });
+    advtVars.bigArea.get("Over World").set("Mountains", { img: advtVars.worldImgs.mountain, enterable: false, color: color(162, 206, 228), numOfEnemys: 45, enemy: { lvlMin: 5, lvlMax: 10, group: advtVars.npcGroups.overWorld }, zone: { x: areaSize.wid * 0.40, y: areaSize.hei * 0.275, wid: areaSize.wid * 0.20, hei: areaSize.hei * 0.45 } });
+    advtVars.bigArea.get("Over World").set("Cave Opening", { img: advtVars.worldImgs.caveOpening, enterable: { bigArea: "Cave", area: "Cave Exit" }, color: color(255, 255, 255), numOfEnemys: 0, zone: { x: areaSize.wid * 0.35, y: areaSize * 0.35, wid: areaSize.wid * 0.05, hei: areaSize * 0.05 } });
+    advtVars.bigArea.get("Over World").set("Castle Gate", { img: advtVars.worldImgs.castleEntrance, enterable: { bigArea: "Castle", area: "Castle Exit" }, color: color(255, 255, 255), numOfEnemys: 0, zone: { x: 0, y: -areaSize * 0.40, wid: areaSize.wid * 0.05, hei: areaSize.hei * 0.05 } });
 
         // Cave
     areaSize = advtVars.worldVars.sizeMedium;
-    advtVars.area.set("Cave", new Map());
-    advtVars.area.get("Cave").set("Cave", { img: advtVars.worldImgs.cave, enterable: false, color: color(139, 15, 205), numOfEnemys: 30, enemy: { lvlMin: 10, lvlMax: 15, group: advtVars.npcGroups.cave }, zone: { x: 0, y: 0, wid: areaSize, hei: areaSize } });
-    advtVars.area.get("Cave").set("Cave Exit", { img: advtVars.worldImgs.caveExit, enterable: { area: "Over World", enviorment: "Cave Opening" }, color: color(200, 200, 200), numOfEnemys: 3, enemy: { lvlMin: 8, lvlMax: 12, group: advtVars.npcGroups.cave }, zone: { x: areaSize.wid * 0.35, y: areaSize.hei * 0.35, wid: areaSize.wid * 0.05, hei: areaSize.hei * 0.05 } });
-    advtVars.area.get("Cave").set("Castle Cave Exit", { img: advtVars.worldImgs.stairs, enterable: { area: "Castle", enviorment: "Cave Entrance" }, color: color(200, 200, 200), numOfEnemys: 0, zone: { x: -areaSize.wid * 0.20, y: areaSize.hei * 0.45, wid: areaSize.wid * 0.05, hei: areaSize.hei * 0.05 } });
-    advtVars.area.get("Cave").set("Demon Gate", { img: advtVars.worldImgs.demonGate, enterable: { area: "Demon Realm", enviorment: "Demon Gate" }, color: color(25, 255, 199), numOfEnemys: 40, enemy: { lvlMin: 13, lvlMax: 25, group: advtVars.npcGroups.demonGate }, zone: { x: 0, y: 0, wid: areaSize.wid * 0.20, hei: areaSize.hei * 0.20 } });
+    advtVars.bigArea.set("Cave", new Map());
+    advtVars.bigArea.get("Cave").set("Cave", { img: advtVars.worldImgs.cave, enterable: false, color: color(139, 15, 205), numOfEnemys: 30, enemy: { lvlMin: 10, lvlMax: 15, group: advtVars.npcGroups.cave }, zone: { x: 0, y: 0, wid: areaSize, hei: areaSize } });
+    advtVars.bigArea.get("Cave").set("Cave Exit", { img: advtVars.worldImgs.caveExit, enterable: { bigArea: "Over World", area: "Cave Opening" }, color: color(200, 200, 200), numOfEnemys: 3, enemy: { lvlMin: 8, lvlMax: 12, group: advtVars.npcGroups.cave }, zone: { x: areaSize.wid * 0.35, y: areaSize.hei * 0.35, wid: areaSize.wid * 0.05, hei: areaSize.hei * 0.05 } });
+    advtVars.bigArea.get("Cave").set("Castle Cave Exit", { img: advtVars.worldImgs.stairs, enterable: { bigArea: "Castle", area: "Cave Entrance" }, color: color(200, 200, 200), numOfEnemys: 0, zone: { x: -areaSize.wid * 0.20, y: areaSize.hei * 0.45, wid: areaSize.wid * 0.05, hei: areaSize.hei * 0.05 } });
+    advtVars.bigArea.get("Cave").set("Demon Gate", { img: advtVars.worldImgs.demonGate, enterable: { bigArea: "Demon Realm", area: "Demon Gate" }, color: color(25, 255, 199), numOfEnemys: 40, enemy: { lvlMin: 13, lvlMax: 25, group: advtVars.npcGroups.demonGate }, zone: { x: 0, y: 0, wid: areaSize.wid * 0.20, hei: areaSize.hei * 0.20 } });
 
         // Demon Realm
     areaSize = advtVars.worldVars.sizeMedium;
     advtVars.ares.set("Demon Realm", new Map());
-    advtVars.area.get("Demon Realm").set("Demon Realm", { img: advtVars.worldImgs.demonRealm, enterable: false, color: color(212, 0, 57), numOfEnemys: 50, enemy: { lvlMin: 20, lvlMax: 30, group: advtVars.npcGroups.demons }, zone: { x: 0., y: 0, wid: areaSize.wid, hei: areaSize.hei } });
-    advtVars.area.get("Demon Realm").set("Demon Gate", { img: advtVars.worldImgs.demonGate, enterable: { area: "Cave", enviorment: "Demon Gate" }, color: color(212, 0, 57), numOfEnemys: 20, enemy: { lvlMin: 17, lvlMax: 27, group: advtVars.npcGroups.demons }, zone: { x: 0, y: 0, wid: areaSize.wid * 0.10, hei: areaSize.hei * 0.10 } });
+    advtVars.bigArea.get("Demon Realm").set("Demon Realm", { img: advtVars.worldImgs.demonRealm, enterable: false, color: color(212, 0, 57), numOfEnemys: 50, enemy: { lvlMin: 20, lvlMax: 30, group: advtVars.npcGroups.demons }, zone: { x: 0., y: 0, wid: areaSize.wid, hei: areaSize.hei } });
+    advtVars.bigArea.get("Demon Realm").set("Demon Gate", { img: advtVars.worldImgs.demonGate, enterable: { bigArea: "Cave", area: "Demon Gate" }, color: color(212, 0, 57), numOfEnemys: 20, enemy: { lvlMin: 17, lvlMax: 27, group: advtVars.npcGroups.demons }, zone: { x: 0, y: 0, wid: areaSize.wid * 0.10, hei: areaSize.hei * 0.10 } });
 
         // Castle
     areaSize = advtVars.worldVars.sizeLarge;
     advtVars.ares.set("Castle", new Map());
-    advtVars.area.get("Castle").set("Throne Room", { img: advtVars.worldImgs.throneRoom, enterable: false, color: color(212, 0, 57), numOfEnemys: 40, enemy: { lvlMin: 15, lvlMax: 25, group: advtVars.npcGroups.castle }, zone: { x: 0, y: 0, wid: areaSize.wid, hei: areaSize.hei } });
-    advtVars.area.get("Castle").set("Castle Exit", { img: advtVars.worldImgs.door, enterable: { area: "Over World", enviorment: "Castle Gate" }, color: color(212, 0, 57), numOfEnemys: 0, zone: { x: 0, y: -areaSize.hei * 0.45, wid: areaSize.wid * 0.05, hei: areaSize.hei * 0.025 } });
-    advtVars.area.get("Castle").set("Cave Entrance", { img: advtVars.worldImgs.stairs, enterable: { area: "Cave", enviorment: "Castle Cave Exit" }, color: color(212, 0, 57), numOfEnemys: 0, zone: { x: -areaSize.wid * 0.20, y: areaSize.hei * 0.45, wid: areaSize.wid * 0.025, hei: areaSize.hei * 0.025 } });
-    advtVars.area.get("Castle").set("Dungeon Entrance", { img: advtVars.worldImgs.stairs, enterable: { area: "Dungeon", enviorment: "Exit" }, color: color(212, 0, 57), numOfEnemys: 0, zone: { x: areaSize.wid * 0.20, y: areaSize.hei * 0.45, wid: areaSize.wid * 0.025, hei: areaSize.hei * 0.025 } });
+    advtVars.bigArea.get("Castle").set("Throne Room", { img: advtVars.worldImgs.throneRoom, enterable: false, color: color(212, 0, 57), numOfEnemys: 40, enemy: { lvlMin: 15, lvlMax: 25, group: advtVars.npcGroups.castle }, zone: { x: 0, y: 0, wid: areaSize.wid, hei: areaSize.hei } });
+    advtVars.bigArea.get("Castle").set("Castle Exit", { img: advtVars.worldImgs.door, enterable: { bigArea: "Over World", area: "Castle Gate" }, color: color(212, 0, 57), numOfEnemys: 0, zone: { x: 0, y: -areaSize.hei * 0.45, wid: areaSize.wid * 0.05, hei: areaSize.hei * 0.025 } });
+    advtVars.bigArea.get("Castle").set("Cave Entrance", { img: advtVars.worldImgs.stairs, enterable: { bigArea: "Cave", area: "Castle Cave Exit" }, color: color(212, 0, 57), numOfEnemys: 0, zone: { x: -areaSize.wid * 0.20, y: areaSize.hei * 0.45, wid: areaSize.wid * 0.025, hei: areaSize.hei * 0.025 } });
+    advtVars.bigArea.get("Castle").set("Dungeon Entrance", { img: advtVars.worldImgs.stairs, enterable: { bigArea: "Dungeon", area: "Exit" }, color: color(212, 0, 57), numOfEnemys: 0, zone: { x: areaSize.wid * 0.20, y: areaSize.hei * 0.45, wid: areaSize.wid * 0.025, hei: areaSize.hei * 0.025 } });
 
         // Dungeons
     areaSize = advtVars.worldVars.sizeLarge;
     advtVars.ares.set("Dungeon", new Map());
-    advtVars.area.get("Dungeon").set("Exit", { img: advtVars.worldImgs.stairs, enterable: { area: "", enviorment: "" }, color: color(212, 0, 57), numOfEnemys: 0, zone: { x: areaSize.wid * 0.20, y: areaSize.hei * 0.45, wid: areaSize.wid * 0.025, hei: areaSize.hei * 0. } });
-    advtVars.area.get("Dungeon").set("Level 1", { img: advtVars.worldImgs.dungeon, enterable: false, color: color(212, 0, 57), numOfEnemys: 30, enemy: { lvlMin: 20, lvlMax: 40, group: advtVars.npcGroups.dungeon }, zone: { x: 0, y: 0, wid: areaSize.wid, hei: areaSize.hei } });
-    advtVars.area.get("Dungeon").set("Down 2", { img: advtVars.worldImgs.stairs, enterable: { area: "", enviorment: "" }, color: color(212, 0, 57), numOfEnemys: 0, zone: { x: -areaSize.wid * 0.45, y: -areaSize.hei * 0.45, wid: areaSize.wid * 0.025, hei: areaSize.hei * 0.025 } });
+    advtVars.bigArea.get("Dungeon").set("Exit", { img: advtVars.worldImgs.stairs, enterable: { bigArea: "Castle ", area: "Dungeon Entrance" }, color: color(212, 0, 57), numOfEnemys: 0, zone: { x: areaSize.wid * 0.20, y: areaSize.hei * 0.45, wid: areaSize.wid * 0.025, hei: areaSize.hei * 0. } });
+    advtVars.bigArea.get("Dungeon").set("Level 1", { img: advtVars.worldImgs.dungeon, enterable: false, color: color(212, 0, 57), numOfEnemys: 30, enemy: { lvlMin: 20, lvlMax: 40, group: advtVars.npcGroups.dungeon }, zone: { x: 0, y: 0, wid: areaSize.wid, hei: areaSize.hei } });
+    advtVars.bigArea.get("Dungeon").set("Down 2", { img: advtVars.worldImgs.stairs, enterable: { bigArea: "Dungeon", area: "Up 1" }, color: color(212, 0, 57), numOfEnemys: 0, zone: { x: -areaSize.wid * 0.45, y: -areaSize.hei * 0.45, wid: areaSize.wid * 0.025, hei: areaSize.hei * 0.025 } });
 
-    advtVars.area.get("Dungeon").set("Up 1", { img: advtVars.worldImgs.stairs, enterable: { area: "", enviorment: "" }, color: color(212, 0, 57), numOfEnemys: 0, zone: { x: -areaSize.wid * 0.45, y: -areaSize.hei * 0.45, wid: areaSize.wid * 0.025, hei: areaSize.hei * 0.025 } });
-    advtVars.area.get("Dungeon").set("Level 2", { img: advtVars.worldImgs.dungeon, enterable: false, color: color(212, 0, 57), numOfEnemys: 35, enemy: { lvlMin: 35, lvlMax: 55, group: advtVars.npcGroups.dungeon }, zone: { x: 0, y: 0, wid: areaSize.wid, hei: areaSize.hei } });
-    advtVars.area.get("Dungeon").set("Down 3", { img: advtVars.worldImgs.stairs, enterable: { area: "", enviorment: "" }, color: color(212, 0, 57), numOfEnemys: 0, zone: { x: areaSize.wid * 0.45, y: areaSize.hei * 0.45, wid: areaSize.wid * 0.025, hei: areaSize.hei * 0.025 } });
+    advtVars.bigArea.get("Dungeon").set("Up 1", { img: advtVars.worldImgs.stairs, enterable: { bigArea: "Dungeon", area: "Down 2" }, color: color(212, 0, 57), numOfEnemys: 0, zone: { x: -areaSize.wid * 0.45, y: -areaSize.hei * 0.45, wid: areaSize.wid * 0.025, hei: areaSize.hei * 0.025 } });
+    advtVars.bigArea.get("Dungeon").set("Level 2", { img: advtVars.worldImgs.dungeon, enterable: false, color: color(212, 0, 57), numOfEnemys: 35, enemy: { lvlMin: 35, lvlMax: 55, group: advtVars.npcGroups.dungeon }, zone: { x: 0, y: 0, wid: areaSize.wid, hei: areaSize.hei } });
+    advtVars.bigArea.get("Dungeon").set("Down 3", { img: advtVars.worldImgs.stairs, enterable: { bigArea: "Dungeon", area: "Up 2" }, color: color(212, 0, 57), numOfEnemys: 0, zone: { x: areaSize.wid * 0.45, y: areaSize.hei * 0.45, wid: areaSize.wid * 0.025, hei: areaSize.hei * 0.025 } });
 
-    advtVars.area.get("Dungeon").set("Up 2", { img: advtVars.worldImgs.stairs, enterable: { area: "", enviorment: "" }, color: color(212, 0, 57), numOfEnemys: 0, zone: { x: areaSize.wid * 0.45, y: areaSize.hei * 0.45, wid: areaSize.wid * 0.025, hei: areaSize.hei * 0.025 } });
-    advtVars.area.get("Dungeon").set("Level 3", { img: advtVars.worldImgs.dungeon, enterable: false, color: color(212, 0, 57), numOfEnemys: 40, enemy: { lvlMin: 50, lvlMax: 70, group: advtVars.npcGroups.dungeon }, zone: { x: 0, y: 0, wid: areaSize.wid, hei: areaSize.hei } });
-    advtVars.area.get("Dungeon").set("Down 4", { img: advtVars.worldImgs.stairs, enterable: { area: "", enviorment: "" }, color: color(212, 0, 57), numOfEnemys: 0, zone: { x: -areaSize.wid * 0.45, y: -areaSize.hei * 0.45, wid: areaSize.wid * 0.025, hei: areaSize.hei * 0.025 } });
+    advtVars.bigArea.get("Dungeon").set("Up 2", { img: advtVars.worldImgs.stairs, enterable: { bigArea: "Dungeon", area: "Down 3" }, color: color(212, 0, 57), numOfEnemys: 0, zone: { x: areaSize.wid * 0.45, y: areaSize.hei * 0.45, wid: areaSize.wid * 0.025, hei: areaSize.hei * 0.025 } });
+    advtVars.bigArea.get("Dungeon").set("Level 3", { img: advtVars.worldImgs.dungeon, enterable: false, color: color(212, 0, 57), numOfEnemys: 40, enemy: { lvlMin: 50, lvlMax: 70, group: advtVars.npcGroups.dungeon }, zone: { x: 0, y: 0, wid: areaSize.wid, hei: areaSize.hei } });
+    advtVars.bigArea.get("Dungeon").set("Down 4", { img: advtVars.worldImgs.stairs, enterable: { bigArea: "Dungeon", area: "Up 3" }, color: color(212, 0, 57), numOfEnemys: 0, zone: { x: -areaSize.wid * 0.45, y: -areaSize.hei * 0.45, wid: areaSize.wid * 0.025, hei: areaSize.hei * 0.025 } });
 
-    advtVars.area.get("Dungeon").set("Up 3", { img: advtVars.worldImgs.stairs, enterable: { area: "", enviorment: "" }, color: color(212, 0, 57), numOfEnemys: 0, zone: { x: -areaSize.wid * 0.45, y: -areaSize.hei * 0.45, wid: areaSize.wid * 0.025, hei: areaSize.hei * 0.025 } });
-    advtVars.area.get("Dungeon").set("Level 4", { img: advtVars.worldImgs.dungeon, enterable: false, color: color(212, 0, 57), numOfEnemys: 45, enemy: { lvlMin: 75, lvlMax: 95, group: advtVars.npcGroups.dungeon }, zone: { x: 0, y: 0, wid: areaSize.wid, hei: areaSize.hei } });
-    advtVars.area.get("Dungeon").set("Down 5", { img: advtVars.worldImgs.stairs, enterable: { area: "", enviorment: "" }, color: color(212, 0, 57), numOfEnemys: 0, zone: { x: areaSize.wid * 0.45, y: areaSize.hei * 0.45, wid: areaSize.wid * 0.025, hei: areaSize.hei * 0.025 } });
+    advtVars.bigArea.get("Dungeon").set("Up 3", { img: advtVars.worldImgs.stairs, enterable: { bigArea: "Dungeon", area: "Down 4" }, color: color(212, 0, 57), numOfEnemys: 0, zone: { x: -areaSize.wid * 0.45, y: -areaSize.hei * 0.45, wid: areaSize.wid * 0.025, hei: areaSize.hei * 0.025 } });
+    advtVars.bigArea.get("Dungeon").set("Level 4", { img: advtVars.worldImgs.dungeon, enterable: false, color: color(212, 0, 57), numOfEnemys: 45, enemy: { lvlMin: 75, lvlMax: 95, group: advtVars.npcGroups.dungeon }, zone: { x: 0, y: 0, wid: areaSize.wid, hei: areaSize.hei } });
+    advtVars.bigArea.get("Dungeon").set("Down 5", { img: advtVars.worldImgs.stairs, enterable: { bigArea: "Dungeon", area: "Up 4" }, color: color(212, 0, 57), numOfEnemys: 0, zone: { x: areaSize.wid * 0.45, y: areaSize.hei * 0.45, wid: areaSize.wid * 0.025, hei: areaSize.hei * 0.025 } });
     
-    advtVars.area.get("Dungeon").set("Up 4", { img: advtVars.worldImgs.stairs, enterable: { area: "", enviorment: "" }, color: color(212, 0, 57), numOfEnemys: 0, zone: { x: areaSize.wid * 0.45, y: areaSize.hei * 0.45, wid: areaSize.wid * 0.025, hei: areaSize.hei * 0.025 } });
-    advtVars.area.get("Dungeon").set("Level 5", { img: advtVars.worldImgs.dungeon, enterable: false, color: color(212, 0, 57), numOfEnemys: 50, enemy: { lvlMin: 90, lvlMax: 100, group: advtVars.npcGroups.dungeon }, zone: { x: 0, y: 0, wid: areaSize.wid, hei: areaSize.hei } });
-    advtVars.area.get("Dungeon").set("Bottom", { img: advtVars.worldImgs.stairs, enterable: { area: "", enviorment: "" }, color: color(212, 0, 57), numOfEnemys: 0, zone: { x: 0, y: 0, wid: areaSize.wid * 0.025, hei: areaSize.hei * 0.025 } });
+    advtVars.bigArea.get("Dungeon").set("Up 4", { img: advtVars.worldImgs.stairs, enterable: { bigArea: "Dungeon", area: "Down 5" }, color: color(212, 0, 57), numOfEnemys: 0, zone: { x: areaSize.wid * 0.45, y: areaSize.hei * 0.45, wid: areaSize.wid * 0.025, hei: areaSize.hei * 0.025 } });
+    advtVars.bigArea.get("Dungeon").set("Level 5", { img: advtVars.worldImgs.dungeon, enterable: false, color: color(212, 0, 57), numOfEnemys: 50, enemy: { lvlMin: 90, lvlMax: 100, group: advtVars.npcGroups.dungeon }, zone: { x: 0, y: 0, wid: areaSize.wid, hei: areaSize.hei } });
+    advtVars.bigArea.get("Dungeon").set("Bottom", { img: advtVars.worldImgs.stairs, enterable: { bigArea: "Dungeon", area: "Up 5" }, color: color(212, 0, 57), numOfEnemys: 0, zone: { x: 0, y: 0, wid: areaSize.wid * 0.025, hei: areaSize.hei * 0.025 } });
     
-    advtVars.area.get("Dungeon").set("Up 5", { img: advtVars.worldImgs.stairs, enterable: { area: "", enviorment: "" }, color: color(212, 0, 57), numOfEnemys: 0, zone: { x: 0, y: 0, wid: areaSize.wid * 0.025, hei: areaSize.hei * 0.025 } });
-    advtVars.area.get("Dungeon").set("Boss", { img: advtVars.worldImgs.dungeon, enterable: false, color: color(212, 0, 57), numOfEnemys: 10, enemy: { lvlMin: 100, lvlMax: 200, group: advtVars.npcGroups.dungeon }, zone: { x: 0, y: 0, wid: areaSize.wid, hei: areaSize.hei } });
+    advtVars.bigArea.get("Dungeon").set("Up 5", { img: advtVars.worldImgs.stairs, enterable: { bigArea: "Dungeon", area: "Bottom" }, color: color(212, 0, 57), numOfEnemys: 0, zone: { x: 0, y: 0, wid: areaSize.wid * 0.025, hei: areaSize.hei * 0.025 } });
+    advtVars.bigArea.get("Dungeon").set("Boss", { img: advtVars.worldImgs.dungeon, enterable: false, color: color(212, 0, 57), numOfEnemys: 10, enemy: { lvlMin: 100, lvlMax: 200, group: advtVars.npcGroups.dungeon }, zone: { x: 0, y: 0, wid: areaSize.wid, hei: areaSize.hei } });
+
+    // more variables of the world
+    advtVars.worldVars.bigArea = "Over World";
+    advtVars.worldVars.area = "Town";
+    advtVars.worldVars.checkingState = true;
+    advtVars.worldVars.checkTimer = 4000;
+    advtVars.worldVars.lastCheck = millis();
 
     advtMinimapVars();
 }
 
 function advtMinimapVars() {
-
+    // minimap variables
+    advtVars.minimap = {};
+    advtVars.minimap.padWidth = width * 0.25;
+    advtVars.minimap.padHeight = height * 0.30;
+    advtVars.minimap.imgWidth = advtVars.minimap.padWidth - width * 0.02;
+    advtVars.minimap.imgHeight = advtVars.minimap.padHeight - height * 0.02;
+    advtVars.minimap.x = -width * 0.50 + advtVars.minimap.padWidth * 0.50;
+    advtVars.minimap.y = height * 0.50 - advtVars.minimap.padHeight * 0.50;
 }
+//-----------------------------------------------
+// NPCs and shops--------------------------------
+function advtSetNPCs() {
+    shopInventory = make2DGrid();
+}
+
+function advtSetShops() {
+    
+}
+//-----------------------------------------------
+// quests and player-----------------------------
+
 //-----------------------------------------------

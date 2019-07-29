@@ -20,11 +20,15 @@ let buttonVars = {};
 let buttonCol = {};
 
 // quests
-let maxNumQuest;
+let maxNumQuest = 2;
 let questList = [];
 let questLocaions = [];
 let questEntries = [];
 let questDetails;
+
+// items
+let allItems;
+let itemsGround = [];
 
 // main menu
 let mainChoices = [];
@@ -90,6 +94,7 @@ function setup() {
 
     // set variable fucntions
     setSettingsMenu();
+    setQuests();
 
     // set sprite sizes
     spriteSize.sampleWidth = width * 0.30;
@@ -166,7 +171,7 @@ function setSettingsMenu() {
 }
 
 function calcButListHei(length) {
-    return height*0.90/length;
+    return height * 0.90 / length;
 }
 
 function staticVariable(size) {
@@ -178,6 +183,40 @@ function staticVariable(size) {
         static.counter = 0;
 
     return static.counter++;
+}
+
+function setQuests() {
+    questLocations = [
+        { bigArea: "", area: "" },
+        { bigArea: "", area: "" },
+        { bigArea: "", area: "" },
+        { bigArea: "", area: "" },
+        { bigArea: "", area: "" },
+        { bigArea: "", area: "" },
+        { bigArea: "", area: "" },
+        { bigArea: "", area: "" },
+        { bigArea: "", area: "" },
+        { bigArea: "", area: "" },
+        { bigArea: "", area: "" }
+    ];
+
+    questTasks = [
+        "Kill Small Enemys",
+        "Kill Big Enemys",
+        "Explore Area",
+        "Sell Some Stuff"
+    ];
+
+    questDetails = new Map();
+
+    questDetails.set("Kill Small Enemys", { keyWord: "Kill", reward: { money: function funName() { return rewardQuantity() }, exp: function funName() { return rewardQuantity() }, items: function funName() { return int(random(0, 5)) } }, required: 15 });
+    questDetails.set("Kill Big Enemys", { keyWord: "KillBig", reward: { money: function funName() { return (rewardQuantity() * 5) }, exp: function funName() { return (rewardQuantity() * 5) }, items: function funName() { return int(random(2, 8)) } }, required: 10 });
+    questDetails.set("Explore Area", { keyWord: (function chooseRandomArea() { return random(questLocaions) }), reward: { money: function funName() { return (rewardQuantity() * 2) }, exp: function funName() { return (rewardQuantity() * 2) }, items: function funName() { return int(random(1, 3)) } }, required: 1 });
+    questDetails.set("Sell Some Stuff", { keyWord: "Sold", reward: { money: function funName() { return (rewardQuantity()) }, exp: function funName() { return (rewardQuantity() * 2) }, items: function funName() { return int(random(1, 3)) } }, required: 1 });
+}
+
+function rewardQuantity() {
+    return (player.lvl * 5) + int(random(0, 10) * 10);
 }
 
 function draw(){
