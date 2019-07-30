@@ -257,7 +257,7 @@ function loadGame() {
 
     // party members
     for (let i=0; i < loadingGame.guildMembers.length; i++)
-      guildMembers.push(new GuildMember(loadingGame.guildMembers[i].raceIndex, guildInventory[i].skillIndex, guildInventory[i].lvl));
+      guildMembers.push(new GuildMember(loadingGame.guildMembers[i].raceIndex, loadingGame.guildMembers[i].skillIndex, loadingGame.guildMembers[i].lvl));
 
     calculateStats();
     startingState = 2;

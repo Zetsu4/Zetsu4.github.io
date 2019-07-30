@@ -752,10 +752,16 @@ function advtMinimapVars() {
 //-----------------------------------------------
 // NPCs and shops--------------------------------
 function advtSetNPCs() {
-    shopInventory = make2DGrid();
+    advtVars.allNPCs = [];
+    for (let i = 0; i < advtVars.numOfNPCs; i++) {
+        let xSpawn = random(advtVars.bigArea.get("Over World").get("Town").zone.x - advtVars.bigArea.get("Over World").get("Town").zone.wid * 0.50, advtVars.bigArea.get("Over World").get("Town").zone.x + advtVars.bigArea.get("Over World").get("Town").zone.wid * 0.50);
+        let ySpawn = random(advtVars.bigArea.get("Over World").get("Town").zone.y - advtVars.bigArea.get("Over World").get("Town").zone.hei * 0.50, advtVars.bigArea.get("Over World").get("Town").zone.y + advtVars.bigArea.get("Over World").get("Town").zone.hei * 0.50);
+        advtVars.allNPCs.push(new NonPlayableCharacters(xSpawn, ySpawn, npcImg.genericNPC, randomTalk));
+    }
 }
 
 function advtSetShops() {
+    shopInventory = make2DGrid();
     
 }
 //-----------------------------------------------

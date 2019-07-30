@@ -20,7 +20,7 @@ let buttonVars = {};
 let buttonCol = {};
 
 // quests
-let maxNumQuest = 2;
+let maxNumQuest = 10;
 let questList = [];
 let questLocaions = [];
 let questEntries = [];
@@ -40,6 +40,7 @@ let advtVars = {};
 let waiting;
 const WAIT_TIME = 150;
 
+// setup/preload---------------------------------
 function preload() {
     soundFormats("mp3", "wav");
 
@@ -77,6 +78,7 @@ function preload() {
 
 function setup() {
     createCanvas(windowWidth, windowHeight);
+    noStroke();
 
     // alligning
     textAlign(CENTER, CENTER);
@@ -130,7 +132,8 @@ function setButtonCharacteristics() {
     buttonVars.top = -height*0.40;
     buttonVars.width = width*0.15;
 }
-
+//-----------------------------------------------
+// settings menu---------------------------------
 function setSettingsMenu() {
     settings.options = [
         "Play", "Controls", "Map",
@@ -173,6 +176,78 @@ function setSettingsMenu() {
 function calcButListHei(length) {
     return height * 0.90 / length;
 }
+//-----------------------------------------------
+// quests----------------------------------------
+function setQuests() {
+    questLocations = [
+        { bigArea: "Over World", area: "Mountains" },
+        { bigArea: "Cave", area: "Cave" },
+        { bigArea: "Cave", area: "Demon Gate" },
+        { bigArea: "Demon Realm", area: "Demon Realm" },
+        { bigArea: "Castle", area: "Throne Room" },
+        { bigArea: "Dungeon", area: "Level 1" },
+        { bigArea: "Dungeon", area: "Level 2" },
+        { bigArea: "Dungeon", area: "Level 3" },
+        { bigArea: "Dungeon", area: "Level 4" },
+        { bigArea: "Dungeon", area: "Level 5" },
+        { bigArea: "Dungeon", area: "Bottom" }
+    ];
+
+    questTasks = [
+        "Small Enemys",
+        "Big Enemys",
+        "Explore Area",
+        "Sell Stuff"
+    ];
+
+    questDetails = new Map();
+
+    questDetails.set("Small Enemys", { title: "Small Enemys", keyWord: "Kill",
+    required: function reqName() { return int(random(10, 20)); },
+    reward: {
+        money: function funName() { return rewardQuantity(); },
+        exp: function funName() { return rewardQuantity(); },
+        items: function funName() { return int(random(0, 5)); } }
+    });
+    
+    questDetails.set("Big Enemys", { title: "Big Enemys", keyWord: "KillBig",
+    required: function reqName() { return int(random(8, 12)); },
+    reward: {
+        money: function funName() { return (rewardQuantity() * 5); },
+        exp: function funName() { return (rewardQuantity() * 5); },
+        items: function funName() { return int(random(2, 8)); } }
+    });
+
+    questDetails.set("Explore Area", { title: "Explore Area", keyWord: (function chooseRandomArea() { return random(questLocations); }),
+    required: function reqName() { return 1; },
+    reward: {
+        money: function funName() { return (rewardQuantity() * 2); },
+        exp: function funName() { return (rewardQuantity() * 2); },
+        items: function funName() { return int(random(1, 3)); } }
+    });
+
+    questDetails.set("Sell Stuff", { title: "Sell Stuff", keyWord: "Sold",
+    required: function reqName() { return int(random(25, 100)); },
+    reward: {
+        money: function funName() { return (rewardQuantity()); },
+        exp: function funName() { return (rewardQuantity() * 5); },
+        items: function funName() { return int(random(5, 8)); } }
+    });
+}
+
+function rewardQuantity() {
+    return (player.lvl * 5) + int(random(0, 10) * 10);
+}
+//-----------------------------------------------
+// other-----------------------------------------
+function clickWait() {
+    // called after clicking the mouse
+    // so that the mouse is only clicked once
+    let waiting = millis();
+    while (millis() - waiting <= WAIT_TIME) {
+        continue;
+    }
+}
 
 function staticVariable(size) {
     // creates and keeps track of a static variable
@@ -185,39 +260,18 @@ function staticVariable(size) {
     return static.counter++;
 }
 
-function setQuests() {
-    questLocations = [
-        { bigArea: "", area: "" },
-        { bigArea: "", area: "" },
-        { bigArea: "", area: "" },
-        { bigArea: "", area: "" },
-        { bigArea: "", area: "" },
-        { bigArea: "", area: "" },
-        { bigArea: "", area: "" },
-        { bigArea: "", area: "" },
-        { bigArea: "", area: "" },
-        { bigArea: "", area: "" },
-        { bigArea: "", area: "" }
-    ];
-
-    questTasks = [
-        "Kill Small Enemys",
-        "Kill Big Enemys",
-        "Explore Area",
-        "Sell Some Stuff"
-    ];
-
-    questDetails = new Map();
-
-    questDetails.set("Kill Small Enemys", { keyWord: "Kill", reward: { money: function funName() { return rewardQuantity() }, exp: function funName() { return rewardQuantity() }, items: function funName() { return int(random(0, 5)) } }, required: 15 });
-    questDetails.set("Kill Big Enemys", { keyWord: "KillBig", reward: { money: function funName() { return (rewardQuantity() * 5) }, exp: function funName() { return (rewardQuantity() * 5) }, items: function funName() { return int(random(2, 8)) } }, required: 10 });
-    questDetails.set("Explore Area", { keyWord: (function chooseRandomArea() { return random(questLocaions) }), reward: { money: function funName() { return (rewardQuantity() * 2) }, exp: function funName() { return (rewardQuantity() * 2) }, items: function funName() { return int(random(1, 3)) } }, required: 1 });
-    questDetails.set("Sell Some Stuff", { keyWord: "Sold", reward: { money: function funName() { return (rewardQuantity()) }, exp: function funName() { return (rewardQuantity() * 2) }, items: function funName() { return int(random(1, 3)) } }, required: 1 });
+function make2DGrid(cols, rows) {
+    // for inventory display purposes
+    let newArray = [];
+    for (let y = 0; y < rows; y++) {
+        newArray.push([]);
+        for (let x = 0; x < cols; x++) {
+            newArray[y].push("empty");
+        }
+    }
+    return newArray;
 }
-
-function rewardQuantity() {
-    return (player.lvl * 5) + int(random(0, 10) * 10);
-}
+//-----------------------------------------------
 
 function draw(){
     translate(width/2, height/2);
