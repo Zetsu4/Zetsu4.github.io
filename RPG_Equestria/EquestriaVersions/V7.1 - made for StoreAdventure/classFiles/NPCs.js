@@ -11,7 +11,7 @@ let randomTalk = [
     "Desert enemys\nare stronger\nthan Meadow\nenemys.",
     "Forest enemys\nare stronger\nthan Desert\nenemys.",
     "Mountain enemys\nare stronger\nthan Forest\nenemys.",
-    "Meadow, Desert,\nForest, Mountain.\nthat's the enemy\nstrength order."
+    "Enemy strength\norder goes;\nMeadow, Desert,\nForest, Mountain."
 ];
 
 class NPC {
