@@ -790,8 +790,9 @@ function advtSetInventory() {
 function advtSetNPCs() {
     advtVars.allNPCs = [];
     for (let i = 0; i < advtVars.numOfNPCs; i++) {
-        let xSpawn = random(advtVars.bigArea.get("Over World").get("Town").zone.x - advtVars.bigArea.get("Over World").get("Town").zone.wid * 0.50, advtVars.bigArea.get("Over World").get("Town").zone.x + advtVars.bigArea.get("Over World").get("Town").zone.wid * 0.50);
-        let ySpawn = random(advtVars.bigArea.get("Over World").get("Town").zone.y - advtVars.bigArea.get("Over World").get("Town").zone.hei * 0.50, advtVars.bigArea.get("Over World").get("Town").zone.y + advtVars.bigArea.get("Over World").get("Town").zone.hei * 0.50);
+        let townLocation = advtVars.bigArea.get("Over World").get("Town").zone;
+        let xSpawn = random(townLocal.x - townLocal.wid * 0.50, townLocal.x + townLocal.wid * 0.50);
+        let ySpawn = random(townLocal.y - townLocal.hei * 0.50, townLocal.y + townLocal.hei * 0.50);
         advtVars.allNPCs.push(new NPC(xSpawn, ySpawn, spriteSize.width, spriteSize.height, npcImg.genericNPC, randomTalk));
     }
 

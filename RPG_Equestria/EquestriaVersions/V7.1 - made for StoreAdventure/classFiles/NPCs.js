@@ -20,8 +20,8 @@ class NPC {
         this.x = x;
         this.y = y;
 
-        this.mapX = this.x;
-        this.mapY = this.y;
+        this.mapX = x;
+        this.mapY = y;
 
         // sprite
         this.img = img;
