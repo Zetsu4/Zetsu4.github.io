@@ -50,9 +50,9 @@ function preload() {
 
     // NPC's
     npcImgs = {};
-    npcImgs.genericNPC = loadImage("assets/images/sprites/NPC.png");
-    npcImgs.shopKeep = loadImage("assets/images/sprites/shopKeep.png");
-    npcImgs.guildKeeper = loadImage("assets/images/sprites/guildKeeper.png");
+    npcImgs.genericNPC = loadImage("assets/images/sprites/NPCs/generic.png");
+    npcImgs.shopKeeper = loadImage("assets/images/sprites/NPCs/shopKeeper.png");
+    npcImgs.guildMaster = loadImage("assets/images/sprites/NPCs/guildMaster.png");
 
     // items
     otherImgs.items = {};
@@ -104,6 +104,7 @@ function setup() {
     spriteSize.width = width * 0.05;
     spriteSize.height = height * 0.10;
 
+    mouseHolding = "empty";
     // advtSetup();
 
     gameState = "Adventure";
@@ -260,7 +261,7 @@ function staticVariable(size) {
     return static.counter++;
 }
 
-function make2DGrid(cols, rows) {
+function make2DArray(cols, rows) {
     // for inventory display purposes
     let newArray = [];
     for (let y = 0; y < rows; y++) {

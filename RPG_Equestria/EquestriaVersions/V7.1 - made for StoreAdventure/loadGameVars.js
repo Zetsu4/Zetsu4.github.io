@@ -201,6 +201,7 @@ function advtSetup() {
     advtSettingKeyBindings();
     advtSetSprites();
     advtSetWorldAreas();
+    advtSetInventory();
     advtSetPlayer();
     advtSetQuests();
     advtSetNPCs();
@@ -750,18 +751,44 @@ function advtMinimapVars() {
     advtVars.minimap.y = height * 0.50 - advtVars.minimap.padHeight * 0.50;
 }
 //-----------------------------------------------
+// inventory variables---------------------------
+function advtSetInventory() {
+    // set player inventory and other inventory variables
+    // inventory size
+    advtVars.inventory = {};
+    advtVars.inventory.boxSize = (width + height) * 0.04;
+    advtVars.inventory.cols = 4;
+    advtVars.inventory.rows = 6;
+
+    // shop/guild inventory size
+    advtVars.inventory.shop = {};
+    advtVars.inventory.shop.cols = 6;
+    advtVars.inventory.shop.rows = 6;
+    advtVars.inventory.shop.offsetX = advtVars.inventory.boxSize * 7; // make grid on left side of screen
+
+    // equip slots
+    let x = width * 0.25;
+    let y = -height * 0.10;
+    let w = advtVars.inventory
+}
+//-----------------------------------------------
 // NPCs and shops--------------------------------
 function advtSetNPCs() {
     advtVars.allNPCs = [];
     for (let i = 0; i < advtVars.numOfNPCs; i++) {
         let xSpawn = random(advtVars.bigArea.get("Over World").get("Town").zone.x - advtVars.bigArea.get("Over World").get("Town").zone.wid * 0.50, advtVars.bigArea.get("Over World").get("Town").zone.x + advtVars.bigArea.get("Over World").get("Town").zone.wid * 0.50);
         let ySpawn = random(advtVars.bigArea.get("Over World").get("Town").zone.y - advtVars.bigArea.get("Over World").get("Town").zone.hei * 0.50, advtVars.bigArea.get("Over World").get("Town").zone.y + advtVars.bigArea.get("Over World").get("Town").zone.hei * 0.50);
-        advtVars.allNPCs.push(new NonPlayableCharacters(xSpawn, ySpawn, npcImg.genericNPC, randomTalk));
+        advtVars.allNPCs.push(new NPC(xSpawn, ySpawn, spriteSize.width, spriteSize.height, npcImg.genericNPC, randomTalk));
     }
+
+    // special NPC's
+        // Over World - Town
+    /* Shop Keeper */advtVars.allNPCs.push(new NPC(width * 0.25, 0, spriteSize.width, spriteSize.height, npcImg.shopKeeper, "Welcome to the Shop.", "Shop"));
+    /* Guild Keeper */advtVars.allNPCs.push(new NPC(-width * 0.25, 0, spriteSize.width, spriteSize.height, npcImg.guildMaster, "Welcome to the Guild.", "Guild"));
 }
 
 function advtSetShops() {
-    shopInventory = make2DGrid();
+    shopInventory = make2DArray();
     
 }
 //-----------------------------------------------
