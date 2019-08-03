@@ -764,12 +764,26 @@ function advtSetInventory() {
     advtVars.inventory.shop = {};
     advtVars.inventory.shop.cols = 6;
     advtVars.inventory.shop.rows = 6;
-    advtVars.inventory.shop.offsetX = advtVars.inventory.boxSize * 7; // make grid on left side of screen
+    advtVars.inventory.shop.offsetX = 7; // shift 7 boxs right
 
     // equip slots
     let x = width * 0.25;
     let y = -height * 0.10;
-    let w = advtVars.inventory
+    let w = advtVars.inventory.boxSize;
+    let h = advtVars.inventory.boxSize;
+    let equipArea = advtVars.inventory.boxSize * 5;
+
+    advtVars.inventory.equipSlots = new Map();
+    advtVars.inventory.equipSlots.set("Weapon",          new EquipBox(x - equipArea * 0.50, y                   , w, h, butotnCol.get("brown"), buttonCol.get("light brown"), buttonCol.get("bright brown"), "Weapon"));
+    advtVars.inventory.equipSlots.set("Head",            new EquipBox(x                   , y - equipArea * 0.50, w, h, butotnCol.get("brown"), buttonCol.get("light brown"), buttonCol.get("bright brown"), "Head"));
+    advtVars.inventory.equipSlots.set("Chest",           new EquipBox(x                   , y                   , w, h, butotnCol.get("brown"), buttonCol.get("light brown"), buttonCol.get("bright brown"), "Chest"));
+    advtVars.inventory.equipSlots.set("Legs",            new EquipBox(x + equipArea * 0.25, y + equipArea * 0.33, w, h, butotnCol.get("brown"), buttonCol.get("light brown"), buttonCol.get("bright brown"), "Legs"));
+    advtVars.inventory.equipSlots.set("Feet Left",       new EquipBox(x - equipArea * 0.25, y + equipArea * 0.50, w, h, butotnCol.get("brown"), buttonCol.get("light brown"), buttonCol.get("bright brown"), "Feet"));
+    advtVars.inventory.equipSlots.set("Feet Right",      new EquipBox(x + equipArea * 0.25, y + equipArea * 0.50, w, h, butotnCol.get("brown"), buttonCol.get("light brown"), buttonCol.get("bright brown"), "Feet"));
+    advtVars.inventory.equipSlots.set("Shoulders Left",  new EquipBox(x - equipArea * 0.25, y - equipArea * 0.33, w, h, butotnCol.get("brown"), buttonCol.get("light brown"), buttonCol.get("bright brown"), "Shoulders"));
+    advtVars.inventory.equipSlots.set("Shoulders Right", new EquipBox(x + equipArea * 0.25, y - equipArea * 0.33, w, h, butotnCol.get("brown"), buttonCol.get("light brown"), buttonCol.get("bright brown"), "Shoulders"));
+    advtVars.inventory.equipSlots.set("Hands Left",      new EquipBox(x - equipArea * 0.50, y + h * 1.10        , w, h, butotnCol.get("brown"), buttonCol.get("light brown"), buttonCol.get("bright brown"), "Hands"));
+    advtVars.inventory.equipSlots.set("Hands Right",     new EquipBox(x + equipArea * 0.50, y + h * 1.10        , w, h, butotnCol.get("brown"), buttonCol.get("light brown"), buttonCol.get("bright brown"), "Hands"));
 }
 //-----------------------------------------------
 // NPCs and shops--------------------------------

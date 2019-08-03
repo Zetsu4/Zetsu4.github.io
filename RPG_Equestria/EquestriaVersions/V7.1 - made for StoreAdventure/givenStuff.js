@@ -125,6 +125,7 @@ function setButtonCharacteristics() {
     buttonCol.set("light orange", color(255, 220, 0));
     buttonCol.set("brown", color(153, 77, 0));
     buttonCol.set("light brown", color(179, 89, 0));
+    buttonCol.set("bright brown", color(204, 102, 0));
 
     // locations
     buttonVars.left = -width*0.35;

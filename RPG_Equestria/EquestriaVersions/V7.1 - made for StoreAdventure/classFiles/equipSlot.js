@@ -1,5 +1,5 @@
 class EquipBox {
-    constructor(x, y, w, h, rest, hover, text) {
+    constructor(x, y, w, h, rest, hover, stroke, text) {
         // position
         this.x = x;
         this.y = y;
@@ -12,6 +12,7 @@ class EquipBox {
         // color
         this.restCol = rest;
         this.hoverCol = hover;
+        this.strokeCol = stroke;
 
         // equip slot
         this.equipSlot = text;
@@ -21,7 +22,7 @@ class EquipBox {
     display() {
         push();
         // decaratory edges
-        stroke(204, 102, 0);
+        stroke(this.strokeCol);
 
         if (this.hovering())
             fill(this.hoverCol);
