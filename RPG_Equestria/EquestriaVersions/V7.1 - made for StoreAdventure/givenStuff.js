@@ -28,6 +28,7 @@ let questDetails;
 
 // items
 let allItems;
+let numOfAllItems;
 let itemsGround = [];
 
 // main menu
@@ -50,28 +51,28 @@ function preload() {
 
     // NPC's
     npcImgs = {};
-    npcImgs.genericNPC = loadImage("assets/images/sprites/NPCs/generic.png");
-    npcImgs.shopKeeper = loadImage("assets/images/sprites/NPCs/shopKeeper.png");
+    npcImgs.genericNPC  = loadImage("assets/images/sprites/NPCs/generic.png");
+    npcImgs.shopKeeper  = loadImage("assets/images/sprites/NPCs/shopKeeper.png");
     npcImgs.guildMaster = loadImage("assets/images/sprites/NPCs/guildMaster.png");
 
     // items
     otherImgs.items = {};
-    otherImgs.items.arrow = loadImage("assets/images/items/arrows.png");
-    otherImgs.items.hpPotion = loadImage("assets/images/items/hpPotion.png");
-    otherImgs.items.mpPotion = loadImage("assets/images/items/mpPotion.png");
-    otherImgs.items.trap = loadImage("assets/images/items/traps.png");
+    otherImgs.items.arrow      = loadImage("assets/images/items/arrows.png");
+    otherImgs.items.hpPotion   = loadImage("assets/images/items/hpPotion.png");
+    otherImgs.items.mpPotion   = loadImage("assets/images/items/mpPotion.png");
+    otherImgs.items.trap       = loadImage("assets/images/items/traps.png");
     otherImgs.items.townPortal = loadImage("assets/images/items/townPortal.png");
-    otherImgs.items.money = loadImage("assets/images/items/money.png");
+    otherImgs.items.money      = loadImage("assets/images/items/money.png");
     
     // equipment
     otherImgs.equipment = {};
-    otherImgs.equipment.weapon = loadImage("assets/images/items/weapon.png");
-    otherImgs.equipment.head = loadImage("assets/images/items/head.png");
-    otherImgs.equipment.chest = loadImage("assets/images/items/chest.png");
-    otherImgs.equipment.feet = loadImage("assets/images/items/feet.png");
+    otherImgs.equipment.weapon    = loadImage("assets/images/items/weapon.png");
+    otherImgs.equipment.head      = loadImage("assets/images/items/head.png");
+    otherImgs.equipment.chest     = loadImage("assets/images/items/chest.png");
+    otherImgs.equipment.legs      = loadImage("assets/images/items/legs.png");
+    otherImgs.equipment.feet      = loadImage("assets/images/items/feet.png");
     otherImgs.equipment.shoulders = loadImage("assets/images/items/shoulders.png");
-    otherImgs.equipment.legs = loadImage("assets/images/items/legs.png");
-    otherImgs.equipment.hands = loadImage("assets/images/items/hands.png");
+    otherImgs.equipment.hands     = loadImage("assets/images/items/hands.png");
 
     // advtPreload();
 }
@@ -97,6 +98,7 @@ function setup() {
     // set variable fucntions
     setSettingsMenu();
     setQuests();
+    setItems();
 
     // set sprite sizes
     spriteSize.sampleWidth = width * 0.30;
@@ -241,6 +243,13 @@ function rewardQuantity() {
     return (player.lvl * 5) + int(random(0, 10) * 10);
 }
 //-----------------------------------------------
+// items-----------------------------------------
+function setItems() {
+    allItems = new Map();
+
+    settingItemMap();
+}
+//-----------------------------------------------
 // other-----------------------------------------
 function clickWait() {
     // called after clicking the mouse
@@ -263,13 +272,12 @@ function staticVariable(size) {
 }
 
 function make2DArray(cols, rows) {
-    // for inventory display purposes
+    // makes a 2-dimensinal array
     let newArray = [];
     for (let y = 0; y < rows; y++) {
         newArray.push([]);
-        for (let x = 0; x < cols; x++) {
+        for (let x = 0; x < cols; x++)
             newArray[y].push("empty");
-        }
     }
     return newArray;
 }
