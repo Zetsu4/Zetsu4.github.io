@@ -229,22 +229,22 @@ function advtSettingKeyBindings() {
     keyBindings.advt = new Map();
 
         // the "button" value is for rebinding respective key
-    keyBindings.advt.set("Settings", { code: 27 /* Escape */, state: "settings", button: 0 });
-    keyBindings.advt.set("Open Map", { code: 77 /* M */, state: "map", button: 0 });
-    keyBindings.advt.set("Inventory", { code: 69 /* E */, state: "inventory", button: 0 });
-    keyBindings.advt.set("Toggle Ranged", { code: 49 /* 1 */, state: "ranged", button: 0 });
-    keyBindings.advt.set("Toggle Magic", { code: 50 /* 2 */, state: "magic", button: 0 });
-    keyBindings.advt.set("Place Trap", { code: 81 /* Q */, button: 0 });
-    keyBindings.advt.set("Move Up", { code: 87 /* W */, button: 0 });
-    keyBindings.advt.set("Move Left", { code: 65 /* A */, button: 0 });
-    keyBindings.advt.set("Move Down", { code: 83 /* S */, button: 0 });
-    keyBindings.advt.set("Move Right", { code: 68 /* D */, button: 0 });
-    keyBindings.advt.set("Toggle Walk", { code: 16 /* Shift */, button: 0 });
-    keyBindings.advt.set("Health Potion", { code: 70 /* F */, button: 0 });
-    keyBindings.advt.set("Mana Potion", { code: 71 /* G */, button: 0 });
-    keyBindings.advt.set("Town Portal", { code: 84 /* T */, button: 0 });
-    keyBindings.advt.set("Interact", { code: 32 /* Space */, button: 0 });
-    keyBindings.advt.set("Enter Area", { code: 67 /* C */, button: 0 });
+    keyBindings.advt.set("Settings",      { code: 27 /* Escape */, reButton: 0, state: "settings" });
+    keyBindings.advt.set("Open Map",      { code: 77 /* M      */, reButton: 0, state: "map" });
+    keyBindings.advt.set("Inventory",     { code: 69 /* E      */, reButton: 0, state: "inventory" });
+    keyBindings.advt.set("Toggle Ranged", { code: 49 /* 1      */, reButton: 0, state: "ranged" });
+    keyBindings.advt.set("Toggle Magic",  { code: 50 /* 2      */, reButton: 0, state: "magic" });
+    keyBindings.advt.set("Place Trap",    { code: 81 /* Q      */, reButton: 0 });
+    keyBindings.advt.set("Move Up",       { code: 87 /* W      */, reButton: 0 });
+    keyBindings.advt.set("Move Left",     { code: 65 /* A      */, reButton: 0 });
+    keyBindings.advt.set("Move Down",     { code: 83 /* S      */, reButton: 0 });
+    keyBindings.advt.set("Move Right",    { code: 68 /* D      */, reButton: 0 });
+    keyBindings.advt.set("Toggle Walk",   { code: 16 /* Shift  */, reButton: 0 });
+    keyBindings.advt.set("Health Potion", { code: 70 /* F      */, reButton: 0 });
+    keyBindings.advt.set("Mana Potion",   { code: 71 /* G      */, reButton: 0 });
+    keyBindings.advt.set("Town Portal",   { code: 84 /* T      */, reButton: 0 });
+    keyBindings.advt.set("Interact",      { code: 32 /* Space  */, reButton: 0 });
+    keyBindings.advt.set("Enter Area",    { code: 67 /* C      */, reButton: 0 });
 
     keyBindings.advt.forEach(setRebindButtons);
 }
@@ -255,7 +255,7 @@ function setRebindButtons(value, key, map) {
     let butHeight = calcButListHei(map.size);
     let yPos = buttonVars.top + (i * butHeight)
     // let yPos = -height * 0.48 + (i * fontSize.default * 1.2);
-    map.get(key).button = new Button(
+    value.reButton = new Button(
         buttonVars.left, yPos,
         fontSize.default * 2, butHeight,
         buttonCol.get("orange"), buttonCol.get("light orange"),
@@ -751,7 +751,7 @@ function advtMinimapVars() {
     advtVars.minimap.y = height * 0.50 - advtVars.minimap.padHeight * 0.50;
 }
 //-----------------------------------------------
-// inventory variables---------------------------
+// inventory variables and the shop--------------
 function advtSetInventory() {
     // set player inventory and other inventory variables
     // inventory size
@@ -761,52 +761,70 @@ function advtSetInventory() {
     advtVars.inventory.rows = 6;
 
     // shop/guild inventory size
-    advtVars.inventory.shop = {};
-    advtVars.inventory.shop.cols = 6;
-    advtVars.inventory.shop.rows = 6;
-    advtVars.inventory.shop.offsetX = 7; // shift 7 boxs right
+    advtSetShopGuild();
 
     // equip slots
     let x = width * 0.25;
     let y = -height * 0.10;
-    let w = advtVars.inventory.boxSize;
-    let h = advtVars.inventory.boxSize;
+    let boxSize = advtVars.inventory.boxSize;
     let equipArea = advtVars.inventory.boxSize * 5;
 
     advtVars.inventory.equipSlots = new Map();
-    advtVars.inventory.equipSlots.set("Weapon",          new EquipBox(x - equipArea * 0.50, y                   , w, h, butotnCol.get("brown"), buttonCol.get("light brown"), buttonCol.get("bright brown"), "Weapon"));
-    advtVars.inventory.equipSlots.set("Head",            new EquipBox(x                   , y - equipArea * 0.50, w, h, butotnCol.get("brown"), buttonCol.get("light brown"), buttonCol.get("bright brown"), "Head"));
-    advtVars.inventory.equipSlots.set("Chest",           new EquipBox(x                   , y                   , w, h, butotnCol.get("brown"), buttonCol.get("light brown"), buttonCol.get("bright brown"), "Chest"));
-    advtVars.inventory.equipSlots.set("Legs",            new EquipBox(x + equipArea * 0.25, y + equipArea * 0.33, w, h, butotnCol.get("brown"), buttonCol.get("light brown"), buttonCol.get("bright brown"), "Legs"));
-    advtVars.inventory.equipSlots.set("Feet Left",       new EquipBox(x - equipArea * 0.25, y + equipArea * 0.50, w, h, butotnCol.get("brown"), buttonCol.get("light brown"), buttonCol.get("bright brown"), "Feet"));
-    advtVars.inventory.equipSlots.set("Feet Right",      new EquipBox(x + equipArea * 0.25, y + equipArea * 0.50, w, h, butotnCol.get("brown"), buttonCol.get("light brown"), buttonCol.get("bright brown"), "Feet"));
-    advtVars.inventory.equipSlots.set("Shoulders Left",  new EquipBox(x - equipArea * 0.25, y - equipArea * 0.33, w, h, butotnCol.get("brown"), buttonCol.get("light brown"), buttonCol.get("bright brown"), "Shoulders"));
-    advtVars.inventory.equipSlots.set("Shoulders Right", new EquipBox(x + equipArea * 0.25, y - equipArea * 0.33, w, h, butotnCol.get("brown"), buttonCol.get("light brown"), buttonCol.get("bright brown"), "Shoulders"));
-    advtVars.inventory.equipSlots.set("Hands Left",      new EquipBox(x - equipArea * 0.50, y + h * 1.10        , w, h, butotnCol.get("brown"), buttonCol.get("light brown"), buttonCol.get("bright brown"), "Hands"));
-    advtVars.inventory.equipSlots.set("Hands Right",     new EquipBox(x + equipArea * 0.50, y + h * 1.10        , w, h, butotnCol.get("brown"), buttonCol.get("light brown"), buttonCol.get("bright brown"), "Hands"));
+    advtVars.inventory.equipSlots.set("Weapon",          new EquipBox(x - equipArea * 0.50, y                   , boxSize, boxSize, butotnCol.get("brown"), buttonCol.get("light brown"), buttonCol.get("bright brown"), "Weapon"));
+    advtVars.inventory.equipSlots.set("Head",            new EquipBox(x                   , y - equipArea * 0.50, boxSize, boxSize, butotnCol.get("brown"), buttonCol.get("light brown"), buttonCol.get("bright brown"), "Head"));
+    advtVars.inventory.equipSlots.set("Chest",           new EquipBox(x                   , y                   , boxSize, boxSize, butotnCol.get("brown"), buttonCol.get("light brown"), buttonCol.get("bright brown"), "Chest"));
+    advtVars.inventory.equipSlots.set("Legs",            new EquipBox(x + equipArea * 0.25, y + equipArea * 0.33, boxSize, boxSize, butotnCol.get("brown"), buttonCol.get("light brown"), buttonCol.get("bright brown"), "Legs"));
+    advtVars.inventory.equipSlots.set("Feet Left",       new EquipBox(x - equipArea * 0.25, y + equipArea * 0.50, boxSize, boxSize, butotnCol.get("brown"), buttonCol.get("light brown"), buttonCol.get("bright brown"), "Feet"));
+    advtVars.inventory.equipSlots.set("Feet Right",      new EquipBox(x + equipArea * 0.25, y + equipArea * 0.50, boxSize, boxSize, butotnCol.get("brown"), buttonCol.get("light brown"), buttonCol.get("bright brown"), "Feet"));
+    advtVars.inventory.equipSlots.set("Shoulders Left",  new EquipBox(x - equipArea * 0.25, y - equipArea * 0.33, boxSize, boxSize, butotnCol.get("brown"), buttonCol.get("light brown"), buttonCol.get("bright brown"), "Shoulders"));
+    advtVars.inventory.equipSlots.set("Shoulders Right", new EquipBox(x + equipArea * 0.25, y - equipArea * 0.33, boxSize, boxSize, butotnCol.get("brown"), buttonCol.get("light brown"), buttonCol.get("bright brown"), "Shoulders"));
+    advtVars.inventory.equipSlots.set("Hands Left",      new EquipBox(x - equipArea * 0.50, y + boxSize * 1.10  , boxSize, boxSize, butotnCol.get("brown"), buttonCol.get("light brown"), buttonCol.get("bright brown"), "Hands"));
+    advtVars.inventory.equipSlots.set("Hands Right",     new EquipBox(x + equipArea * 0.50, y + boxSize * 1.10  , boxSize, boxSize, butotnCol.get("brown"), buttonCol.get("light brown"), buttonCol.get("bright brown"), "Hands"));
+}
+
+function advtSetShopGuild() {
+    // shop variables
+    advtVars.shop_guild = {};
+    advtVars.shop_guild.cols = 6;
+    advtVars.shop_guild.rows = 6;
+    advtVars.shop_guild.offSetX = 7; // shift 7 boxs right
+
+    // shop
+    advtVars.shop = make2DArray(advtVars.shop_guild.cols, advtVars.shop_guild.rows);
+    
+    // permenant shop items
+    advtVars.shop[0][0] = item;
+    advtVars.shop[0][1] = item;
+    advtVars.shop[0][2] = item;
+    advtVars.shop[0][3] = item;
+    advtVars.shop[0][4] = item;
+
+    // guild
+    advtVars.guild = make2DArray(advtVars.shop_guild.cols, advtVars.shop_guild.rows);
+
+    // guild membership
+    if (true)
+        advtVats.guild[0][0] = guildcard;
 }
 //-----------------------------------------------
-// NPCs and shops--------------------------------
+// NPCs------------------------------------------
 function advtSetNPCs() {
     advtVars.allNPCs = [];
     for (let i = 0; i < advtVars.numOfNPCs; i++) {
         let townLocation = advtVars.bigArea.get("Over World").get("Town").zone;
-        let xSpawn = random(townLocal.x - townLocal.wid * 0.50, townLocal.x + townLocal.wid * 0.50);
-        let ySpawn = random(townLocal.y - townLocal.hei * 0.50, townLocal.y + townLocal.hei * 0.50);
+        let xSpawn = random(townLocation.x - townLocation.wid * 0.50, townLocation.x + townLocation.wid * 0.50);
+        let ySpawn = random(townLocation.y - townLocation.hei * 0.50, townLocation.y + townLocation.hei * 0.50);
         advtVars.allNPCs.push(new NPC(xSpawn, ySpawn, spriteSize.width, spriteSize.height, npcImg.genericNPC, randomTalk));
     }
 
     // special NPC's
         // Over World - Town
-    /* Shop Keeper */advtVars.allNPCs.push(new NPC(width * 0.25, 0, spriteSize.width, spriteSize.height, npcImg.shopKeeper, "Welcome to the Shop.", "Shop"));
+    /* Shop Keeper  */advtVars.allNPCs.push(new NPC( width * 0.25, 0, spriteSize.width, spriteSize.height, npcImg.shopKeeper, "Welcome to the Shop.", "Shop"));
     /* Guild Keeper */advtVars.allNPCs.push(new NPC(-width * 0.25, 0, spriteSize.width, spriteSize.height, npcImg.guildMaster, "Welcome to the Guild.", "Guild"));
 }
-
-function advtSetShops() {
-    shopInventory = make2DArray();
-    
-}
 //-----------------------------------------------
-// quests and player-----------------------------
-
+// player----------------------------------------
+function advtSetPlayer() {
+    // player variables
+}
 //-----------------------------------------------
