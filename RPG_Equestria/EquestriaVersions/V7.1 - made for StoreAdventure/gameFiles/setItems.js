@@ -1203,7 +1203,7 @@ function setHands() {
             expBonus: +2
         }, amount: 0,
         drop: { chance: 27 },
-        description: "Tough glove"
+        description: "Give your enemmy's tough glove"
     });
 
     allItems.set("Gloves", {
