@@ -248,7 +248,7 @@ function advtSettingKeyBindings() {
 
 function setRebindButtons(value, key, map) {
     // buttons to rebind keys
-    let i = static(map.size);
+    let i = staticVariable(map.size);
     let butHeight = calcButListHei(map.size);
     let yPos = buttonVars.top + (i * butHeight)
     // let yPos = -height * 0.48 + (i * fontSize.default * 1.2);
@@ -760,13 +760,13 @@ function advtSetWorldAreas() {
 
         // Demon Realm
     areaSize = advtVars.worldVars.sizeMedium;
-    advtVars.ares.set("Demon Realm", new Map());
+    advtVars.bigArea.set("Demon Realm", new Map());
     advtVars.bigArea.get("Demon Realm").set("Demon Realm", { img: advtVars.worldImgs.demonRealm, enterable: false, color: color(212, 0, 57), numOfEnemys: 50, enemy: { lvlMin: 20, lvlMax: 30, group: advtVars.npcGroups.demons }, zone: { x: 0., y: 0, wid: areaSize.wid, hei: areaSize.hei } });
     advtVars.bigArea.get("Demon Realm").set("Demon Gate", { img: advtVars.worldImgs.demonGate, enterable: { bigArea: "Cave", area: "Demon Gate" }, color: color(212, 0, 57), numOfEnemys: 20, enemy: { lvlMin: 17, lvlMax: 27, group: advtVars.npcGroups.demons }, zone: { x: 0, y: 0, wid: areaSize.wid * 0.10, hei: areaSize.hei * 0.10 } });
 
         // Castle
     areaSize = advtVars.worldVars.sizeLarge;
-    advtVars.ares.set("Castle", new Map());
+    advtVars.bigArea.set("Castle", new Map());
     advtVars.bigArea.get("Castle").set("Throne Room", { img: advtVars.worldImgs.throneRoom, enterable: false, color: color(212, 0, 57), numOfEnemys: 40, enemy: { lvlMin: 15, lvlMax: 25, group: advtVars.npcGroups.castle }, zone: { x: 0, y: 0, wid: areaSize.wid, hei: areaSize.hei } });
     advtVars.bigArea.get("Castle").set("Castle Exit", { img: advtVars.worldImgs.door, enterable: { bigArea: "Over World", area: "Castle Gate" }, color: color(212, 0, 57), numOfEnemys: 0, zone: { x: 0, y: -areaSize.hei * 0.45, wid: areaSize.wid * 0.05, hei: areaSize.hei * 0.025 } });
     advtVars.bigArea.get("Castle").set("Cave Entrance", { img: advtVars.worldImgs.stairs, enterable: { bigArea: "Cave", area: "Castle Cave Exit" }, color: color(212, 0, 57), numOfEnemys: 0, zone: { x: -areaSize.wid * 0.20, y: areaSize.hei * 0.45, wid: areaSize.wid * 0.025, hei: areaSize.hei * 0.025 } });
@@ -774,7 +774,7 @@ function advtSetWorldAreas() {
 
         // Dungeons
     areaSize = advtVars.worldVars.sizeLarge;
-    advtVars.ares.set("Dungeon", new Map());
+    advtVars.bigArea.set("Dungeon", new Map());
     advtVars.bigArea.get("Dungeon").set("Exit", { img: advtVars.worldImgs.stairs, enterable: { bigArea: "Castle ", area: "Dungeon Entrance" }, color: color(212, 0, 57), numOfEnemys: 0, zone: { x: areaSize.wid * 0.20, y: areaSize.hei * 0.45, wid: areaSize.wid * 0.025, hei: areaSize.hei * 0. } });
     advtVars.bigArea.get("Dungeon").set("Level 1", { img: advtVars.worldImgs.dungeon, enterable: false, color: color(212, 0, 57), numOfEnemys: 30, enemy: { lvlMin: 20, lvlMax: 40, group: advtVars.npcGroups.dungeon }, zone: { x: 0, y: 0, wid: areaSize.wid, hei: areaSize.hei } });
     advtVars.bigArea.get("Dungeon").set("Down 2", { img: advtVars.worldImgs.stairs, enterable: { bigArea: "Dungeon", area: "Up 1" }, color: color(212, 0, 57), numOfEnemys: 0, zone: { x: -areaSize.wid * 0.45, y: -areaSize.hei * 0.45, wid: areaSize.wid * 0.025, hei: areaSize.hei * 0.025 } });
@@ -862,7 +862,7 @@ function advtSetPlayer() {
     player.speed = 0;
     player.stuned = false;
     player.lastStun = millis();
-    plauer.stunTimer = 0;
+    player.stunTimer = 0;
 
     // level
     player.lvl = 0;
@@ -931,8 +931,11 @@ function advtSetShopGuild() {
     advtVars.guild = make2DArray(advtVars.shop_guild.cols, advtVars.shop_guild.rows);
 
     // guild membership
+    /*
     if (!player.hasGuildCard)
-        advtVats.guild[0][0] = guildcard;
+        // put the guild card in the guild
+        advtVars.guild[0][0] = not decided yet
+    */
 }
 //-----------------------------------------------
 // NPCs------------------------------------------

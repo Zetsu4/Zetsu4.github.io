@@ -1,7 +1,6 @@
 // vars
 // general
 let gameState;
-let settings = {};
 let keyBindings = {};
 let spriteSize = {};
 let killedEnemys = 0;
@@ -20,19 +19,12 @@ let buttonVars = {};
 let buttonCol = {};
 
 // quests
-let maxNumQuest = 10;
-let questList = [];
-let questLocaions = [];
-let questEntries = [];
-let questDetails;
+let quests = {};
 
 // items
 let allItems;
 let numOfAllItems;
 let itemsGround = [];
-
-// main menu
-let mainChoices = [];
 
 // adventure
 let advtVars = {};
@@ -44,6 +36,9 @@ const WAIT_TIME = 150;
 // setup/preload---------------------------------
 function preload() {
     soundFormats("mp3", "wav");
+
+    // main menu image
+    otherImgs.mainMenu = loadImage("assets/images/backgrounds/lovelyHomepage.png");
 
     // fonts
     fonts.default = "NORMAL";
@@ -74,7 +69,7 @@ function preload() {
     otherImgs.equipment.shoulders = loadImage("assets/images/items/shoulders.png");
     otherImgs.equipment.hands     = loadImage("assets/images/items/hands.png");
 
-    // advtPreload();
+    advtPreload();
 }
 
 function setup() {
@@ -96,7 +91,8 @@ function setup() {
     setButtonCharacteristics();
 
     // set variable fucntions
-    setSettingsMenu();
+    mainMenuButtons();
+    settingsButtons();
     setQuests();
     setItems();
 
@@ -107,7 +103,7 @@ function setup() {
     spriteSize.height = height * 0.10;
 
     mouseHolding = "empty";
-    // advtSetup();
+    advtSetup();
 
     gameState = "Adventure";
 }
@@ -135,32 +131,53 @@ function setButtonCharacteristics() {
     buttonVars.right = width*0.35;
     buttonVars.top = -height*0.40;
     buttonVars.width = width*0.15;
+    buttonVars.height = height*0.15;
 }
 //-----------------------------------------------
-// settings menu---------------------------------
-function setSettingsMenu() {
-    settings.options = [
+// create buttons---------------------------------
+function mainMenuButtons() {
+    buttons.mainMenu = {};
+    buttons.mainMenu.newGame = new Button(
+        buttonVars.center, height * 0.05,
+        buttonVars.width * 2, buttonVars.height,
+        buttonCol.get("green"), buttonCol.get("light green"),
+        buttonCol.get("black"), buttonCol.get("grey"),
+        "New Game", fonts.special, fontSize.default
+    );
+
+    buttons.mainMenu.loadGame = new Button(
+        buttonVars.center, height * 0.30,
+        buttonVars.width * 2, buttonVars.height,
+        buttonCol.get("green"), buttonCol.get("light green"),
+        buttonCol.get("black"), buttonCol.get("grey"),
+        "Load Game", fonts.special, fontSize.default
+    );
+}
+
+function settingsButtons() {
+    // options found in the settings menu
+    let options = [
         "Play", "Controls", "Map",
         "Save", "Load", "Main Menu"
     ];
 
     // button dimensions
-    let butHeight = calcButListHei(settings.options.length);
+    let butHeight = calcButListHei(options.length);
 
-    // buttons for settings
-    settings.buttons = [];
-    for (let i = 0; i < settings.options.length; i++) {
-        settings.buttons.push(new Button(
+    // buttons in the settings menu
+    buttons.settings = [];
+    for (let i = 0; i < options.length; i++) {
+        buttons.settings.push(new Button(
             buttonVars.center, buttonVars.top + (i * butHeight),
             buttonVars.width, butHeight,
             buttonCol.get("orange"), buttonCol.get("light orange"),
-            buttonCol.get("light orange"), buttonCol.get("orange"),
-            settings.options[i], fonts.special, fontSize.default
+            buttonCol.get("black"), buttonCol.get("grey"),
+            options[i], fonts.special, fontSize.default
         ));
     }
 
-    settings.quit = {};
-    settings.quit.yes = new Button(
+    buttons.quit = {};
+    buttons.quit.yes = new Button(
         buttonVars.right, buttonVars.center,
         buttonVars.width, butHeight,
         buttonCol.get("light red"), buttonCol.get("red"),
@@ -168,12 +185,12 @@ function setSettingsMenu() {
         "Main Menu", fonts.special, fontSize.default
     );
 
-    settings.quit.no = new Button(
+    buttons.quit.no = new Button(
         buttonVars.left, buttonVars.center,
         buttonVars.width, butHeight,
         buttonCol.get("light green"), buttonCol.get("green"),
         buttonCol.get("black"), buttonCol.get("grey"),
-        "Back", fonts.special, fontSize.default
+        "Settings", fonts.special, fontSize.default
     );
 }
 
@@ -181,9 +198,19 @@ function calcButListHei(length) {
     return height * 0.90 / length;
 }
 //-----------------------------------------------
-// quests----------------------------------------
+// quests and items------------------------------
 function setQuests() {
-    questLocations = [
+    quests.list = [];
+    quests.maxNum = 2;
+
+    quests.tasks = [
+        "Small Enemys",
+        "Big Enemys",
+        "Explore Area",
+        "Sell Stuff"
+    ];
+
+    quests.locations = [
         { bigArea: "Over World", area: "Mountains" },
         { bigArea: "Cave", area: "Cave" },
         { bigArea: "Cave", area: "Demon Gate" },
@@ -197,53 +224,53 @@ function setQuests() {
         { bigArea: "Dungeon", area: "Bottom" }
     ];
 
-    questTasks = [
-        "Small Enemys",
-        "Big Enemys",
-        "Explore Area",
-        "Sell Stuff"
-    ];
+    quests.details = new Map();
 
-    questDetails = new Map();
-
-    questDetails.set("Small Enemys", { title: "Small Enemys", keyWord: "Kill",
-    required: function reqName() { return int(random(10, 20)); },
-    reward: {
-        money: function funName() { return rewardQuantity(); },
-        exp: function funName() { return rewardQuantity(); },
-        items: function funName() { return int(random(0, 5)); } }
+    quests.details.set("Small Enemys", {
+        title: "Small Enemys", keyWord: "Kill",
+        required: function reqName() { return int(random(10, 20)); },
+        reward: {
+            money: function funName() { return rewardQuantity(); },
+            exp: function funName() { return rewardQuantity(); },
+            items: function funName() { return int(random(0, 5)); }\
+        }
     });
     
-    questDetails.set("Big Enemys", { title: "Big Enemys", keyWord: "KillBig",
-    required: function reqName() { return int(random(8, 12)); },
-    reward: {
-        money: function funName() { return (rewardQuantity() * 5); },
-        exp: function funName() { return (rewardQuantity() * 5); },
-        items: function funName() { return int(random(2, 8)); } }
+    quests.details.set("Big Enemys", {
+        title: "Big Enemys", keyWord: "KillBig",
+        required: function reqName() { return int(random(8, 12)); },
+        reward: {
+            money: function funName() { return (rewardQuantity() * 5); },
+            exp: function funName() { return (rewardQuantity() * 5); },
+            items: function funName() { return int(random(2, 8)); }
+        }
     });
 
-    questDetails.set("Explore Area", { title: "Explore Area", keyWord: (function chooseRandomArea() { return random(questLocations); }),
-    required: function reqName() { return 1; },
-    reward: {
-        money: function funName() { return (rewardQuantity() * 2); },
-        exp: function funName() { return (rewardQuantity() * 2); },
-        items: function funName() { return int(random(1, 3)); } }
+    quests.details.set("Explore Area", {
+        title: "Explore Area", keyWord: (function chooseRandomArea() { return random(quests.locations); }),
+        required: function reqName() { return 1; },
+        reward: {
+            money: function funName() { return (rewardQuantity() * 2); },
+            exp: function funName() { return (rewardQuantity() * 2); },
+            items: function funName() { return int(random(1, 3)); }
+        }
     });
 
-    questDetails.set("Sell Stuff", { title: "Sell Stuff", keyWord: "Sold",
-    required: function reqName() { return int(random(25, 100)); },
-    reward: {
-        money: function funName() { return (rewardQuantity()); },
-        exp: function funName() { return (rewardQuantity() * 5); },
-        items: function funName() { return int(random(5, 8)); } }
+    quests.details.set("Sell Stuff", {
+        title: "Sell Stuff", keyWord: "Sold",
+        required: function reqName() { return int(random(25, 100)); },
+        reward: {
+            money: function funName() { return (rewardQuantity()); },
+            exp: function funName() { return (rewardQuantity() * 5); },
+            items: function funName() { return int(random(5, 8)); }
+        }
     });
 }
 
 function rewardQuantity() {
     return (player.lvl * 5) + int(random(0, 10) * 10);
 }
-//-----------------------------------------------
-// items-----------------------------------------
+
 function setItems() {
     allItems = new Map();
 
@@ -262,13 +289,13 @@ function clickWait() {
 
 function staticVariable(size) {
     // creates and keeps track of a static variable
-    if (typeof static.counter == "undefined")
-        static.counter = 0;
+    if (typeof staticVariable.counter == "undefined")
+        staticVariable.counter = 0;
 
-    if (static.counter >= size)
-        static.counter = 0;
+    if (staticVariable.counter >= size)
+        staticVariable.counter = 0;
 
-    return static.counter++;
+    return staticVariable.counter++;
 }
 
 function make2DArray(cols, rows) {
@@ -284,7 +311,18 @@ function make2DArray(cols, rows) {
 //-----------------------------------------------
 
 function draw(){
-    translate(width/2, height/2);
-    background("black");
-    // if (gameState = "Adventure") playAdvt();
+    translate(width * 0.50, height * 0.50);
+
+    // menu seen when game starts
+    if (gameState === "Main Menu") {
+        image(otherImgs.mainMenu, 0, 0, width, height);
+        mainMenu();
+    }
+
+    // adventure portion of game
+    if (gameState === "Adventure") playAdvt();
+}
+
+function mainMenu() {
+    
 }
