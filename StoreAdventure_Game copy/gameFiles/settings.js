@@ -1,4 +1,0 @@
-// settings menu
-function settingsMenu() {
-    
-}
